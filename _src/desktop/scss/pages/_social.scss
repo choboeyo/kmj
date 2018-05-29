@@ -1,0 +1,61 @@
+// 소셜 공유 버튼
+.sns-share-wrap {
+  overflow:hidden;
+  padding:20px 0;
+  background-color:#fff;
+
+  .sns-share-list {
+    margin:0;
+    padding:0px;
+    list-style:none;
+    white-space:nowrap;
+    display:inline-block;
+    vertical-align:middle;
+    height:32px;
+    float:right;
+
+    &:after {
+      clear:both; content:''; display:table;
+    }
+
+    li {
+      display:block; width:32px; height:32px; float:left;
+
+      + li {
+        margin-left:5px;
+      }
+
+      a {
+        display:block;
+        width:32px;
+        height:32px;
+        text-indent:-9999px;
+        overflow:hidden;
+        background-image:url('../images/social/sns_buttons.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+
+        &[data-service="facebook"] {
+          background-position-x:0px;
+        }
+
+        &[data-service="google"] {
+          background-position-x:-32px;
+        }
+        &[data-service="kakaostory"] {
+          background-position-x:-64px;
+        }
+        &[data-service="band"] {
+          background-position-x:-96px;
+        }
+        &[data-service="naver"] {
+          background-position-x:-128px;
+        }
+
+      } // a
+
+    } // li
+
+  } // .sns-share-list
+
+} //.sns-share-wrap

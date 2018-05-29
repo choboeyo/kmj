@@ -1,0 +1,32 @@
+{
+  "name": "WheeparamBoard",
+  "version": "1.0.0",
+  "description": "휘파람 보드",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.wheeparam.com/wheeparam/WheeparamBoard.git"
+  },
+  "author": "휘파람 소프트",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "ax5core": "^1.4.96",
+    "ax5ui-mask": "^1.4.96",
+    "ax5ui-modal": "^1.4.96",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "jquery": "^1.12.4",
+    "nicescroll": "^3.7.4",
+    "reset-css": "^2.2.0"
+  }
+}

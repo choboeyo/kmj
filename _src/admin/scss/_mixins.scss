@@ -1,0 +1,54 @@
+@mixin admin_clearfix{
+  display:table;
+  content:'';
+  clear:both;
+}
+
+@mixin background-gradient($start, $end )
+{
+  background-color: $start;
+  background-image: -webkit-linear-gradient(top, $start, $end);
+  background-image: linear-gradient(to bottom,$start, $end);
+}
+
+@mixin button-generator($txt-color, $bg-color, $border-color, $hover-color, $hover-border-color )
+{
+  color: $txt-color;
+  background-color: $bg-color;
+  border-color: $border-color;
+
+  &:focus, &.focus {
+    color: $txt-color;
+    background-color: $hover-color;
+    border-color: $border-color;
+  }
+  &:hover {
+    color: $txt-color;
+    background-color: $hover-color;
+    border-color: $hover-border-color;
+  }
+  &:active, &.active, .open > &.dropdown-toggle {
+    color: $txt-color;
+    background-color: $hover-color;
+    border-color: $hover-border-color;
+  }
+
+  &:active:hover, &:active:focus, &:active.focus, &.active:hover, &.active:focus, &.active.focus, .open > &.dropdown-toggle:hover, .open > &.dropdown-toggle:focus, .open > &.dropdown-toggle.focus {
+    color: $txt-color;
+    background-color: $hover-color;
+    border-color: $hover-border-color;
+  }
+
+  &:active, &.active, .open > &.dropdown-toggle {
+    background-image: none;
+  }
+
+  &.disabled:hover, &.disabled:focus, &.disabled.focus, &[disabled]:hover, &[disabled]:focus, &[disabled].focus, fieldset[disabled] &:hover, fieldset[disabled] &:focus, fieldset[disabled] &.focus {
+    background-color: #fff;
+    border-color: #8f8f8f;
+  }
+
+  .badge {
+    color: #fff; background-color: #242424;
+  }
+}

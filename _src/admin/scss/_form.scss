@@ -1,0 +1,175 @@
+
+/* 버튼그룹 */
+.ax-button-group {
+  display: table;
+  width: 100%;
+  min-height: 40px;
+
+  .left,
+  .right {
+    display: table-cell;
+    vertical-align: bottom;
+    padding: 0 5px 10px 5px;
+
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 26px;
+    }
+  }
+
+  .left {
+    text-align:left;
+  }
+
+  .right {
+    text-align:right;
+  }
+
+  &.ax-button-group-bottom {
+
+    .left, .right {
+      padding: 0px;
+      vertical-align:middle;
+    }
+
+    &.sm {
+      min-height: 30px;
+
+      .left, .right {
+        padding: 0 5px 7px 5px;
+      }
+    }
+
+    .pagination {
+      margin: 0px;
+    }
+  }
+}
+
+
+[data-ax-tbl] {
+  font-size: 0.9em;
+  background: #fff;
+  border-top: 1px solid #D8D8D8;
+  border-right: 1px solid #D8D8D8;
+  border-left: 1px solid #D8D8D8;
+  position: relative;
+
+  [data-ax-tr] {
+    border-bottom: 1px solid #D8D8D8;
+
+    &:after {
+      @include admin_clearfix;
+    }
+
+    [data-ax-td] {
+      float: left;
+      display: table;
+      table-layout: fixed;
+      width: 300px;
+      vertical-align: top;
+      min-height: 40px;
+
+      &.width-auto {
+        width:auto;
+      }
+      &.width-100 {
+        width:100%;
+      }
+
+      [data-ax-td-label] {
+        display: table-cell;
+        width: 100px;
+        padding: 7px;
+        @include background-gradient(#fbfbfb, #f6f6f6);
+        border-right: 1px solid #D8D8D8;
+        vertical-align: middle;
+        text-align: center;
+        color: #363636;
+
+        fieldset[readonly] &,
+        fieldset[disabled] & {
+          color: #c8c8c8;
+
+        }
+
+        a {
+          color: #363636;
+        }
+      }
+
+      + [data-ax-td] [data-ax-td-label] { border-left: 1px solid #D8D8D8 }
+
+      [data-ax-td-wrap] {
+        display: table-cell;
+        padding: 7px 7px;
+        color: #68717b;
+        line-height: 1em;
+
+
+        a {
+          color: #68717b;
+
+          &:after {
+            content: ' ';
+          }
+        }
+
+        .form-control,
+        .btn {
+          vertical-align: middle;
+        }
+
+        .form-control {
+          font-size:1em;
+
+          &.inline-block {
+            display: inline-block;
+            width: auto;
+          }
+        }
+
+        textarea.form-control {
+          resize:vertical;
+        }
+
+        .form-control-static {
+          padding: 7px;
+          min-height:0px;
+        }
+
+        .radio-inline,
+        .checkbox-inline {
+          line-height: 21px;
+          padding: 0;
+          display: inline-block;
+
+          input[type="checkbox"],
+          input[type="radio"] {
+            display: inline-block;
+            position: static;
+            margin: 0 3px;
+            vertical-align: middle;
+          }
+        }
+
+        .radio-inline {
+          margin-top:5px;
+
+          + .radio-inline {
+            margin-top:5px;
+          }
+        }
+
+
+        fieldset[readonly] &,
+        fieldset[disabled] & {
+          color: #c8c8c8;
+          .form-control {
+            background-color: #eee;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+#login-form {
+  width:100%;
+  height:100%;
+  display:flex;
+  background:url(../images/admin/login-bg.jpg);
+  justify-content: center;
+  align-items: center;
+
+  .login-logo {
+    font-size:32px;
+    font-weight:900;
+    color:#fff;
+    -webkit-animation: SLIDE-UP 0.6s linear forwards;
+    -o-animation: SLIDE-UP 0.6s linear forwards;
+    animation: SLIDE-UP 0.6s linear forwards;
+    margin-bottom:20px;
+    text-align:center;
+  }
+
+  .login-notice {
+    color:#ccc;
+    font-size:12px;
+    text-align:center;
+    letter-spacing: -0.04em;
+    margin-top:10px;
+  }
+  .login-panel {
+    -webkit-animation: SLIDE-DOWN 0.6s linear forwards;
+    -o-animation: SLIDE-DOWN 0.6s linear forwards;
+    animation: SLIDE-DOWN 0.6s linear forwards;
+    border:1px solid #788694;
+    width: 320px;
+    box-shadow: 0 0 10px #000;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.5);
+    margin:0 auto;
+
+    .login-heading {
+      padding: 10px 15px;
+      border-top-right-radius: 2px;
+      border-top-left-radius: 2px;
+      color: #ccc;
+      border-bottom: 1px solid #788694;
+      font-size: 0.9em;
+      background: rgba(255,255,255,0.1);
+      text-align:center;
+    }
+
+    .login-body {
+      padding: 20px 20px;
+      color: #eee;
+      text-align: left;
+    }
+
+    .form-control {
+      background:transparent;
+      text-align:center;
+      color:#fff;
+      border: #ccc 1px solid;
+    }
+
+    .btn {
+      background:#000;
+      color:#fff;
+      border:1px solid #ccc;
+      padding: 10px;
+    }
+  }
+}
