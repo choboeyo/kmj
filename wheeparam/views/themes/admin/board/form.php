@@ -104,7 +104,7 @@
                 <h4 class="panel-title">게시판 권한 설정</h4>
             </div>
             <div class="panel-body">
-                <p class="alert alert-info"><i class="far fal fas fa-info-circle"></i> 레벨0은 비회원을 의미합니다.</p>
+                <p class="alert alert-info"><i class="far fa-info-circle"></i> 레벨0은 비회원을 의미합니다.</p>
                 <div class="form-group">
                     <label class="control-label">목록 보기</label>
                     <div class="controls">
@@ -183,7 +183,7 @@
                 <h4 class="panel-title">글 목록 설정</h4>
             </div>
             <div class="panel-body">
-                <p class="alert alert-info"><i class="far fal fas fa-info-circle"></i> 갤러리 형식의 게시판에서는 '목록에서 썸내일 불러오기' / '목록에서 첨부파일 불러오기'를 활성화 하세요.</p>
+                <p class="alert alert-info"><i class="far fa-info-circle"></i> 갤러리 형식의 게시판에서는 '목록에서 썸내일 불러오기' / '목록에서 첨부파일 불러오기'를 활성화 하세요.</p>
                 <div class="form-group">
                     <label class="control-label">썸네일 생성하기</label>
                     <div class="controls">
@@ -359,7 +359,7 @@
                             <option value="Y" <?=element('brd_use_assign',$view,'N')=='Y'?'selected':''?>>사용</option>
                             <option value="N" <?=element('brd_use_assign',$view,'N')=='N'?'selected':''?>>미사용</option>
                         </select>
-                        <p class="help-block"><i class="fal far fas fa-exclamation-circle"></i> 승인된 글만 표시하는 기능을 사용하여, 사이트에 불리한 내용을 숨기거나 하는경우 소비자보호센터의 제재를 받을 수 있습니다.</p>
+                        <p class="help-block"><i class="fal fa-exclamation-circle"></i> 승인된 글만 표시하는 기능을 사용하여, 사이트에 불리한 내용을 숨기거나 하는경우 소비자보호센터의 제재를 받을 수 있습니다.</p>
                     </div>
                 </div>
             </div>
@@ -371,9 +371,9 @@
             </div>
             <div class="panel-body">
                 <?php if($this->site->config('point_use') == 'Y') :?>
-                    <p class="alert alert-info"><i class="far fal fas fa-info-circle"></i> <?=$this->site->config('point_name')?> 지급은 +값, <?=$this->site->config('point_name')?> 차감은 -값을 입력합니다.<br><i class="far fal fas fa-info-circle"></i> 포인트 차감이 설정된 경우 강제로 회원전용 기능으로 전환합니다.</p>
+                    <p class="alert alert-info"><i class="far fa-info-circle"></i> <?=$this->site->config('point_name')?> 지급은 +값, <?=$this->site->config('point_name')?> 차감은 -값을 입력합니다.<br><i class="far fa-info-circle"></i> 포인트 차감이 설정된 경우 강제로 회원전용 기능으로 전환합니다.</p>
                 <?php else :?>
-                    <p class="alert alert-info"><i class="far fal fas fa-info-circle"></i> <?=$this->site->config('point_name')?> 기능을 사용 하는경우만 아래 옵션이 활성화 됩니다.</p>
+                    <p class="alert alert-info"><i class="far fa-info-circle"></i> <?=$this->site->config('point_name')?> 기능을 사용 하는경우만 아래 옵션이 활성화 됩니다.</p>
                 <?php endif;?>
                 <div class="form-group">
                     <label class="control-label">글쓰기</label>

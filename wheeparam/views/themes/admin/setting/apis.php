@@ -7,7 +7,7 @@
 <div class="panel panel-dark">
     <div class="panel-heading">
         <h4 class="panel-title pull-left">페이스북 로그인 설정</h4>
-        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/facebook_login"><i class="far fal fas fa-question-circle"></i> 등록방법 자세히보기</button>
+        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/facebook_login"><i class="far fa-question-circle"></i> 등록방법 자세히보기</button>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
@@ -42,7 +42,7 @@
 <div class="panel panel-dark">
     <div class="panel-heading">
         <h4 class="panel-title pull-left">구글 로그인 설정</h4>
-        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/google_login"><i class="far fal fas fa-question-circle"></i> 등록방법 자세히보기</button>
+        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/google_login"><i class="far fa-question-circle"></i> 등록방법 자세히보기</button>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
@@ -78,7 +78,7 @@
 <div class="panel panel-dark">
     <div class="panel-heading">
         <h4 class="panel-title pull-left">네이버 로그인 설정</h4>
-        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/naver_login"><i class="far fal fas fa-question-circle"></i> 등록방법 자세히보기</button>
+        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/naver_login"><i class="far fa-question-circle"></i> 등록방법 자세히보기</button>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
@@ -113,7 +113,7 @@
 <div class="panel panel-dark">
     <div class="panel-heading">
         <h4 class="panel-title pull-left">카카오 로그인 설정</h4>
-        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/kakao_login"><i class="far fal fas fa-question-circle"></i> 등록방법 자세히보기</button>
+        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/kakao_login"><i class="far fa-question-circle"></i> 등록방법 자세히보기</button>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
@@ -142,7 +142,7 @@
 <div class="panel panel-dark">
     <div class="panel-heading">
         <h4 class="panel-title pull-left">네이버 신디케이션 API KEY</h4>
-        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/naver_syndi"><i class="far fal fas fa-question-circle"></i> 등록방법 자세히보기</button>
+        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/naver_syndi"><i class="far fa-question-circle"></i> 등록방법 자세히보기</button>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
@@ -162,11 +162,11 @@
 <div class="panel panel-dark">
     <div class="panel-heading">
         <h4 class="panel-title pull-left">구글 reCaptcha KEY</h4>
-        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/recaptcha"><i class="far fal fas fa-question-circle"></i> 등록방법 자세히보기</button>
+        <button type="button" class="btn btn-default pull-right" data-toggle="popup" data-url="/admin/help/document/recaptcha"><i class="far fa-question-circle"></i> 등록방법 자세히보기</button>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        <p class="alert alert-info"><i class="far fal fas fa-info-circle"></i> 구글 reCaptcha는 구글에서 제공하는 스팸방지 기능입니다.<br><i class="far fal fas fa-info-circle"></i> 비 회원 글쓰기시 적용되며, 등록을 추천합니다.</p>
+        <p class="alert alert-info"><i class="far fa-info-circle"></i> 구글 reCaptcha는 구글에서 제공하는 스팸방지 기능입니다.<br><i class="far fa-info-circle"></i> 비 회원 글쓰기시 적용되며, 등록을 추천합니다.</p>
         <div class="form-group">
             <label class="control-label">Site KEY</label>
             <div class="controls">
@@ -257,7 +257,7 @@
 </div>
 
 <div class="text-center">
-    <button class="btn btn-primary"><i class="far fal fas fa-save"></i> 저장하기</button>
+    <button class="btn btn-primary"><i class="far fa-save"></i> 저장하기</button>
 </div>
 <div class="H10"></div>
 <?=form_close()?>

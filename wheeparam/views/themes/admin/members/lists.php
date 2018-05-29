@@ -74,7 +74,7 @@
         <tr>
             <td class="text-center hidden-xs"><input type="checkbox" data-checkbox="member" name="mem_idx[]" value="<?=$row['mem_idx']?>"></td>
             <td><?=$row['mem_userid']?></td>
-            <td><?=$row['mem_nickname']?><?=display_member_menu($row['mem_idx'], '<i class="fal fas far fa-cog"></i>', $row['mem_status'])?></td>
+            <td><?=$row['mem_nickname']?><?=display_member_menu($row['mem_idx'], '<i class="far fa-cog"></i>', $row['mem_status'])?></td>
             <td><?=$row['mem_email']?></td>
             <td class="text-center">
                 <?php if($row['mem_status'] == 'Y') : ?>

@@ -15,16 +15,16 @@
             <li>
                 <div>
                     <?=$board['brd_title']?>
-                    <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>',0)"><i class="far fal fas fa-plus-circle"></i></button>
+                    <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>',0)"><i class="far fa-plus-circle"></i></button>
                 </div>
                 <ul id="category-list">
                     <?php foreach($board['category'] as $cate) : ?>
                         <li data-idx="<?=$cate['bca_idx']?>">
                             <div>
                                 <i class="far fa-folder-open"></i> <span class="move-item"><?=$cate['bca_name']?></span>
-                                <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>', <?=$cate['bca_idx']?>)"><i class="far fal fas fa-plus-circle"></i></button>
-                                <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>', 0,<?=$cate['bca_idx']?>)"><i class="far fal fas fa-pencil"></i></button>
-                                <button type="button" class="btn btn-xs btn-danger" onclick="APP.BOARD.CATEGORY.remove('<?=$cate['bca_idx']?>')"><i class="far fal fas fa-trash"></i></button>
+                                <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>', <?=$cate['bca_idx']?>)"><i class="far fa-plus-circle"></i></button>
+                                <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>', 0,<?=$cate['bca_idx']?>)"><i class="far fa-pencil"></i></button>
+                                <button type="button" class="btn btn-xs btn-danger" onclick="APP.BOARD.CATEGORY.remove('<?=$cate['bca_idx']?>')"><i class="far fa-trash"></i></button>
                             </div>
                             <ul class="items">
 
@@ -32,8 +32,8 @@
                                     <li data-idx="<?=$ct['bca_idx']?>">
                                         <div>
                                             <span class="move-item"><?=$ct['bca_name']?></span>
-                                            <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>', <?=$cate['bca_idx']?>, <?=$ct['bca_idx']?>)"><i class="far fal fas fa-pencil"></i></button>
-                                            <button type="button" class="btn btn-xs btn-danger" onclick="APP.BOARD.CATEGORY.remove('<?=$ct['bca_idx']?>')"><i class="far fal fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-xs btn-default" onclick="APP.BOARD.CATEGORY.form('<?=$board['brd_key']?>', <?=$cate['bca_idx']?>, <?=$ct['bca_idx']?>)"><i class="far fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-xs btn-danger" onclick="APP.BOARD.CATEGORY.remove('<?=$ct['bca_idx']?>')"><i class="far fa-trash"></i></button>
                                         </div>
                                     </li>
                                 <?php endforeach;?>

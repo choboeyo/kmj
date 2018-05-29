@@ -11,6 +11,14 @@ CREATE TABLE `wb_banner` (
   `ban_regtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ban_modtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ban_sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `ban_timer_use` enum('Y','N') NOT NULL DEFAULT 'N',
+  `ban_timer_start` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ban_timer_end` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ban_ext1` varchar(255) NOT NULL DEFAULT '',
+  `ban_ext2` varchar(255) NOT NULL DEFAULT '',
+  `ban_ext3` varchar(255) NOT NULL DEFAULT '',
+  `ban_ext4` varchar(255) NOT NULL DEFAULT '',
+  `ban_ext5` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`ban_idx`),
   KEY `bng_key` (`bng_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -22,6 +30,18 @@ CREATE TABLE `wb_banner_group` (
   `bng_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `bng_key` varchar(20) NOT NULL DEFAULT '',
   `bng_name` varchar(50) NOT NULL DEFAULT '',
+  `bng_width` int(11) NOT NULL DEFAULT '0',
+  `bng_height` int(11) NOT NULL DEFAULT '0',
+  `bng_ext1` varchar(255) NOT NULL DEFAULT '',
+  `bng_ext2` varchar(255) NOT NULL DEFAULT '',
+  `bng_ext3` varchar(255) NOT NULL DEFAULT '',
+  `bng_ext4` varchar(255) NOT NULL DEFAULT '',
+  `bng_ext5` varchar(255) NOT NULL DEFAULT '',
+  `bng_ext1_use` enum('Y','N') NOT NULL DEFAULT 'N',
+  `bng_ext2_use` enum('Y','N') NOT NULL DEFAULT 'N',
+  `bng_ext3_use` enum('Y','N') NOT NULL DEFAULT 'N',
+  `bng_ext4_use` enum('Y','N') NOT NULL DEFAULT 'N',
+  `bng_ext5_use` enum('Y','N') NOT NULL DEFAULT 'N',
   PRIMARY KEY (`bng_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

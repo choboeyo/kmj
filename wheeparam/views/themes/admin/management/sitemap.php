@@ -5,8 +5,8 @@
 </div>
 
 <p class="alert alert-info">
-    <i class="far fal fas fa-info-circle"></i> 추가로 sitemap.xml 에서 인덱싱하고싶은 URL을 관리하는 페이지입니다.<br>
-    <i class="far fal fas fa-info-circle"></i> 메인페이지와 게시판은 자동으로 로드하므로 추가할 필요가 없습니다.
+    <i class="far fa-info-circle"></i> 추가로 sitemap.xml 에서 인덱싱하고싶은 URL을 관리하는 페이지입니다.<br>
+    <i class="far fa-info-circle"></i> 메인페이지와 게시판은 자동으로 로드하므로 추가할 필요가 없습니다.
 </p>
 
 <?=form_open("/admin/management/sitemap_update")?>

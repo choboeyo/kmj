@@ -18,7 +18,7 @@
         <tr>
             <td class="text-right"><?=number_format($row['nums'])?></td>
             <td class="text-center"><?=$row['mpo_regtime']?></td>
-            <td class="text-center"><?=$row['mem_nickname']?><?=display_member_menu($row['mem_idx'], '<i class="fal fas far fa-cog"></i>', $row['mem_status'])?></td>
+            <td class="text-center"><?=$row['mem_nickname']?><?=display_member_menu($row['mem_idx'], '<i class="far fa-cog"></i>', $row['mem_status'])?></td>
             <td class="text-right"><?=$row['mpo_value']>0?'+':''?><?=$row['mpo_value']?></td>
             <td><?=$row['mpo_description']?></td>
         </tr>

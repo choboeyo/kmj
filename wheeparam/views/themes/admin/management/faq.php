@@ -11,7 +11,7 @@
                 <h4>FAQ 분류</h4>
             </div>
             <div class="right">
-                <button type="button" class="btn btn-default" onclick="faq.category.form();"><i class="far fal fas fa-plus-circle"></i> 분류 추가</button>
+                <button type="button" class="btn btn-default" onclick="faq.category.form();"><i class="far fa-plus-circle"></i> 분류 추가</button>
             </div>
         </div>
 
@@ -28,13 +28,13 @@
                 <tbody id="faq-category-list">
                 <?php foreach($faq_category['list'] as $row) :?>
                     <tr>
-                        <td class="text-center W50"><i class="fal fas far fa-bars sort-handle-icon"></i><input type="hidden" name="fac_idx[]" value="<?=$row['fac_idx']?>"></td>
+                        <td class="text-center W50"><i class="far fa-bars sort-handle-icon"></i><input type="hidden" name="fac_idx[]" value="<?=$row['fac_idx']?>"></td>
                         <td class="<?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'active':''?>"><?=$row['fac_title']?></td>
                         <td class="text-right W50"><?=number_format($row['fac_count'])?></td>
                         <td class="text-center W175">
-                            <a href="<?=base_url('admin/management/faq/'.$row['fac_idx'])?>" class="btn btn-default btn-sm"><i class="fal fas far <?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'fa-folder-open':'fa-folder'?>"></i> 관리</a>
-                            <button type="button" class="btn btn-default btn-sm" onclick="faq.category.form('<?=$row['fac_idx']?>');"><i class="fal fas far fa-pencil"></i> 수정</button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="faq.category.remove('<?=$row['fac_idx']?>');"><i class="fal fas far fa-trash"></i> 삭제</button>
+                            <a href="<?=base_url('admin/management/faq/'.$row['fac_idx'])?>" class="btn btn-default btn-sm"><i class="far <?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'fa-folder-open':'fa-folder'?>"></i> 관리</a>
+                            <button type="button" class="btn btn-default btn-sm" onclick="faq.category.form('<?=$row['fac_idx']?>');"><i class="far fa-pencil"></i> 수정</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="faq.category.remove('<?=$row['fac_idx']?>');"><i class="far fa-trash"></i> 삭제</button>
                         </td>
                     </tr>
                 <?php endforeach;?>
@@ -55,7 +55,7 @@
                     <h4>[<?=$faq_group['fac_title']?>] 내용 관리</h4>
                 </div>
                 <div class="right">
-                    <button type="button" class="btn btn-default" onclick="faq.form('<?=$fac_idx?>');"><i class="fal fas far fa-plus-circle"></i> FAQ 추가</button>
+                    <button type="button" class="btn btn-default" onclick="faq.form('<?=$fac_idx?>');"><i class="far fa-plus-circle"></i> FAQ 추가</button>
                 </div>
             </div>
 
@@ -71,11 +71,11 @@
                     <tbody id="faq-list">
                     <?php foreach($faq_list['list'] as $row) :?>
                         <tr>
-                            <td class="text-center W50"><i class="fal fas far fa-bars sort-handle-icon"></i><input type="hidden" name="faq_idx[]" value="<?=$row['faq_idx']?>"></td>
+                            <td class="text-center W50"><i class="far fa-bars sort-handle-icon"></i><input type="hidden" name="faq_idx[]" value="<?=$row['faq_idx']?>"></td>
                             <td><?=$row['faq_title']?></td>
                             <td class="text-center W150">
-                                <button type="button" class="btn btn-default btn-sm" onclick="faq.form('<?=$row['fac_idx']?>','<?=$row['faq_idx']?>');"><i class="fal fas far fa-pencil"></i> 수정</button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="faq.remove('<?=$row['faq_idx']?>');"><i class="fal fas far fa-trash"></i> 삭제</button>
+                                <button type="button" class="btn btn-default btn-sm" onclick="faq.form('<?=$row['fac_idx']?>','<?=$row['faq_idx']?>');"><i class="far fa-pencil"></i> 수정</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="faq.remove('<?=$row['faq_idx']?>');"><i class="far fa-trash"></i> 삭제</button>
                             </td>
                         </tr>
                     <?php endforeach;?>

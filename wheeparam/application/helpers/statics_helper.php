@@ -1,5 +1,15 @@
 <?php
 
+function curl($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    $g = curl_exec($ch);
+    curl_close($ch);
+    return $g;
+}
+
 function get_ip_info($q)
 {
     if( empty($q) OR $q == '0.0.0.0' OR $q == '127.0.0.1') return FALSE;
@@ -7,7 +17,7 @@ function get_ip_info($q)
     $key = "2017082622061381677054";
     $url = "http://whois.kisa.or.kr/openapi/whois.jsp?query={$q}&key={$key}&answer=json";
 
-    $query = file_get_contents($url);
+    $query = curl($url);
 
     if( $query )
     {

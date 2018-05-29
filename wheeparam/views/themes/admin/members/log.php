@@ -49,7 +49,7 @@
             <tr>
                 <td class="text-center"><?=$row['mlg_regtime']?></td>
                 <td class="text-center"><?=$row['mem_userid']?></td>
-                <td class="text-center"><?=$row['mem_nickname']?><?=display_member_menu($row['mem_idx'], "<i class='far fal fas fa-cog'></i>", $row['mem_status'])?></td>
+                <td class="text-center"><?=$row['mem_nickname']?><?=display_member_menu($row['mem_idx'], "<i class='far fa-cog'></i>", $row['mem_status'])?></td>
                 <td><?=$row['mlg_browser']?></td>
                 <td><?=$row['mlg_version']?></td>
                 <td><?=$row['mlg_platform']?></td>

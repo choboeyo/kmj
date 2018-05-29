@@ -1,34 +1,29 @@
-/**
- * 공통 요소 선언
- */
-$primary-color : #3498db;
-$primary-hover-color : #256d9c;
-$primary-border-color : #0464db;
+// 색상 변수
+$color-primary : #282828;   // 메인 컬러
+$color-secondary : #282828; // 서브 컬러
 
-/**
- * 상단 메뉴바
- */
-$navbar-default-bg : $primary-color;
-$navbar-default-border : $primary-border-color;
-$navbar-default-border-radius : 0px;
-$navbar-default-brand-color : #fff;
-$navbar-default-brand-hover-color : #333;
-$navbar-default-brand-hover-bg : $primary-color;
-$navbar-default-color : #fff;
-$navbar-default-link-color : #fff;
-$navbar-default-link-hover-color : #f0f0f0;
-$navbar-default-link-hover-bg : $primary-hover-color;
-$navbar-default-link-active-color : #f0f0f0;
-$navbar-default-link-active-bg : $primary-hover-color;
-$navbar-default-link-disabled-color : #898989;
-$navbar-default-link-disabled-bg : $primary-color;
-$navbar-default-toggle-border-color : $navbar-default-border;
-$navbar-default-toggle-hover-bg : $navbar-default-border;
-$navbar-default-toggle-icon-bar-bg : $primary-color;
+$body-color : #212529;      // 기본 텍스트 색상
+$body-bg-color : #FFFFFF;   // 기본 배경 색상
 
+$link-color : $body-color;          // 링크 텍스트 색상
+$link-hover-color : $color-primary; // 링크 오버시 텍스트 색상
 
-$body-bg-color   : #ffffff;
+// 폰트 관련
+$font-family-base : 나눔고딕,NanumGothic,NanumGothicWeb,'나눔 고딕',sans-serif;     // 기본글자에 사용 되는 폰트
+$font-family-heading : $font-family-base;                                           // 헤딩태그에 사용 되는 폰트
+$font-size-base   : 16px;
+$font-weight-base : 400;
+$font-weight-bold : 700;
+$line-height-base : 1.5em;
 
-$footer-bg-color : #fefefe;
-$footer-border-top: 1px solid #f2f2f2;
-$footer-height  : 200px;
+// 애니메이션
+$default-animation : ease;
+
+// 반응형 포인트
+$break-desktop : 1200px;
+$break-tablet : 992px;
+$break-mobile : 768px;
+
+// 테이블 관련
+$table-cell-padding:          .75rem !default;
+$table-cell-padding-sm:       .3rem !default;

@@ -1,0 +1,79 @@
+// BASIC 게시판 스킨
+#skin-board-basic {
+
+  // 게시판 카테고리
+  .board-category {
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-size:0px;
+    padding:15px;
+    background:#fff;
+    border:1px solid #ccc;
+
+    > li {
+      display:inline-block;
+      vertical-align:top;
+
+      + li {
+        margin-left:15px;
+      }
+
+      a {
+        color:#282828;
+        text-decoration:none;
+        text-align:center;
+        display:block;
+
+        &:hover {
+          color:#989898;
+        }
+      }
+
+      > a {
+        font-size:16px;
+        border-bottom:1px solid #ccc;
+        padding:5px 12px;
+      }
+
+      > ul {
+        margin:0;
+        padding:0;
+        list-style:none;
+
+        > li {
+          display:block;
+
+          > a {
+            font-size:14px;
+            padding:3px 6px;;
+          }
+        }
+      }
+    }
+
+  } // 게시판 카테고리
+
+  // 상세보기 항목들
+  .post-info {
+    dl {
+      display:inline-block;
+
+      dt,dd {
+        display:inline-block;
+      }
+
+      + dl {
+        &:before {
+          display:inline-block;
+          content : '';
+          width:1px;
+          height:8px;
+          background:#ccc;
+          margin:0px 5px;
+        }
+      }
+    }
+  }
+}
+

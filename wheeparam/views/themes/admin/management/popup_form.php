@@ -44,7 +44,7 @@
 <div class="form-group">
     <label class="control-label">표시 시작시간</label>
     <div class="controls">
-        <input class="form-control form-control-inline" data-toggle="formatter" data-pattern="{{9999}}-{{99}}-{{99}} {{99}}:{{99}}" name="pop_start" value="<?=element('pop_start', $view, set_value('pop_start'))?>" required>
+        <input class="form-control form-control-inline" data-toggle="datetimepicker"  name="pop_start" value="<?=element('pop_start', $view, set_value('pop_start'))?>" required>
         <p class="help-block">년-월-일 시:분</p>
     </div>
 </div>
@@ -52,7 +52,7 @@
 <div class="form-group">
     <label class="control-label">표시 종료시간</label>
     <div class="controls">
-        <input class="form-control form-control-inline" data-toggle="formatter" data-pattern="{{9999}}-{{99}}-{{99}} {{99}}:{{99}}" name="pop_end" value="<?=element('pop_end', $view, set_value('pop_end'))?>" required>
+        <input class="form-control form-control-inline" data-toggle="datetimepicker"  name="pop_end" value="<?=element('pop_end', $view, set_value('pop_end'))?>" required>
         <p class="help-block">년-월-일 시:분</p>
     </div>
 </div>

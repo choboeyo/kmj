@@ -90,6 +90,11 @@ APP.initPlugins = function() {
             });
         }
     });
+
+    $.datetimepicker.setLocale('kr');
+    $('[data-toggle="datetimepicker"]').datetimepicker({
+        format:'Y-m-d H:i'
+    });
 };
 
 APP.initCheckboxAll = function(){

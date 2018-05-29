@@ -21,7 +21,7 @@ class HookPostControllerConstructor {
         if( PAGE_INSTALL ) return;
         $install_file =  APPPATH . '..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'no_install.php';
 
-        if( file_exists($install_file) )
+        if( file_exists($install_file) && (! isset($_SERVER['WB_ENV']) OR $_SERVER['WB_ENV'] !== 'DEV'))
         {
             include_once $install_file;
             exit;

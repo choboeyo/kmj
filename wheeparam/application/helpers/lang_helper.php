@@ -10,15 +10,18 @@ function langs($key) {
     {
         $result = $CI->db->get('localize')->result_array();
 
-        $langs = array(
-            "ko" => array(),
-            "en" => array()
-        );
+        $accept_lang = $CI->site->config('accept_languages');
+        $accept_lang = explode(',', $accept_lang);
+
+        foreach($accept_lang as $val) {
+            $langs[$val] = array();
+        }
 
         foreach( $result as $row )
         {
-            $langs['ko'][ $row['loc_key'] ] = $row['loc_value_ko'];
-            $langs['en'][ $row['loc_key'] ] = $row['loc_value_en'];
+            foreach($accept_lang as $ln) {
+                $langs[$ln][ $row['loc_key'] ] = $row['loc_value_'.$ln];
+            }
         }
 
         $CI->cache->save('site_language', $langs);

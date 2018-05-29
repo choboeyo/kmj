@@ -463,6 +463,10 @@ function display_html_content($content = '', $thumb_width=700)
         $content .= '</table>';
     }
 
+    // 반응형에서 iframe의 비율을 맞추기위해 iframe을 div 태그로 감싼다.
+    $content = preg_replace("/<iframe/","<div class=\"iframe-content\"><iframe", $content);
+    $content = preg_replace("/<\/iframe>/","</iframe></div>", $content);
+
     $content = preg_replace($source, $target, $content);
     $content = url_auto_link($content);
     $content = html_purifier($content);
@@ -834,6 +838,12 @@ function get_video_info($video_url) {
             $vquery = explode("/",$video['video_url']);
             $num = count($vquery) - 1;
             list($video['vid']) = explode("#",$vquery[$num]);
+
+            if(strpos($video['vid'],'?') !== FALSE)
+            {
+                $tmp = explode("?", $video['vid']);
+                $video['vid'] = $tmp[0];
+            }
         } else if($info['host'] == "www.ted.com") { //테드
             $video['type'] = 'ted';
             $vids = explode("?", $video['video_url']);

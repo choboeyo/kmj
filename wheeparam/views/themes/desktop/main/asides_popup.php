@@ -1,11 +1,3 @@
-<style>
-    .pop-layer { position:fixed; top:50%; left:50%; z-index:1000; background:#fff;  }
-    .pop-layer .pop-content { border:1px solid #ddd; }
-    .pop-layer .pop-footer { width:100%; background:#282828; height:30px; text-align:right; padding:0px 15px;}
-    .pop-layer .pop-footer > a { display:inline-block; line-height:30px; color:#fff;}
-    .pop-layer .pop-footer > a:hover { color:#d0d0d0; }
-    .pop-layer .pop-footer > a + a { margin-left:30px; }
-</style>
 <?php
 foreach($popup_list['list'] as $pop) :
 

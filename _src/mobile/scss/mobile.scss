@@ -1,0 +1,29 @@
+// 기본
+@import "boot/fonts";
+@import "boot/mixins";
+@import "boot/function";
+@import "variables";
+@import "boot/reset";
+
+// 애니메이션,레이아웃,유틸리티,컴포넌트
+@import "common/animation";
+@import "common/layout";
+@import "common/utility";
+
+// 각종 컴포넌트
+@import "components/icons";
+@import "components/button";
+
+// 각종 플러그인 SCSS 및 플러그인 커스텀
+@import "plugins/toastr";
+@import "plugins/fontawesome5/fontawesome";
+@import "plugins/fontawesome5/fa-regular";
+@import "plugins/fontawesome5/fa-light";
+@import "plugins/fontawesome5/fa-solid";
+@import "plugins/fontawesome5/fa-brands";
+
+// 게시판 스킨
+@import "skins/board/basic";
+
+// 레이아웃 및 각 페이지 SCSS 파일
+@import 'pages/main';

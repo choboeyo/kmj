@@ -41,7 +41,7 @@
                 <td class="text-center" title="<?=$row['sta_org']?>"><span class="ellipsis W100" style="display:block"><?=$row['sta_org']?></span></td>
                 <?php else :?>
                 <td class="text-center" colspan="3">
-                    <button type="button" class="btn btn-default" data-button="get-ip-info" data-ip="<?=$row['sta_ip']?>"><i class="far fal fas fa-search"></i> 확인</button>
+                    <button type="button" class="btn btn-default" data-button="get-ip-info" data-ip="<?=$row['sta_ip']?>"><i class="far fa-search"></i> 확인</button>
                 </td>
                 <?php endif;?>
                 <td class="text-center"><?=$row['sta_browser']?></td>

@@ -5,7 +5,6 @@
 <div class="row">
     <div class="col-sm-4">
 
-
         <div class="ax-button-group">
             <div class="left">
                 <h4>배너 분류</h4>
@@ -72,14 +71,14 @@
                     <?php foreach($banner_list['list'] as $row) :?>
                         <tr>
                             <td class="text-center">
-                                <i class="far fal fas fa-bars"></i>
+                                <i class="far  fa-bars"></i>
                                 <input type="hidden" name="ban_idx[]" value="<?=$row['ban_idx']?>">
                             </td>
                             <td><?=thumb_img($row['ban_filepath'],'img-thumbnail','style="max-width:250px"')?></td>
                             <td><?=$row['ban_name']?></td>
                             <td class="text-center W150">
-                                <button type="button" class="btn btn-default btn-sm" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx="<?=$row['ban_idx']?>"><i class="far fal fas fa-pencil"></i> 수정</button>
-                                <button type="button" class="btn btn-danger btn-sm" data-button="btn-banner-delete" data-idx="<?=$row['ban_idx']?>"><i class="fal fas far fa-trash"></i> 삭제</button>
+                                <button type="button" class="btn btn-default btn-sm" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx="<?=$row['ban_idx']?>"><i class="far fa-pencil"></i> 수정</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-button="btn-banner-delete" data-idx="<?=$row['ban_idx']?>"><i class="far fa-trash"></i> 삭제</button>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -124,8 +123,8 @@
                         bng_idx : bng_idx
                     }
                 },
-                width: 400,
-                height: 200,
+                width: 500,
+                height: 650,
                 header : {
                     title : '배너 그룹 정보'
                 }
@@ -164,7 +163,7 @@
                     }
                 },
                 width: 500,
-                height: 600,
+                height: 650,
                 header : {
                     title : '배너정보'
                 }

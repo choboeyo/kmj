@@ -11,7 +11,7 @@
             <label class="control-label">통계자료 최적화</label>
             <div class="controls">
                 <p class="form-control-static">
-                    <button class="btn btn-primary" data-button="optimize-statics" data-loading-text="최적화 중입니다..." ><i class="far fal fas fa-play-circle"></i> 최적화 실행하기</button>
+                    <button class="btn btn-primary" data-button="optimize-statics" data-loading-text="최적화 중입니다..." ><i class="far fa-play-circle"></i> 최적화 실행하기</button>
                 </p>
 
             </div>

@@ -147,7 +147,7 @@
             <div class="controls">
                 <input class="form-control" name="setting[verification_google]" value="<?=htmlspecialchars($this->site->config('verification_google'))?>">
                 <div class="H10"></div>
-                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/google_ownership"><i class="far fal fas fa-question-circle"></i> 도움말</button>
+                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/google_ownership"><i class="far fa-question-circle"></i> 도움말</button>
             </div>
         </div>
 
@@ -156,7 +156,7 @@
             <div class="controls">
                 <input class="form-control" name="setting[verification_naver]" value="<?=htmlspecialchars($this->site->config('verification_naver'))?>">
                 <div class="H10"></div>
-                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/naver_ownership"><i class="far fal fas fa-question-circle"></i> 도움말</button>
+                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/naver_ownership"><i class="far fa-question-circle"></i> 도움말</button>
             </div>
         </div>
 
@@ -165,7 +165,7 @@
             <div class="controls">
                 <textarea class="form-control" name="setting[analytics_google]" rows="5"><?=htmlspecialchars($this->site->config('analytics_google'))?></textarea>
                 <div class="H10"></div>
-                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/google_analytics"><i class="far fal fas fa-question-circle"></i> 도움말</button>
+                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/google_analytics"><i class="far fa-question-circle"></i> 도움말</button>
             </div>
         </div>
 
@@ -174,7 +174,7 @@
             <div class="controls">
                 <textarea class="form-control" name="setting[analytics_naver]" rows="5"><?=htmlspecialchars($this->site->config('analytics_naver'))?></textarea>
                 <div class="H10"></div>
-                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/naver_analytics"><i class="far fal fas fa-question-circle"></i> 도움말</button>
+                <button type="button" class="btn btn-default" data-toggle="popup" data-url="/admin/help/document/naver_analytics"><i class="far fa-question-circle"></i> 도움말</button>
             </div>
         </div>
 

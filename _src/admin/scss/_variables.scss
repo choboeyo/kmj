@@ -1,3 +1,33 @@
+// 색상 변수
+$color-primary : #282828;   // 메인 컬러
+$color-secondary : #282828; // 서브 컬러
+
+$body-color : #212529;      // 기본 텍스트 색상
+$body-bg-color : #FFFFFF;   // 기본 배경 색상
+
+$link-color : $body-color;          // 링크 텍스트 색상
+$link-hover-color : $color-primary; // 링크 오버시 텍스트 색상
+
+// 폰트 관련
+$font-family-base : 나눔고딕,NanumGothic,NanumGothicWeb,'나눔 고딕',sans-serif;     // 기본글자에 사용 되는 폰트
+$font-family-heading : $font-family-base;                                           // 헤딩태그에 사용 되는 폰트
+$font-size-base   : 14px;
+$font-weight-base : 400;
+$font-weight-bold : 700;
+$line-height-base : 1.5em;
+
+// 애니메이션
+$default-animation : ease;
+
+// 반응형 포인트
+$break-desktop : 1200px;
+$break-tablet : 992px;
+$break-mobile : 768px;
+
+// 테이블 관련
+$table-cell-padding:          .75rem !default;
+$table-cell-padding-sm:       .3rem !default;
+
 // Default Button 색상 지정
 $btn-default-text : #242424;
 $btn-default-bg : #fff;

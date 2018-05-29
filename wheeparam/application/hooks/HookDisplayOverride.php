@@ -26,7 +26,7 @@ class HookDisplayOverride {
         $output = preg_replace("/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/","", $output);
 
         $head = '<!DOCTYPE html>'.PHP_EOL;
-        $head .= '<html lang="ko">'.PHP_EOL;
+        $head .= '<html lang="'.LANG.'">'.PHP_EOL;
         $head .= '<head>'.PHP_EOL;
         $head .= $this->CI->site->display_meta();
         $head .= $this->CI->site->display_css();

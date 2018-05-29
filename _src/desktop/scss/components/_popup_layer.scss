@@ -1,0 +1,33 @@
+.pop-layer {
+  position:fixed;
+  top:50%;
+  left:50%;
+  z-index:1000;
+  background:#fff;
+
+  .pop-content {
+    border:1px solid #ddd;
+  }
+
+  .pop-footer {
+    width:100%;
+    background:#282828;
+    height:30px;
+    text-align:right;
+    padding:0px 15px;
+
+    [data-toggle="btn-popup-close"] {
+      display:inline-block;
+      line-height:30px;
+      color:#fff;
+
+      &:hover {
+        color:#d0d0d0;
+      }
+
+      & + & {
+        margin-left:30px;
+      }
+    }
+  }
+}

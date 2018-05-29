@@ -3,6 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Setting extends WB_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->data['lang_name']['ko'] = '한국어';
+        $this->data['lang_name']['en'] = 'English';
+        $this->data['lang_name']['ja'] = '일본어';
+        $this->data['lang_name']['zh-hans'] = '중국어(간체)';
+        $this->data['lang_name']['zh-hant'] = '중국어(번체)';
+    }
+
     public function basic()
     {
         // 메타태그 설정
@@ -53,26 +64,29 @@ class Setting extends WB_Controller {
 
         $this->form_validation->set_rules('mode',"mode", "required|trim");
 
+        $accept_lang = $this->site->config('accept_languages');
+        $this->data['accept_langs'] = explode(',', $accept_lang);
+
         if( $this->form_validation->run() != FALSE )
         {
             $loc_key = $this->input->post('loc_key', TRUE);
-            $loc_value_ko = $this->input->post('loc_value_ko', TRUE);
-            $loc_value_en = $this->input->post('loc_value_en', TRUE);
-            $loc_value_ja = $this->input->post('loc_value_ja', TRUE);
-            $loc_value_jh_hans = $this->input->post('loc_value_zh-hans', TRUE);
-            $loc_value_jh_hant = $this->input->post('loc_value_zh-hant', TRUE);
+            foreach($this->data['accept_langs'] as $lang)
+            {
+                $lang_name = str_replace("-","_",$lang);
+                $loc_value_{$lang_name} = $this->input->post('loc_value_'.$lang, TRUE);
+            }
 
             $update = array();
             for($i=0; $i<count($loc_key); $i++)
             {
-                $update[] = array(
-                    "loc_key" => $loc_key[$i],
-                    "loc_value_ko" => $loc_value_ko[$i],
-                    "loc_value_en" => $loc_value_en[$i],
-                    'loc_value_ja' => $loc_value_ja[$i],
-                    'loc_value_zh-hans' => $loc_value_jh_hans[$i],
-                    'loc_value_zh-hant' => $loc_value_jh_hant[$i],
-                );
+                $array['loc_key'] = $loc_key[$i];
+                foreach($this->data['accept_langs'] as $lang)
+                {
+                    $lang_name = str_replace("-","_",$lang);
+                    $array['loc_value_'.$lang] = $loc_value_{$lang_name}[$i];
+                }
+
+                $update[] = $array;
             }
 
             $this->db->update_batch("localize", $update, "loc_key");
@@ -114,11 +128,18 @@ class Setting extends WB_Controller {
         $this->form_validation->set_rules("loc_key", "구분 키", "required|trim|max_length[60]|min_length[5]|callback_loc_key_check");
         $this->form_validation->set_rules("loc_value_ko", "한글", "required|trim");
 
+
+        $accept_lang = $this->site->config('accept_languages');
+        $this->data['accept_langs'] = explode(',', $accept_lang);
+
         if( $this->form_validation->run() != FALSE )
         {
             $data['loc_key'] = $this->input->post('loc_key', TRUE);
-            $data['loc_value_ko'] = $this->input->post('loc_value_ko', TRUE);
-            $data['loc_value_en'] = $this->input->post('loc_value_en', TRUE);
+
+            foreach($this->data['accept_langs'] as $langs)
+            {
+                $data['loc_value_'.$langs] = $this->input->post('loc_value_'.$langs, TRUE);
+            }
 
             $this->db->insert('localize', $data);
 

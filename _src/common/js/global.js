@@ -132,6 +132,9 @@ $("a[data-toggle='sns-share']").click(function(e){
     else if ( sns_type == 'naver' ) {
         loc = "http://share.naver.com/web/shareView.nhn?url="+encodeURIComponent(href)+"&title="+encodeURIComponent(title);
     }
+    else if ( sns_type == 'line') {
+        loc = "http://line.me/R/msg/text/?" + encodeURIComponent(title + "\n" + href);
+    }
     else {
         return false;
     }

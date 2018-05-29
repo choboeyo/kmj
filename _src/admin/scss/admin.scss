@@ -1,64 +1,35 @@
 @charset "UTF-8";
 
+// BASE
+@import "boot/mixins";
+@import "boot/function";
 @import "variables";
-@import "mixins";
-@import "animation";
-@import "bootstrap_custom";
-@import "plugins_custom";
-@import "modal";
-@import "layout";
-@import "buttons";
-@import "grid";
-@import "form";
-@import "pages";
+@import "boot/reset";
 
-/* 높이/너비/마진/패딩 */
-@for $i from 1 to 100 {
-    .H#{$i * 5} {
-        height: 5px * $i !important;
-    }
-}
-@for $i from 1 to 100{
-    .W#{$i * 5} {
-        width: 5px * $i !important;
-    }
-}
-@for $i from 1 to 10 {
-    .M#{$i * 5} {
-        margin:5px * $i;
-    }
-    .MT#{$i * 5} {
-        margin-top:5px * $i;
-    }
-    .MR#{$i*5} {
-        margin-right:5px * $i;
-    }
-    .MB#{$i * 5} {
-        margin-bottom:5px * $i;
-    }
-    .ML#{$i * 5} {
-        margin-left:5px * $i;
-    }
-    .PT#{$i * 5} {
-        padding-top:5px * $i;
-    }
-    .PR#{$i * 5} {
-        padding-right:5px * $i;
-    }
-    .PB#{$i * 5} {
-        padding-bottom:5px * $i;
-    }
-    .PL#{$i * 5} {
-        padding-left:5px * $i;
-    }
-    .P#{$i * 5} {
-        padding:5px * $i;
-    }
-}
+// 애니메이션,레이아웃,유틸리티,컴포넌트
+@import "common/animation";
+@import "common/layout";
+@import "common/utility";
 
-.ellipsis { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden; }
-.admin-help-wrap {
-    width:700px; margin:0 auto;
-    li > img {width:700px;}
-    .point-color {color:#e60035}
-}
+// 각종 컴포넌트
+@import "components/modal";
+@import "components/buttons";
+@import "components/grid";
+@import "components/form";
+
+// 각종 플러그인 SCSS 및 플러그인 커스텀
+@import "plugins/bootstrap_custom";
+@import "plugins/jquery_ui";
+@import "plugins/plugins_custom";
+@import "plugins/toastr";
+@import "plugins/fontawesome5/fontawesome";
+@import "plugins/fontawesome5/fa-regular";
+@import "plugins/fontawesome5/fa-light";
+@import "plugins/fontawesome5/fa-solid";
+@import "plugins/fontawesome5/fa-brands";
+@import "plugins/ax5mask.css";
+@import "plugins/ax5modal.css";
+@import "plugins/jquery.datetimepicker.css";
+
+// 각 페이지 SCSS 파일
+@import "pages/login";

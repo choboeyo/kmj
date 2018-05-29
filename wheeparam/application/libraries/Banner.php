@@ -38,6 +38,21 @@ class Banner {
         if( empty($this->banners))
         {
             $this->CI->db->where('ban_status', 'Y');
+
+            $this->CI->db->group_start();
+
+                $this->CI->db->or_group_start();
+                    $this->CI->db->where('ban_timer_use', 'N');
+                $this->CI->db->group_end();
+
+                $this->CI->db->or_group_start();
+                    $this->CI->db->where('ban_timer_use','Y');
+                    $this->CI->db->where('ban_timer_start <=', date('Y-m-d H:i:s'));
+                    $this->CI->db->where('ban_timer_end >=', date('Y-m-d H:i:s'));
+                $this->CI->db->group_end();
+
+            $this->CI->db->group_end();
+
             $this->CI->db->order_by('ban_sort ASC');
             $result = $this->CI->db->get("banner");
             $this->banners = $result->result_array();

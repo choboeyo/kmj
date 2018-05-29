@@ -593,6 +593,13 @@ class Management extends WB_Controller {
             $data['bng_idx'] = $this->input->post('bng_idx', TRUE);
             $data['bng_key'] = $this->input->post('bng_key', TRUE);
             $data['bng_name'] = $this->input->post('bng_name', TRUE);
+            $data['bng_width'] = $this->input->post('bng_width', TRUE, 0);
+            $data['bng_height'] = $this->input->post('bng_height', TRUE, 0);
+            for($i=1; $i<=5; $i++)
+            {
+                $data["bng_ext{$i}"] = $this->input->post("bng_ext{$i}",TRUE,'');
+                $data["bng_ext{$i}_use"] = $this->input->post("bng_ext{$i}_use",TRUE,'N');
+            }
 
             if(empty($data['bng_idx']))
             {
@@ -602,9 +609,7 @@ class Management extends WB_Controller {
                     exit;
                 }
 
-                $this->db->set('bng_key', $data['bng_key']);
-                $this->db->set('bng_name', $data['bng_name']);
-                if( $this->db->insert('banner_group'))
+                if( $this->db->insert('banner_group', $data))
                 {
                     alert_modal_close('배너 그룹이 추가 되었습니다.', TRUE);
                     exit;
@@ -613,8 +618,7 @@ class Management extends WB_Controller {
             else
             {
                 $this->db->where('bng_idx', $data['bng_idx']);
-                $this->db->set('bng_name', $data['bng_name']);
-                if( $this->db->update('banner_group') )
+                if( $this->db->update('banner_group', $data) )
                 {
                     alert_modal_close('배너 그룹이 수정 되었습니다.', TRUE);
                     exit;
@@ -715,6 +719,13 @@ class Management extends WB_Controller {
             $data['ban_link_type'] = $this->input->post('ban_link_url', TRUE) == 'Y' ? 'Y': 'N';
             $data['ban_modtime'] = date('Y-m-d H:i:s');
             $data['ban_status'] = $this->input->post('ban_status', TRUE) == 'H' ? 'H' : 'Y';
+            $data['ban_timer_use'] = $this->input->post('ban_timer_use', TRUE) == 'Y' ? 'Y' : 'N';
+            $data['ban_timer_start'] = $this->input->post('ban_timer_start', TRUE, '0000-00-00 00:00:00');
+            $data['ban_timer_end'] = $this->input->post('ban_timer_end', TRUE, '0000-00-00 00:00:00');
+            for($i=1; $i<=5; $i++)
+            {
+                $data["ban_ext{$i}"] = $this->input->post("ban_ext{$i}",TRUE,'');
+            }
 
             // 업로드된 파일이 있을경우 처리
             if( isset($_FILES['userfile']) && $_FILES['userfile'] && $_FILES['userfile']['tmp_name'] )
@@ -774,9 +785,14 @@ class Management extends WB_Controller {
                 exit;
             }
 
+            if( ! $this->data['banner_group'] = $this->db->where('bng_key', $this->data['bng_key'])->get('banner_group')->row_array())
+            {
+                alert_modal_close('잘못된 접근입니다.');
+                exit;
+            }
+
             if(! empty($this->data['ban_idx'])) {
-                $this->data['view'] = $this->db->where('ban_idx', $this->data['ban_idx'])->get('banner')->row_array();
-                if(empty($this->data['view']))
+                if(! $this->data['view'] = $this->db->where('ban_idx', $this->data['ban_idx'])->get('banner')->row_array())
                 {
                     alert('삭제되었거나 존재하지 않는 배너 입니다.');
                     exit;
