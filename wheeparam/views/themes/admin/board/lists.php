@@ -9,7 +9,7 @@
             <th>번호</th>
             <th>고유키</th>
             <th>게시판 이름</th>
-            <th>스킨</th>
+            <th>목록 스킨</th>
             <th>페이지당 글</th>
             <th>등록된 글</th>
             <th>카테고리</th>
@@ -28,7 +28,7 @@
                 <td class="text-center"><?=$brd['nums']?></td>
                 <td class="text-center"><?=$brd['brd_key']?></td>
                 <td class="text-center"><?=$brd['brd_title']?><a class="btn btn-default btn-sm ML10" data-toggle="tooltip"  title="게시판 바로가기" target="_blank" href="<?=base_url('board/'.$brd['brd_key'])?>"><i class="far fa-external-link-square"></i></a></td>
-                <td class="text-center"><?=$brd['brd_skin']?></td>
+                <td class="text-center"><?=$brd['brd_skin_l']?></td>
                 <td class="text-center"><?=$brd['brd_page_limit']=='Y'?$brd['brd_page_rows']:'미사용'?></td>
                 <td class="text-center"><?=number_format($brd['brd_count_post'])?></td>
                 <td class="text-center"><?=$brd['brd_use_category']=='Y'?'사용':'미사용'?></td>

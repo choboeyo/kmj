@@ -39,8 +39,14 @@ class Board extends WB_Controller
             $data['brd_title_m'] = $this->input->post('brd_title_m', TRUE);
             $data['brd_keywords'] = $this->input->post('brd_keywords', TRUE);
             $data['brd_description'] = $this->input->post('brd_description', TRUE);
-            $data['brd_skin'] = $this->input->post('brd_skin', TRUE);
-            $data['brd_skin_m'] = $this->input->post('brd_skin_m', TRUE);
+            $data['brd_skin_l'] = $this->input->post('brd_skin_l', TRUE);
+            $data['brd_skin_l_m'] = $this->input->post('brd_skin_l_m', TRUE);
+            $data['brd_skin_w'] = $this->input->post('brd_skin_w', TRUE);
+            $data['brd_skin_w_m'] = $this->input->post('brd_skin_w_m', TRUE);
+            $data['brd_skin_v'] = $this->input->post('brd_skin_v', TRUE);
+            $data['brd_skin_v_m'] = $this->input->post('brd_skin_v_m', TRUE);
+            $data['brd_skin_c'] = $this->input->post('brd_skin_c', TRUE);
+            $data['brd_skin_c_m'] = $this->input->post('brd_skin_c_m', TRUE);
             $data['brd_search'] = $this->input->post('brd_search', TRUE, "N");
             $data['brd_sort'] = $this->input->post('brd_sort', TRUE);
             $data['brd_use_category'] = $this->input->post('brd_use_category', TRUE, "N");
@@ -110,7 +116,10 @@ class Board extends WB_Controller
         {
             $this->data['view'] = (empty($brd_key)) ? array() : $this->board_model->get_board($brd_key, TRUE);
             $this->data['brd_key'] = $brd_key;
-            $this->data['skin_list'] = get_skin_list('board');
+            $this->data['skin_list_l'] = get_skin_list('board/list');
+            $this->data['skin_list_w'] = get_skin_list('board/write');
+            $this->data['skin_list_v'] = get_skin_list('board/view');
+            $this->data['skin_list_c'] = get_skin_list('board/comment');
 
             // 메타태그 설정
             $this->site->meta_title = "게시판 관리";

@@ -56,25 +56,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">게시판 스킨</label>
-                    <div class="controls">
-                        <select class="form-control" name="brd_skin">
-                            <?php foreach($skin_list as $skin) : ?>
-                                <option value="<?=$skin?>" <?=$skin==element('brd_skin',$view)?'selected':''?>><?=$skin?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    <label class="control-label">게시판 스킨 (모바일)</label>
-                    <div class="controls">
-                        <select class="form-control" name="brd_skin_m">
-                            <?php foreach($skin_list as $skin) : ?>
-                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_m',$view)?'selected':''?>><?=$skin?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label class="control-label">검색 설정</label>
                     <div class="controls">
                         <label class="w-check">
@@ -93,6 +74,91 @@
                         <label class="w-check">
                             <input type="checkbox" name="brd_use_category" value="Y" <?=element('brd_use_category', $view)=='Y'?'checked':''?>><span>카테고리 기능 사용</span>
                         </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-dark">
+            <div class="panel-heading">
+                <h4 class="panel-title">게시판 스킨 설정</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="control-label">목록 스킨</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_l">
+                            <?php foreach($skin_list_l as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_l',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <label class="control-label">목록 스킨 (모바일)</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_l_m">
+                            <?php foreach($skin_list_l as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_l_m',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">글쓰기 스킨</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_w">
+                            <?php foreach($skin_list_w as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_w',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <label class="control-label">글쓰기 스킨 (모바일)</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_w_m">
+                            <?php foreach($skin_list_w as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_w_m',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">글 보기 스킨</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_v">
+                            <?php foreach($skin_list_v as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_v',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <label class="control-label">글쓰기 스킨 (모바일)</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_v_m">
+                            <?php foreach($skin_list_v as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_v_m',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">댓글 스킨</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_c">
+                            <?php foreach($skin_list_c as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_c',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <label class="control-label">댓글 스킨 (모바일)</label>
+                    <div class="controls">
+                        <select class="form-control" name="brd_skin_c_m">
+                            <?php foreach($skin_list_c as $skin) : ?>
+                                <option value="<?=$skin?>" <?=$skin==element('brd_skin_c_m',$view)?'selected':''?>><?=$skin?></option>
+                            <?php endforeach;?>
+                        </select>
                     </div>
                 </div>
 

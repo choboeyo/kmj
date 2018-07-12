@@ -95,7 +95,8 @@ class Board extends WB_Controller {
         $this->site->meta_image			= $this->data['view']['post_thumbnail'];   // 이 페이지에서 표시할 대표이미지
 
         // 댓글 입력폼
-        $write_skin_path = DIR_SKIN . "/board/" . $this->data['board']['brd_skin'] . "/comment_write";
+
+        $write_skin_path = DIR_SKIN . "/board/comment/" . $this->data['board']['brd_skin_c'] . "/c_write";
         $comment_hidden = array("reurl"=>current_full_url(),"cmt_idx"=>"","cmt_parent"=>"");
         $comment_action_url = base_url( "board/{$brd_key}/comment/{$post_idx}", SSL_VERFIY ? 'https':'http' );
         $tmp['comment_view'] = array();
@@ -104,7 +105,7 @@ class Board extends WB_Controller {
         $this->data['comment_write'] =  $this->data['board']['brd_use_comment'] == 'Y' && $this->data['board']['auth']['comment'] ? $this->load->view($write_skin_path, $tmp, TRUE) : NULL;
 
         // 댓글 목록
-        $list_skin_path = DIR_SKIN . "/board/" . $this->data['board']['brd_skin'] . "/comment_list";
+        $list_skin_path = DIR_SKIN . "/board/comment/" . $this->data['board']['brd_skin_c'] . "/c_list";
         if( $this->data['board']['brd_use_comment'] == 'Y' )
         {
             $mem_userid = ($this->member->is_login()) ? $this->member->info('userid') : '';
@@ -129,6 +130,8 @@ class Board extends WB_Controller {
         $this->data['comment_list'] = $this->data['board']['brd_use_comment'] == 'Y' ? $this->load->view($list_skin_path, $tmp2, TRUE) : NULL;
 
         $this->view = "view";
+        $this->skin_type = "board/view";
+        $this->skin = $this->data['board']['brd_skin_w'];
     }
 
     /**
@@ -147,6 +150,9 @@ class Board extends WB_Controller {
 
         // 레이아웃 & 뷰파일 설정
         $this->view     = "list";
+
+        $this->skin_type = "board/list";
+        $this->skin     = $this->data['board']['brd_skin_l'];
     }
 
     /**
@@ -380,7 +386,9 @@ class Board extends WB_Controller {
         $this->data['is_reply'] = FALSE;
 
         $this->theme_file = "popup";
-        $this->view = "comment_write";
+        $this->skin_type = "board/comment";
+        $this->skin = $this->data['board']['brd_skin_c'];
+        $this->view = "c_write";
     }
 
     /**
@@ -476,6 +484,8 @@ class Board extends WB_Controller {
             $this->data['form_close']= form_close();
 
             $this->view = "password";
+            $this->skin_type = "board/view";
+            $this->skin = $this->data['board']['brd_skin_v'];
         }
         else
         {
@@ -859,6 +869,9 @@ class Board extends WB_Controller {
 
             // 레이아웃 & 뷰파일 설정
             $this->view     = "write";
+
+            $this->skin_type = "board/write";
+            $this->skin     = $this->data['board']['brd_skin_w'];
         }
     }
 
@@ -1055,7 +1068,10 @@ class Board extends WB_Controller {
         $this->data['use_attach'] = ($this->data['board']['brd_use_attach'] == 'Y' && $this->data['board']['auth']['upload']);
 
         // 접속한 기기에 따라 설정을 바꾼다.
-        $this->data['board']['brd_skin'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_m'] : $this->data['board']['brd_skin'];
+        $this->data['board']['brd_skin_l'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_l_m'] : $this->data['board']['brd_skin_l'];
+        $this->data['board']['brd_skin_w'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_w_m'] : $this->data['board']['brd_skin_w'];
+        $this->data['board']['brd_skin_c'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_c_m'] : $this->data['board']['brd_skin_c'];
+        $this->data['board']['brd_skin_v'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_v_m'] : $this->data['board']['brd_skin_v'];
         $this->data['board']['brd_title'] = ($this->site->viewmode == DEVICE_MOBILE) ? ($this->data['board']['brd_title_m']?$this->data['board']['brd_title_m']:$this->data['board']['brd_title']) : $this->data['board']['brd_title'];
         $this->data['board']['brd_page_rows'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_page_rows_m'] : $this->data['board']['brd_page_rows'];
         $this->data['board']['brd_fixed_num'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_fixed_num_m'] : $this->data['board']['brd_fixed_num'];
@@ -1117,7 +1133,6 @@ class Board extends WB_Controller {
         // 레이아웃 정의
         $this->theme    = $this->site->get_layout();
         $this->skin_type = "board";
-        $this->skin     = $this->data['board']['brd_skin'];
         $this->active   = "/board/".$this->data['board']['brd_key'];
     }
 
