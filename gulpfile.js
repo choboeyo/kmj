@@ -69,7 +69,7 @@ gulp.task('minify-desktop-css', function () {
 // Javascript 합치기 실행
 gulp.task('minify-desktop-js', [], function(){
     return gulp.src( theme.commonJs.concat( theme.desktop.js ) )
-        .pipe(concat('admin.js'))
+        .pipe(concat('desktop.js'))
         .pipe(minify({
             ext: {
                 min : '.min.js'
