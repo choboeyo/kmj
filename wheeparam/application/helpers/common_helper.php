@@ -1258,3 +1258,14 @@ function db_file_delete($table, $pk_column, $pk, $filepath_column)
     $CI->db->where($pk_column, $pk);
     $CI->db->update($table);
 }
+
+/**
+ * 글 내용 요약본을 가져온다.
+ * @param string $post_content
+ * @param int $length
+ * @return string
+ */
+function get_post_summary($post_content="", $length=300)
+{
+    return cut_str( trim( strip_tags($post_content) ) ,$length);
+}
