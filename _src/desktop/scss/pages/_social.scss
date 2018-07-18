@@ -5,57 +5,54 @@
   background-color:#fff;
 
   .sns-share-list {
+    @include display-flex();
+    justify-content: center;
+    align-items: center;
+    margin:0 auto;
+    flex-wrap:wrap;
+    padding:0;
     margin:0;
-    padding:0px;
-    list-style:none;
-    white-space:nowrap;
-    display:inline-block;
-    vertical-align:middle;
-    height:32px;
-    float:right;
-
-    &:after {
-      clear:both; content:''; display:table;
-    }
 
     li {
-      display:block; width:32px; height:32px; float:left;
+      display:block;
+      padding:0px 5px;
 
-      + li {
-        margin-left:5px;
+      @media screen and (max-width:$break-desktop) {
+        width:25%;
+        margin-bottom:15px;
       }
-
-      a {
-        display:block;
-        width:32px;
-        height:32px;
-        text-indent:-9999px;
-        overflow:hidden;
-        background-image:url('../images/social/sns_buttons.png');
-        background-repeat:no-repeat;
-        background-size:cover;
-
-        &[data-service="facebook"] {
-          background-position-x:0px;
-        }
-
-        &[data-service="google"] {
-          background-position-x:-32px;
-        }
-        &[data-service="kakaostory"] {
-          background-position-x:-64px;
-        }
-        &[data-service="band"] {
-          background-position-x:-96px;
-        }
-        &[data-service="naver"] {
-          background-position-x:-128px;
-        }
-
-      } // a
-
-    } // li
-
-  } // .sns-share-list
+    }
+    [data-toggle="sns-share"] {
+      text-indent:-9999px;
+      width:40px;
+      height:40px;
+      display:block;
+      margin:auto;
+    }
+    [data-toggle="sns-share"][data-service="pinterest"] {
+      background-image:url(../images/social/sns_pinterest.png);
+    }
+    [data-toggle="sns-share"][data-service="facebook"] {
+      background-image:url(../images/social/sns_facebook.png);
+    }
+    [data-toggle="sns-share"][data-service="google"] {
+      background-image:url(../images/social/sns_google.png);
+    }
+    [data-toggle="sns-share"][data-service="band"] {
+      background-image:url(../images/social/sns_band.png);
+    }
+    [data-toggle="sns-share"][data-service="kakaostory"] {
+      background-image:url(../images/social/sns_kakao.png);
+    }
+    [data-toggle="sns-share"][data-service="naver"] {
+      background-image:url(../images/social/sns_naver.png);
+    }
+    [data-toggle="sns-share"][data-service="line"] {
+      background-image:url(../images/social/sns_line.png);
+    }
+    [data-toggle="sns-share"][data-service="link"] {
+      background-image:url(../images/social/sns_link.png);
+    }
+  }
 
 } //.sns-share-wrap

@@ -20,5 +20,7 @@
     "gulp-sass": "^3.2.1",
     "gulp-size": "^3.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "clipboard": "^2.0.1"
+  }
 }

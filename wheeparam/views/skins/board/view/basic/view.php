@@ -35,11 +35,14 @@
 
             <div class="sns-share-wrap">
                 <ul class="sns-share-list">
-                    <li><a href="#" data-toggle="sns-share" data-service="facebook" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">페이스북 공유하기</a></li>
-                    <li><a href="#" data-toggle="sns-share" data-service="google" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">구글+ 공유하기</a></li>
-                    <li><a href="#" data-toggle="sns-share" data-service="kakaostory" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">카카오 스토리 공유하기</a></li>
-                    <li><a href="#" data-toggle="sns-share" data-service="band" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">밴드 공유하기</a></li>
-                    <li><a href="#" data-toggle="sns-share" data-service="naver" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">네이버 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="facebook" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">페이스북 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="google" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">구글+ 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="pinterest" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">핀터레스트 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="kakaostory" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">카카오 스토리 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="band" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">밴드 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="naver" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">네이버 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="line" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">네이버 라인 공유하기</a></li>
+                    <li><a href="javascript:;" data-toggle="sns-share" data-service="link" data-url="<?=current_url()?>" data-title="<?=$this->site->meta_title?>">현재 링크 복사하기</a></li>
                 </ul>
             </div>
         </div>

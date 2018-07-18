@@ -40,6 +40,7 @@ var theme = {
         ]
     },
     commonJs : [
+        "node_modules/clipboard/dist/clipboard.js",
         "_src/plugins/jquery-blockUI/jquery.blockUI.js",
         "_src/plugins/jquery-cookie/jquery.cookie.js",
         "_src/plugins/toastr/toastr.js",

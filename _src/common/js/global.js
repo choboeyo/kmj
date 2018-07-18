@@ -98,7 +98,7 @@ $('[data-toggle="btn-popup-close"]').click(function(e){
 /**
  * SNS 공유
  */
-$("a[data-toggle='sns-share']").click(function(e){
+$("a[data-toggle='sns-share']").not('[data-service="link"]').click(function(e){
     e.preventDefault();
 
     var _this = $(this);
@@ -140,4 +140,15 @@ $("a[data-toggle='sns-share']").click(function(e){
     }
     APP.POPUP({ url : loc});
     return false;
+});
+
+$(function(){
+    var clipboard = new ClipboardJS('a[data-toggle="sns-share"][data-service="link"]', {
+        text: function(trigger) {
+            return trigger.getAttribute('data-url');
+        }
+    });
+    clipboard.on('success', function(){
+        alert('현재 URL이 복사되었습니다.');
+    });
 });
