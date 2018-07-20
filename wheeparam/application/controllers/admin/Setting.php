@@ -108,7 +108,7 @@ class Setting extends WB_Controller {
             $this->data['active'] = $param;
 
             // 탭리스트
-            $query = $this->db->query('SELECT SUBSTRING_INDEX(loc_key,"/",1) AS `keys` FROM wbk_localize GROUP BY SUBSTRING_INDEX(loc_key,"/",1)');
+            $query = $this->db->query('SELECT SUBSTRING_INDEX(loc_key,"/",1) AS `keys` FROM wb_localize GROUP BY SUBSTRING_INDEX(loc_key,"/",1)');
             $this->data['tab_list'] = $query->result_array();
 
             // 메타태그 설정

@@ -26,7 +26,7 @@
                     <td class="text-center"><?=number_format($row['nums'])?></td>
                     <td>
                         <?php if(strlen($row['post_reply']) >0) :?>
-                            <span style="display:inline-block;width:<?=((strlen($post['post_reply'])-1) * 16)?>px"></span>
+                            <span style="display:inline-block;width:<?=((strlen($row['post_reply'])-1) * 16)?>px"></span>
                             <img src="<?=base_url('assets/images/common/icon_reply.gif')?>">
                         <?php endif;?>
                         <a href="<?=base_url("admin/board/read/{$board['brd_key']}/{$row['post_idx']}/?").http_build_query($this->input->get()) ?>"><?=$row['post_title']?></a>
