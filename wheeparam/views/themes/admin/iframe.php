@@ -14,4 +14,5 @@ $this->site->add_js("/assets/js/admin.min.js", TRUE);
 </style>
 <div class="frame-content">
 <?=$contents?>
+    <div class="clearfix"></div>
 </div>
