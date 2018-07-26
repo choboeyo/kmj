@@ -1267,5 +1267,5 @@ function db_file_delete($table, $pk_column, $pk, $filepath_column)
  */
 function get_post_summary($post_content="", $length=300)
 {
-    return cut_str( trim( strip_tags($post_content) ) ,$length);
+    return cut_str( trim( strip_tags( str_replace("&nbsp;", " ", $post_content)) ) ,$length);
 }
