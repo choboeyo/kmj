@@ -28,7 +28,7 @@
 }
 
 // background Image
-@mixin background-image( $image_url, $bg_color:transparent, $background-repeat:no-repat, $background-position-x:center, $background-position-y:center )
+@mixin background-image( $image_url, $bg_color:transparent, $background-repeat:no-repeat, $background-position-x:center, $background-position-y:center )
 {
   background-color:$bg_color;
   background-image:url($image_url);
