@@ -131,7 +131,7 @@ class Board extends WB_Controller {
 
         $this->view = "view";
         $this->skin_type = "board/view";
-        $this->skin = $this->data['board']['brd_skin_w'];
+        $this->skin = $this->data['board']['brd_skin_v'];
     }
 
     /**

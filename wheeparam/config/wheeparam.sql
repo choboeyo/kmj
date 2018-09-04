@@ -625,6 +625,13 @@ CREATE TABLE `wb_statics_date` (
   PRIMARY KEY (`std_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `wb_uniqid`;
+Create Table `wb_uniqid` (
+  `uq_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uq_ip` int(10) unsigned NOT NULL,
+PRIMARY KEY (`uq_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 # VIEW 생성
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `wb_board_post_new` AS (SELECT  `wb_board_post`.`brd_key` AS `brd_key`, count(*) AS `new_cnt` from `wb_board_post` where ((`wb_board_post`.`post_regtime` > (now() + interval - (24)hour))  and (`wb_board_post`.`post_status` = 'Y')) group by `wb_board_post`.`brd_key`);

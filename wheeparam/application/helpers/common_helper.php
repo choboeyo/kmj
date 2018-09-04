@@ -1269,3 +1269,35 @@ function get_post_summary($post_content="", $length=300)
 {
     return cut_str( trim( strip_tags( str_replace("&nbsp;", " ", $post_content)) ) ,$length);
 }
+
+
+/**
+ * 유일키 를 얻는다.
+ */
+function get_uniqid()
+{
+    $CI =& get_instance();
+    $tb = $CI->db->dbprefix('uniqid');
+
+    // 일주일 이상된 자료는 삭제한다.
+    $tmp_val =  date('YmdHis', strtotime('-1 weeks')) . '00';
+    $CI->db->where('uq_id <=', $tmp_val);
+    $CI->db->delete('uniqid');
+
+    $CI->db->query("LOCK TABLE {$tb} WRITE ");
+
+    $key = null;
+
+    while (1) {
+        // 년월일시분초에 100분의 1초 두자리를 추가함 (1/100 초 앞에 자리가 모자르면 0으로 채움)
+        $key = date('YmdHis') . sprintf('%02d', (int)(microtime()*100));
+        $ip_addr = ip2long($CI->input->ip_address());
+        $result = $CI->db->set('uq_id', $key)->set('uq_ip', $ip_addr)->insert('uniqid');
+        if ($result) break; // 쿼리가 정상이면 빠진다.
+        // insert 하지 못했으면 일정시간 쉰다음 다시 유일키를 만든다.
+        usleep(10000); // 100분의 1초를 쉰다
+    }
+    $CI->db->query(" UNLOCK TABLES ");
+
+    return $key;
+}

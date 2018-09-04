@@ -65,7 +65,7 @@
             <div data-ax-td class="width-100">
                 <div data-ax-td-label>내용</div>
                 <div data-ax-td-wrap>
-                    <div style="min-height:300px;">
+                    <div style="min-height:300px;line-height:1.4em">
                         <!-- S:첨부파일중 이미지 표시 -->
                         <?php foreach($view['file'] as $f) : if($f['att_is_image']!='Y') continue;?>
                             <figure style="margin-bottom:10px;">
