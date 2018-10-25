@@ -94,7 +94,7 @@ $nav-height : 59px;
         height:$nav-height;
         justify-content: center;
         align-items: center;
-        color:#282828;
+        color:#979797;
         font-size:0;
         font-weight:500;
         padding-left:0;
@@ -126,7 +126,7 @@ $nav-height : 59px;
 
       &.active {
         > a {
-          color:$color-primary;
+          color:#282828;
         }
       }
 
@@ -170,6 +170,10 @@ $nav-height : 59px;
       }
 
       &:hover {
+        > a {
+          color:#282828;
+        }
+
         > ul {
           height:auto;
           visibility: visible;
