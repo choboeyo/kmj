@@ -1,15 +1,26 @@
-// 색상 변수
-$color-primary : #282828;   // 메인 컬러
-$color-secondary : #282828; // 서브 컬러
+// 반응형 포인트
+$break-desktop : 1200px;
+$break-tablet : 992px;
+$break-mobile : 768px;
 
-$body-color : #212529;      // 기본 텍스트 색상
-$body-bg-color : #FFFFFF;   // 기본 배경 색상
+// 색상 변수
+$color-primary : #5399ea;   // 메인 컬러
+$color-secondary : #404040; // 서브 컬러
+$color-success : #1ffd32;
+$color-info : #3498db;
+$color-warning : #ffb802;
+$color-danger : #e32815;
+$color-light : #f8f9fa;
+$color-dark : #343a40;
+
+$body-color : #282828;      // 기본 텍스트 색상
+$body-bg-color : #f4f8f9;   // 기본 배경 색상
 
 $link-color : $body-color;          // 링크 텍스트 색상
 $link-hover-color : $color-primary; // 링크 오버시 텍스트 색상
 
 // 폰트 관련
-$font-family-base : 나눔고딕,NanumGothic,NanumGothicWeb,'나눔 고딕',sans-serif;     // 기본글자에 사용 되는 폰트
+$font-family-base : 'Noto Sans KR',sans-serif;     // 기본글자에 사용 되는 폰트
 $font-family-heading : $font-family-base;                                           // 헤딩태그에 사용 되는 폰트
 $font-size-base   : 14px;
 $font-weight-base : 400;
@@ -19,39 +30,50 @@ $line-height-base : 1.5em;
 // 애니메이션
 $default-animation : ease;
 
-// 반응형 포인트
-$break-desktop : 1200px;
-$break-tablet : 992px;
-$break-mobile : 768px;
-
 // 테이블 관련
 $table-cell-padding:          .75rem !default;
 $table-cell-padding-sm:       .3rem !default;
 
-// Default Button 색상 지정
-$btn-default-text : #242424;
-$btn-default-bg : #fff;
-$btn-default-border : #8f8f8f;
-$btn-default-hover-bg : #e6e6e6;
-$btn-default-hover-border : #4f4f4f;
+// 버튼 및 INPUT
+$input-btn-padding-y  : $font-size-base * 0.375 !default; // 상하
+$input-btn-padding-x  : $font-size-base * 0.75 !default; // 좌우
+$input-btn-font-size  : $font-size-base !default;
+$input-btn-line-height: $line-height-base !default;
+$input-btn-border-radius : 4px !default;
 
-// Primary Button 색상 지정
-$btn-primary-text : #fff;
-$btn-primary-bg : #3498db;
-$btn-primary-border : #616161;
-$btn-primary-hover-bg : #256d9c;
-$btn-primary-hover-border : #000;
+$input-btn-padding-y-xs:      $font-size-base * 0.125 !default;
+$input-btn-padding-x-xs:      $font-size-base * 0.25 !default;
+$input-btn-font-size-xs:      $font-size-base * 0.75 !default;
+$input-btn-line-height-xs:    $line-height-base !default;
+$input-btn-border-radius-xs : 2px !default;
 
-// Warning Button 색상 지정
-$btn-warning-text : #242424;
-$btn-warning-bg : #FFB802;
-$btn-warning-border : #b58200;
-$btn-warning-hover-bg : #ce9400;
-$btn-warning-hover-border : #352600;
+$input-btn-padding-y-sm:      $font-size-base * 0.25 !default;
+$input-btn-padding-x-sm:      $font-size-base * 0.5 !default;
+$input-btn-font-size-sm:      $font-size-base * 0.875 !default;
+$input-btn-line-height-sm:    $line-height-base !default;
+$input-btn-border-radius-sm : 3px !default;
 
-// Danger Button 색상 지정
-$btn-danger-text : #fff;
-$btn-danger-bg : #e32815;
-$btn-danger-border : #e37170;
-$btn-danger-hover-bg : #e34249;
-$btn-danger-hover-border : #e37170;
+$input-btn-padding-y-lg:      $font-size-base * 0.5 !default;
+$input-btn-padding-x-lg:      $font-size-base !default;
+$input-btn-font-size-lg:      $font-size-base * 1.25 !default;
+$input-btn-line-height-lg:    $line-height-base !default;
+$input-btn-border-radius-lg : 6px !default;
+
+$theme-colors: () !default;
+$theme-colors: map-merge((
+        "primary":    $color-primary,
+        "secondary":  $color-secondary,
+        "success":    $color-success,
+        "info":       $color-info,
+        "warning":    $color-warning,
+        "danger":     $color-danger,
+        "light" : $color-light,
+        "dark" : $color-dark,
+        "default" : $color-light
+), $theme-colors);
+
+$brand-primary : $color-primary;
+$brand-success : $color-success;
+$brand-info : $color-info;
+$brand-warning : $color-warning;
+$brand-danger : $color-danger;

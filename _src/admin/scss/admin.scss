@@ -13,21 +13,27 @@
 
 // 각종 컴포넌트
 @import "components/buttons";
+@import "components/dropdown";
 @import "components/grid";
 @import "components/form";
 
 // 각종 플러그인 SCSS 및 플러그인 커스텀
-@import "plugins/bootstrap_custom";
 @import "plugins/jquery_ui";
-@import "plugins/plugins_custom";
-@import "plugins/toastr";
 @import "plugins/fontawesome5/fontawesome";
 @import "plugins/fontawesome5/fa-regular";
 @import "plugins/fontawesome5/fa-light";
 @import "plugins/fontawesome5/fa-solid";
 @import "plugins/fontawesome5/fa-brands";
-@import "plugins/modal";
 @import "plugins/jquery.datetimepicker.css";
+@import "plugins/ax5ui/ax5";
+@import "plugins/ax5ui/ax5grid";
+@import "plugins/ax5ui/ax5mask";
+@import "plugins/ax5ui/ax5modal";
+@import "plugins/ax5ui/ax5toast";
+@import "plugins/ax5ui/ax5calendar";
+@import "plugins/ax5ui/ax5picker";
+@import "plugins/plugins_custom";
 
 // 각 페이지 SCSS 파일
 @import "pages/login";
+

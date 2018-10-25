@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 class="page-title">회원 로그인 기록</h1>
+    <h1 class="page-title">회원 로그인 기록<small>회원 관리 &gt; 회원 로그인 기록</small></h1>
 </div>
 
 <?=form_open(NULL, array("method"=>'get', 'class'=>'form-flex'))?>
@@ -24,7 +24,7 @@
 <div class="form-group">
     <label class="control-label control-label-sm"></label>
     <div class="controls">
-        <button class="btn btn-default"><i class="far fa-search"></i> 필터적용</button>
+        <button class="btn btn-primary"><i class="fal fa-search"></i> 필터적용</button>
     </div>
 </div>
 <?=form_close()?>

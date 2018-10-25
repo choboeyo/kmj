@@ -1,7 +1,34 @@
-@mixin admin_clearfix{
-  display:table;
-  content:'';
+// Clear FIX
+@mixin clear-fix() {
+  display:block;
   clear:both;
+  content:"";
+}
+
+@mixin clear-fix-after() {
+  &:after {
+    display:block;
+    clear:both;
+    content:"";
+  }
+}
+
+// Global Transition
+@mixin transition($second:.3s, $target:all, $animation:$default-animation)
+{
+  -webkit-transition: $target $second $animation;
+  -moz-transition: $target $second $animation;
+  -ms-transition: $target $second $animation;
+  -o-transition: $target $second $animation;
+  transition: $target $second $animation;
+}
+
+// Display flex & Prefix
+@mixin display-flex()
+{
+  -webkit-display:flex;
+  display:-ms-flex;
+  display:flex;
 }
 
 @mixin background-gradient($start, $end )
@@ -11,44 +38,46 @@
   background-image: linear-gradient(to bottom,$start, $end);
 }
 
-@mixin button-generator($txt-color, $bg-color, $border-color, $hover-color, $hover-border-color )
-{
-  color: $txt-color;
-  background-color: $bg-color;
-  border-color: $border-color;
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+}
 
-  &:focus, &.focus {
-    color: $txt-color;
-    background-color: $hover-color;
-    border-color: $border-color;
-  }
+@mixin button-variant($background, $border, $hover-background: darken($background, 7.5%), $hover-border: darken($border, 10%), $active-background: darken($background, 10%), $active-border: darken($border, 12.5%)) {
+  color: color-yiq($background);
+  background-color:$background;
+  border-color: $border;
+
   &:hover {
-    color: $txt-color;
-    background-color: $hover-color;
-    border-color: $hover-border-color;
-  }
-  &:active, &.active, .open > &.dropdown-toggle {
-    color: $txt-color;
-    background-color: $hover-color;
-    border-color: $hover-border-color;
+    color: color-yiq($hover-background);
+    background-color :$hover-background;
+    border-color: $hover-border;
   }
 
-  &:active:hover, &:active:focus, &:active.focus, &.active:hover, &.active:focus, &.active.focus, .open > &.dropdown-toggle:hover, .open > &.dropdown-toggle:focus, .open > &.dropdown-toggle.focus {
-    color: $txt-color;
-    background-color: $hover-color;
-    border-color: $hover-border-color;
+  &:focus,
+  &.focus {
+
   }
 
-  &:active, &.active, .open > &.dropdown-toggle {
-    background-image: none;
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    color: color-yiq($background);
+    background-color: $background;
+    border-color: $border;
   }
 
-  &.disabled:hover, &.disabled:focus, &.disabled.focus, &[disabled]:hover, &[disabled]:focus, &[disabled].focus, fieldset[disabled] &:hover, fieldset[disabled] &:focus, fieldset[disabled] &.focus {
-    background-color: #fff;
-    border-color: #8f8f8f;
-  }
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: color-yiq($active-background);
+    background-color: $active-background;
+    border-color: $active-border;
 
-  .badge {
-    color: #fff; background-color: #242424;
+    &:focus {
+
+    }
   }
 }

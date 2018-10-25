@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 class="page-title">팝업 관리</h1>
+    <h1 class="page-title">팝업 관리<small>사이트 관리 &gt; 팝업관리</small></h1>
 </div>
 
 <div class="H10"></div>
@@ -8,7 +8,7 @@
         <h4>팝업 관리</h4>
     </div>
     <div class="right">
-        <a class="btn btn-default" href="<?=base_url('admin/management/popup_form')?>"><i class="far fa-plus-circle"></i> 신규 팝업 등록</a>
+        <a class="btn btn-secondary" href="<?=base_url('admin/management/popup_form')?>"><i class="far fa-plus-circle"></i> 신규 팝업 등록</a>
     </div>
 </div>
 

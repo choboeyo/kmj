@@ -13,14 +13,22 @@
   "author": "휘파람 소프트",
   "license": "ISC",
   "devDependencies": {
+    "ax5ui-calendar": "^1.4.126",
+    "ax5ui-formatter": "^1.4.126",
+    "ax5ui-picker": "^1.4.126",
+    "ax5ui-toast": "^1.4.126",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.4",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0",
     "gulp-sass": "^3.2.1",
-    "gulp-size": "^3.0.0"
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.4"
   },
   "dependencies": {
+    "ax5core": "^1.4.126",
+    "ax5ui-mask": "^1.4.126",
+    "ax5ui-modal": "^1.4.126",
     "clipboard": "^2.0.1"
   }
 }

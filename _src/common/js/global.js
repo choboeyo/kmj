@@ -3,32 +3,6 @@
  ***********************************************************************************/
 if(!window.console || !window.console.log) {window.console = {log : function(){}};}
 
-
-/***********************************************************************************
- * AJAX Error 및 BlockUI 처리
- ***********************************************************************************/
-$(function(){
-    $(document).ajaxError(function(event, request, settings){
-        var message = '알수없는 오류가 발생하였습니다.';
-        if( typeof request.responseJSON != 'undefined' && typeof request.responseJSON.message != 'undefined' ) {
-            message = request.responseJSON.message;
-        }
-        else {
-            if( request.status == 500 ) message = '서버 코드 오류가 발생하였습니다.\n관리자에게 문의하세요';
-            else if ( request.status == 401 ) message = '해당 명령을 실행할 권한이 없습니다.';
-        }
-        toastr.error(message, '오류 발생');
-    }).ajaxStart(function(){
-        $.blockUI({
-            css: {width:'25px',top:'49%',left:'49%',border:'0px none',backgroundColor:'transparent',cursor:'wait'},
-            message : '<img src="/assets/images/common/ajax-loader.gif" alt="로딩중">',
-            baseZ : 10000,
-            overlayCSS : {opacity : 0}
-        });
-    }).ajaxComplete(function(){
-        $.unblockUI();
-    });
-});
 var APP = {};
 APP.POPUP = null;
 APP.REGEX = {};

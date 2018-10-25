@@ -1,0 +1,70 @@
+{
+  "destPath" : {
+    "root" : "public_html",
+    "assets" : "assets",
+    "css" : "css",
+    "js" : "js"
+  },
+  "source" : {
+    "commonJs" : [
+      "node_modules/clipboard/dist/clipboard.js",
+      "_src/plugins/jquery-cookie/jquery.cookie.js",
+      "_src/common/js/global.js",
+      "_src/common/js/member.js",
+      "_src/common/js/board.js"
+    ],
+    "desktop" : {
+      "css" : [
+        "_src/desktop/scss/desktop.scss"
+      ],
+      "js" : [
+        "_src/desktop/js/common.js"
+      ]
+    },
+    "mobile" : {
+      "css" : [
+        "_src/mobile/scss/mobile.scss"
+      ],
+      "js" : [
+        "_src/mobile/js/mobile.js"
+      ]
+    },
+    "admin" : {
+      "css": ["_src/admin/scss/admin.scss"],
+      "js": [
+        "node_modules/ax5core/dist/ax5core.js",
+        "node_modules/ax5ui-formatter/dist/ax5formatter.js",
+        "node_modules/ax5ui-mask/dist/ax5mask.js",
+        "node_modules/ax5ui-modal/dist/ax5modal.js",
+        "node_modules/ax5ui-toast/dist/ax5toast.js",
+        "node_modules/ax5ui-calendar/dist/ax5calendar.js",
+        "node_modules/ax5ui-picker/dist/ax5picker.js",
+        "_src/plugins/jquery-datetimepicker/jquery.datetimepicker.full.js",
+        "_src/plugins/jquery-blockUI/jquery.blockUI.js",
+        "_src/admin/js/jquery.formatter.js",
+        "_src/admin/js/jquery.tmpl.js",
+        "_src/admin/js/admin.js",
+        "_src/admin/js/modules/components.js",
+        "_src/admin/js/modules/modal.js",
+        "_src/admin/js/modules/toast.js",
+        "_src/admin/js/modules/board.js",
+        "_src/admin/js/modules/faq.js",
+        "_src/admin/js/modules/member.js"
+      ]
+    }
+  },
+  "watch" : {
+    "desktop" : {
+      "css" : ["_src/desktop/scss/*.scss","_src/desktop/scss/**/*.scss"],
+      "js" : ["_src/common/js/*.js","_src/common/js/**/*.js","_src/desktop/js/*.js","_src/desktop/js/**/*.js"]
+    },
+    "mobile" : {
+      "css" : ["_src/mobile/scss/*.scss","_src/mobile/scss/**/*.scss"],
+      "js" : ["_src/common/js/*.js","_src/common/js/**/*.js","_src/mobile/js/*.js","_src/mobile/js/**/*.js"]
+    },
+    "admin" : {
+      "css" : ["_src/admin/scss/*.scss","_src/admin/scss/**/*.scss"],
+      "js" : ["_src/common/js/*.js","_src/common/js/**/*.js","_src/admin/js/*.js","_src/admin/js/**/*.js"]
+    }
+  }
+}

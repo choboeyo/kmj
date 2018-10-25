@@ -1,5 +1,6 @@
 
-/* 버튼그룹 */
+
+//버튼그룹
 .ax-button-group {
   display: table;
   width: 100%;
@@ -56,10 +57,7 @@
 
   [data-ax-tr] {
     border-bottom: 1px solid #D8D8D8;
-
-    &:after {
-      @include admin_clearfix;
-    }
+    @include clear-fix-after();
 
     [data-ax-td] {
       float: left;

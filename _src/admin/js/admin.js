@@ -1,76 +1,58 @@
+/***********************************************************************************
+ * 관리자 페이지 초기화
+ ***********************************************************************************/
 APP.init = function(){
-    APP.initPage();
+    APP.initAjaxDefaultSetting();
     APP.initMenu();
-    APP.initMask();
-    APP.initModal();
+    APP.initAx5();
     APP.initPlugins();
     APP.initCheckboxAll();
 };
 
-APP.initPage = function(){
-    if( $('body').height() < $(window).height() )
-    {
-        $('html,body').css('height', '100%');
-    }
+/***********************************************************************************
+ * AJAX Error 및 BlockUI 처리
+ ***********************************************************************************/
+APP.initAjaxDefaultSetting = function() {
+    $(document).ajaxError(function(event, request, settings){
+        var message = '알수없는 오류가 발생하였습니다.';
+        if( typeof request.responseJSON != 'undefined' && typeof request.responseJSON.message != 'undefined' ) {
+            message = request.responseJSON.message;
+        }
+        else {
+            if( request.status == 500 ) message = '서버 코드 오류가 발생하였습니다.\n관리자에게 문의하세요';
+            else if ( request.status == 401 ) message = '해당 명령을 실행할 권한이 없습니다.';
+        }
+        toastr.error(message, '오류 발생');
+    }).ajaxStart(function(){
+        $.blockUI({
+            css: {width:'25px',top:'49%',left:'49%',border:'0px none',backgroundColor:'transparent',cursor:'wait'},
+            message : '<img src="/assets/images/common/ajax-loader.gif" alt="로딩중">',
+            baseZ : 10000,
+            overlayCSS : {opacity : 0}
+        });
+    }).ajaxComplete(function(){
+        $.unblockUI();
+    });
 };
 
+/***********************************************************************************
+ * 메뉴관련 초기화
+ ***********************************************************************************/
 APP.initMenu = function(){
-    $('.btn-menu-toggle').click(function(e){
-        $('#left-panel').toggleClass('opened');
-        $('#left-panel').niceScroll().resize();
-    });
+    $('#nav .main-navigation li').each(function(){
+       var $this = $(this);
+       var menuCode = $this.data('active');
 
-
-    $('#main .main').niceScroll({
-        cursorborder : "1px solid rgba(0,0,0, 0.15)",
-        cursorwidth : '12px',
-        cursorcolor : 'rgba(0,0,0, 0.5)'
-    });
-
-    $('#left-panel').niceScroll({
-        cursorborder : "1px solid rgba(0,0,0, 0.15)",
-        cursorwidth : '12px',
-        cursorcolor : 'rgba(0,0,0, 0.5)'
-    });
-
-    $("#left-panel li").each(function(){
-        if( $(this).data('active') && $(this).data('active') == menuActive)
-        {
-            $(this).addClass('active');
-            $(this).parents('li').addClass('open');
-            $(this).parents('ul').show();
-        }
-    });
-
-    $('#left-panel #main-navigation a.parent').click(function(e){
-        e.preventDefault();
-        $(this).parent().toggleClass('open');
-        $('#left-panel').niceScroll().resize();
+       if(menuCode == menuActive)
+       {
+           $(this).addClass('active');
+           $(this).parents('li').addClass('active');
+       }
     });
 };
 
 APP.initPlugins = function() {
-
-    $.datepicker.regional['ko'] = {
-        closeText: '닫기',
-        prevText: '이전달',
-        nextText: '다음달',
-        currentText: '오늘',
-        monthNames: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-        monthNamesShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-        dayNames: ['일','월','화','수','목','금','토'],
-        dayNamesShort: ['일','월','화','수','목','금','토'],
-        dayNamesMin: ['일','월','화','수','목','금','토'],
-        weekHeader: 'Wk',
-        dateFormat: 'yy-mm-dd',
-        firstDay: 0,
-        isRTL: false,
-        showMonthAfterYear: true,
-        yearSuffix: ''
-    };
-
-    $.datepicker.setDefaults($.datepicker.regional['ko']);
-
+    /*
     $('[data-toggle="datepicker"]').datepicker();
 
     $("body").on("click", '[data-toggle="datepicker"]', function(){
@@ -95,6 +77,7 @@ APP.initPlugins = function() {
     $('[data-toggle="datetimepicker"]').datetimepicker({
         format:'Y-m-d H:i'
     });
+    */
 };
 
 APP.initCheckboxAll = function(){
@@ -117,19 +100,13 @@ APP.initCheckboxAll = function(){
 /**********************************************************************************************************************
  * MODAL 관련
  *********************************************************************************************************************/
-APP.MASK = null;
-APP.MASK2 = null;
-APP.modal = null;
-APP.modal2 = null;
-APP.initMask = function(){
+APP.initAx5 = function(){
     APP.MASK = new ax5.ui.mask({
-        zIndex: 1000
-    });
+        zIndex: 1000}
+        );
     APP.MASK2 = new ax5.ui.mask({
         zIndex: 2000
     });
-};
-APP.initModal = function() {
     APP.modal = new ax5.ui.modal({
         absolute: true,
         iframeLoadingMsg: '<i class="far fa-spinner"></i>'
@@ -138,201 +115,12 @@ APP.initModal = function() {
         absolute: true,
         iframeLoadingMsg: '<i class="far fa-spinner"></i>'
     });
+    APP.toast = new ax5.ui.toast({
+        containerPosition: "top-right",
+        closeIcon: '<i class="far fa-times"></i>'
+    });
 };
-APP.MODAL = function() {
-    var modalCallback = {};
 
-    var defaultCss = {
-        width: 400,
-        height: 400,
-        position: {
-            left: "center",
-            top: "middle"
-        }
-    };
-
-    var defaultOption = $.extend(true, {}, defaultCss, {
-        iframeLoadingMsg: "",
-        iframe: {
-            method: "get",
-            url: "#"
-        },
-        closeToEsc: true,
-        onStateChanged: function onStateChanged() {
-            // mask
-            if (this.state === "open") {
-                APP.MASK.open();
-            } else if (this.state === "close") {
-                APP.MASK.close();
-            }
-        },
-        animateTime: 100,
-        zIndex: 1001,
-        absolute: true,
-        fullScreen: false,
-        header: {
-            title: "새로운 윈도우",
-            btns: {
-                close: {
-                    label: '<i class="far fa-times"></i>', onClick: function onClick() {
-                        APP.MODAL.callback();
-                    }
-                }
-            }
-        }
-    });
-
-    var open = function(modalConfig) {
-
-        modalConfig = $.extend(true, {}, defaultOption, modalConfig);
-        $(document.body).addClass("modalOpened");
-
-        this.modalCallback = modalConfig.callback;
-        this.modalSendData = modalConfig.sendData;
-
-        APP.modal.open(modalConfig);
-    };
-
-    var css = function css(modalCss) {
-        modalCss = $.extend(true, {}, defaultCss, modalCss);
-        APP.modal.css(modalCss);
-    };
-    var align = function align(modalAlign) {
-        APP.modal.align(modalAlign);
-    };
-    var close = function close(data) {
-        APP.modal.close();
-        setTimeout(function () {
-            $(document.body).removeClass("modalOpened");
-        }, 500);
-    };
-    var minimize = function minimize() {
-        APP.modal.minimize();
-    };
-    var maximize = function maximize() {
-        APP.modal.maximize();
-    };
-    var callback = function callback(data) {
-        if (this.modalCallback) {
-            this.modalCallback(data);
-        }
-        this.close(data);
-    };
-    var getData = function getData() {
-        if (this.modalSendData) {
-            return this.modalSendData();
-        }
-    };
-
-    return {
-        "open": open,
-        "css": css,
-        "align": align,
-        "close": close,
-        "minimize": minimize,
-        "maximize": maximize,
-        "callback": callback,
-        "modalCallback": modalCallback,
-        "getData": getData
-    };
-}();
-APP.MODAL2 = function() {
-    var modalCallback = {};
-
-    var defaultCss = {
-        width: 400,
-        height: 400,
-        position: {
-            left: "center",
-            top: "middle"
-        }
-    };
-
-    var defaultOption = $.extend(true, {}, defaultCss, {
-        iframeLoadingMsg: "",
-        iframe: {
-            method: "get",
-            url: "#"
-        },
-        closeToEsc: true,
-        onStateChanged: function onStateChanged() {
-            // mask
-            if (this.state === "open") {
-                APP.MASK2.open();
-            } else if (this.state === "close") {
-                APP.MASK2.close();
-            }
-        },
-        animateTime: 100,
-        zIndex: 2001,
-        absolute: true,
-        fullScreen: false,
-        header: {
-            title: "새로운 윈도우",
-            btns: {
-                close: {
-                    label: '<i class="far fa-times"></i>', onClick: function onClick() {
-                        APP.MODAL2.callback();
-                    }
-                }
-            }
-        }
-    });
-
-    var open = function(modalConfig) {
-
-        modalConfig = $.extend(true, {}, defaultOption, modalConfig);
-        $(document.body).addClass("modalOpened");
-
-        this.modalCallback = modalConfig.callback;
-        this.modalSendData = modalConfig.sendData;
-
-        APP.modal2.open(modalConfig);
-    };
-
-    var css = function css(modalCss) {
-        modalCss = $.extend(true, {}, defaultCss, modalCss);
-        APP.modal2.css(modalCss);
-    };
-    var align = function align(modalAlign) {
-        APP.modal2.align(modalAlign);
-    };
-    var close = function close(data) {
-        APP.modal2.close();
-        setTimeout(function () {
-            $(document.body).removeClass("modalOpened");
-        }, 500);
-    };
-    var minimize = function minimize() {
-        APP.modal2.minimize();
-    };
-    var maximize = function maximize() {
-        APP.modal2.maximize();
-    };
-    var callback = function callback(data) {
-        if (this.modalCallback) {
-            this.modalCallback(data);
-        }
-        this.close(data);
-    };
-    var getData = function getData() {
-        if (this.modalSendData) {
-            return this.modalSendData();
-        }
-    };
-
-    return {
-        "open": open,
-        "css": css,
-        "align": align,
-        "close": close,
-        "minimize": minimize,
-        "maximize": maximize,
-        "callback": callback,
-        "modalCallback": modalCallback,
-        "getData": getData
-    };
-}();
 
 $(function(){
     APP.init();

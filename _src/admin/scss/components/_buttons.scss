@@ -1,111 +1,87 @@
 .btn {
   display: inline-block;
-  margin-bottom: 0;
-  font-weight: 500;
+  font-weight: 400;
+  color: $body-color;
   text-align: center;
   vertical-align: middle;
-  touch-action: manipulation;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  padding: 3px 7px;
-  font-size: 13px;
-  line-height: 1.42857;
-  border-radius: 5px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  @include button-size( $input-btn-padding-y , $input-btn-padding-x, $input-btn-font-size, $input-btn-line-height, $input-btn-border-radius );
+  @include transition();
 
-  &:focus,
-  &.focus,
-  &:active:focus,
-  &:active.focus,
-  &.active:focus,
-  &.active.focus {
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-  }
-
-  &:hover,
-  &:focus,
-  &.focus {
-    color: #242424;
+  &:hover {
+    color: $body-color;
     text-decoration: none;
   }
 
-  &:active,
-  &.active {
+  &:focus,
+  &.focus {
     outline: 0;
-    background-image: none;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow:none;
   }
 
   &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    cursor: not-allowed; opacity: 0.65; filter: alpha(opacity=65); box-shadow: none;
+  &:disabled {
+    opacity: 0.4;
+    box-shadow:none;
   }
 
-  &a.disabled,
-  fieldset[disabled] &a {
-    pointer-events: none;
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
   }
 
-  &.btn-default,
-  &.btn-white {
-    @include button-generator(#fff, hsla(0,0%,100%,.25), transparent, hsla(0,0%,100%,.3), transparent);
-  }
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    &:focus {
 
-  &.btn-primary {
-    @include button-generator(#fff, #cc7b19, transparent, #b56d16, transparent);
+    }
   }
+}
 
-  &.btn-warning {
-    @include button-generator($btn-warning-text, $btn-warning-bg, $btn-warning-border, $btn-warning-hover-bg, $btn-warning-hover-border);
+// Future-proof disabling of clicks on `<a>` elements
+a.btn.disabled,
+fieldset:disabled a.btn {
+  pointer-events: none;
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
   }
+}
 
-  &.btn-danger {
-    @include button-generator($btn-danger-text, $btn-danger-bg, $btn-danger-bg, $btn-danger-hover-bg, $btn-danger-hover-bg);
+.btn-xs {
+  @include button-size($input-btn-padding-y-xs, $input-btn-padding-x-xs, $input-btn-font-size-xs, $input-btn-line-height-xs, $input-btn-border-radius-xs);
+}
+
+.btn-lg {
+  @include button-size($input-btn-padding-y-lg, $input-btn-padding-x-lg, $input-btn-font-size-lg, $input-btn-line-height-lg, $input-btn-border-radius-lg);
+}
+
+.btn-sm {
+  @include button-size($input-btn-padding-y-sm, $input-btn-padding-x-sm, $input-btn-font-size-sm, $input-btn-line-height-sm, $input-btn-border-radius-sm);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  + .btn-block {
+    margin-top: 10px;
   }
+}
 
-  &.btn-lg,
-  .btn-group-lg > & {
-    padding: 6px 12px;
-    font-size: 17px;
-    line-height: 1.33333;
-    border-radius: 5px;
-  }
-
-  &.btn-sm,
-  .btn-group-sm > & {
-    padding: 2px 4px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 2px;
-  }
-
-  &.btn-xs,
-  .btn-group-xs > & {
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 2px;
-  }
-
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
   &.btn-block {
-    display:block;
-    width:100%;
-
-    + .btn-block {
-      margin-top: 5px;
-    }
-
-    &input[type="submit"],
-    &input[type="reset"],
-    &input[type="button"] {
-      width: 100%;
-    }
+    width: 100%;
   }
+}
+
+.btn-group {
+  display:inline-block;
+  position:relative;
 }
