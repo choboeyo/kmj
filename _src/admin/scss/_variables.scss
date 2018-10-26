@@ -35,27 +35,27 @@ $table-cell-padding:          .75rem !default;
 $table-cell-padding-sm:       .3rem !default;
 
 // 버튼 및 INPUT
-$input-btn-padding-y  : $font-size-base * 0.375 !default; // 상하
-$input-btn-padding-x  : $font-size-base * 0.75 !default; // 좌우
-$input-btn-font-size  : $font-size-base !default;
+$input-btn-padding-y  : 7px !default; // 상하
+$input-btn-padding-x  : 24px !default; // 좌우
+$input-btn-font-size  : 15px !default;
 $input-btn-line-height: $line-height-base !default;
 $input-btn-border-radius : 4px !default;
 
-$input-btn-padding-y-xs:      $font-size-base * 0.125 !default;
-$input-btn-padding-x-xs:      $font-size-base * 0.25 !default;
-$input-btn-font-size-xs:      $font-size-base * 0.75 !default;
+$input-btn-padding-y-xs:      4px !default;
+$input-btn-padding-x-xs:      12px !default;
+$input-btn-font-size-xs:      11px !default;
 $input-btn-line-height-xs:    $line-height-base !default;
 $input-btn-border-radius-xs : 2px !default;
 
-$input-btn-padding-y-sm:      $font-size-base * 0.25 !default;
-$input-btn-padding-x-sm:      $font-size-base * 0.5 !default;
-$input-btn-font-size-sm:      $font-size-base * 0.875 !default;
+$input-btn-padding-y-sm:      6.5px !default;
+$input-btn-padding-x-sm:      17px !default;
+$input-btn-font-size-sm:      13px !default;
 $input-btn-line-height-sm:    $line-height-base !default;
 $input-btn-border-radius-sm : 3px !default;
 
-$input-btn-padding-y-lg:      $font-size-base * 0.5 !default;
-$input-btn-padding-x-lg:      $font-size-base !default;
-$input-btn-font-size-lg:      $font-size-base * 1.25 !default;
+$input-btn-padding-y-lg:      12px !default;
+$input-btn-padding-x-lg:      25px !default;
+$input-btn-font-size-lg:      15px !default;
 $input-btn-line-height-lg:    $line-height-base !default;
 $input-btn-border-radius-lg : 6px !default;
 
@@ -68,8 +68,7 @@ $theme-colors: map-merge((
         "warning":    $color-warning,
         "danger":     $color-danger,
         "light" : $color-light,
-        "dark" : $color-dark,
-        "default" : $color-light
+        "dark" : $color-dark
 ), $theme-colors);
 
 $brand-primary : $color-primary;

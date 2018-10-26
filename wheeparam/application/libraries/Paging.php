@@ -9,10 +9,10 @@ class Paging
     protected $display_always   = TRUE; // 페이지가 1페이지만 있어도 출력할건지 여부
     protected $fixed_page_num       = 10;    // 한번에 표시할 페이지 수
 
-    protected $first_link = "처음";     // [처음] 버튼에 표시할 문자
-    protected $next_link = '다음';               // [다음] 버튼에 표시할 문자
-    protected $prev_link = '이전';                // [이전] 버튼에 표시할 문자
-    protected $last_link = '마지막';    // [마지막] 버튼에 표시할 문자
+    protected $first_link = "<i class='far fa-chevron-double-left'></i>";     // [처음] 버튼에 표시할 문자
+    protected $next_link = '<i class="far fa-chevron-right"></i>';               // [다음] 버튼에 표시할 문자
+    protected $prev_link = '<i class="far fa-chevron-left"></i>';                // [이전] 버튼에 표시할 문자
+    protected $last_link = '<i class="far fa-chevron-double-right"></i>';    // [마지막] 버튼에 표시할 문자
 
     protected $full_tag_open = '<ul class="pagination pagination-sm">';   // 전체를 감싸는 여는 태그
     protected $full_tag_close = '</ul>';                    // 전체를 감싸는 닫는 태그

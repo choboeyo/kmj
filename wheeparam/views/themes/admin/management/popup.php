@@ -8,7 +8,7 @@
         <h4>팝업 관리</h4>
     </div>
     <div class="right">
-        <a class="btn btn-secondary" href="<?=base_url('admin/management/popup_form')?>"><i class="far fa-plus-circle"></i> 신규 팝업 등록</a>
+        <a class="btn btn-primary" href="<?=base_url('admin/management/popup_form')?>"><i class="far fa-plus-circle"></i> 신규 팝업 등록</a>
     </div>
 </div>
 
@@ -44,9 +44,9 @@
                 <label class="label label-default">미 표시중</label>
                 <?php endif;?>
             </td>
-            <td class="text-center W150">
-                <a class="btn btn-default btn-xs" href="<?=base_url('admin/management/popup_form/'.$row['pop_idx'])?>"><i class="far fa-pencil"></i> 수정</a>
-                <a class="btn btn-danger btn-xs" onclick="return confirm('해당 팝업을 삭제하시겠습니까?');" href="<?=base_url('admin/management/popup_delete/'.$row['pop_idx'])?>"><i class="far fa-trash"></i> 삭제</a>
+            <td class="text-center W200">
+                <a class="btn btn-default btn-sm" href="<?=base_url('admin/management/popup_form/'.$row['pop_idx'])?>"><i class="far fa-pencil"></i> 수정</a>
+                <a class="btn btn-danger btn-sm" onclick="return confirm('해당 팝업을 삭제하시겠습니까?');" href="<?=base_url('admin/management/popup_delete/'.$row['pop_idx'])?>"><i class="far fa-trash"></i> 삭제</a>
             </td>
         </tr>
         <?php endforeach;?>

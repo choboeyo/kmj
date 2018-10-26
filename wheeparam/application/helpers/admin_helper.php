@@ -4,7 +4,7 @@ function display_member_menu($mem_idx, $mem_name, $mem_status='Y')
     $CI =& get_instance();
 
     $str = '<div class="btn-group ML10 ">';
-    $str .= '<button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'.$mem_name.' <span class="caret"></span></button>';
+    $str .= '<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">'.$mem_name.' <i class="fas fa-angle-down"></i></button>';
     $str .= '<ul class="dropdown-menu dropdown-menu-dark">';
     $str .= '<li><a href="javascript:;" onclick="APP.MEMBER.POP_INFO_ADMIN('.$mem_idx.');">회원정보</a></li>';
     $str .= '<li><a href="javascript:;" onclick="APP.MEMBER.POP_MODIFY_ADMIN('.$mem_idx.');">정보수정</a></li>';

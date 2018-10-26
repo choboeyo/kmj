@@ -51,6 +51,10 @@ fieldset:disabled a.btn {
   }
 }
 
+.btn-default {
+  @include button-variant(#fff, #979797);
+}
+
 .btn-xs {
   @include button-size($input-btn-padding-y-xs, $input-btn-padding-x-xs, $input-btn-font-size-xs, $input-btn-line-height-xs, $input-btn-border-radius-xs);
 }
