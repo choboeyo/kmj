@@ -60,3 +60,10 @@
 .text-right {
   text-align:right !important;
 }
+
+
+@each $color, $value in $theme-colors {
+  .text-#{$color} {
+    color:$value;
+  }
+}

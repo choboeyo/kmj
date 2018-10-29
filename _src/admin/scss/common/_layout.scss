@@ -100,6 +100,7 @@ $nav-height : 59px;
         padding-left:0;
         padding-right:45px;
         position:relative;
+        font-family: NanumSquare;
 
         &:after {
           content:"\f107";
@@ -217,4 +218,35 @@ $nav-height : 59px;
   background:#fff;
   border-radius:4px;
   border:1px solid #e6e6e6;
+
+  .box-header {
+    border-bottom:1px solid #e6e6e6;
+    margin-bottom:15px;
+    margin-top:-30px;
+    position:relative;
+    height:57px;
+
+    @include clear-fix-after();
+
+    .box-title {
+      float:left;
+      color:$brand-primary;
+      font-size:15px;
+      font-weight:500;
+      padding:18px 0;
+
+      small {
+        color:#767676;
+        font-weight:400;
+        font-size:13px;
+      }
+    }
+
+    .box-action {
+      float:right;
+      @include display-flex();
+      height:57px;
+      align-items: center;
+    }
+  }
 }

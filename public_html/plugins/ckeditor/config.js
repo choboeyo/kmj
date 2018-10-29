@@ -7,7 +7,7 @@
 CKEDITOR.editorConfig = function( config ) {
     config.language = "ko";
     config.height = 350;
-    config.skin = typeof is_admin && is_admin ? 'moono-dark': "moono-lisa";
+    config.skin = "moono-lisa";
     config.allowedContent = true;
     config.extraPlugins= 'autoembed,image2,uploadimage,uploadfile,youtube';
     config.removePlugins= 'image';

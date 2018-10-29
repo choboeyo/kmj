@@ -51,6 +51,10 @@ fieldset:disabled a.btn {
   }
 }
 
+.btn-link {
+  padding:0;
+}
+
 .btn-default {
   @include button-variant(#fff, #979797);
 }

@@ -3,6 +3,9 @@
 </div>
 
 <div class="box">
+    <div class="box-header">
+        <h2 class="box-title">검색 필터</h2>
+    </div>
     <?=form_open(NULL, array("method"=>'get','class'=>'form-flex','autocomplete'=>'off'))?>
     <div data-ax-tbl>
         <div data-ax-tr>
@@ -61,13 +64,13 @@
         </div>
     </div>
     <?=form_close()?>
+</div>
 
     <div class="H10"></div>
 
-    <div class="ax-button-group">
-        <div class="left">
-            <h4>회원 검색결과 <small>(<?=number_format($member_list['total_count'])?> 명)</small></h4>
-        </div>
+<div class="box">
+    <div class="box-header">
+        <h4 class="box-title">회원 검색결과 <small>(<?=number_format($member_list['total_count'])?> 명)</small></h4>
     </div>
 
     <div data-ax5grid>

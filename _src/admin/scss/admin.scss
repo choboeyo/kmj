@@ -3,6 +3,7 @@
 // BASE
 @import "boot/mixins";
 @import "boot/function";
+@import "boot/fonts";
 @import "variables";
 @import "boot/reset";
 
@@ -31,8 +32,6 @@
 @import "plugins/ax5ui/ax5mask";
 @import "plugins/ax5ui/ax5modal";
 @import "plugins/ax5ui/ax5toast";
-@import "plugins/ax5ui/ax5calendar";
-@import "plugins/ax5ui/ax5picker";
 @import "plugins/plugins_custom";
 
 // 각 페이지 SCSS 파일

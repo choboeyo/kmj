@@ -52,7 +52,39 @@ APP.initMenu = function(){
 };
 
 APP.initPlugins = function() {
-    /*
+    $.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
+    $.datepicker._updateDatepicker = function(inst) {
+        $.datepicker._updateDatepicker_original(inst);
+        var afterShow = this._get(inst, 'afterShow');
+        if (afterShow)
+            afterShow.apply((inst.input ? inst.input[0] : null));
+    }
+    $.datepicker.regional['ko'] = {
+        closeText: '닫기',
+        prevText: '이전달',
+        nextText: '다음달',
+        currentText: '오늘',
+        monthNames: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+        dayNames: ['일','월','화','수','목','금','토'],
+        dayNamesShort: ['일','월','화','수','목','금','토'],
+        dayNamesMin: ['일','월','화','수','목','금','토'],
+        weekHeader: 'Wk',
+        dateFormat: 'yy-mm-dd',
+        firstDay: 0,
+        isRTL: false,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        yearSuffix: '',
+        afterShow: function() {
+            $('.ui-datepicker-prev').empty().append( '<i class="far fa-chevron-left"></i>' );
+            $('.ui-datepicker-next').empty().append( '<i class="far fa-chevron-right"></i>' );
+        }
+    };
+
+    $.datepicker.setDefaults($.datepicker.regional['ko']);
+
     $('[data-toggle="datepicker"]').datepicker();
 
     $("body").on("click", '[data-toggle="datepicker"]', function(){
@@ -63,6 +95,7 @@ APP.initPlugins = function() {
         }
     });
 
+    /*
     $('[data-toggle="formatter"]').each(function(){
         if( $(this).data('pattern') )
         {

@@ -1,3 +1,24 @@
+.row {
+  @include clear-fix-after();
+  &:before {
+    clear:both;
+    content:'';
+  }
+  margin:0 -15px;
+}
+
+@for $i from 1 to 13 {
+  .col-sm-#{$i},
+  .col-xs-#{$i},
+  .col-md-#{$i},
+  .col-lg-#{$i}{
+    float:left;
+    min-height:1px;
+    width: ( $i / 12 * 100% );
+    padding:0 15px;
+  }
+}
+
 [data-ax5grid] {
   margin:0;
   padding:0;
@@ -72,9 +93,9 @@
         padding: 0;
         position: relative;
         overflow: hidden;
-        background-color: rgba(0,0,0,.15);
-        border: 0px none;
-        color: #fff;
+        background-color: #f9f9f9;
+        border:1px solid #ddd;
+        color: #282828;
 
 
         td {
@@ -82,7 +103,7 @@
           overflow: hidden;
           position: relative;
           padding: 10px;
-          border: 0 none;
+          border:1px solid #ddd;
           height:38px;
           text-align:center;
 

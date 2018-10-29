@@ -13,9 +13,6 @@
   "author": "휘파람 소프트",
   "license": "ISC",
   "devDependencies": {
-    "ax5ui-calendar": "^1.4.126",
-    "ax5ui-formatter": "^1.4.126",
-    "ax5ui-picker": "^1.4.126",
     "ax5ui-toast": "^1.4.126",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.4",

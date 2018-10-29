@@ -20,8 +20,8 @@ $link-color : $body-color;          // 링크 텍스트 색상
 $link-hover-color : $color-primary; // 링크 오버시 텍스트 색상
 
 // 폰트 관련
-$font-family-base : 'Noto Sans KR',sans-serif;     // 기본글자에 사용 되는 폰트
-$font-family-heading : $font-family-base;                                           // 헤딩태그에 사용 되는 폰트
+$font-family-base : Gilroy,'Noto Sans KR',sans-serif;     // 기본글자에 사용 되는 폰트
+$font-family-heading : Gilroy, 'NanumSquare','나눔스퀘어',sans-serif;                                           // 헤딩태그에 사용 되는 폰트
 $font-size-base   : 14px;
 $font-weight-base : 400;
 $font-weight-bold : 700;
