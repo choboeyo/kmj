@@ -85,7 +85,12 @@ APP.initPlugins = function() {
 
     $.datepicker.setDefaults($.datepicker.regional['ko']);
 
-    $('[data-toggle="datepicker"]').datepicker();
+    $('[data-toggle="datepicker"]').each(function(){
+       $(this).formatter({
+           pattern : '{{9999}}-{{99}}-{{99}}',
+           persistent:true
+       }).datepicker();
+    });
 
     $("body").on("click", '[data-toggle="datepicker"]', function(){
         if (!$(this).hasClass("hasDatepicker"))
@@ -95,7 +100,6 @@ APP.initPlugins = function() {
         }
     });
 
-    /*
     $('[data-toggle="formatter"]').each(function(){
         if( $(this).data('pattern') )
         {
@@ -106,6 +110,7 @@ APP.initPlugins = function() {
         }
     });
 
+    /*
     $.datetimepicker.setLocale('kr');
     $('[data-toggle="datetimepicker"]').datetimepicker({
         format:'Y-m-d H:i'

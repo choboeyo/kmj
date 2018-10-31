@@ -9,7 +9,7 @@
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid #dcdcdc;
   border-radius: $input-btn-border-radius;
   box-shadow:none;
   @include transition();
@@ -61,6 +61,17 @@
 }
 
 select.form-control {
+  background-image:url(../images/admin/frm-select-arrow.png);
+  background-position: 95% center;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  &::-ms-expand {
+    display:none;
+  }
+
   &:focus::-ms-value {
     color: #495057;
     background-color: #fff;

@@ -13,17 +13,17 @@
                 <div data-ax-td-label>기간 검색</div>
                 <div data-ax-td-wrap>
                     <select class="form-control form-control-sm" name="sdate">
-                        <option value="regtime">가입일</option>
-                        <option value="logtime">최근로그인</option>
+                        <option value="regtime" <?=$sdate=='regtime'?'selected':''?>>가입일</option>
+                        <option value="logtime" <?=$sdate=='logtime'?'selected':''?>>최근로그인</option>
                     </select>
                 </div>
             </div>
             <div data-ax-td>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="startdate" data-toggle="datepicker" value="">
+                    <input class="form-control form-control-sm" name="startdate" data-toggle="datepicker" value="<?=$startdate?>">
                 </div>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="enddate" data-toggle="datepicker" value="">
+                    <input class="form-control form-control-sm" name="enddate" data-toggle="datepicker" value="<?=$enddate?>">
                 </div>
             </div>
             <div data-ax-td>

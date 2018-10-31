@@ -32,9 +32,18 @@ class Members extends WB_Controller {
     {
         $this->load->model('member_model');
 
+        $this->data['sdate'] = $this->input->get('sdate', TRUE);
+        $this->data['startdate'] = $this->input->get('startdate', TRUE);
+        $this->data['enddate'] = $this->input->get('enddate', TRUE);
+
+        if( $this->data['sdate'] && $this->data['startdate'] ) $param['where']['mem_' . $this->data['sdate'] . ' >=' ] = $this->data['startdate'] . " 00:00:00";
+        if( $this->data['sdate'] && $this->data['enddate'] ) $param['where']['mem_' . $this->data['sdate'] . ' <=' ] = $this->data['enddate'] . " 23:59:59";
+
+
         // 정보 넣기
         $param['page'] = $this->input->get('page', TRUE, 1);
         $param['page_rows'] = 20;
+        $param['limit'] = TRUE;
 
         // 회원목록 가져오기
         $this->data['member_list'] = $this->member_model->member_list($param);
