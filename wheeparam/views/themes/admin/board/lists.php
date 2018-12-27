@@ -27,7 +27,7 @@
             <tr>
                 <td class="text-center"><?=$brd['nums']?></td>
                 <td class="text-center"><?=$brd['brd_key']?></td>
-                <td class="text-center"><?=$brd['brd_title']?><a class="btn btn-default btn-sm ML10" data-toggle="tooltip"  title="게시판 바로가기" target="_blank" href="<?=base_url('board/'.$brd['brd_key'])?>"><i class="far fa-external-link-square"></i></a></td>
+                <td class="text-center"><?=$brd['brd_title']?><a class="btn btn-default btn-xs ML10" data-toggle="tooltip"  title="게시판 바로가기" target="_blank" href="<?=base_url('board/'.$brd['brd_key'])?>"><i class="fal fa-external-link-square"></i></a></td>
                 <td class="text-center"><?=$brd['brd_skin_l']?></td>
                 <td class="text-center"><?=$brd['brd_page_limit']=='Y'?$brd['brd_page_rows']:'미사용'?></td>
                 <td class="text-center"><?=number_format($brd['brd_count_post'])?></td>
@@ -40,11 +40,11 @@
                 <td class="text-center"><?=$brd['brd_lv_write']?></td>
                 <td class="text-center">
                     <?php if($brd['brd_use_category']=='Y') :?>
-                        <a class="btn btn-default" href="<?=base_url('admin/board/category/'.$brd['brd_key'])?>" data-toggle="tooltip"  title="카테고리 관리"><i class="far fa-sitemap"></i></a>
+                        <a class="btn btn-default btn-xs" href="<?=base_url('admin/board/category/'.$brd['brd_key'])?>" data-toggle="tooltip"  title="카테고리 관리"><i class="far fa-sitemap"></i></a>
                     <?php endif;?>
-                    <button class="btn btn-default" data-button="copy-board" data-key="<?=$brd['brd_key']?>" data-toggle="tooltip"  title="게시판 복사"><i class="far fa-copy"></i></button>
-                    <a class="btn btn-default" href="<?=base_url('admin/board/form/'.$brd['brd_key'])?>" data-toggle="tooltip"  title="정보 수정"><i class="far fa-pencil"></i></a>
-                    <a class="btn btn-danger" href="<?=base_url('admin/board/remove/'.$brd['brd_key'])?>" onclick="return confirm('해당 게시판을 삭제하시겠습니까?');" data-toggle="tooltip"  title="게시판 삭제"><i class="far fa-trash"></i></a>
+                    <button class="btn btn-default btn-xs" data-button="copy-board" data-key="<?=$brd['brd_key']?>" data-toggle="tooltip"  title="게시판 복사"><i class="far fa-copy"></i></button>
+                    <a class="btn btn-default btn-xs" href="<?=base_url('admin/board/form/'.$brd['brd_key'])?>" data-toggle="tooltip"  title="정보 수정"><i class="far fa-pencil"></i></a>
+                    <a class="btn btn-danger btn-xs" href="<?=base_url('admin/board/remove/'.$brd['brd_key'])?>" onclick="return confirm('해당 게시판을 삭제하시겠습니까?');" data-toggle="tooltip"  title="게시판 삭제"><i class="far fa-trash"></i></a>
                 </td>
             </tr>
         <?php endforeach;?>
