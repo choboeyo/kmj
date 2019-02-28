@@ -20,10 +20,10 @@
 // 각종 플러그인 SCSS 및 플러그인 커스텀
 @import "plugins/toastr";
 @import "plugins/fontawesome5/fontawesome";
-@import "plugins/fontawesome5/fa-regular";
-@import "plugins/fontawesome5/fa-light";
-@import "plugins/fontawesome5/fa-solid";
-@import "plugins/fontawesome5/fa-brands";
+@import "plugins/fontawesome5/regular";
+@import "plugins/fontawesome5/light";
+@import "plugins/fontawesome5/solid";
+@import "plugins/fontawesome5/brands";
 
 // 게시판 스킨
 @import "skins/board/basic";

@@ -58,16 +58,9 @@
         </table>
     </div>
     <div class="MT10">
-        <form class="form-inline pull-left MT15">
-            <select class="form-control" name="scol">
-                <option value="title" <?=$scol=='title'?'selected':''?>>제목</option>
-                <option value="nickname" <?=$scol=='nickname'?'selected':''?>>작성자</option>
-            </select>
-            <input class="form-control" name="stxt" value="<?=$stxt?>" style="vertical-align: middle">
-            <button class="btn btn-default btn-lg"><i class="far fa-search"></i> 검색</button>
-        </form>
+
         <div class="pull-right">
-            <?=$pagination?>
+
         </div>
         <div class="clearfix"></div>
     </div>
