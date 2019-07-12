@@ -73,7 +73,7 @@
         <h4 class="box-title">회원 검색결과 <small>(<?=number_format($member_list['total_count'])?> 명)</small></h4>
     </div>
 
-    <div data-ax5grid>
+    <div class="grid">
         <table>
             <thead>
             <tr>

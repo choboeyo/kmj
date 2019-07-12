@@ -45,58 +45,43 @@ class Site {
     /**
      * 사이트 메뉴를 가져온다
      */
-    public function menu() {
+
+    public function menu()
+    {
         $CI =& get_instance();
         $CI->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file', 'key_prefix' => PROJECT));
-        if( ! $menu = $CI->cache->get('site_menu_'. $this->viewmode ) )
+
+        $menu_key = $this->viewmode == DEVICE_MOBILE ? 'menu_mobile' : 'menu_desktop';
+        $where_key = $this->viewmode == DEVICE_MOBILE ? 'mnu_mobile' : 'mnu_desktop';
+        if( ! $menu_list = $CI->cache->get($menu_key) )
         {
-            $menu = $CI->db->where('mnu_'.$this->viewmode, 'Y')->where('mnu_parent','0')->order_by('mnu_order ASC')->get('menu')->result_array();
+            $CI->db->where($where_key, 'Y');
+            $result = $CI->db->get("menu");
+            $menu_list = $result->result_array();
 
-            // 2차메뉴 가져오기
-            foreach($menu as &$row)
-            {
-                $row['children']= $CI->db->where('mnu_'.$this->viewmode, 'Y')->where('mnu_parent',$row['mnu_idx'])->order_by('mnu_order ASC')->get('menu')->result_array();
+            $menu_list = $this->menu_arrange($menu_list);
 
-                foreach( $row['children'] as &$rw )
-                {
-                    $rw['children']= $CI->db->where('mnu_'.$this->viewmode, 'Y')->where('mnu_parent',$rw['mnu_idx'])->order_by('mnu_order ASC')->get('menu')->result_array();
-                }
-            }
-
-            $CI->cache->save('site_menu_'. $this->viewmode, $menu);
+            $CI->cache->save($menu_key, $menu_list);
         }
 
+        return $menu_list;
+    }
 
-        // active
-        foreach($menu as &$mnu)
-        {
-            $mnu['active'] = (! empty($mnu['mnu_active_key']) && $CI->active == $mnu['mnu_active_key']);
-            foreach($mnu['children'] as &$mnu2)
-            {
-                foreach($mnu['children'] as &$mnu3)
-                {
-                    $mnu3['active'] = (! empty($mnu3['mnu_active_key']) && $CI->active == $mnu3['mnu_active_key']);
-                    if( $mnu3['active'] ) {
-                        $mnu2['active'] = TRUE;
-                        $mnu['active'] = TRUE;
-                        break;
-                    }
+
+    private function menu_arrange($array, $parent_id=0)
+    {
+        $return = array();
+
+        foreach($array as $arr) {
+            if( $arr['mnu_parent'] ==  $parent_id ) {
+                $children = $this->menu_arrange( $array, $arr['mnu_idx'] );
+                if( $children ) {
+                    $arr['children']  = $children;
                 }
-
-                if(! empty($mnu2['mnu_active_key']) && $CI->active == $mnu2['mnu_active_key'] )
-                {
-                    $mnu2['active'] = TRUE;
-                    $mnu['active'] = TRUE;
-                }
-            }
-
-            if(! empty($mnu['mnu_active_key']) && $CI->active == $mnu['mnu_active_key'] )
-            {
-                $mnu['active'] = TRUE;
+                $return[] = $arr;
             }
         }
-
-        return $menu;
+        return $return;
     }
 
     /*********************************************************
@@ -255,8 +240,6 @@ class Site {
         // 기본태그
         $return = "";
         $return .= '<meta charset="utf-8">'.PHP_EOL;
-        $return .=  (($this->viewmode == DEVICE_DESKTOP) ? '<meta name="viewport" content="width=device-width,initial-scale=1">' : '<meta name="viewport" content="width=device-width,initial-scale=1">') .PHP_EOL;
-        $return .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.PHP_EOL;
 
         // 기본 메타 태그
         $return .= '<title>' . $this->meta_title . '</title>'.PHP_EOL;
@@ -284,32 +267,10 @@ class Site {
         $return .= '<meta name="nate:site_name" content="'.$this->config('site_title').'" />'.PHP_EOL;
         $return .= '<meta name="nate:url" content="'.current_url().'" />'.PHP_EOL;
         $return .= ($this->meta_image ? '<meta name="nate:image" content="'.$this->meta_image.'" />' : '').PHP_EOL;
-        // 파비콘
-        $return .= '<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">'.PHP_EOL;
-        $return .= '<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">'.PHP_EOL;
-        $return .= '<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">'.PHP_EOL;
-        $return .= '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">'.PHP_EOL;
-        $return .= '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">'.PHP_EOL;
-        $return .= '<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">'.PHP_EOL;
-        $return .= '<link rel="manifest" href="/manifest.json">'.PHP_EOL;
-        $return .= '<meta name="msapplication-TileColor" content="#ffffff">'.PHP_EOL;
-        $return .= '<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">'.PHP_EOL;
-        $return .= '<meta name="theme-color" content="#ffffff">'.PHP_EOL;
         $return .= '<link rel="canonical" href="'.current_full_url().'">'.PHP_EOL;
+        $return .= $this->display_css().PHP_EOL;
 
-        // Verification 이 있다면 메타태그 추가
-        if(! empty($this->config('verification_google')) ) $return .= $this->config('verification_google') .PHP_EOL;
-        if(! empty($this->config('verification_naver')) ) $return .= $this->config('verification_naver').PHP_EOL;
-
-        $CI =& get_instance();
-
+        if(! empty($this->config('extra_tag_meta')) ) $return .= $this->config('extra_tag_meta') .PHP_EOL;
 
         return $return;
     }

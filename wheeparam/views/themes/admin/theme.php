@@ -1,18 +1,26 @@
 <?php
-// CSS 파일과 JS파일 추가 (TRUE 옵션을 준경우 옵션을 주지않은경우보다 상위에 위치한다.)
-$this->site->add_css('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
+$this->site->add_css('https://fonts.googleapis.com/earlyaccess/notosanskr.css', TRUE);
 $this->site->add_css("/assets/css/admin.min.css", TRUE);
 
 $this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js', TRUE);
 $this->site->add_js("/assets/js/admin.min.js", TRUE);
-?>
+$this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl.min.js', TRUE);
+?><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200">
+    <?=$this->site->display_meta()?>
+    <?=$this->site->display_css()?>
+</head>
+<body>
 <script>var menuActive="<?=$this->active?>";</script>
 
 <header id="header">
     <a class="logo" href="<?=base_url('admin')?>">Administrator</a>
     <div class="top-navs"></div>
     <div class="right-actions">
-        <button type="button" class="btn-top-action"><i class="fas fa-bell"></i></button>
         <div class="dropdown btn-user">
             <button type="button" class="btn-top-action" data-toggle="dropdown"><i class="fas fa-user"></i> <?=$this->member->info('nickname')?>님</button>
             <ul class="dropdown-menu pull-right">
@@ -31,7 +39,7 @@ $this->site->add_js("/assets/js/admin.min.js", TRUE);
                 <li data-active="management/banner"><a href="<?=base_url('admin/management/banner')?>">배너 관리</a></li>
                 <li data-active="management/menu"><a href="<?=base_url('admin/management/menu')?>">메뉴 관리</a></li>
                 <li data-active="management/faq"><a href="<?=base_url('admin/management/faq')?>">FAQ 관리</a></li>
-                <li data-active="management/faq_setting"><a href="<?=base_url('admin/management/faq_setting')?>">FAQ 환경설정</a></li>
+
             </ul>
         </li>
         <li>
@@ -86,7 +94,6 @@ $this->site->add_js("/assets/js/admin.min.js", TRUE);
                 <?php if($this->member->is_super()) :?>
                     <li data-active="setting/admin"><a href="<?=base_url('admin/setting/admin')?>">관리자 설정</a></li>
                 <?php endif;?>
-                <li data-active="tools/index"><a href="<?=base_url('admin/tools')?>">기타 도구</a></li>
             </ul>
         </li>
 
@@ -97,5 +104,5 @@ $this->site->add_js("/assets/js/admin.min.js", TRUE);
     <?=$contents?>
 </article>
 
-
-
+</body>
+</html>

@@ -17,37 +17,6 @@ class Statics extends WB_Controller {
      */
     public function visit()
     {
-        // 모델 가져오기
-        $this->load->model('statics_model');
-
-        // 넘어온 검색값 정리
-        $this->data['startdate'] = $this->input->get('startdate', TRUE, date('Y-m-d', strtotime("-1 month", time())));
-        $this->data['enddate'] = $this->input->get('enddate', TRUE, date('Y-m-d'));
-        $this->data['is_mobile'] = $this->input->get('is_mobile', TRUE, array('Y','N'));
-        $this->data['ip'] = $this->input->get('ip', TRUE, '');
-
-        // 값 가져오기
-        $param['page'] = $this->input->get('page', TRUE, 1);
-        $param['page_rows'] = 15;
-        $param['limit'] = TRUE;
-        $param['where']['sta_regtime >='] = $this->data['startdate'] ." 00:00:00";
-        $param['where']['sta_regtime <='] = $this->data['enddate'] ." 23:59:59";
-        if(! empty($this->data['ip'])) $param['where']['INET_NTOA(sta_ip)'] = $this->data['ip'];
-        $param['where_in']['sta_is_mobile'] = $this->data['is_mobile'];
-        $this->data['visit_list'] = $this->statics_model->visit_list($param);
-
-        // 페이지네이션 세팅
-        $this->load->library('paging');
-        $this->paging->initialize(array(
-            "page" => $param['page'],
-            "page_rows" => $param['page_rows'],
-            "total_rows" => $this->data['visit_list']['total_count'],
-            "fixe_nums" => 10,
-            'full_tag_open' => '<ul class="pagination pagination-sm">'
-        ));
-        $this->data['pagination'] = $this->paging->create();
-
-
         // 메타태그 설정
         $this->site->meta_title = "사용자 접속 로그";            // 이 페이지의 타이틀
 

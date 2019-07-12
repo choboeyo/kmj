@@ -46,7 +46,7 @@ class HookPostControllerConstructor {
         $this->CI->config->set_item('cookie_domain', COOKIE_DOMAIN);
         $this->CI->load->database();
 
-        $this->CI->load->helper(array('url','form','cookie','common','thumbnail','widgets','statics','lang'));
+        $this->CI->load->helper(array('url','form','cookie','common','thumbnail','widgets','lang'));
         $this->CI->load->helper('language');
         $this->CI->load->library('site');
         $this->CI->load->library('session');
@@ -196,11 +196,6 @@ class HookPostControllerConstructor {
         $sta_data['sta_referrer_host'] = "";
         $sta_data['sta_keyword']	= "";
         $sta_data['sta_ip']			= ip2long($this->CI->input->ip_address());
-        $sta_data['sta_country'] = "";
-        $sta_data['sta_country_code'] = "";
-        $sta_data['sta_addr'] = "";
-        $sta_data['sta_org'] = "";
-        $sta_data['sta_agent'] = $this->CI->agent->agent_string();
 
         // 브라우져가 없다면 로봇으로 파악하고 return
         if( empty($sta_data['sta_browser']) ) return;

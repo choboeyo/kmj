@@ -2,7 +2,7 @@
     <h2 class="page-title"><?=$this->site->config('point_name')?> 관리</h2>
 </div>
 
-<div data-ax5grid>
+<div class="grid">
     <table>
         <thead>
         <tr>

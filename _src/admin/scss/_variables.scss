@@ -20,8 +20,8 @@ $link-color : $body-color;          // 링크 텍스트 색상
 $link-hover-color : $color-primary; // 링크 오버시 텍스트 색상
 
 // 폰트 관련
-$font-family-base : Gilroy,'Noto Sans KR',sans-serif;     // 기본글자에 사용 되는 폰트
-$font-family-heading : Gilroy, 'NanumSquare','나눔스퀘어',sans-serif;                                           // 헤딩태그에 사용 되는 폰트
+$font-family-base : 'Noto Sans KR',sans-serif;     // 기본글자에 사용 되는 폰트
+$font-family-heading : 'NanumSquare','나눔스퀘어',sans-serif;                                           // 헤딩태그에 사용 되는 폰트
 $font-size-base   : 14px;
 $font-weight-base : 400;
 $font-weight-bold : 700;
@@ -35,27 +35,27 @@ $table-cell-padding:          .75rem !default;
 $table-cell-padding-sm:       .3rem !default;
 
 // 버튼 및 INPUT
-$input-btn-padding-y  : 7px !default; // 상하
-$input-btn-padding-x  : 24px !default; // 좌우
-$input-btn-font-size  : 15px !default;
+$input-btn-padding-y  : 4px !default; // 상하
+$input-btn-padding-x  : 9px !default; // 좌우
+$input-btn-font-size  : 12px !default;
 $input-btn-line-height: $line-height-base !default;
 $input-btn-border-radius : 4px !default;
 
-$input-btn-padding-y-xs:      4px !default;
-$input-btn-padding-x-xs:      12px !default;
+$input-btn-padding-y-xs:      1px !default;
+$input-btn-padding-x-xs:      5px !default;
 $input-btn-font-size-xs:      11px !default;
 $input-btn-line-height-xs:    $line-height-base !default;
 $input-btn-border-radius-xs : 2px !default;
 
 $input-btn-padding-y-sm:      6.5px !default;
 $input-btn-padding-x-sm:      17px !default;
-$input-btn-font-size-sm:      13px !default;
+$input-btn-font-size-sm:      11px !default;
 $input-btn-line-height-sm:    $line-height-base !default;
 $input-btn-border-radius-sm : 3px !default;
 
 $input-btn-padding-y-lg:      12px !default;
 $input-btn-padding-x-lg:      25px !default;
-$input-btn-font-size-lg:      15px !default;
+$input-btn-font-size-lg:      13px !default;
 $input-btn-line-height-lg:    $line-height-base !default;
 $input-btn-border-radius-lg : 6px !default;
 

@@ -27,7 +27,7 @@ gulp.task('minify-desktop-css', function () {
 });
 
 // Javascript 합치기 실행
-gulp.task('minify-desktop-js', [], function(){
+gulp.task('minify-desktop-js', function(){
     let dest = destPath.root + "/" + destPath.assets + "/" + destPath.js;
     let fileName = "desktop.js";
 
@@ -54,7 +54,7 @@ gulp.task('minify-mobile-css', function () {
         .pipe(gulp.dest(dest));
 });
 
-gulp.task('minify-mobile-js', [], function(){
+gulp.task('minify-mobile-js', function(){
     let dest = destPath.root + "/" + destPath.assets + "/" + destPath.js;
     let fileName = "mobile.js";
 
@@ -82,7 +82,7 @@ gulp.task('minify-admin-css', function () {
         .pipe(gulp.dest(dest));
 });
 
-gulp.task('minify-admin-js', [], function(){
+gulp.task('minify-admin-js', function(){
     let dest = destPath.root + "/" + destPath.assets + "/" + destPath.js;
     let fileName = "admin.js";
 
@@ -96,12 +96,12 @@ gulp.task('minify-admin-js', [], function(){
 });
 
 gulp.task('scss-watch', function() {
-    gulp.watch(watchPath.desktop.css, ['minify-desktop-css']);
+    gulp.watch(watchPath.desktop.css, gulp.series(['minify-desktop-css']));
     //gulp.watch(watchPath.desktop.js, ['minify-desktop-js']);
-    gulp.watch(watchPath.mobile.css, ['minify-mobile-css']);
+    gulp.watch(watchPath.mobile.css, gulp.series(['minify-mobile-css']));
     //gulp.watch(watchPath.mobile.js, ['minify-mobile-js']);
-    gulp.watch(watchPath.admin.css, ['minify-admin-css']);
+    gulp.watch(watchPath.admin.css, gulp.series(['minify-admin-css']));
     //gulp.watch(watchPath.admin.js, ['minify-admin-js']);
 });
 
-gulp.task('default', ['minify-desktop-js', 'minify-desktop-css', 'minify-mobile-js', 'minify-mobile-css','minify-admin-js', 'minify-admin-css']);
+gulp.task('default', gulp.series(['minify-desktop-js', 'minify-desktop-css', 'minify-mobile-js', 'minify-mobile-css','minify-admin-js', 'minify-admin-css']));

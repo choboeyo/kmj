@@ -1,0 +1,18 @@
+@function color-yiq($color, $dark: #212529, $light: #fff) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @if ($yiq >= 150) {
+    @return #343a40;
+  } @else {
+    @return #f8f9fa;
+  }
+}
+
+@function REM($pxSize:16px){
+  $remSize : $pxSize / $font-size-base !global;
+  @return #{$remSize}rem;
+}

@@ -1,8 +1,15 @@
+html {
+  font-size:12px;
+}
 body {
   height:100vh;
+  min-width:1200px;
+  &.iframe {
+    min-width:0;
+  }
 }
 $header-height : 50px;
-$nav-height : 59px;
+$nav-height : 40px;
 
 #header {
   position:relative;
@@ -117,7 +124,7 @@ $nav-height : 59px;
         }
 
         i, span {
-          font-size:15px;
+          font-size:14px;
         }
 
         i + span {
@@ -139,7 +146,7 @@ $nav-height : 59px;
         position:absolute;
         top:100%;
         left:0;
-        width:130px;
+        width:150px;
         background:#fff;
         list-style:none;
         padding:0;
@@ -151,14 +158,21 @@ $nav-height : 59px;
 
           a {
             display:block;
-            padding:12px 15px;
-            font-size:13px;
+            padding:6px 15px;
+            font-size:12px;
             color:#282828;
             cursor:pointer;
 
             &:hover {
               background-color:#f4f8f9;
             }
+          }
+
+          &.divider {
+            height: 1px;
+            margin: 4px 0;
+            overflow: hidden;
+            background-color: #e5e5e5;
           }
 
           &.active {
@@ -198,6 +212,12 @@ $nav-height : 59px;
 
 .page-header {
   margin-bottom:15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+
+  .iframe & {
+    margin-top:0;
+  }
 
   .page-title {
     font-size:23px;

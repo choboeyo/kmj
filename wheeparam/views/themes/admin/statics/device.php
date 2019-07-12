@@ -4,17 +4,27 @@
     <h1 class="page-title">PC / Mobile 접속 통계</h1>
 </div>
 
-
 <?=form_open(NULL, array('method'=>'get','class'=>'form-flex','autocomplete'=>'off'))?>
-<div class="form-group">
-    <label class="control-label">일자 검색</label>
-    <div class="controls">
-        <input class="form-control form-control-inline" name="startdate" data-toggle="datepicker" value="<?=$startdate?>">
-        <input class="form-control form-control-inline" name="enddate" data-toggle="datepicker" value="<?=$enddate?>">
-        <button class="btn btn-default"><i class="far fa-search"></i> 필터적용</button>
+<div data-ax-tbl class="ax-search-tbl">
+    <div data-ax-tr>
+        <div data-ax-td>
+            <div data-ax-td-label>일자 검색</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="startdate" data-toggle="datepicker" value="<?=$startdate?>">
+            </div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="enddate" data-toggle="datepicker" value="<?=$enddate?>">
+            </div>
+        </div>
+        <div data-ax-td>
+            <div data-ax-td-wrap>
+                <button class="btn btn-sm btn-default"><i class="far fa-search"></i> 필터적용</button>
+            </div>
+        </div>
     </div>
 </div>
 <?=form_close()?>
+<div class="H10"></div>
 
 <div class="H10"></div>
 
@@ -33,7 +43,7 @@
     </div>
     <div class="col-sm-6">
         <h4>기기별 통계</h4>
-        <div data-ax5grid>
+        <div class="grid">
             <table>
                 <thead>
                 <tr>
@@ -55,7 +65,7 @@
         </div>
         <div class="H30"></div>
         <h4>일자별 통계</h4>
-        <div data-ax5grid>
+        <div class="grid">
             <table>
                 <thead>
                 <tr>

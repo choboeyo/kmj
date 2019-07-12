@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div data-ax5grid>
+        <div class="grid">
             <table>
                 <thead>
                 <tr>
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div data-ax5grid>
+            <div class="grid">
                 <table>
                     <thead>
                     <tr>

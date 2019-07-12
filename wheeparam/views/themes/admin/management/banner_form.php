@@ -69,7 +69,7 @@
 <div class="form-group">
     <label class="control-label">표기 시작시간</label>
     <div class="controls">
-        <input class="form-control form-control-inline" data-toggle="datetimepicker" name="ban_timer_start" value="<?=element('ban_timer_start', $view)?>">
+        <input class="form-control form-control-inline" name="ban_timer_start" value="<?=element('ban_timer_start', $view)?>">
     </div>
 </div>
 
@@ -77,7 +77,7 @@
 <div class="form-group">
     <label class="control-label">표기 종료시간</label>
     <div class="controls">
-        <input class="form-control form-control-inline" data-toggle="datetimepicker" name="ban_timer_end" value="<?=element('ban_timer_end', $view)?>">
+        <input class="form-control form-control-inline" name="ban_timer_end" value="<?=element('ban_timer_end', $view)?>">
     </div>
 </div>
 

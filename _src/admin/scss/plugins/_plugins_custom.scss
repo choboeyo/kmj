@@ -105,3 +105,40 @@
     }
   }
 }
+
+.dx-datagrid {
+
+  .dx-datagrid-headers {
+    border:1px solid #d8d8d8;
+
+    .dx-datagrid-table {
+
+      .dx-header-row {
+        background-color:#f9f9f9;
+        color:#282828;
+
+        > td {
+          vertical-align: middle;
+          text-align: center !important;
+        }
+      }
+    }
+  }
+}
+
+.dx-datagrid-rowsview {border:1px solid #d8d8d8;}
+
+
+.ui-datepicker-next {
+  &:before {
+    content:'\f054';
+    font-family: 'Font Awesome 5 Pro';
+  }
+}
+
+.ui-datepicker-prev {
+  &:before {
+    content:'\f053';
+    font-family: 'Font Awesome 5 Pro';
+  }
+}

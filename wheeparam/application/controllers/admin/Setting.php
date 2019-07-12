@@ -174,15 +174,6 @@ class Setting extends WB_Controller {
 
     public function admin()
     {
-        $this->data['lists'] =
-            $this->db
-                ->from('member_auth AS MA')
-                ->join('member AS M', 'MA.mem_idx=M.mem_idx','inner')
-                ->where('MA.ath_type','SUPER')
-                ->get()
-                ->result_array();
-
-
         // 레이아웃 & 뷰파일 설정
         $this->theme    = "admin";
         $this->view     = "setting/admin";

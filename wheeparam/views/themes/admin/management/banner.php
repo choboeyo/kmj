@@ -1,7 +1,3 @@
-<div class="page-header">
-    <h1 class="page-title">배너 관리</h1>
-</div>
-
 <div class="row">
     <div class="col-sm-4">
 
@@ -14,7 +10,7 @@
             </div>
         </div>
 
-        <div data-ax5grid>
+        <div class="grid">
             <table>
                 <thead>
                 <tr>
@@ -57,7 +53,7 @@
 
             <p class="alert alert-info">한장만 표시되는 배너의 경우 가장 첫번째 순서의 배너를 가져옵니다.</p>
 
-            <div data-ax5grid>
+            <div class="grid">
                 <table>
                     <thead>
                     <tr>

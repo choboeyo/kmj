@@ -59,7 +59,7 @@
                 <h4>최근 방문자 통계</h4>
             </div>
         </div>
-        <div data-ax5grid>
+        <div class="grid">
             <table>
                 <thead>
                 <tr>
@@ -99,7 +99,7 @@
                 <h4>회원 통계</h4>
             </div>
         </div>
-        <div data-ax5grid>
+        <div  \class="grid">
             <table>
                 <thead>
                 <tr>

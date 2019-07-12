@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Management extends WB_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->theme = "admin";
+    }
+
     /**
      * 메뉴 관리
      */
@@ -169,9 +176,6 @@ class Management extends WB_Controller {
      */
     public function sitemap()
     {
-        $this->data['list'] = $this->db->get('sitemap')->result_array();
-
-        $this->theme = "admin";
         $this->view = "management/sitemap";
         $this->active   = "management/sitemap";
     }
@@ -190,60 +194,19 @@ class Management extends WB_Controller {
             $data['sit_loc'] = '/'.ltrim($this->input->post('sit_loc', TRUE),'/');
             $data['sit_priority'] = $this->input->post('sit_priority', TRUE);
             $data['sit_changefreq'] = $this->input->post('sit_changefreq', TRUE);
+            $data['sit_memo'] = $this->input->post('sit_memo', TRUE);
+            $data['reg_user'] = $data['upd_user'] = $this->member->is_login();
+            $data['reg_datetime'] = $data['upd_datetime'] = date('Y-m-d H:i:s');
 
             $this->db->insert("sitemap", $data);
-            alert_modal_close("등록되었습니다.");
+            alert_modal_close("등록되었습니다.",FALSE);
             exit;
         }
         else
         {
-            $this->theme = "admin";
             $this->theme_file = "iframe";
             $this->view = "management/sitemap_form";
         }
-    }
-
-    /**
-     * 사이트맵 삭제
-     */
-    public function sitemap_delete($sit_idx)
-    {
-        if(empty($sit_idx))
-        {
-            alert('잘못된 접근입니다.');
-            exit;
-        }
-
-        $this->db->where('sit_idx', $sit_idx)->delete('sitemap');
-        alert('삭제되었습니다.', base_url('admin/management/sitemap'));
-        exit;
-    }
-
-    /**
-     * 사이트맵 멀티 수정
-     */
-    public function sitemap_update()
-    {
-        $sit_idx = $this->input->post('sit_idx', TRUE);
-        $sit_loc = $this->input->post('sit_loc', TRUE);
-        $sit_priority = $this->input->post('sit_priority', TRUE);
-        $sit_changefreq = $this->input->post('sit_changefreq', TRUE);
-
-        $data = array();
-        for($i=0; $i<count($sit_idx); $i++)
-        {
-            $data[] = array(
-                "sit_idx" => $sit_idx[$i],
-                "sit_loc" => '/'.ltrim($sit_loc[$i],"/"),
-                "sit_priority" => $sit_priority[$i],
-                "sit_changefreq"=> $sit_changefreq[$i]
-            );
-        }
-
-        $this->db->update_batch("sitemap", $data, "sit_idx");
-
-        alert('저장 되었습니다.', base_url('admin/management/sitemap'));
-        exit;
     }
 
     /**
@@ -274,20 +237,6 @@ class Management extends WB_Controller {
         $this->theme    = "admin";
         $this->view     = "management/faq";
         $this->active   = "management/faq";
-    }
-
-    /**
-     * FAQ 설정
-     */
-    public function faq_setting()
-    {
-        // 메타태그 설정
-        $this->site->meta_title = "사이트 관리 - FAQ 환경설정";            // 이 페이지의 타이틀
-
-        // 레이아웃 & 뷰파일 설정
-        $this->theme    = "admin";
-        $this->view     = "management/faq_setting";
-        $this->active   = "management/faq_setting";
     }
 
     /**
@@ -429,38 +378,11 @@ class Management extends WB_Controller {
      */
     public function popup()
     {
-        $this->load->model('popup_model');
-
-        $param['from'] = "popup";
-        $param['where']['pop_status'] = 'Y';
-        $param['page'] = $this->data['page'] =  (int) $this->input->get('page', TRUE) > 0 ?  (int) $this->input->get('page', TRUE) : 1;
-        $param['page_rows'] = 15;
-        $param['order_by'] = "pop_idx DESC";
-        $param['limit'] = TRUE;
-
-        $this->data['popup_list'] = $this->popup_model->get_list($param);
-
         // 메타태그 설정
-        $this->site->meta_title = "팝업 관리";            // 이 페이지의 타이틀
-        // $this->site->meta_description 	= "";   // 이 페이지의 요약 설명
-        // $this->site->meta_keywords 		= "";   // 이 페이지에서 추가할 키워드 메타 태그
-        // $this->site->meta_image			= "";   // 이 페이지에서 표시할 대표이미지
+        $this->site->meta_title = "팝업 관리";
 
         // 레이아웃 & 뷰파일 설정
-        $this->active   = "management/popup";
-        $this->theme    = "admin";
-        $this->view     = "management/popup";
-    }
-
-    function datetime_regex($str)
-    {
-        if(!preg_match('/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/',$str, $matches))
-        {
-            $this->form_validation->set_message('datetime_regex', '올바른 형식의 날짜/시간 형태가 아닙니다 : {field}');
-            return FALSE;
-        }
-
-        return TRUE;
+        $this->active = $this->view = "management/popup";
     }
 
     /**
@@ -475,24 +397,27 @@ class Management extends WB_Controller {
         $this->form_validation->set_rules('pop_width', '팝업 너비', 'required|trim|is_natural_no_zero');
         $this->form_validation->set_rules('pop_height', '팝업 높이', 'required|trim|is_natural_no_zero');
         $this->form_validation->set_rules('pop_type', '팝업 종류', 'required|trim|in_list[Y,N]');
-        $this->form_validation->set_rules('pop_start', '표시 시작 시간', 'required|trim|callback_datetime_regex');
-        $this->form_validation->set_rules('pop_start', '표시 종료 시간', 'required|trim|callback_datetime_regex');
+        $this->form_validation->set_rules('pop_start', '표시 시작 시간', 'required|trim');
+        $this->form_validation->set_rules('pop_start', '표시 종료 시간', 'required|trim');
 
         if( $this->form_validation->run() != FALSE )
         {
+
             $data['pop_title'] = $this->input->post('pop_title', TRUE);
             $data['pop_width'] = $this->input->post('pop_width', TRUE);
-            $data['pop_height'] = $this->input->post('pop_height', TRUE);
-            $data['pop_content'] = $this->input->post('pop_content', FALSE);
+            $data['pop_height'] = str_replace(',','',$this->input->post('pop_height', TRUE));
+            $data['pop_content'] = str_replace(',','',$this->input->post('pop_content', FALSE));
             $data['pop_status'] = 'Y';
-            $data['pop_start'] = $this->input->post('pop_start', TRUE);
-            $data['pop_end'] = $this->input->post('pop_end', TRUE);
-            $data['pop_modtime'] = date('Y-m-d H:i:s');
+            $data['pop_start'] = str_replace("T"," ", $this->input->post('pop_start', TRUE));
+            $data['pop_end'] = str_replace("T"," ", $this->input->post('pop_end', TRUE));
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+            $data['upd_user'] = $this->member->is_login();
             $data['pop_type'] = $this->input->post('pop_type', TRUE) == 'N' ? 'N' : 'Y';
 
             if( empty($pop_idx) )
             {
-                $data['pop_regtime'] = date('Y-m-d H:i:s');
+                $data['reg_datetime'] = $data['upd_datetime'];
+                $data['reg_user'] = $data['upd_user'];
                 $this->db->insert('popup', $data);
             }
             else
@@ -501,44 +426,39 @@ class Management extends WB_Controller {
                 $this->db->update('popup', $data);
             }
 
-            alert('팝업등록이 완료되었습니다.', base_url('admin/management/popup'));
+            alert_modal_close('팝업 정보 입력이 완료되었습니다.', FALSE);
             exit;
         }
         else
         {
-            $this->data['view'] = empty($pop_idx) ? array() : $this->popup_model->get_one(array("idx"=>$pop_idx,"column"=>"pop_idx","from"=>"popup"));
+            $this->data['view'] = array();
+            if(! empty($pop_idx))
+            {
+                if(! $this->data['view'] = $this->db->where('pop_idx', $pop_idx)->get('popup')->row_array())
+                {
+                    alert_modal_close('잘못된 접근입니다.',false);
+                }
+            }
 
             // 메타태그 설정
-            $this->site->meta_title = "팝업 관리";            // 이 페이지의 타이틀
-            // $this->site->meta_description 	= "";   // 이 페이지의 요약 설명
-            // $this->site->meta_keywords 		= "";   // 이 페이지에서 추가할 키워드 메타 태그
-            // $this->site->meta_image			= "";   // 이 페이지에서 표시할 대표이미지
+            $this->site->meta_title = "팝업 관리";
 
             // 레이아웃 & 뷰파일 설정
-            $this->active   = "management/popup";
-            $this->theme    = "admin";
+            $this->theme_file = "iframe";
             $this->view     = "management/popup_form";
         }
     }
 
-    /**
-     * 팝업 삭제
-     */
-    public function popup_delete($pop_idx)
+    function datetime_regex($str)
     {
-        if(empty($pop_idx))
+        if(!preg_match('/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/',$str, $matches))
         {
-            alert('잘못된 접근입니다.');
-            exit;
+            $this->form_validation->set_message('datetime_regex', '올바른 형식의 날짜/시간 형태가 아닙니다 : {field}');
+            return FALSE;
         }
 
-        $this->db->where('pop_idx', $pop_idx);
-        $this->db->set('pop_status', 'N');
-        $this->db->update('popup');
-        alert('팝업을 삭제하였습니다.', base_url('admin/management/popup'));
-        exit;
+        return TRUE;
     }
-
 
     /****************************************************************************
      * 배너 관리 - 목록

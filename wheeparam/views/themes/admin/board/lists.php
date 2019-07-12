@@ -2,7 +2,7 @@
     <h1 class="page-title">게시판 관리</h1>
 </div>
 
-<div data-ax5grid>
+<div class="grid">
     <table>
         <thead>
         <tr>

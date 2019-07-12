@@ -1,6 +1,6 @@
 APP.BOARD.keyCheck = function(value) {
     if (value == '') return "게시판 고유키를 입력하세요";
-    if (!APP.REGEX.uniqueID.test(value)) return "게시판 고유키는 영어 소문자로 시작하는 3~20 글자로 영어와 숫자만 사용가능합니다.";
+    if (!value.regex('uniqid')) return "게시판 고유키는 영어 소문자로 시작하는 3~20 글자로 영어와 숫자만 사용가능합니다.";
     if (APP.BOARD.existCheck(value)) return "이미 존재하는 키 입니다.";
 
     return true;

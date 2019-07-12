@@ -1,141 +1,87 @@
-<div class="page-header">
+<div class="page-header" data-fit-aside>
     <h1 class="page-title">사용자 접속 로그<small>방문통계 &gt; 사용자 접속 로그</small></h1>
 </div>
 
-<div class="box">
-    <div class="box-header">
-        <h4 class="box-title">검색 필터</h4>
-    </div>
-    <?=form_open(NULL, array('method'=>'get','class'=>'form-flex','autocomplete'=>'off'))?>
-    <div data-ax-tbl class="ax-search-tbl">
-        <div data-ax-tr>
-            <div data-ax-td>
-                <div data-ax-td-label>일자 검색</div>
-                <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="startdate" data-toggle="datepicker" value="<?=$startdate?>">
-                </div>
-                <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="enddate" data-toggle="datepicker" value="<?=$enddate?>">
-                </div>
+<form data-grid-search onsubmit="grid.refresh(1);return false;" data-fit-aside>
+<div data-ax-tbl class="ax-search-tbl" data-grid-search>
+    <div data-ax-tr>
+        <div data-ax-td>
+            <div data-ax-td-label>일자 검색</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="startdate" data-toggle="datepicker" data-chained-datepicker="[name='enddate']" value="<?=date('Y-m-d', strtotime("-1 month", time()))?>">
             </div>
-            <div data-ax-td>
-                <div data-ax-td-label>접속 기기</div>
-                <div data-ax-td-wrap>
-                    <label class="w-check">
-                        <input type="checkbox" name="is_mobile[]" value="N" <?=in_array('N', $is_mobile)?'checked':''?>><span>PC</span>
-                    </label>
-                    <label class="w-check">
-                        <input type="checkbox" name="is_mobile[]" value="Y" <?=in_array('Y', $is_mobile)?'checked':''?>><span>모바일</span>
-                    </label>
-                </div>
-            </div>
-            <div data-ax-td>
-                <div data-ax-td-label>IP 검색</div>
-                <div data-ax-td-wrap>
-                    <input class="form-control" name="ip" value="<?=$ip?>" placeholder="검색할 IP를 입력하세요">
-                </div>
-            </div>
-            <div data-ax-td>
-                <div data-ax-td-wrap>
-                    <button class="btn btn-sm btn-default"><i class="far fa-search"></i> 필터적용</button>
-                </div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="enddate" data-toggle="datepicker" value="<?=date('Y-m-d')?>">
             </div>
         </div>
-    </div>
-    <?=form_close()?>
-</div>
-
-<div class="H10"></div>
-
-<div class="box">
-    <div class="box-header">
-        <h4 class="box-title">사용자 접속 로그</h4>
-        <div class="box-action">
-            <button type="button" class="btn btn-sm btn-default"><i class="far fa-file-excel"></i> Excel 다운로드</button>
+        <div data-ax-td>
+            <div data-ax-td-label>접속 기기</div>
+            <div data-ax-td-wrap>
+                <select class="form-control" name="is_mobile">
+                    <option value="">전체보기</option>
+                    <option value="N">PC</option>
+                    <option value="Y">모바일</option>
+                </select>
+            </div>
         </div>
-    </div>
-
-    <div data-ax5grid>
-        <table>
-            <thead>
-            <tr>
-                <th class="W155">접속일자</th>
-                <th class="W100">접속 IP</th>
-                <th class="W100">국가</th>
-                <th class="W200">지역</th>
-                <th class="W100">조직</th>
-                <th class="W200">브라우져</th>
-                <th class="W150">접속기기</th>
-                <th class="W100">모바일</th>
-                <th>리퍼러</th>
-                <th class="W120">접속 검색어</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach($visit_list['list'] as $row) :?>
-                <tr>
-                    <td class="text-center"><?=$row['sta_regtime']?></td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"><?=$row['sta_ip']?></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="">[<?=$row['sta_ip']?>] 접근금지 IP로 설정</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                    <?php if($row['sta_country']) :?>
-                        <td class="text-center"><?=$row['sta_country']?></td>
-                        <td title="<?=$row['sta_addr']?>"><span class="ellipsis W200" style="display:block"><?=$row['sta_addr']?></span></td>
-                        <td title="<?=$row['sta_org']?>"><span class="ellipsis W100" style="display:block"><?=$row['sta_org']?></span></td>
-                    <?php else :?>
-                        <td class="text-center" colspan="3">
-                            <button type="button" class="btn btn-xs btn-default" data-button="get-ip-info" data-ip="<?=$row['sta_ip']?>"><i class="far fa-search"></i> 확인</button>
-                        </td>
-                    <?php endif;?>
-                    <td class="text-center"><?=$row['sta_browser']?></td>
-                    <td class="text-center"><?=$row['sta_device']?></td>
-                    <td class="text-center text-primary"><?=$row['sta_is_mobile']=='Y'?'<i class="far fa-check"></i>':''?></td>
-                    <td>
-                        <?php if($row['sta_referrer_host']) : ?>
-                            <a href="<?=$row['sta_referrer']?>" title="<?=$row['sta_referrer']?>" target="_blank"><?=$row['sta_referrer_host']?></a>
-                        <?php endif;?>
-                    </td>
-                    <td><?=$row['sta_keyword']?></td>
-                </tr>
-            <?php endforeach;?>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="bottom-actions MT20">
-        <div class="center">
-            <?=$pagination?>
+        <div data-ax-td>
+            <div data-ax-td-label>IP 검색</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="ip" value="" placeholder="검색할 IP를 입력하세요">
+            </div>
+        </div>
+        <div data-ax-td>
+            <div data-ax-td-wrap>
+                <button class="btn btn-sm btn-default"><i class="far fa-search"></i> 필터적용</button>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-<div class="H30"></div>
+</form>
+<div class="H10" data-fit-aside></div>
+<div class="grid-wrapper">
+    <div class="gird-container" id="grid-container"></div>
+</div>
 
 <script>
-    $(function(){
-        $('[data-button="get-ip-info"]').click(function(e){
-            e.preventDefault();
+    var grid = new GRID('#grid-container', {
+        paging: {
+          pageSize:20
+        },
+        columns: [
+            {caption:'순번', width:80, dataField: 'nums', alignment:'right', dataType:'number', format:'fixedPoint'},
+            {caption:'접속일자', width:150, dataField: 'sta_regtime', alignment:'center'},
+            {caption:'접속IP', width:100, dataField: 'sta_ip', alignment:'center'},
+            {caption:'브라우저', width:120, dataField: 'sta_browser', alignment:'left'},
+            {caption:'접속기기', width:150, dataField: 'sta_device', alignment:'left'},
+            {caption:'모바일', width:50, dataField: 'sta_is_mobile', alignment:'center'},
+            {caption:'리퍼러 호스트', width:200, dataField: 'sta_referrer_host', alignment:'left'},
+            {caption:'리퍼러', minWidth:100, dataField: 'sta_referrer', alignment:'left'},
+            {caption:'리퍼러 키워드', width:150, dataField: 'sta_keyword', alignment:'left'},
+        ],
+        dataSource: new DevExpress.data.DataSource({
+            key : 'sta_idx',
+            load: function(loadOptions) {
+                var d = $.Deferred();
+                var params = grid.getSearchParam(loadOptions);
 
-            var ip = $(this).data('ip');
-            $.ajax({
-                url : '/ajax/tools/ip_info',
-                type : 'POST',
-                async:false,
-                cache:false,
-                data : {
-                    ip : ip
-                },
-                success:function(res) {
-                    location.reload();
-                }
-            })
-        });
+                $.ajax({
+                    url : base_url + '/admin/ajax/statics/visit',
+                    type: 'GET',
+                    async: false,
+                    cache: false,
+                    data: params
+                }).done(function(res) {
+                    d.resolve(res.lists, {
+                        totalCount : res.totalCount
+                    });
+                });
+
+                return d.promise();
+            }
+        }),
     });
+    $(function() {
+        grid.init();
+    })
 </script>

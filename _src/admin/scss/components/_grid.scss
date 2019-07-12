@@ -19,7 +19,7 @@
   }
 }
 
-[data-ax5grid] {
+.grid {
   margin:0;
   padding:0;
   position:relative;
@@ -52,11 +52,12 @@
           box-sizing: border-box;
           overflow: hidden;
           position: relative;
-          padding: 10px;
-          height:38px;
+          padding: 5px;
           text-align:center;
           border:1px solid #ddd;
           font-weight:400;
+          font-size:12px;
+          line-height:(16em / 12);
         }
       }
     }
@@ -68,11 +69,12 @@
         background:transparent;
 
         td {
-          line-height:21px;
           padding:5px 10px;
           background-color:#fff;
           border:1px solid #ddd;
           font-weight:300;
+          font-size:12px;
+          line-height:(16em / 12);
 
           &.empty {
             height:300px;
@@ -121,5 +123,13 @@
         }
       }
     }
+  }
+}
+
+.grid-wrapper {
+  position:relative;
+
+  .grid-container {
+    height:100%;
   }
 }

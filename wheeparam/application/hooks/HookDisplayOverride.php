@@ -25,24 +25,15 @@ class HookDisplayOverride {
         preg_match_all("/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/", $output, $matches);
         $output = preg_replace("/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/","", $output);
 
-        $head = '<!DOCTYPE html>'.PHP_EOL;
-        $head .= '<html lang="'.LANG.'">'.PHP_EOL;
-        $head .= '<head>'.PHP_EOL;
-        $head .= $this->CI->site->display_meta();
-        $head .= $this->CI->site->display_css();
-        $head .= '</head>'.PHP_EOL;
-        $head .= '<body>';
-
         $foot = "";
         $foot .= $this->CI->site->display_js() . PHP_EOL;
         foreach($matches[0] as $match) $foot .= $match;
 
         // 구글애널리틱스 코드가 있다면?
-        if( $this->CI->uri->segment(1) != 'admin' && ! $this->CI->input->is_ajax_request() && ! $this->CI->agent->is_robot() && ! $this->CI->member->is_super() )
+        //if( IS_AJAX_REQUEST && ! IS_ADMIN_PAGES && ! $this->CI->agent->is_robot() && ! $this->CI->member->is_super() )
+        if( ! PAGE_AJAX && ! PAGE_ADMIN && ! $this->CI->agent->is_robot() )
         {
-            $foot .=  (! empty($this->CI->site->config('analytics_google')) ) ? $this->CI->site->config('analytics_google').PHP_EOL : '';
-            $foot .= (! empty($this->CI->site->config('analytics_naver')) ) ? $this->CI->site->config('analytics_naver').PHP_EOL : '';
-            $foot .= (! empty($this->CI->site->config('analytics_etc')) ) ? $this->CI->site->config('analytics_etc').PHP_EOL : '';
+            $foot .=  (! empty($this->CI->site->config('extra_tag_script')) ) ? $this->CI->site->config('extra_tag_script').PHP_EOL : '';
         }
 
         // 사이트 채널 연동
@@ -73,8 +64,34 @@ class HookDisplayOverride {
         $foot .= '</body>'.PHP_EOL;
         $foot .= '</html>';
 
-        $output = $head.PHP_EOL.$output.PHP_EOL.$foot;
+        $output = str_replace("</body>", $foot.PHP_EOL."</body>", $output);
 
-        return $output;
+        // Html minify
+        ini_set("pcre.recursion_limit", "16777");
+        $re = '%# Collapse whitespace everywhere but in blacklisted elements.
+        (?>             # Match all whitespans other than single space.
+          [^\S ]\s*     # Either one [\t\r\n\f\v] and zero or more ws,
+        | \s{2,}        # or two or more consecutive-any-whitespace.
+        ) # Note: The remaining regex consumes no text at all...
+        (?=             # Ensure we are not in a blacklist tag.
+          [^<]*+        # Either zero or more non-"<" {normal*}
+          (?:           # Begin {(special normal*)*} construct
+            <           # or a < starting a non-blacklist tag.
+            (?!/?(?:textarea|pre|script)\b)
+            [^<]*+      # more non-"<" {normal*}
+          )*+           # Finish "unrolling-the-loop"
+          (?:           # Begin alternation group.
+            <           # Either a blacklist start tag.
+            (?>textarea|pre|script)\b
+          | \z          # or end of file.
+          )             # End alternation group.
+        )  # If we made it here, we are not in a blacklist tag.
+        %Six';
+        $newOutput = preg_replace($re, "", $output);
+        if( $newOutput === null) {
+            $newOutput = $output;
+        }
+
+        return $newOutput;
     }
 }

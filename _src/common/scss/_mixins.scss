@@ -1,0 +1,114 @@
+// Clear FIX
+@mixin clear-fix() {
+  display:block;
+  clear:both;
+  content:"";
+}
+
+@mixin clear-fix-after() {
+  &:after {
+    display:block;
+    clear:both;
+    content:"";
+  }
+}
+
+@mixin button-default() {
+  display: inline-block;
+  margin:0;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  outline:0;
+  vertical-align:middle;
+
+  &:disabled,
+  &.disabled {
+    opacity:0.65;
+  }
+
+  &:not([disabled]):not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+// background Image
+@mixin background-image( $image_url, $bg_color:transparent, $background-repeat:no-repeat, $background-position-x:center, $background-position-y:center )
+{
+  background-color:$bg_color;
+  background-image:url($image_url);
+  background-repeat: $background-repeat;
+  background-position-x:$background-position-x;
+  background-position-y:$background-position-y;
+}
+
+// Global Transition
+@mixin transition($second:.3s, $target:all, $animation: ease)
+{
+  -webkit-transition: $target $second $animation;
+  -moz-transition: $target $second $animation;
+  -ms-transition: $target $second $animation;
+  -o-transition: $target $second $animation;
+  transition: $target $second $animation;
+}
+
+// Display flex & Prefix
+@mixin display-flex()
+{
+  -webkit-display:flex;
+  display:-ms-flex;
+  display:flex;
+}
+
+@mixin background-gradient($start, $end )
+{
+  background-color: $start;
+  background-image: -webkit-linear-gradient(top, $start, $end);
+  background-image: linear-gradient(to bottom,$start, $end);
+}
+
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+}
+
+@mixin button-variant($background, $border, $hover-background: darken($background, 7.5%), $hover-border: darken($border, 10%), $active-background: darken($background, 10%), $active-border: darken($border, 12.5%)) {
+  color: color-yiq($background);
+  background-color:$background;
+  border-color: $border;
+
+  &:hover {
+    color: color-yiq($hover-background);
+    background-color :$hover-background;
+    border-color: $hover-border;
+  }
+
+  &:focus,
+  &.focus {
+
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    color: color-yiq($background);
+    background-color: $background;
+    border-color: $border;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: color-yiq($active-background);
+    background-color: $active-background;
+    border-color: $active-border;
+
+    &:focus {
+
+    }
+  }
+}

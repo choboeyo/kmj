@@ -2,10 +2,8 @@
 
 // 기본
 @import "boot/fonts";
-@import "boot/mixins";
-@import "boot/function";
+@import "../../common/scss/global";
 @import "variables";
-@import "boot/reset";
 
 // 애니메이션,레이아웃,유틸리티,컴포넌트
 @import "common/animation";
@@ -18,12 +16,6 @@
 @import "components/popup_layer";
 
 // 각종 플러그인 SCSS 및 플러그인 커스텀
-@import "plugins/toastr";
-@import "plugins/fontawesome5/fontawesome";
-@import "plugins/fontawesome5/regular";
-@import "plugins/fontawesome5/light";
-@import "plugins/fontawesome5/solid";
-@import "plugins/fontawesome5/brands";
 
 // 게시판 스킨
 @import "skins/board/basic";

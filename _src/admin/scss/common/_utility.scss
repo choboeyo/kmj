@@ -1,69 +1,14 @@
-.ellipsis { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden; }
-.admin-help-wrap {
-  width:700px; margin:0 auto;
-  li > img {width:700px;}
-  .point-color {color:#e60035}
-}
-
-/* 높이/너비/마진/패딩 */
-@for $i from 1 to 100 {
-  .H#{$i * 5} {
-    height: 5px * $i !important;
-  }
-}
-@for $i from 1 to 100{
-  .W#{$i * 5} {
-    width: 5px * $i !important;
-  }
-}
-@for $i from 1 to 10 {
-  .M#{$i * 5} {
-    margin:5px * $i;
-  }
-  .MT#{$i * 5} {
-    margin-top:5px * $i;
-  }
-  .MR#{$i*5} {
-    margin-right:5px * $i;
-  }
-  .MB#{$i * 5} {
-    margin-bottom:5px * $i;
-  }
-  .ML#{$i * 5} {
-    margin-left:5px * $i;
-  }
-  .PT#{$i * 5} {
-    padding-top:5px * $i;
-  }
-  .PR#{$i * 5} {
-    padding-right:5px * $i;
-  }
-  .PB#{$i * 5} {
-    padding-bottom:5px * $i;
-  }
-  .PL#{$i * 5} {
-    padding-left:5px * $i;
-  }
-  .P#{$i * 5} {
-    padding:5px * $i;
-  }
-}
-
-.text-center {
-  text-align:center !important;
-}
-
-.text-left {
-  text-align:left !important;
-}
-
-.text-right {
-  text-align:right !important;
-}
-
-
 @each $color, $value in $theme-colors {
   .text-#{$color} {
     color:$value;
+  }
+}
+
+.alert {
+  padding: 5px 7px;
+
+  &.alert-danger {
+    border: 1px solid #e32815;
+    color: #e32815;
   }
 }

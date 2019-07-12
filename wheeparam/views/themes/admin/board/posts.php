@@ -4,7 +4,7 @@
             <h2><?=$board['brd_title']?></h2>
         </div>
     </div>
-    <div data-ax5grid>
+    <div class="grid">
         <table>
             <thead>
             <tr>

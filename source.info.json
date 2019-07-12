@@ -8,10 +8,22 @@
   "source" : {
     "commonJs" : [
       "node_modules/clipboard/dist/clipboard.js",
+      "_src/plugins/jquery-blockUI/jquery.blockUI.js",
       "_src/plugins/jquery-cookie/jquery.cookie.js",
+      "node_modules/ax5core/dist/ax5core.js",
+      "node_modules/ax5ui-mask/dist/ax5mask.js",
+      "node_modules/ax5ui-modal/dist/ax5modal.js",
+      "_src/plugins/toastr/toastr.js",
+      "_src/common/js/plugins/autosize.js",
       "_src/common/js/global.js",
-      "_src/common/js/member.js",
-      "_src/common/js/board.js"
+      "_src/common/js/modules/regex.js",
+      "_src/common/js/modules/formatter.js",
+      "_src/common/js/modules/popup.js",
+      "_src/common/js/modules/member.js",
+      "_src/common/js/modules/board.js",
+      "_src/common/js/modules/components.js",
+      "_src/common/js/modules/dropdown.js",
+      "_src/common/js/modules/modal.js"
     ],
     "desktop" : {
       "css" : [
@@ -32,22 +44,16 @@
     "admin" : {
       "css": ["_src/admin/scss/admin.scss"],
       "js": [
-        "node_modules/ax5core/dist/ax5core.js",
-        "node_modules/ax5ui-mask/dist/ax5mask.js",
-        "node_modules/ax5ui-modal/dist/ax5modal.js",
-        "node_modules/ax5ui-toast/dist/ax5toast.js",
         "_src/admin/js/jquery-ui.js",
-        "_src/plugins/jquery-datetimepicker/jquery.datetimepicker.full.js",
-        "_src/plugins/jquery-blockUI/jquery.blockUI.js",
-        "_src/admin/js/jquery.formatter.js",
+        "_src/admin/js/dx.all.js",
+        "_src/admin/js/dx.messages.ko.js",
         "_src/admin/js/jquery.tmpl.js",
         "_src/admin/js/admin.js",
-        "_src/admin/js/modules/components.js",
         "_src/admin/js/modules/modal.js",
-        "_src/admin/js/modules/toast.js",
         "_src/admin/js/modules/board.js",
         "_src/admin/js/modules/faq.js",
-        "_src/admin/js/modules/member.js"
+        "_src/admin/js/modules/member.js",
+        "_src/admin/js/modules/datagrid.js"
       ]
     }
   },

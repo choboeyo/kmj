@@ -4,14 +4,21 @@
 
 <?=form_open_multipart("admin/setting/update", array("class"=>"form-flex"))?>
 <input type="hidden" name="reurl" value="<?=base_url('admin/setting/localize')?>">
-<div class="panel panel-dark">
-    <div class="panel-heading">
-        <h4 class="panel-title">다국어 기본설정</h4>
-    </div>
-    <div class="panel-body">
-        <div class="form-group">
-            <label class="control-label">기본 언어</label>
-            <div class="controls">
+<div data-ax-tbl>
+    <div class="caption">다국어 기본 설정</div>
+    <div data-ax-tr>
+        <div data-ax-td>
+            <div data-ax-td-label>사용여부</div>
+            <div data-ax-td-wrap>
+                <select class="form-control form-control-inline" name="setting[use_localize]">
+                    <option value="Y" <?=$this->site->config('use_localize')=='Y'?'selected':''?>>사용</option>
+                    <option value="N" <?=$this->site->config('use_localize')=='N'?'selected':''?>>미사용</option>
+                </select>
+            </div>
+        </div>
+        <div data-ax-td>
+            <div data-ax-td-label>기본 언어</div>
+            <div data-ax-td-wrap>
                 <select class="form-control form-control-inline" name="setting[default_language]">
                     <option value="ko" <?=$this->site->config('default_language')=='ko'?'selected':''?>>한국어</option>
                     <option value="en" <?=$this->site->config('default_language')=='en'?'selected':''?>>English</option>
@@ -21,37 +28,29 @@
                 </select>
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="control-label">다국어 사용</label>
-            <div class="controls">
-                <select class="form-control form-control-inline" name="setting[use_localize]">
-                    <option value="Y" <?=$this->site->config('use_localize')=='Y'?'selected':''?>>사용</option>
-                    <option value="N" <?=$this->site->config('use_localize')=='N'?'selected':''?>>미사용</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">사용할 언어</label>
-            <?php
-            $accept_lang = $this->site->config('accept_languages');
-            $accept_lang = explode(',', $accept_lang);
-            ?>
-            <div class="controls">
-                <label class="w-check"><input type="checkbox" value="ko" name="accept_language[]" <?=in_array('ko', $accept_lang)?'checked':''?>><span>한글</span></label>
-                <label class="w-check"><input type="checkbox" value="en" name="accept_language[]" <?=in_array('en', $accept_lang)?'checked':''?>><span>English</span></label>
-                <label class="w-check"><input type="checkbox" value="ja" name="accept_language[]" <?=in_array('ja', $accept_lang)?'checked':''?>><span>일본어</span></label>
-                <label class="w-check"><input type="checkbox" value="zh-hans" name="accept_language[]" <?=in_array('zh-hans', $accept_lang)?'checked':''?>><span>중국어(간체)</span></label>
-                <label class="w-check"><input type="checkbox" value="zh-hant" name="accept_language[]" <?=in_array('zh-hant', $accept_lang)?'checked':''?>><span>중국어(번체)</span></label>
-            </div>
-        </div>
     </div>
-    <div class="panel-footer">
-        <button class="btn btn-primary">저장하기</button>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>사용할 언어</div>
+            <div data-ax-td-wrap>
+                <?php
+                $accept_lang = $this->site->config('accept_languages');
+                $accept_lang = explode(',', $accept_lang);
+                ?>
+                <div class="controls">
+                    <label class="w-check"><input type="checkbox" value="ko" name="accept_language[]" <?=in_array('ko', $accept_lang)?'checked':''?>><span>한글</span></label>
+                    <label class="w-check"><input type="checkbox" value="en" name="accept_language[]" <?=in_array('en', $accept_lang)?'checked':''?>><span>English</span></label>
+                    <label class="w-check"><input type="checkbox" value="ja" name="accept_language[]" <?=in_array('ja', $accept_lang)?'checked':''?>><span>일본어</span></label>
+                    <label class="w-check"><input type="checkbox" value="zh-hans" name="accept_language[]" <?=in_array('zh-hans', $accept_lang)?'checked':''?>><span>중국어(간체)</span></label>
+                    <label class="w-check"><input type="checkbox" value="zh-hant" name="accept_language[]" <?=in_array('zh-hant', $accept_lang)?'checked':''?>><span>중국어(번체)</span></label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
+<div class="text-center MT10">
+    <button class="btn btn-primary">저장하기</button>
+</div>
 <?=form_close()?>
 
 <script>
@@ -78,19 +77,19 @@
 </div>
 
 
-<ul class="nav nav-card-tabs">
+<ul class="tab-list">
     <?php foreach($tab_list as $row) :?>
-        <li><a class="card<?=urldecode($active)==$row['keys']?' selected':''?>" href="<?=base_url('admin/setting/localize/'.$row['keys'])?>"><?=$row['keys']?></a></li>
+        <li class="<?=urldecode($active)==$row['keys']?' active':''?>"><a href="<?=base_url('admin/setting/localize/'.$row['keys'])?>"><?=$row['keys']?></a></li>
     <?php endforeach;;?>
 </ul>
 
-<div data-ax5grid>
+<div class="grid">
     <table>
         <thead>
         <tr>
-            <th class="col-xs-2">KEY</th>
+            <th class="W200">KEY</th>
             <?php foreach($accept_langs as $langs):?>
-                <th class="col-xs-2"><?=$lang_name[$langs]?></th>
+                <th><?=$lang_name[$langs]?></th>
             <?php endforeach;?>
         </tr>
         </thead>
@@ -103,7 +102,7 @@
                 </td>
                 <?php foreach($accept_langs as $langs):?>
                     <td>
-                        <textarea class="form-control" name="loc_value_<?=$langs?>[]"><?=$row['loc_value_'.$langs]?></textarea>
+                        <textarea class="form-control" name="loc_value_<?=$langs?>[]" data-autosize><?=$row['loc_value_'.$langs]?></textarea>
                     </td>
                 <?php endforeach;?>
             </tr>

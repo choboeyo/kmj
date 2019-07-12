@@ -1,5 +1,0 @@
-// 기본 픽셀 사이즈를 rem 단위 사이즈로 변환
-@function REM($pxSize:16px){
-  $remSize : $pxSize / $font-size-base !global;
-  @return #{$remSize}rem;
-}

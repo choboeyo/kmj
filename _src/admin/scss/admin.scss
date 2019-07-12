@@ -1,11 +1,9 @@
 @charset "UTF-8";
 
 // BASE
-@import "boot/mixins";
-@import "boot/function";
 @import "boot/fonts";
+@import "../../common/scss/global";
 @import "variables";
-@import "boot/reset";
 
 // 애니메이션,레이아웃,유틸리티,컴포넌트
 @import "common/animation";
@@ -18,20 +16,12 @@
 @import "components/grid";
 @import "components/form";
 @import "components/pagination";
+@import "components/label";
 
 // 각종 플러그인 SCSS 및 플러그인 커스텀
 @import "plugins/jquery_ui";
-@import "plugins/fontawesome5/fontawesome";
-@import "plugins/fontawesome5/regular";
-@import "plugins/fontawesome5/light";
-@import "plugins/fontawesome5/solid";
-@import "plugins/fontawesome5/brands";
-@import "plugins/jquery.datetimepicker.css";
-@import "plugins/ax5ui/ax5";
-@import "plugins/ax5ui/ax5grid";
-@import "plugins/ax5ui/ax5mask";
-@import "plugins/ax5ui/ax5modal";
-@import "plugins/ax5ui/ax5toast";
+@import "plugins/devextreme/dx.common";
+@import "plugins/devextreme/dx.light.compact";
 @import "plugins/plugins_custom";
 
 // 각 페이지 SCSS 파일

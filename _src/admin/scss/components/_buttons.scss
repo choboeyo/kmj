@@ -68,7 +68,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-sm {
-  @include button-size($input-btn-padding-y-sm, $input-btn-padding-x-sm, $input-btn-font-size-sm, $input-btn-line-height-sm, $input-btn-border-radius-sm);
+  @include button-size(3px, 5px, $input-btn-font-size-sm, $input-btn-line-height-sm, $input-btn-border-radius-sm);
 }
 
 .btn-block {
