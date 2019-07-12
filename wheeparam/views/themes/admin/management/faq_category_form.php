@@ -1,25 +1,30 @@
 <div class="H10"></div>
 <?=form_open(NULL,array("class"=>"form-flex","autocomplete"=>"off")) ?>
 <?=validation_errors('<p class="alert alert-danger">') ?>
-    <input type="hidden" name="mode" value="<?=element('fac_idx', $view)?'UPDATE':'INSERT'?>">
-    <div class="form-group">
-        <label class="control-label">그룹 이름</label>
-        <div class="controls">
-            <input type="text" class="form-control" name="fac_title" value="<?=element('fac_title', $view) ?>" required maxlength="50" autofocus>
+<input type="hidden" name="mode" value="<?=element('fac_idx', $view)?'UPDATE':'INSERT'?>">
+<div data-ax-tbl>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>FAQ 그룹 이름</div>
+            <div data-ax-td-wrap>
+                <input type="text" class="form-control" name="fac_title" value="<?=element('fac_title', $view) ?>" required maxlength="50" autofocus>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label">고유 키</label>
-        <div class="controls">
-            <input type="text" maxlength="20" name="fac_idx" value="<?=element('fac_idx', $view) ?>" class="form-control" <?= element('fac_idx', $view) ? 'readonly="readonly"' : 'required="required"' ?>>
-            <p class="help-block"><?= base_url("faq/" . element('fac_idx', $view)) ?></p>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>FAQ 그룹 이름</div>
+            <div data-ax-td-wrap>
+                <input type="text" maxlength="20" name="fac_idx" value="<?=element('fac_idx', $view) ?>" class="form-control" <?= element('fac_idx', $view) ? 'readonly="readonly"' : 'required="required"' ?>>
+                <p class="help-block"><?= base_url("faq/" . element('fac_idx', $view)) ?></p>
+            </div>
         </div>
     </div>
-    <div class="H10"></div>
-    <div class="text-center">
-        <button class="btn btn-primary"><i class="far fa-check-circle"></i> 확인</button>
-        <button type="button" class="btn btn-default" onclick="parent.APP.MODAL.close();">닫기</button>
-    </div>
+</div>
+<div class="text-center MT15">
+    <button class="btn btn-primary"><i class="far fa-check-circle"></i> 확인</button>
+    <button type="button" class="btn btn-default" onclick="parent.APP.MODAL.close();">닫기</button>
+</div>
 <?=form_close()?>
 
 <?php if(!$is_edit) : ?>

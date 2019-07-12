@@ -10,7 +10,7 @@
         <div data-ax-td>
             <div data-ax-td-label>일자 검색</div>
             <div data-ax-td-wrap>
-                <input class="form-control" name="startdate" data-toggle="datepicker" value="<?=$startdate?>">
+                <input class="form-control" name="startdate" data-toggle="datepicker" data-chained-datepicker="[name='enddate']" value="<?=$startdate?>">
             </div>
             <div data-ax-td-wrap>
                 <input class="form-control" name="enddate" data-toggle="datepicker" value="<?=$enddate?>">

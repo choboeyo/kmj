@@ -485,7 +485,7 @@ class Management extends WB_Controller {
 
         // 배너 그룹 목록 가져오기
         $param['limit'] = FALSE;
-        $param['order_by'] = "bng_name ASC";
+        $param['order_by'] = "bng_sort ASC";
         $param['from'] = "banner_group";
         $this->data['banner_group_list'] = $this->basic_model->get_list($param);
 
@@ -528,6 +528,9 @@ class Management extends WB_Controller {
                     alert('이미 존재하는 고유키 입니다.');
                     exit;
                 }
+
+                $sort = (int)$this->db->select_max('bng_sort', 'max')->get('banner_group')->row(0)->max;
+                $data['bng_sort'] = $sort+1;
 
                 if( $this->db->insert('banner_group', $data))
                 {
@@ -755,20 +758,6 @@ class Management extends WB_Controller {
         }
         else {
             alert('배너 삭제도중 오류가 발생하였습니다.');
-        }
-    }
-
-    /****************************************************************************
-     * 배너 관리 - 배너 순서변경
-     ***************************************************************************/
-    function banner_sort()
-    {
-        $sort_idx = $this->input->post("sort_idx", TRUE);
-        for($i=1; $i<=count($sort_idx); $i++)
-        {
-            $this->db->where("ban_idx", $sort_idx[$i-1]);
-            $this->db->set("ban_sort", $i);
-            $this->db->update("banner");
         }
     }
 

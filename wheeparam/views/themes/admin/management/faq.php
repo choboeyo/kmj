@@ -19,21 +19,20 @@
             <table>
                 <thead>
                 <tr>
-                    <th class="W50">순서</th>
+                    <th class="W20"></th>
                     <th>분류이름</th>
                     <th class="W50">등록</th>
-                    <th class="W175">관리</th>
+                    <th class="W125">관리</th>
                 </tr>
                 </thead>
-                <tbody id="faq-category-list">
+                <tbody data-toggle="sortable" data-key="fac_idx" data-sort="fac_sort" data-table="faq_category">
                 <?php foreach($faq_category['list'] as $row) :?>
-                    <tr>
-                        <td class="text-center W50"><i class="far fa-bars sort-handle-icon"></i><input type="hidden" name="fac_idx[]" value="<?=$row['fac_idx']?>"></td>
-                        <td class="<?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'active':''?>"><?=$row['fac_title']?></td>
+                    <tr class="<?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'active':''?>">
+                        <td class="text-center"><span class="move-grip"></span><input type="hidden" name="fac_idx[]" value="<?=$row['fac_idx']?>"></td>
+                        <td class=""><i class="far <?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'fa-folder-open':'fa-folder'?>"></i>&nbsp;<a href="<?=base_url('admin/management/faq/'.$row['fac_idx'])?>"><?=$row['fac_title']?></a></td>
                         <td class="text-right W50"><?=number_format($row['fac_count'])?></td>
-                        <td class="text-center W175">
-                            <a href="<?=base_url('admin/management/faq/'.$row['fac_idx'])?>" class="btn btn-default btn-sm"><i class="far <?=isset($fac_idx)&&$fac_idx==$row['fac_idx']?'fa-folder-open':'fa-folder'?>"></i> 관리</a>
-                            <button type="button" class="btn btn-default btn-sm" onclick="faq.category.form('<?=$row['fac_idx']?>');"><i class="far fa-pencil"></i> 수정</button>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-default btn-sm MR5" onclick="faq.category.form('<?=$row['fac_idx']?>');"><i class="far fa-pencil"></i> 수정</button>
                             <button type="button" class="btn btn-danger btn-sm" onclick="faq.category.remove('<?=$row['fac_idx']?>');"><i class="far fa-trash"></i> 삭제</button>
                         </td>
                     </tr>
@@ -63,15 +62,15 @@
                 <table>
                     <thead>
                     <tr>
-                        <th class="W50">순서</th>
+                        <th class="W20"></th>
                         <th>FAQ 제목</th>
                         <th class="W150">관리</th>
                     </tr>
                     </thead>
-                    <tbody id="faq-list">
+                    <tbody data-toggle="sortable" data-key="faq_idx" data-sort="faq_sort" data-table="faq">
                     <?php foreach($faq_list['list'] as $row) :?>
                         <tr>
-                            <td class="text-center W50"><i class="far fa-bars sort-handle-icon"></i><input type="hidden" name="faq_idx[]" value="<?=$row['faq_idx']?>"></td>
+                            <td class="text-center"><span class="move-grip"></span><input type="hidden" name="faq_idx[]" value="<?=$row['faq_idx']?>"></td>
                             <td><?=$row['faq_title']?></td>
                             <td class="text-center W150">
                                 <button type="button" class="btn btn-default btn-sm" onclick="faq.form('<?=$row['fac_idx']?>','<?=$row['faq_idx']?>');"><i class="far fa-pencil"></i> 수정</button>
@@ -91,27 +90,3 @@
     </div>
 
 </div>
-
-<script>
-$("#faq-category-list").sortable({
-    handle : 'i.far.fa-bars',
-    update: function(){
-        var sort_array = [];
-        $("#faq-category-list input[name='fac_idx[]']").each(function(){
-            sort_array.push( $(this).val() );
-        });
-        $.post('/ajax/faq/category_sort',{sort_idx:sort_array});
-    }
-});
-
-$("#faq-list").sortable({
-    handle : 'i.far.fa-bars',
-    update: function(){
-        var sort_array = [];
-        $("#faq-list input[name='faq_idx[]']").each(function(){
-            sort_array.push( $(this).val() );
-        });
-        $.post('/ajax/faq/sort',{sort_idx:sort_array});
-    }
-});
-</script>

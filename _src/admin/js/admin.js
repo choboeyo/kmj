@@ -6,6 +6,7 @@ APP.init = function(){
     APP.initAx5();
     APP.initPlugins();
     APP.initFitHeight();
+    APP.initSortableList();
 
     DevExpress.localization.locale('ko');
 };
@@ -79,6 +80,45 @@ APP.initPlugins = function() {
             $(this).datepicker();
             $(this).datepicker("show");
         }
+    });
+};
+
+
+APP.initSortableList = function() {
+
+    $('[data-toggle="sortable"]').each(function(){
+
+        if( $(this).hasClass('has-sortable') ) return true;
+
+        $(this).addClass('has-sortable');
+
+        var $this = $(this);
+        var key = $(this).data('key');
+        var table = $(this).data('table');
+        var sort = $(this).data('sort');
+
+        $this.sortable({
+            handle : '.move-grip',
+            update : function() {
+                var sortArray = [];
+                $('input[name="'+key+'[]"]').each(function(){
+                    sortArray.push( $(this).val() );
+                });
+                $.ajax({
+                    url : base_url + '/admin/ajax/management/sort',
+                    type : 'POST',
+                    data : {
+                        key : key,
+                        table : table,
+                        sort : sort,
+                        sort_order : sortArray
+                    },
+                    success:function(res) {
+                        toastr.success('순서변경이 적용되었습니다.');
+                    }
+                })
+            }
+        })
     });
 };
 

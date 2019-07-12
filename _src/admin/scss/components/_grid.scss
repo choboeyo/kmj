@@ -68,6 +68,12 @@
         border-bottom: 0 none;
         background:transparent;
 
+        &.active {
+          td {
+            background-color:#fafafa;
+          }
+        }
+
         td {
           padding:5px 10px;
           background-color:#fff;

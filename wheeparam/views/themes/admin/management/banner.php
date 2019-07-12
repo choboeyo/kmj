@@ -14,24 +14,28 @@
             <table>
                 <thead>
                 <tr>
+                    <th class="W20"></th>
                     <th>분류이름</th>
-                    <th class="W175">관리</th>
+                    <th class="W140">관리</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody data-toggle="sortable" data-key="bng_idx" data-sort="bng_sort" data-table="banner_group">
                 <?php foreach($banner_group_list['list'] as $row) :?>
-                    <tr>
-                        <td class="<?=isset($bng_key)&&$bng_key==$row['bng_key']?'active':''?>"><?=$row['bng_name']?></td>
-                        <td class="text-center W200">
-                            <a href="<?=base_url('admin/management/banner/'.$row['bng_key'])?>" class="btn btn-default btn-xs"><i class="far <?=isset($bng_key)&&$bng_key==$row['bng_key']?'fa-folder-open':'fa-folder'?>"></i> 관리</a>
-                            <button type="button" class="btn btn-default btn-xs" data-button="btn-banner-group-form" data-idx="<?=$row['bng_idx']?>"><i class="far fa-pencil"></i> 수정</button>
+                    <tr class="<?=isset($bng_key)&&$bng_key==$row['bng_key']?'active':''?>">
+                        <td class="text-center">
+                            <span class="move-grip"></span>
+                            <input type="hidden" name="bng_idx[]" value="<?=$row['bng_idx']?>">
+                        </td>
+                        <td><i class="far <?=isset($bng_key)&&$bng_key==$row['bng_key']?'fa-folder-open':'fa-folder'?>"></i>&nbsp;<a href="<?=base_url('admin/management/banner/'.$row['bng_key'])?>"><?=$row['bng_name']?></a></td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-default btn-xs MR5" data-button="btn-banner-group-form" data-idx="<?=$row['bng_idx']?>"><i class="far fa-pencil"></i> 수정</button>
                             <button type="button" class="btn btn-danger btn-xs" data-button="btn-banner-group-delete" data-idx="<?=$row['bng_idx']?>"><i class="far fa-trash"></i> 삭제</button>
                         </td>
                     </tr>
                 <?php endforeach;?>
                 <?php if(count($banner_group_list['list']) == 0) :?>
                     <tr>
-                        <td colspan="3" class="empty">등록된 배너 그룹이 없습니다.</td>
+                        <td colspan="4" class="empty">등록된 배너 그룹이 없습니다.</td>
                     </tr>
                 <?php endif;?>
                 </tbody>
@@ -57,17 +61,17 @@
                 <table>
                     <thead>
                     <tr>
-                        <th class="W50">순서</th>
+                        <th class="W20"></th>
                         <th class="W250">썸네일</th>
                         <th>이름</th>
                         <th class="W150">관리</th>
                     </tr>
                     </thead>
-                    <tbody id="banner-list">
+                    <tbody data-toggle="sortable" data-key="ban_idx" data-sort="ban_sort" data-table="banner">
                     <?php foreach($banner_list['list'] as $row) :?>
                         <tr>
                             <td class="text-center">
-                                <i class="far  fa-bars"></i>
+                                <span class="move-grip"></span>
                                 <input type="hidden" name="ban_idx[]" value="<?=$row['ban_idx']?>">
                             </td>
                             <td><?=thumb_img($row['ban_filepath'],'img-thumbnail','style="max-width:250px"')?></td>
@@ -120,7 +124,7 @@
                     }
                 },
                 width: 500,
-                height: 650,
+                height: 400,
                 header : {
                     title : '배너 그룹 정보'
                 }

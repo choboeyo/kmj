@@ -28,6 +28,7 @@ CREATE TABLE `wb_banner` (
 DROP TABLE IF EXISTS `wb_banner_group`;
 CREATE TABLE `wb_banner_group` (
   `bng_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bng_sort` int(10) unsigned NOT NULL DEFAULT 0,
   `bng_key` varchar(20) NOT NULL DEFAULT '',
   `bng_name` varchar(50) NOT NULL DEFAULT '',
   `bng_width` int(11) NOT NULL DEFAULT '0',

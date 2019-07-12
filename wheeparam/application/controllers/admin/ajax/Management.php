@@ -4,6 +4,31 @@ require APPPATH . '/libraries/REST_Controller.php';
 
 class Management extends REST_Controller
 {
+    /****************************************************************************
+     * 공용 순서변경
+     ***************************************************************************/
+    function sort_post()
+    {
+        $key = $this->input->post('key', TRUE);
+        $sort_idx = $this->input->post("sort_order", TRUE);
+        $table = $this->input->post('table', TRUE);
+        $sort_col = $this->input->post('sort', TRUE);
+
+        if(empty($key) OR empty($table) or empty($sort_col))
+            $this->response(array('message'=>'잘못된 접근입니다.'));
+
+        $update_array = array();
+        for($i=1; $i<=count($sort_idx); $i++)
+        {
+            $update_array[] = array(
+                $key => $sort_idx[$i-1],
+                $sort_col => $i
+            );
+        }
+
+        $this->db->update_batch($table, $update_array, $key);
+    }
+
     /**
      * 팝업 목록
      */

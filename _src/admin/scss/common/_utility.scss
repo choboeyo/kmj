@@ -12,3 +12,15 @@
     color: #e32815;
   }
 }
+
+.move-grip {
+  cursor:move;
+  font-size:12px;
+  background-image: url('../images/admin/grip-handle.png');
+  background-size:auto 100%;
+  background-repeat: no-repeat;
+  width:100%;
+  min-width:14px;
+  height:14px;
+  display:block;
+}
