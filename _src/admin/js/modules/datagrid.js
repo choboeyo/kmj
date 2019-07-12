@@ -62,6 +62,7 @@ function GRID (element, addOptions) {
                         e.rowElement.addClass('unused');
                     }
                 }
+
                 self.OnRowPrepared(e);
             }
         },

@@ -45,7 +45,6 @@
                 return d.promise();
             }
         }),
-
         onContextMenuPreparing: function(e) {
             if (e.row.rowType === "data") {
                 e.items = [
@@ -58,7 +57,7 @@
                     }
                 ]
             }
-        },
+        }
     });
 
     grid.form = function() {
