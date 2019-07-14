@@ -83,7 +83,6 @@ APP.initPlugins = function() {
     });
 };
 
-
 APP.initSortableList = function() {
 
     $('[data-toggle="sortable"]').each(function(){
@@ -149,7 +148,7 @@ APP.initFitHeight = function() {
             var mH = $('#contents').height();
 
             $('[data-fit-aside]').each(function() {
-                mH -= $(this).height();
+                mH -= $(this).outerHeight(true);
             });
 
             $('[data-fit-content]').height(mH);
@@ -157,6 +156,102 @@ APP.initFitHeight = function() {
     }).resize();
 };
 
+APP.memberMenuObject = function(e, point_name, obj) {
+    var a = [
+        {
+            icon: 'card',
+            text: '회원정보',
+            beginGroup:true,
+            onItemClick: function() {
+                APP.MEMBER.POP_INFO_ADMIN(e.row.data.mem_idx);
+            }
+        },
+        {
+            icon: 'edit',
+            text: '정보수정',
+            onItemClick: function() {
+                APP.MEMBER.POP_MODIFY_ADMIN(e.row.data.mem_idx);
+            }
+        },
+        {
+            icon: 'key',
+            text: '비밀번호 변경',
+            onItemClick: function() {
+                APP.MEMBER.POP_PASSWORD_ADMIN(e.row.data.mem_idx);
+            }
+        },
+        {
+            beginGroup:true,
+            icon:'repeat',
+            text: '휴면처리',
+            visible: e.row.data.mem_status == 'Y',
+            onItemClick: function() {
+                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,'Y','H');
+            }
+        },
+        {
+            icon:'clear',
+            text: '로그인금지',
+            visible: e.row.data.mem_status == 'Y',
+            onItemClick: function() {
+                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,'Y','D');
+            }
+        },
+        {
+            icon:'clearformat',
+            text: '휴면해제',
+            visible: e.row.data.mem_status == 'H',
+            onItemClick: function() {
+                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,'H','Y');
+            }
+        },
+        {
+            icon:'clearformat',
+            text: '로그인금지 해제',
+            visible: e.row.data.mem_status == 'D',
+            onItemClick: function() {
+                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,'D','Y');
+            }
+        },
+        {
+            icon:'trash',
+            text: '회원 탈퇴',
+            visible: e.row.data.mem_status != 'N',
+            onItemClick: function() {
+                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,'D','Y');
+            }
+        },
+        {
+            icon:'event',
+            beginGroup:true,
+            text: '로그인 기록',
+            onItemClick: function() {
+                APP.POPUP({
+                    url: base_url + '/admin/members/log?mode=popup&sc=idx&st=' + e.row.data.mem_idx
+                })
+            }
+        },
+        {
+            icon:'unpin',
+            beginGroup:true,
+            text: point_name + ' 관리',
+            visible: point_name !== false,
+            onItemClick: function() {
+                APP.MEMBER.POP_POINT_ADMIN(e.row.data.mem_idx);
+            }
+        },
+        {
+            icon:'unpin',
+            text: point_name + ' 추가',
+            visible: point_name !== false,
+            onItemClick: function() {
+                APP.MEMBER.POP_POINT_FORM_ADMIN(e.row.data.mem_idx);
+            }
+        }
+    ]
+
+    return a;
+};
 
 $(function(){
     APP.init();

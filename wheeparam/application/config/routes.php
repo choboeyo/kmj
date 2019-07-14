@@ -11,10 +11,10 @@ $route['customer/faq/(:any)'] = 'customer/faq/index/$1';
 $route['customer/faq/(:any)/(:num)'] = 'customer/faq/view/$2/$1';
 
 // Q&A 라우팅 설정
+$route['customer/qna/write'] = 'customer/qna/write';
 $route['customer/qna/(:num)'] = 'customer/qna/view/$1';
 $route['customer/qna/(:any)'] = 'customer/qna/index/$1';
 $route['customer/qna/(:any)/(:num)'] = 'customer/qna/view/$2/$1';
-$route['customer/qna/(:num)/write'] = 'customer/qna/write/$1';
 
 // 게시판 라우팅 설정
 $route['board/comment/modify/(:num)'] = "board/comment_modify/$1";

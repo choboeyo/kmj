@@ -124,6 +124,22 @@
       }
     }
   }
+  .dx-datagrid-total-footer {
+    >.dx-datagrid-content {
+      padding:0;
+      .dx-row {
+        border: 1px solid #ddd;
+        background-color:#f9f9f9;
+        color:#282828;
+
+        td {
+          border-right:1px solid #ddd;
+          border-bottom:1px solid #ddd;
+        }
+      }
+    }
+
+  }
 }
 
 .dx-datagrid-rowsview {border:1px solid #d8d8d8;}

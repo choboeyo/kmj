@@ -48,7 +48,7 @@ $(function() {
  * 숫자 3자리마다 Comma 자동 입력
  ***********************************************************************************************************************/
 $(function() {
-    $(document).on('keypress', '[data-number-format]', function(e) {
+    $(document).on('keyup', '[data-number-format]', function(e) {
         $(this).val( $(this).val().trim().unNumberFormat().numberFormat() );
     })
 });

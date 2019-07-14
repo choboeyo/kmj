@@ -14,12 +14,19 @@ function GRID (element, addOptions) {
             key : '',
             values : []
         },
+        sorting: {
+            mode:'none',
+            ascendingText: '오름차순 정렬',
+            clearText: '정렬 초기화',
+            descendingText: '내림차순 정렬'
+        },
         colorField : [],
         loadPanel: { enabled: true },
         remoteOperations: {
             groupPaging: true,
             sorting:true,
-            paging:true
+            paging:true,
+            summary:false
         },
         paging: {
             pageSize: 30,

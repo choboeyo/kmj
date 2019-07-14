@@ -1,48 +1,31 @@
-<div class="page-header">
+<div class="page-header" data-fit-aside>
     <h1 class="page-title">회원 목록<small>회원관리 &gt; 회원목록</small></h1>
 </div>
 
-<div class="box">
-    <div class="box-header">
-        <h2 class="box-title">검색 필터</h2>
-    </div>
-    <?=form_open(NULL, array("method"=>'get','class'=>'form-flex','autocomplete'=>'off'))?>
+<form data-grid-search onsubmit="grid.refresh(1);return false;" data-fit-aside autocomplete="off">
     <div data-ax-tbl>
         <div data-ax-tr>
             <div data-ax-td>
                 <div data-ax-td-label>기간 검색</div>
                 <div data-ax-td-wrap>
-                    <select class="form-control form-control-sm" name="sdate">
-                        <option value="regtime" <?=$sdate=='regtime'?'selected':''?>>가입일</option>
-                        <option value="logtime" <?=$sdate=='logtime'?'selected':''?>>최근로그인</option>
+                    <select class="form-control" name="sdate">
+                        <option value="regtime">가입일</option>
+                        <option value="logtime">최근로그인</option>
                     </select>
                 </div>
             </div>
             <div data-ax-td>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="startdate" data-toggle="datepicker" value="<?=$startdate?>">
+                    <input class="form-control" data-chained-datepicker="[name='enddate']" name="startdate" data-toggle="datepicker" value="">
                 </div>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="enddate" data-toggle="datepicker" value="<?=$enddate?>">
+                    <input class="form-control" name="enddate" data-toggle="datepicker" value="">
                 </div>
             </div>
             <div data-ax-td>
-                <div data-ax-td-label>권한 그룹</div>
+                <div data-ax-td-label>검색어 입력</div>
                 <div data-ax-td-wrap>
-                    <select class="form-control form-control-sm" name="mem_auth">
-                        <option value="">전체보기</option>
-                        <?php for($i=1; $i<=10; $i++) :?>
-                            <option value="<?=$i?>"><?=$i?></option>
-                        <?php endfor;?>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div data-ax-tr>
-            <div data-ax-td>
-                <div data-ax-td-label>검색</div>
-                <div data-ax-td-wrap>
-                    <select class="form-control form-control-sm" name="sc">
+                    <select class="form-control" name="sc">
                         <option value="mem_nickname">닉네임</option>
                         <option value="mem_userid">아이디</option>
                     </select>
@@ -50,110 +33,85 @@
             </div>
             <div data-ax-td>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-sm" name="st" value="">
+                    <input class="form-control" name="st">
                 </div>
-            </div>
-        </div>
-        <div data-ax-tr>
-            <div data-ax-td>
-                <div data-ax-td-label>필터적용</div>
                 <div data-ax-td-wrap>
-                    <button class="btn btn-default btn-sm"><i class="far fa-search"></i> 필터적용</button>
+                    <button class="btn btn-default btn-sm"><i class="fal fa-search"></i> 필터적용</button>
                 </div>
             </div>
         </div>
     </div>
-    <?=form_close()?>
-</div>
+</form>
 
-    <div class="H10"></div>
+<div class="H10" data-fit-aside></div>
 
-<div class="box">
-    <div class="box-header">
-        <h4 class="box-title">회원 검색결과 <small>(<?=number_format($member_list['total_count'])?> 명)</small></h4>
-    </div>
-
-    <div class="grid">
-        <table>
-            <thead>
-            <tr>
-                <th class="W50 hidden-xs"><input type="checkbox" data-checkbox="member" data-checkbox-all="true"></th>
-                <th>아이디</th>
-                <th>닉네임</th>
-                <th class="">E-mail</th>
-                <th class="W50">상태</th>
-                <th class="W50">권한</th>
-                <th class="W100"><?=$this->site->config('point_name')?></th>
-                <th class="W50">이메일</th>
-                <th class="W50">SMS</th>
-                <th class="hidden-x">소셜연동</th>
-                <th class="hidden-xs W100">가입일</th>
-                <th class="hidden-xs W125">가입 IP</th>
-                <th class="hidden-xs W150">최근로그인</th>
-                <th class="hidden-xs W125">최근로그인 IP</th>
-                <th class="W100"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach($member_list['list'] as $row) :?>
-            <tr>
-                <td class="text-center hidden-xs"><input type="checkbox" data-checkbox="member" name="mem_idx[]" value="<?=$row['mem_idx']?>"></td>
-                <td><?=$row['mem_userid']?></td>
-                <td><?=display_member_menu($row['mem_idx'], $row['mem_nickname'], $row['mem_status'])?></td>
-                <td><?=$row['mem_email']?></td>
-                <td class="text-center">
-                    <?php if($row['mem_status'] == 'Y') : ?>
-                    <label class="label label-success">정상</label>
-                    <?php elseif ($row['mem_status'] == 'B') :?>
-                    <label class="label label-danger">금지</label>
-                    <?php elseif ($row['mem_status'] == 'H') :?>
-                    <label class="label label-warning">휴면</label>
-                    <?php else :?>
-                    <label class="label label-default">탈퇴</label>
-                    <?php endif;?>
-                </td>
-                <td class="text-center"><?=$row['mem_auth']?></td>
-                <td class="text-right"><?=number_format($row['mem_point'])?></td>
-                <td class="text-center"><?=$row['mem_recv_email']=='Y'?'<label class="label label-success">수신</label>':'<label class="label label-default">미수신</label>'?></td>
-                <td class="text-center"><?=$row['mem_recv_sms']=='Y'?'<label class="label label-success">수신</label>':'<label class="label label-default">미수신</label>'?></td>
-                <td class="text-center hidden-xs">
-                    <?php if($row['social_naver']) : ?>
-                    <img src="<?=base_url('assets/images/social/icon_naver.png')?>" style="width:22px;">
-                    <?php endif;?>
-                    <?php if($row['social_facebook']) : ?>
-                        <img src="<?=base_url('assets/images/social/icon_facebook.png')?>" style="width:22px;">
-                    <?php endif;?>
-                    <?php if($row['social_google']) : ?>
-                        <img src="<?=base_url('assets/images/social/icon_google.png')?>" style="width:22px;">
-                    <?php endif;?>
-                    <?php if($row['social_kakao']) : ?>
-                        <img src="<?=base_url('assets/images/social/icon_kakao.png')?>" style="width:22px;">
-                    <?php endif;?>
-                </td>
-                <td class="hidden-xs text-center"><?=date('Y.m.d', strtotime($row['mem_regtime']))?></td>
-                <td class="hidden-xs text-center"><?=long2ip($row['mem_regip'])?></td>
-                <td class="hidden-xs text-center"><?=date('Y.m.d H:i', strtotime($row['mem_logtime']))?></td>
-                <td class="hidden-xs text-center"><?=long2ip($row['mem_logip'])?></td>
-                <td class="text-center"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash"></i> 삭제</button></td>
-            </tr>
-            <?php endforeach;?>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="H10"></div>
-
-    <div class="bottom-actions">
-        <div class="left">
-            <button type="button" class="btn btn-default btn-sm"><i class="far fa-gift"></i> 선택 <?=$this->site->config('point_name')?> 지급</button>
-            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-mobile-alt"></i> 선택 SMS 발송</button>
-            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-envelope"></i> 선택 메일 발송</button>
-        </div>
-        <div class="center">
-            <?=$pagination?>
-        </div>
-        <div class="right">
-            <a href="<?=base_url('admin/members/add')?>" class="btn btn-primary"><i class="far fa-plus-circle"></i> 신규 회원 등록</a>
-        </div>
+<div class="ax-button-group" data-fit-aside>
+    <div class="left">
+        <a class="btn btn-primary" href="<?=base_url('admin/members/add')?>"><i class="fal fa-user-plus"></i> 회원 추가</a>
     </div>
 </div>
+
+<div class="grid-wrapper" data-fit-content>
+    <div id="grid-container" class="grid-container"></div>
+</div>
+
+<script>
+    var grid = new GRID('#grid-container', {
+        columns: [
+            {caption:'순번', dataField:'nums', alignment:'right', dataType:'number', format:'fixedPoint', width:60},
+            {caption:'상태', dataField:'mem_status', alignment:'center', width:80,
+                customizeText:function(cell){
+                    if(cell.value == 'Y') return '정상';
+                    else if (cell.value == 'D') return '접근금지';
+                    else if (cell.value == 'H') return '휴면';
+                    else if (cell.value == 'N') return '탈퇴';
+                }
+            },
+            {caption:'아이디', dataField:'mem_userid', alignment:'left', width:150},
+            {caption:'닉네임', dataField:'mem_nickname', alignment:'left', width:150},
+            {caption:'E-mail', dataField:'mem_email', alignment:'left', width:150},
+            {caption:'레벨', dataField:'mem_auth', alignment:'right', width:60, dataType:'number', format:'fixedPoint'},
+            {caption:'<?=$this->site->config('point_name')?>', dataField:'mem_point', alignment:'right', width:80, dataType:'number', format:'fixedPoint'},
+            {caption:'EMAIL', dataField:'mem_recv_email', alignment:'center', width:60,
+                customizeText: function(cell) {return cell.value == 'Y'?'수신':'미수신'}
+            },
+            {caption:'SMS', dataField:'mem_recv_sms', alignment:'center', width:60,
+                customizeText: function(cell) {return cell.value == 'Y'?'수신':'미수신'}
+            },
+            {caption:'가입일시', dataField:'mem_regtime', alignment:'center', width:150},
+            {caption:'가입IP', dataField:'mem_regip', alignment:'center', width:150},
+            {caption:'최근로그인', dataField:'mem_logtime', alignment:'center', width:150},
+            {caption:'최근IP', dataField:'mem_logip', alignment:'center', width:150},
+            {caption:'', calculateCellValue:function(e) {return ''}}
+        ],
+        onContextMenuPreparing: function(e) {
+            if (e.row.rowType === "data") {
+                e.items = APP.memberMenuObject(e, <?=$this->site->config('point_use')=='Y'?'"'.$this->site->config('point_name').'"':'false'?>);
+            }
+        },
+        dataSource: new DevExpress.data.DataSource({
+            key : 'mem_idx',
+            load: function(loadOptions) {
+                var d = $.Deferred();
+                var params = grid.getSearchParam(loadOptions);
+
+                $.ajax({
+                    url : base_url + '/admin/ajax/members',
+                    type: 'GET',
+                    async: false,
+                    cache: false,
+                    data: params
+                }).done(function(res) {
+                    d.resolve(res.lists, {
+                        totalCount : res.totalCount
+                    });
+                });
+
+                return d.promise();
+            }
+        }),
+    });
+    $(function() {
+        grid.init();
+    })
+</script>

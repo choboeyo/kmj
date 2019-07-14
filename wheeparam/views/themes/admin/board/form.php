@@ -498,15 +498,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">네이버 신디케이션 연동</label>
-                    <div class="controls">
-                        <select class="form-control form-control-inline" name="brd_use_naver_syndi">
-                            <option value="Y" <?=element('brd_use_naver_syndi', $view)=='Y'?'selected':''?>>사용</option>
-                            <option value="N" <?=element('brd_use_naver_syndi', $view)=='N'?'selected':''?>>사용</option>
-                        </select>
-                    </div>
-                </div>
             </div>
         </div>
 

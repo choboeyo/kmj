@@ -85,7 +85,6 @@ class Board extends WB_Controller
             $data['brd_use_total_rss'] = $this->input->post('brd_use_total_rss', TRUE);
             $data['brd_use_rss'] = $this->input->post('brd_use_rss', TRUE);
             $data['brd_use_sitemap'] = $this->input->post('brd_use_sitemap', TRUE);
-            $data['brd_use_naver_syndi'] = $this->input->post('brd_use_naver_syndi', TRUE, 'Y');
 
             if(empty($brd_key))
             {

@@ -176,8 +176,7 @@ class Management extends WB_Controller {
      */
     public function sitemap()
     {
-        $this->view = "management/sitemap";
-        $this->active   = "management/sitemap";
+        $this->view = $this->active = "management/sitemap";
     }
 
     /**
@@ -515,6 +514,9 @@ class Management extends WB_Controller {
             $data['bng_name'] = $this->input->post('bng_name', TRUE);
             $data['bng_width'] = $this->input->post('bng_width', TRUE, 0);
             $data['bng_height'] = $this->input->post('bng_height', TRUE, 0);
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+
             for($i=1; $i<=5; $i++)
             {
                 $data["bng_ext{$i}"] = $this->input->post("bng_ext{$i}",TRUE,'');
@@ -530,6 +532,8 @@ class Management extends WB_Controller {
                 }
 
                 $sort = (int)$this->db->select_max('bng_sort', 'max')->get('banner_group')->row(0)->max;
+                $data['reg_user'] = $data['upd_user'];
+                $data['reg_datetime'] = $data['upd_datetime'];
                 $data['bng_sort'] = $sort+1;
 
                 if( $this->db->insert('banner_group', $data))
@@ -560,7 +564,6 @@ class Management extends WB_Controller {
                 $this->data['view'] = $this->db->where('bng_idx', $bng_idx)->get('banner_group')->row_array();
             }
 
-            $this->theme    = "admin";
             $this->theme_file = "iframe";
             $this->view     = "management/banner_group_form";
         }
@@ -640,7 +643,6 @@ class Management extends WB_Controller {
             $data['ban_link_use'] = $this->input->post('ban_link_use', TRUE) == 'Y' ? 'Y' : 'N';
             $data['ban_link_url'] = $this->input->post('ban_link_url', TRUE, "");
             $data['ban_link_type'] = $this->input->post('ban_link_url', TRUE) == 'Y' ? 'Y': 'N';
-            $data['ban_modtime'] = date('Y-m-d H:i:s');
             $data['ban_status'] = $this->input->post('ban_status', TRUE) == 'H' ? 'H' : 'Y';
             $data['ban_timer_use'] = $this->input->post('ban_timer_use', TRUE) == 'Y' ? 'Y' : 'N';
             $data['ban_timer_start'] = $this->input->post('ban_timer_start', TRUE, '0000-00-00 00:00:00');
@@ -649,6 +651,9 @@ class Management extends WB_Controller {
             {
                 $data["ban_ext{$i}"] = $this->input->post("ban_ext{$i}",TRUE,'');
             }
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+
 
             // 업로드된 파일이 있을경우 처리
             if( isset($_FILES['userfile']) && $_FILES['userfile'] && $_FILES['userfile']['tmp_name'] )
@@ -681,6 +686,7 @@ class Management extends WB_Controller {
             if(empty($data['ban_idx']))
             {
                 $data['ban_regtime'] = date('Y-m-d H:i:s');
+                $data['reg_user'] = $data['upd_user'];
 
                 $sort = (int)$this->db->select_max('ban_sort', 'max')->where('bng_key', $data['bng_key'])->get('banner')->row(0)->max;
                 $data['ban_sort'] = $sort+1;
@@ -761,6 +767,121 @@ class Management extends WB_Controller {
         }
     }
 
-    /*--------------------------------------------------------------------------*/
+    /****************************************************************************
+     * Q&A 관리
+     ***************************************************************************/
+    function qna() {
+        $this->view = $this->active = 'management/qna';
+    }
 
+    /****************************************************************************
+     * Q&A 분류 관리
+     ***************************************************************************/
+    function qna_category()
+    {
+        $this->data['lists'] = $this->db->where('qnc_status','Y')->order_by('sort ASC')->get('qna_category')->result_array();
+
+        $this->view = "management/qna_category";
+        $this->theme_file = 'iframe';
+    }
+
+    /****************************************************************************
+     * Q&A 내용 보기
+     ***************************************************************************/
+    function qna_view($qna_idx = "")
+    {
+        $this->load->library('form_validation');
+
+        if(empty($qna_idx)) {
+            alert_modal_close('잘못된 접근입니다.');
+            exit;
+        }
+
+        if(! $this->data['view'] =
+            $this->db
+                ->select('Q.*, QC.qnc_title, M.mem_nickname AS qna_ans_upd_username')
+                ->where('qna_idx', $qna_idx)
+                ->from('qna AS Q')
+                ->join('qna_category AS QC','QC.qnc_idx=Q.qnc_idx','left')
+                ->join('member AS M','M.mem_idx=Q.qna_ans_user','left')
+                ->get()
+                ->row_array() )
+        {
+            alert_modal_close('잘못된 접근입니다.');
+            exit;
+        }
+
+        $this->form_validation->set_rules('qna_ans_content', '답변 내용', 'required|trim');
+
+        if( $this->form_validation->run() !=FALSE )
+        {
+            $data['qna_ans_status'] = 'Y';
+            $data['qna_ans_upd_user'] = $this->member->is_login();
+            $data['qna_ans_upd_datetime'] = date('Y-m-d H:i:s');
+            $data['qna_ans_content'] = $this->input->post('qna_ans_content', TRUE);
+
+            if($this->data['view']['qna_ans_status'] == 'N') {
+                $data['qna_ans_user'] = $data['qna_ans_upd_user'];
+                $data['qna_ans_datetime'] = $data['qna_ans_upd_datetime'];
+            }
+
+            $this->db->where('qna_idx', $qna_idx)->update('qna', $data);
+
+            alert('답변 작성이 완료되었습니다.', base_url('admin/management/qna_view/'.$qna_idx));
+            exit;
+        }
+        else {
+
+
+            // 첨부파일 가져오기
+            $this->data['view']['attach_list'] = $this->db->where('att_target_type','QNA')->where('att_target', $qna_idx)->get('attach')->result_array();
+
+            $this->view = "management/qna_view";
+            $this->theme_file = 'iframe';
+        }
+    }
+
+    /****************************************************************************
+     * Q&A 분류 관리 등록/수정
+     ***************************************************************************/
+    function qna_category_form($qnc_idx="")
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('qnc_title', '질문 유형 제목', 'required|trim');
+
+        if( $this->form_validation->run() != FALSE )
+        {
+            $data['qnc_title'] = $this->input->post('qnc_title', TRUE);
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+
+            if(empty($qnc_idx)) {
+                $data['qnc_status'] = 'Y';
+                $data['reg_user'] = $data['upd_user'];
+                $data['reg_datetime'] = $data['upd_datetime'];
+                $data['sort'] = (int)$this->db->select_max('sort', 'max')->where('qnc_status','Y')->get('qna_category')->row(0)->max;
+
+                $this->db->insert('qna_category', $data);
+            }
+            else {
+                $this->db->where('qnc_idx', $qnc_idx)->update('qna_category', $data);
+            }
+
+            alert_modal2_close('Q&A 분류 정보가 입력되었습니다.', TRUE);
+        }
+        else {
+            $this->data['view'] = array();
+
+            if(! empty($qnc_idx)) {
+                if(! $this->data['view'] = $this->db->where('qnc_idx', $qnc_idx)->get('qna_category')->row_array())
+                {
+                    alert_modal2_close('잘못된 접근입니다.', FALSE);
+                }
+            }
+
+            $this->theme_file = 'iframe';
+            $this->view = "management/qna_category_form";
+        }
+    }
 }

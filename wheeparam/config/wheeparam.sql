@@ -1,3 +1,21 @@
+DROP TABLE IF EXISTS `wb_attach`;
+CREATE TABLE `wb_attach` (
+  `att_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `att_target_type` enum('QNA','BOARD','ETC') NOT NULL DEFAULT 'ETC',
+  `att_target` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '파일이 소속된 문서 PK',
+  `att_is_image` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '이미지 인지 여부',
+  `att_origin` varchar(255) NOT NULL COMMENT '원본 파일명',
+  `att_filepath` varchar(255) NOT NULL COMMENT '실제 업로드된 파일 경로',
+  `att_downloads` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '해당 파일 다운로드 수',
+  `att_ext` varchar(10) NOT NULL DEFAULT '' COMMENT '파일 확장자',
+  `att_filesize` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '파일 크기 kb',
+  `att_width` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT '이미지일경우 너비',
+  `att_height` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT '이미지일경우 높이',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '등록자 PK',
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록시간',
+  PRIMARY KEY (`att_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `wb_banner`;
 CREATE TABLE `wb_banner` (
   `ban_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -8,8 +26,6 @@ CREATE TABLE `wb_banner` (
   `ban_link_url` varchar(50) NOT NULL DEFAULT '',
   `ban_link_type` enum('Y','N') NOT NULL DEFAULT 'N',
   `ban_status` enum('Y','H','N') NOT NULL DEFAULT 'Y',
-  `ban_regtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `ban_modtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ban_sort` int(10) unsigned NOT NULL DEFAULT '0',
   `ban_timer_use` enum('Y','N') NOT NULL DEFAULT 'N',
   `ban_timer_start` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -19,6 +35,10 @@ CREATE TABLE `wb_banner` (
   `ban_ext3` varchar(255) NOT NULL DEFAULT '',
   `ban_ext4` varchar(255) NOT NULL DEFAULT '',
   `ban_ext5` varchar(255) NOT NULL DEFAULT '',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ban_idx`),
   KEY `bng_key` (`bng_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -31,8 +51,8 @@ CREATE TABLE `wb_banner_group` (
   `bng_sort` int(10) unsigned NOT NULL DEFAULT 0,
   `bng_key` varchar(20) NOT NULL DEFAULT '',
   `bng_name` varchar(50) NOT NULL DEFAULT '',
-  `bng_width` int(11) NOT NULL DEFAULT '0',
-  `bng_height` int(11) NOT NULL DEFAULT '0',
+  `bng_width` smallint(6) NOT NULL DEFAULT 0,
+  `bng_height` smallint(6) NOT NULL DEFAULT 0,
   `bng_ext1` varchar(255) NOT NULL DEFAULT '',
   `bng_ext2` varchar(255) NOT NULL DEFAULT '',
   `bng_ext3` varchar(255) NOT NULL DEFAULT '',
@@ -43,6 +63,10 @@ CREATE TABLE `wb_banner_group` (
   `bng_ext3_use` enum('Y','N') NOT NULL DEFAULT 'N',
   `bng_ext4_use` enum('Y','N') NOT NULL DEFAULT 'N',
   `bng_ext5_use` enum('Y','N') NOT NULL DEFAULT 'N',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(11) NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`bng_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -60,15 +84,15 @@ CREATE TABLE `wb_board` (
   `brd_skin_w_m` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_c` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_c_m` varchar(100) NOT NULL DEFAULT '',
-  `brd_sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `brd_sort` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_search` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_lv_list` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_lv_read` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_lv_write` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_lv_reply` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_lv_comment` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_lv_download` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_lv_upload` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `brd_lv_list` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_lv_read` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_lv_write` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_lv_reply` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_lv_comment` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_lv_download` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_lv_upload` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `brd_use_anonymous` enum('Y','N','A') NOT NULL DEFAULT 'N',
   `brd_use_category` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_secret` enum('Y','N','A') NOT NULL DEFAULT 'Y',
@@ -80,29 +104,33 @@ CREATE TABLE `wb_board` (
   `brd_use_list_file` enum('Y','N') NOT NULL DEFAULT 'N',
   `brd_use_view_list` enum('Y','N') NOT NULL DEFAULT 'N',
   `brd_use_assign` enum('Y','N') NOT NULL DEFAULT 'N',
-  `brd_thumb_width` int(10) unsigned NOT NULL DEFAULT '0',
-  `brd_thumb_height` int(10) unsigned NOT NULL DEFAULT '0',
+  `brd_thumb_width` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_thumb_height` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_use_rss` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_total_rss` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_sitemap` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_display_time` enum('sns','basic','full') NOT NULL DEFAULT 'sns',
-  `brd_count_post` int(10) unsigned NOT NULL DEFAULT '0',
+  `brd_count_post` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_page_limit` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_page_rows` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_page_rows_m` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_fixed_num` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_fixed_num_m` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `brd_point_write` int(10) NOT NULL DEFAULT '0',
-  `brd_point_read` int(10) NOT NULL DEFAULT '0',
-  `brd_point_comment` int(10) NOT NULL DEFAULT '0',
-  `brd_point_download` int(10) NOT NULL DEFAULT '0',
-  `brd_point_reply` int(10) NOT NULL DEFAULT '0',
-  `brd_time_new` int(10) unsigned NOT NULL DEFAULT '0',
-  `brd_hit_count` int(10) unsigned NOT NULL DEFAULT '0',
+  `brd_page_rows` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_page_rows_m` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_fixed_num` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_fixed_num_m` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `brd_point_write` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_point_write_flag` tinyint(4) NOT NULL DEFAULT 1,
+  `brd_point_read` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_point_read_flag` tinyint(4) NOT NULL DEFAULT -1,
+  `brd_point_comment` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_point_comment_flag` tinyint(4) NOT NULL DEFAULT 1,
+  `brd_point_download` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_point_download_flag` tinyint(4) NOT NULL DEFAULT -1,
+  `brd_point_reply` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_point_reply_flag` tinyint(4) NOT NULL DEFAULT 1,
+  `brd_time_new` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_hit_count` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_keywords` varchar(255) NOT NULL,
   `brd_description` text NOT NULL,
   `brd_blind_nickname` enum('Y','N') NOT NULL DEFAULT 'N',
-  `brd_use_naver_syndi` enum('Y','N') NOT NULL DEFAULT 'Y',
 PRIMARY KEY (`brd_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -199,20 +227,6 @@ CREATE TABLE `wb_board_post` (
   PRIMARY KEY (`post_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-DROP TABLE IF EXISTS `wb_board_syndi_log`;
-CREATE TABLE `wb_board_syndi_log` (
-  `bsl_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `brd_key` varchar(10) NOT NULL DEFAULT '',
-  `post_idx` int(10) unsigned NOT NULL DEFAULT '0',
-  `bsl_return_code` char(3) NOT NULL DEFAULT '000',
-  `bsl_return_message` varchar(255) NOT NULL DEFAULT '',
-  `bsl_receipt_number` varchar(255) NOT NULL DEFAULT '',
-  `bsl_regtime` datetime NOT NULL,
-  PRIMARY KEY (`bsl_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS `wb_config`;
 CREATE TABLE `wb_config` (
   `cfg_key` varchar(30) NOT NULL,
@@ -244,7 +258,6 @@ insert  into `wb_config`(`cfg_key`,`cfg_value`) values
   ('email_send_address','email@address.com'),
   ('icode_userid',''),
   ('icode_userpw',''),
-  ('naver_syndication_key',''),
   ('point_member_login','0'),
   ('point_member_register','0'),
   ('point_name','포인트'),
@@ -517,12 +530,16 @@ CREATE TABLE `wb_member_meta` (
 DROP TABLE IF EXISTS `wb_member_point`;
 CREATE TABLE `wb_member_point` (
   `mpo_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `mem_idx` int(10) unsigned NOT NULL DEFAULT '0',
-  `mpo_value` int(10) NOT NULL DEFAULT '0',
+  `mem_idx` int(10) unsigned NOT NULL DEFAULT 0,
+  `mpo_flag` tinyint(4) NOT NULL DEFAULT 1,
+  `mpo_value` int(10) unsigned NOT NULL DEFAULT 0,
   `mpo_description` varchar(255) NOT NULL DEFAULT '',
   `target_type` enum('NONE','POST_READ','POST_WRITE','POST_LIKE','POST_ATTACH_DOWNLOAD','CMT_WRITE','CMT_LIKE','TODAY_LOGIN','JOIN') NOT NULL DEFAULT 'NONE',
-  `target_idx` int(10) unsigned NOT NULL DEFAULT '0',
-  `mpo_regtime` datetime NOT NULL,
+  `target_idx` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`mpo_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
@@ -573,6 +590,43 @@ CREATE TABLE `wb_popup` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`pop_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `wb_qna`;
+CREATE TABLE `wb_qna` (
+  `qna_idx` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Q&A PK',
+  `qna_status` enum('Y','N') NOT NULL DEFAULT 'Y' COMMENT 'N: 삭제됨',
+  `qnc_idx` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Q&A 카테고리 PK',
+  `qna_title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Q&A 제목',
+  `qna_name` varchar(20) NOT NULL DEFAULT '' COMMENT '작성자 이름',
+  `qna_phone` varchar(15) NOT NULL DEFAULT '' COMMENT '연락처',
+  `qna_email` varchar(50) NOT NULL DEFAULT '' COMMENT 'E-mail',
+  `qna_password` char(64) NOT NULL DEFAULT '',
+  `qna_content` text NOT NULL COMMENT '작성내용',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '회원이 작성한경우 PK',
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `qna_ans_status` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '답변 등록 여부',
+  `qna_ans_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '답변자 PK',
+  `qna_ans_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '답변 시간',
+  `qna_ans_upd_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '답변 수정자 PK',
+  `qna_ans_upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '답변 수정 시간',
+  `qna_ans_content` text NOT NULL COMMENT '답변 내용',
+  PRIMARY KEY (`qna_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `wb_qna_category`;
+CREATE TABLE `wb_qna_category` (
+  `qnc_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `qnc_status` enum('Y','N') DEFAULT NULL,
+  `qnc_title` varchar(50) NOT NULL DEFAULT '',
+  `sort` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`qnc_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `wb_search`;

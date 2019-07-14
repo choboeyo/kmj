@@ -190,7 +190,7 @@ class Member {
             if( $this->CI->site->config('point_use') == 'Y' && (int)$this->CI->site->config('point_member_register') > 0 )
             {
                 $member_info = $this->get_member($param['mem_userid']);
-                $this->add_point($member_info['mem_idx'], $this->CI->site->config('point_member_register'), FALSE, "JOIN", point_type("JOIN"), 0);
+                $this->add_point($member_info['mem_idx'],1, $this->CI->site->config('point_member_register'), FALSE, "JOIN", point_type("JOIN"), 0);
             }
 
             return TRUE;
@@ -249,7 +249,7 @@ class Member {
         // 로그인시 포인트 부여
         if( $this->CI->site->config('point_use') == 'Y' && $this->CI->site->config('point_member_login') > 0 )
         {
-            $this->add_point($member_info['mem_idx'], $this->CI->site->config('point_member_login'), TRUE, "TODAY_LOGIN", point_type("TODAY_LOGIN"), 0);
+            $this->add_point($member_info['mem_idx'],1, $this->CI->site->config('point_member_login'), TRUE, "TODAY_LOGIN", point_type("TODAY_LOGIN"), 0);
         }
 
         // 자동로그인 설정시 자동로그인 처리
@@ -288,7 +288,7 @@ class Member {
     /**********************************************************
      * 포인트 추가 실제 처리
      *********************************************************/
-    public function add_point($mem_idx, $point, $point_on_day=FALSE, $target_type="", $description="",$target_idx="")
+    public function add_point($mem_idx, $flag=1, $point, $point_on_day=FALSE, $target_type="", $description="",$target_idx="")
     {
         // 포인트 기능 미사용일경우 리턴
         if($this->CI->site->config('point_use') != 'Y') return FALSE;
@@ -309,8 +309,8 @@ class Member {
             $this->CI->db->where("mem_idx", $mem_idx);
             $this->CI->db->where("target_type", $target_type);
             $this->CI->db->where("mpo_value >", "0");
-            $this->CI->db->where("mpo_regtime >=", date('Y-m-d 00:00:00'));
-            $this->CI->db->where("mpo_regtime <=", date('Y-m-d 23:59:59'));
+            $this->CI->db->where("reg_datetime >=", date('Y-m-d 00:00:00'));
+            $this->CI->db->where("reg_datetime <=", date('Y-m-d 23:59:59'));
             $temp = $this->CI->db->get("member_point");
             $count = (int) $temp->row(0)->cnt;
             if( $count > 0 )
@@ -321,15 +321,19 @@ class Member {
 
         // 입력할 데이타 정리
         $this->CI->db->set('mem_idx', $mem_idx);
+        $this->CI->db->set('mpo_flag', $flag);
         $this->CI->db->set('mpo_value', $point);
         $this->CI->db->set('mpo_description', $description);
         $this->CI->db->set('target_type', $target_type);
         $this->CI->db->set('target_idx', $target_idx);
-        $this->CI->db->set('mpo_regtime', date('Y-m-d H:i:s') );
+        $this->CI->db->set('reg_user', $this->CI->member->is_login() );
+        $this->CI->db->set('reg_datetime', date('Y-m-d H:i:s') );
+        $this->CI->db->set('upd_user', $this->CI->member->is_login() );
+        $this->CI->db->set('upd_datetime', date('Y-m-d H:i:s') );
         $this->CI->db->insert('member_point');
 
         // 회원 DB에 반영
-        $point=(int)$this->CI->db->select('SUM(mpo_value) AS sumval')->where('mem_idx', $this->CI->member->is_login())->get('member_point')->row(0)->sumval;
+        $point=(int)$this->CI->db->select('SUM(mpo_value * mpo_flag) AS sumval')->where('mem_idx', $this->CI->member->is_login())->get('member_point')->row(0)->sumval;
         $this->CI->db->set('mem_point', $point);
         $this->CI->db->where('mem_idx', $mem_idx);
         $this->CI->db->update('member');

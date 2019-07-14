@@ -6,7 +6,7 @@
                 <h4>배너 분류</h4>
             </div>
             <div class="right">
-                <button type="button" class="btn btn-default" data-button="btn-banner-group-form" data-idx=""><i class="far fa-plus-circle"></i> 배너그룹 추가</button>
+                <button type="button" class="btn btn-default" data-button="btn-banner-group-form" data-idx=""><i class="fal fa-plus-circle"></i> 배너그룹 추가</button>
             </div>
         </div>
 
@@ -77,7 +77,7 @@
                             <td><?=thumb_img($row['ban_filepath'],'img-thumbnail','style="max-width:250px"')?></td>
                             <td><?=$row['ban_name']?></td>
                             <td class="text-center W150">
-                                <button type="button" class="btn btn-default btn-sm" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx="<?=$row['ban_idx']?>"><i class="far fa-pencil"></i> 수정</button>
+                                <button type="button" class="btn btn-default btn-sm MR5" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx="<?=$row['ban_idx']?>"><i class="far fa-pencil"></i> 수정</button>
                                 <button type="button" class="btn btn-danger btn-sm" data-button="btn-banner-delete" data-idx="<?=$row['ban_idx']?>"><i class="far fa-trash"></i> 삭제</button>
                             </td>
                         </tr>

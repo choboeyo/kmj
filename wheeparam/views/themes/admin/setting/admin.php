@@ -1,4 +1,3 @@
-<div class="W600 margin-auto">
 <div class="page-header" data-fit-aside>
     <h1 class="page-title">관리자 관리</h1>
 </div>
@@ -12,7 +11,6 @@
 <div class="grid-wrapper" data-fit-content>
     <div class="grid-container" id="grid-container"></div>
 </div>
-</div>
 <script>
     var grid = new GRID('#grid-container', {
         columns: [
@@ -23,6 +21,7 @@
             {caption:'가입IP', dataField:'regip', alignment:'center', width:120},
             {caption:'최근로그인', dataField:'mem_logtime', alignment:'center', width:120},
             {caption:'최근로그인IP', dataField:'logip', alignment:'center', width:120},
+            {caption:'', calculateCellValue:function(e) {return ''}}
         ],
         dataSource: new DevExpress.data.DataSource({
             key : 'mem_idx',

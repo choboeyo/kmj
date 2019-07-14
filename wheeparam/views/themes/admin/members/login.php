@@ -13,11 +13,11 @@
                     <label for="login-id"><i class="far fa-pen-square"></i> ID</label>
                     <input class="form-control" id="login-id" name="login_id" placeholder="ID" value="<?=set_value('login_id')?>" maxlength="50" autofocus="1">
                 </div>
-                <div class="form-group">
+                <div class="form-group MT10">
                     <label for="login-pass"><i class="far fa-key"></i> PASSWORD</label>
                     <input type="password" class="form-control" id="login-pass" name="login_pass" placeholder="PASSWORD" value="" maxlength="20">
                 </div>
-                <button class="btn btn-block">LOGIN</button>
+                <button class="btn btn-block MT10">LOGIN</button>
                 <?=$form_close?>
             </div>
         </div>

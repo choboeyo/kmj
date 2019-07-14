@@ -102,6 +102,69 @@ class Management extends REST_Controller
         $this->db->where('sit_idx', $sit_idx)->delete('sitemap');
     }
 
+    // Q&A 분류 삭제
+    function qna_category_delete()
+    {
+        $qnc_idx = $this->delete('qnc_idx', TRUE);
+        if(empty($qnc_idx)) $this->response(array('message'=>'잘못된 접근입니다.'), 400);
+
+        $data['upd_user'] = $this->member->is_login();
+        $data['upd_datetime'] = date('Y-m-d H:i:s');
+        $data['qnc_status'] = 'N';
+
+        $this->db->where('qnc_idx', $qnc_idx)->update('qna_category', $data);
+    }
+
+    function qna_delete()
+    {
+        $qna_idx=  $this->delete('qna_idx', TRUE);
+
+        if(empty($qna_idx)) $this->response(array('message'=>'잘못된 접근입니다.'), 400);
+
+        $data['upd_user'] = $this->member->is_login();
+        $data['upd_datetime'] = date('Y-m-d H:i:s');
+        $data['qna_status'] = 'N';
+
+        $this->db->where('qna_idx', $qna_idx)->update('qna', $data);
+    }
+
+    function qna_get()
+    {
+        $startdate = $this->get('startdate', TRUE);
+        $enddate = $this->get('enddate', TRUE);
+        $qna_ans_status = $this->get('qna_ans_status', TRUE);
+        $st = $this->get('st', TRUE);
+        $sc = $this->get('sc', TRUE);
+
+        $page_rows = $this->get('take', TRUE);
+        $start = $this->get('skip', TRUE);
+
+        if(! empty($page_rows)) $this->db->limit($page_rows, $start);
+        if(! empty($startdate)) $this->db->where('reg_datetime >=', $startdate.' 00:00:00');
+        if(! empty($enddate)) $this->db->where('reg_datetime <=', $enddate.' 23:59:59');
+        if(! empty($qna_ans_status)) $this->db->where('qna_ans_status', $qna_ans_status);
+        if(! empty($st) && ! empty($sc)) $this->db->like($sc, $st);
+
+        $this->db->select("SQL_CALC_FOUND_ROWS Q.*, QC.qnc_title, M.mem_nickname AS qna_ans_upd_username",FALSE);
+        $this->db->order_by('qna_idx DESC');
+        $this->db->from('qna AS Q');
+        $this->db->join('qna_category AS QC','QC.qnc_idx=Q.qnc_idx','left');
+        $this->db->join('member AS M','M.mem_idx=Q.qna_ans_user','left');
+        $this->db->where('qna_status','Y');
+
+
+        $result = $this->db->get();
+        $return['lists'] = $result->result_array();
+        $return['totalCount'] = (int)$this->db->query("SELECT FOUND_ROWS() AS cnt")->row(0)->cnt;
+
+        foreach($return['lists'] as $i=>&$row)
+        {
+            $row['nums'] = $return['totalCount'] - $i - $start;
+        }
+
+        $this->response($return, 200);
+    }
+
     /**
      * 공용 셀 에디트
      */

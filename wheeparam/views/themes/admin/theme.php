@@ -39,7 +39,7 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <li data-active="management/banner"><a href="<?=base_url('admin/management/banner')?>">배너 관리</a></li>
                 <li data-active="management/menu"><a href="<?=base_url('admin/management/menu')?>">메뉴 관리</a></li>
                 <li data-active="management/faq"><a href="<?=base_url('admin/management/faq')?>">FAQ 관리</a></li>
-
+                <li data-active="management/qna"><a href="<?=base_url('admin/management/qna')?>">Q&A 관리</a></li>
             </ul>
         </li>
         <li>

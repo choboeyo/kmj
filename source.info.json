@@ -8,6 +8,7 @@
   "source" : {
     "commonJs" : [
       "node_modules/clipboard/dist/clipboard.js",
+      "_src/common/js/plugins/jquery.tmpl.js",
       "_src/plugins/jquery-blockUI/jquery.blockUI.js",
       "_src/plugins/jquery-cookie/jquery.cookie.js",
       "node_modules/ax5core/dist/ax5core.js",
@@ -47,7 +48,6 @@
         "_src/admin/js/jquery-ui.js",
         "_src/admin/js/dx.all.js",
         "_src/admin/js/dx.messages.ko.js",
-        "_src/admin/js/jquery.tmpl.js",
         "_src/admin/js/admin.js",
         "_src/admin/js/modules/modal.js",
         "_src/admin/js/modules/board.js",

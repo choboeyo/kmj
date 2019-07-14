@@ -108,7 +108,7 @@
         <div data-ax-td class="width-100">
             <div data-ax-td-label>표시 시작시간</div>
             <div data-ax-td-wrap>
-                <input class="form-control form-control-inline" name="ban_timer_start" value="<?=element('ban_timer_start', $view)?>">
+                <div data-toggle="datetime-picker" data-type="datetime" data-name="ban_timer_start" data-value="<?=element('ban_timer_start', $view, set_value('pop_start'))?>"></div>
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
         <div data-ax-td class="width-100">
             <div data-ax-td-label>표시 종료시간</div>
             <div data-ax-td-wrap>
-                <input class="form-control form-control-inline" name="ban_timer_end" value="<?=element('ban_timer_end', $view)?>">
+                <div data-toggle="datetime-picker" data-type="datetime" data-name="ban_timer_end" data-value="<?=element('ban_timer_end', $view, set_value('pop_end'))?>"></div>
             </div>
         </div>
     </div>
@@ -130,15 +130,6 @@
 <script>
     $(function(){
 
-        $('select[name="ban_timer_use"]').change(function(){
-            if( $(this).find('option:selected').val() == 'Y' )
-            {
-                $('[name="ban_timer_start"],[name="ban_timer_end"]').removeAttr('disabled');
-            }
-            else {
-                $('[name="ban_timer_start"],[name="ban_timer_end"]').val('').attr('disabled','disabled');
-            }
-        }).change();
 
         $('input[name="ban_link_use"]').change(function(){
             if( $('input[name="ban_link_use"]:checked').val() == 'Y' ) {
@@ -148,6 +139,34 @@
             else {
                 $('input[name="ban_link_url"]').attr('disabled','disabled');
                 $('input[name="ban_link_type"]').attr('disabled','disabled');
+            }
+        }).change();
+
+        $('[data-toggle="datetime-picker"]').each(function() {
+            var name = $(this).data('name'),
+                value = $(this).data('value') && $(this).data('value') != '0000-00-00 00:00:00' ? new Date($(this).data('value')) : (new Date()).dateFormat('yyyy-MM-dd 00:00'),
+                type = $(this).data('type');
+
+            $(this).dxDateBox({
+                type: type,
+                value: value,
+                displayFormat: type == 'datetime' ? "yyyy-MM-dd HH:mm" : 'yyyy-MM-dd',
+                applyButtonText:'적용',
+                cancelButtonText:'취소'
+            });
+            $(this).find('input').attr('name', name);
+        });
+
+
+        $('select[name="ban_timer_use"]').change(function(){
+            if( $(this).find('option:selected').val() == 'Y' )
+            {
+                $('[data-toggle="datetime-picker"]').dxDateBox('option', 'disabled', false);
+                //$('[name="ban_timer_start"],[name="ban_timer_end"]').removeAttr('disabled');
+            }
+            else {
+                $('[data-toggle="datetime-picker"]').dxDateBox('option', 'disabled', true);
+                //$('[name="ban_timer_start"],[name="ban_timer_end"]').val('').attr('disabled','disabled');
             }
         }).change();
     });

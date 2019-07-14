@@ -14,7 +14,8 @@ APP.MEMBER.POP_INFO_ADMIN = function(mem_idx) {
             title : '회원 정보'
         },
         callback : function(){
-            location.reload();
+            APP.MODAL.close();
+            grid.refresh();
         },
         iframe : {
             method : 'get',
@@ -41,7 +42,8 @@ APP.MEMBER.POP_PASSWORD_ADMIN = function(mem_idx) {
             title : '비밀번호 변경'
         },
         callback : function(){
-            location.reload();
+            APP.MODAL.close();
+            grid.refresh();
         },
         iframe : {
             method : 'get',
@@ -68,7 +70,8 @@ APP.MEMBER.POP_MODIFY_ADMIN = function(mem_idx) {
             title : '회원 정보 수정'
         },
         callback : function(){
-            location.reload();
+            APP.MODAL.close();
+            grid.refresh();
         },
         iframe : {
             method : 'get',
@@ -95,7 +98,8 @@ APP.MEMBER.POP_POINT_ADMIN = function(mem_idx) {
             title : '회원 포인트 관리'
         },
         callback : function(){
-            location.reload();
+            APP.MODAL.close();
+            grid.refresh();
         },
         iframe : {
             method : 'get',
@@ -115,9 +119,6 @@ APP.MEMBER.POP_POINT_FORM_ADMIN = function(mem_idx) {
         return;
     }
 
-    APP.MODAL2.callback = function(){
-        location.reload();
-    };
     APP.MODAL2.open({
         width: 410,
         height :200,
@@ -125,7 +126,8 @@ APP.MEMBER.POP_POINT_FORM_ADMIN = function(mem_idx) {
             title : '회원 포인트 추가'
         },
         callback : function(){
-            location.reload();
+            APP.MODAL2.close();
+            grid.refresh();
         },
         iframe : {
             method : 'get',
@@ -154,7 +156,7 @@ APP.MEMBER.STATUS_CHANGE = function(mem_idx, current_status, change_status) {
 
     if( ! confirm('해당 회원의 상태를 [' + change_status_msg + '] 상태로 변경합니까?') ) return;
     $.ajax({
-        url : '/ajax/members/status',
+        url : base_url + '/admin/ajax/members/status',
         type : 'POST',
         async : false,
         cache : false,
@@ -164,8 +166,8 @@ APP.MEMBER.STATUS_CHANGE = function(mem_idx, current_status, change_status) {
             change_status : change_status
         },
         success:function(){
-            alert('지정한 회원의 상태를 [' + change_status_msg + '] 상태로 변경하였습니다.');
-            location.reload();
+            toastr.success('지정한 회원의 상태를 [' + change_status_msg + '] 상태로 변경하였습니다.');
+            grid.refresh();
         }
     })
 };

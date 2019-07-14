@@ -825,11 +825,6 @@ class Board extends WB_Controller {
             $insert_data['post_idx'] = $post_idx;
             $insert_data['post_status'] = 'Y';
 
-            if( $insert_data['post_secret'] != 'Y' )
-            {
-                $this->_naver_syndi($insert_data);
-            }
-
             alert(langs('게시판/msg/write_success'), base_url("board/{$brd_key}/{$post_idx}"));
             exit;
 
@@ -939,7 +934,7 @@ class Board extends WB_Controller {
                         }
                         
                         // 포인트 실제 처리
-                        $this->member->add_point($this->member->is_login(), $this->data['board'][$type], FALSE, $mpo_type, $msg, $target_idx);
+                        $this->member->add_point($this->member->is_login(),$this->data['board'][$type."_flag"], $this->data['board'][$type], FALSE, $mpo_type, $msg, $target_idx);
                     }
                 }
             }
@@ -967,7 +962,7 @@ class Board extends WB_Controller {
             $ret = $this->db->where('target_type', $target_type)->where('mem_idx', $this->member->is_login() )->where('target_idx', $target_idx)->where('mpo_value !=','0')->get('member_point')->row_array();
             if( $ret && isset($ret['mpo_value']) && $ret['mpo_value'] != 0 )
             {
-                $this->member->add_point($this->member->is_login(), - $ret['mpo_value'], FALSE, $target_type, $msg, $target_idx);
+                $this->member->add_point($this->member->is_login(),$ret['mpo_flag']*-1, $ret['mpo_value'], FALSE, $target_type, $msg, $target_idx);
             }
         }
     }
@@ -1134,74 +1129,6 @@ class Board extends WB_Controller {
         $this->theme    = $this->site->get_layout();
         $this->skin_type = "board";
         $this->active   = "/board/".$this->data['board']['brd_key'];
-    }
-
-    /**
-     * 네이버 신디케이션 전송
-     * @param $post_id
-     * @param $board
-     * @param string $status
-     * @return mixed|void
-     */
-    public function _naver_syndi($post)
-    {
-        // curl library 가 지원되어야 합니다.
-        if ( ! function_exists('curl_init')) {
-            return;
-        }
-        // 네이버 신디케이션 key가 없으면 리턴
-        if ( empty($this->site->config('naver_syndication_key')) ) {
-            return;
-        }
-        // 게시판이 네이버 신디케이션 미사용이면 리턴
-        if ( $this->data['board']['brd_use_naver_syndi'] != 'Y')
-        {
-            return;
-        }
-        // 비회원 글읽기가 불가능한경우 리턴
-        if( $this->data['board']['brd_lv_read'] != 0 )
-        {
-            return;
-        }
-        // 비밀글이거나 정상상태의 글이 아닌경우 리턴
-        if( $post['post_status'] != 'Y' OR $post['post_secret'] == 'Y' ) {
-            return;
-        }
-
-        $httpheader = 'Authorization: Bearer ' . $this->site->config('naver_syndication_key');
-        $ping_url = urlencode(base_url('helptool/naversyndi/' . $this->data['board']['brd_key'] . '/' . $post['post_idx']));
-
-        $client_opt = array(
-            CURLOPT_URL => 'https://apis.naver.com/crawl/nsyndi/v2',
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => 'ping_url=' . $ping_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => 10,
-            CURLOPT_TIMEOUT => 10,
-            CURLOPT_HTTPHEADER => array('Host: apis.naver.com', 'Pragma: no-cache', 'Accept: */*', $httpheader)
-        );
-
-        $ch = curl_init();
-        curl_setopt_array($ch, $client_opt);
-        $exec = curl_exec($ch);
-        curl_close($ch);
-
-        if( $exec )
-        {
-            $xmlData = simplexml_load_string($exec);
-
-            $log_data = array(
-                "post_idx" => $post['post_idx'],
-                "brd_key" => $this->data['board']['brd_key'],
-                "bsl_return_code" => $xmlData->error_code ?  $xmlData->error_code: '000',
-                'bsl_return_message' => $xmlData->message,
-                "bsl_receipt_number" => $xmlData->receipt_number,
-                "bsl_regtime" => date('Y-m-d H:i:s')
-            );
-
-            $this->db->insert('board_syndi_log', $log_data);
-        }
-        return $exec;
     }
 
 }

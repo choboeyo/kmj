@@ -2,7 +2,7 @@
     <h1 class="page-title">사용자 접속 로그<small>방문통계 &gt; 사용자 접속 로그</small></h1>
 </div>
 
-<form data-grid-search onsubmit="grid.refresh(1);return false;" data-fit-aside>
+<form data-grid-search onsubmit="grid.refresh(1);return false;" data-fit-aside autocomplete="off">
 <div data-ax-tbl class="ax-search-tbl" data-grid-search>
     <div data-ax-tr>
         <div data-ax-td>

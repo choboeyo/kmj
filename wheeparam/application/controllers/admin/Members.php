@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Members extends WB_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->theme    = "admin";
+    }
+
     public function login(){
         if( $this->member->is_login() ) {
             alert(langs('회원/login/already'), base_url("members/info"));
@@ -39,33 +46,11 @@ class Members extends WB_Controller {
         if( $this->data['sdate'] && $this->data['startdate'] ) $param['where']['mem_' . $this->data['sdate'] . ' >=' ] = $this->data['startdate'] . " 00:00:00";
         if( $this->data['sdate'] && $this->data['enddate'] ) $param['where']['mem_' . $this->data['sdate'] . ' <=' ] = $this->data['enddate'] . " 23:59:59";
 
-
-        // 정보 넣기
-        $param['page'] = $this->input->get('page', TRUE, 1);
-        $param['page_rows'] = 20;
-        $param['limit'] = TRUE;
-
-        // 회원목록 가져오기
-        $this->data['member_list'] = $this->member_model->member_list($param);
-
-        // 페이지네이션 세팅
-        $this->load->library('paging');
-        $this->paging->initialize(array(
-            "page" => $param['page'],
-            "page_rows" => $param['page_rows'],
-            "total_rows" => $this->data['member_list']['total_count'],
-            "fixe_nums" => 10,
-            'full_tag_open' => '<ul class="pagination pagination-sm">'
-        ));
-        $this->data['pagination'] = $this->paging->create();
-
         // 메타태그 설정
         $this->site->meta_title = "회원 목록";            // 이 페이지의 타이틀
 
         // 레이아웃 & 뷰파일 설정
-        $this->theme    = "admin";
-        $this->view     = "members/lists";
-        $this->active   = "members/lists";
+        $this->view     = $this->active = "members/lists";
     }
 
     /**
@@ -100,36 +85,8 @@ class Members extends WB_Controller {
 
         $this->load->model('member_model');
 
-        $this->data['startdate'] = $param['startdate'] = $this->input->get('startdate', TRUE);
-        $this->data['enddate'] = $param['enddate'] = $this->input->get('enddate', TRUE);
-        $this->data['target_type'] = $this->input->get('target_type', TRUE);
-        if( $this->data['target_type'] )
-        {
-            $param['where']['target_type'] = $this->data['target_type'];
-        }
-
-        // 정보 넣기
-        $param['page'] = $this->input->get('page', TRUE, 1);
-        $param['page_rows'] = 10;
-
-        // 회원목록 가져오기
-        $this->data['point_list'] = $this->member_model->point_list($mem_idx, $param);
-
-        // 페이지네이션 세팅
-        $this->load->library('paging');
-        $this->paging->initialize(array(
-            "page" => $param['page'],
-            "page_rows" => $param['page_rows'],
-            "total_rows" => $this->data['point_list']['total_count'],
-            "fixe_nums" => 10,
-            'full_tag_open' => '<ul class="pagination pagination-sm">'
-        ));
-        $this->data['pagination'] = $this->paging->create();
-
         // 회원 정보
         $this->data['mem'] = $this->member->get_member($mem_idx,'mem_idx');
-        // 포인트 유형
-        $this->data['point_type'] = point_type(TRUE);
 
         $this->theme    = "admin";
         $this->theme_file = "iframe";
@@ -142,10 +99,9 @@ class Members extends WB_Controller {
      */
     public function point_form($mem_idx)
     {
-
         if(empty($mem_idx))
         {
-            alert_modal_close('잘못된 접근입니다.');
+            alert_modal2_close('잘못된 접근입니다.');
             exit;
         }
 
@@ -160,12 +116,13 @@ class Members extends WB_Controller {
         if( $this->form_validation->run() != FALSE )
         {
             $data['mem_idx'] = $this->input->post('mem_idx', TRUE);
+            $data['mpo_flag'] = $this->input->post('mpo_flag', TRUE, 1);
             $data['mpo_value'] = $this->input->post('mpo_value', TRUE);
             $data['mpo_description'] = $this->input->post('mpo_description', TRUE);
             $data['target_type'] = $this->input->post('target_type', TRUE);
             $data['mpo_regtime'] = date('Y-m-d H:i:s');
 
-            if( $this->member->add_point($data['mem_idx'], $data['mpo_value'], FALSE, $data['target_type'], $data['mpo_description'],0))
+            if( $this->member->add_point($data['mem_idx'],$data['mpo_flag'], $data['mpo_value'], FALSE, $data['target_type'], $data['mpo_description'],0))
             {
                 alert_modal2_close('등록완료');
                 exit;
@@ -191,28 +148,6 @@ class Members extends WB_Controller {
      */
     function points()
     {
-        $this->load->model('basic_model');
-
-        $param['page'] = $this->input->get('page', TRUE, 1);
-        $param['page_rows'] = 15;
-        $param['limit'] = TRUE;
-        $param['join'][] = array('member', 'member.mem_idx=member_point.mem_idx','inner');
-        $param['from'] = 'member_point';
-        $param['order_by'] = 'mpo_idx DESC';
-
-        $this->data['list'] = $this->basic_model->get_list($param);
-
-        // 페이지네이션 세팅
-        $this->load->library('paging');
-        $this->paging->initialize(array(
-            "page" => $param['page'],
-            "page_rows" => $param['page_rows'],
-            "total_rows" => $this->data['list']['total_count'],
-            "fixe_nums" => 10,
-            'full_tag_open' => '<ul class="pagination pagination-sm">'
-        ));
-        $this->data['pagination'] = $this->paging->create();
-
         // 메타태그 설정
         $this->site->meta_title = $this->site->config('point_name'). " 관리";
 
@@ -339,53 +274,21 @@ class Members extends WB_Controller {
      */
     public function log()
     {
-        // 모델 가져오기
-        $this->load->model('member_model');
+        $this->data['st'] = $this->input->get('st', TRUE);
+        $this->data['sc'] = $this->input->get('sc', TRUE);
 
-        // 넘어온 검색값 정리
-        $this->data['startdate'] = $this->input->get('startdate', TRUE, date('Y-m-d', strtotime("-1 month", time())));
-        $this->data['enddate'] = $this->input->get('enddate', TRUE, date('Y-m-d'));
-        $this->data['st']   = $this->input->get('st', TRUE);
-        $this->data['sc']   = $this->input->get('sc', TRUE);
-
-        if ( $this->data['st'] && $this->data['sc'] )
-        {
-            if( $this->data['sc'] ==  'nickname' OR $this->data['sc'] ==  'userid')
-            {
-                $param['sc'] = "member_log.mem_" . $this->data['sc'];
-                $param['st'] = $this->data['st'];
-            }
-            else if ( $this->data['sc'] == 'idx' )
-            {
-                $param['where']['member_log.mem_idx'] = $this->data['st'];
-            }
-        }
-        $param['where']['mlg_regtime >='] = $this->data['startdate'] . " 00:00:00";
-        $param['where']['mlg_regtime <='] = $this->data['enddate'] . " 23:59:59";
-
-        // 값 가져오기
-        $param['page'] = $this->input->get('page', TRUE, 1);
-        $param['page_rows'] = 20;
-        $this->data['log_list'] = $this->member_model->log_list($param);
-
-        // 페이지네이션 세팅
-        $this->load->library('paging');
-        $this->paging->initialize(array(
-            "page" => $param['page'],
-            "page_rows" => $param['page_rows'],
-            "total_rows" => $this->data['log_list']['total_count'],
-            "fixe_nums" => 10,
-            'full_tag_open' => '<ul class="pagination pagination-sm">'
-        ));
-        $this->data['pagination'] = $this->paging->create();
+        $popup_mode = strtolower($this->input->get('mode', TRUE)) == 'popup';
 
         // 메타태그 설정
         $this->site->meta_title = "회원 로그인 기록";            // 이 페이지의 타이틀
 
         // 레이아웃 & 뷰파일 설정
-        $this->theme    = "admin";
         $this->view     = "members/log";
         $this->active   = "members/log";
+
+        if($popup_mode) {
+            $this->theme_file = 'iframe';
+        }
     }
 
     /**
@@ -460,7 +363,6 @@ class Members extends WB_Controller {
             $data['mem_idx']        = $mem_idx;
             $data['mem_nickname']   = $this->input->post('mem_nickname', TRUE);
             $data['mem_email']      = $this->input->post('mem_email', TRUE);
-            $data['mem_verfy_email'] = ( USE_EMAIL_VERFY ) ?  ( $this->input->post('mem_verfy_email', TRUE) == 'Y' ? 'Y' : 'N' ) : 'Y';
             $data['mem_phone']      = $this->input->post('mem_phone', TRUE);
             $data['mem_auth']       = $this->input->post('mem_auth', TRUE);
             $data['mem_gender']     = $this->input->post('mem_gender', TRUE);
