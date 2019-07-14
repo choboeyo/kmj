@@ -494,16 +494,6 @@ CREATE TABLE `wb_member_log` (
   KEY `mem_idx` (`mem_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-DROP TABLE IF EXISTS `wb_member_meta`;
-CREATE TABLE `wb_member_meta` (
-  `mem_idx` int(10) unsigned NOT NULL DEFAULT '0',
-  `mev_key` varchar(20) NOT NULL DEFAULT '',
-  `mev_value` text NOT NULL,
-  PRIMARY KEY (`mem_idx`,`mev_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS `wb_member_point`;
 CREATE TABLE `wb_member_point` (
   `mpo_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
