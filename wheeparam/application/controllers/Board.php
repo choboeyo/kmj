@@ -692,17 +692,17 @@ class Board extends WB_Controller {
                         {
                             $filedata = $this->upload->data();
                             $this->data['upload_array'][] = array(
-                                "brd_key" => $brd_key,
+                                "att_target_type" => 'BOARD',
                                 "att_origin" => $filedata['orig_name'],
-                                "att_filename" => $dir_path . "/" . $filedata['file_name'],
-                                "att_caption" => $filedata['orig_name'],
+                                "att_filepath" => $dir_path . "/" . $filedata['file_name'],
                                 "att_downloads" => 0,
                                 "att_filesize" => $filedata['file_size'] * 1024,
-                                "att_image_width" => $filedata['image_width'] ? $filedata['image_width'] : 0,
-                                "att_image_height" => $filedata['image_height'] ? $filedata['image_height'] : 0,
+                                "att_width" => $filedata['image_width'] ? $filedata['image_width'] : 0,
+                                "att_height" => $filedata['image_height'] ? $filedata['image_height'] : 0,
                                 "att_ext" => $filedata['file_ext'],
                                 "att_is_image" => ($filedata['is_image'] == 1) ? 'Y' : 'N',
-                                "att_regtime" => date('Y-m-d H:i:s')
+                                "reg_user" => $this->member->is_login(),
+                                "reg_datetime" => date('Y-m-d H:i:s')
                             );
                         }
                     }
@@ -806,9 +806,9 @@ class Board extends WB_Controller {
             if(isset($this->data['upload_array']) && count($this->data['upload_array']) >0 )
             {
                 foreach($this->data['upload_array'] as &$arr) {
-                    $arr['post_idx'] = $post_idx;
+                    $arr['att_target'] = $post_idx;
                 }
-                $this->db->insert_batch("board_attach", $this->data['upload_array']);
+                $this->db->insert_batch("attach", $this->data['upload_array']);
             }
 
             // 자신의 글은 바로 볼수 있도록
@@ -885,7 +885,7 @@ class Board extends WB_Controller {
 
         $this->board_common($brd_key, 'download');
 
-        if(! $att = $this->db->where('att_idx', $att_idx)->where('brd_key', $brd_key)->where('post_idx', $post_idx)->get('board_attach')->row_array())
+        if(! $att = $this->db->where('att_idx', $att_idx)->where('att_target_type', 'BOARD')->where('att_target', $post_idx)->get('attach')->row_array())
         {
             alert(langs( 'board/msg/invalid_attach_file' ));
             exit;
@@ -895,8 +895,10 @@ class Board extends WB_Controller {
 
         $this->point_process('brd_point_download', "POST_ATTACH_DOWNLOAD", "첨부파일 다운로드", $post_idx, ($post['mem_userid'] == $this->member->info('userid')) );
 
+        $this->db->where('att_idx', $att['att_idx'])->set('att_downloads', 'att_downloads + 1', FALSE)->update('attach');
+
         $this->load->helper('download');
-        $data = file_get_contents(FCPATH.$att['att_filename']);
+        $data = file_get_contents(FCPATH.$att['att_filepath']);
         $name = urlencode($att['att_origin']);
         force_download($name, $data);
     }

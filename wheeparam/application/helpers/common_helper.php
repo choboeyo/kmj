@@ -712,7 +712,7 @@ function get_post_thumbnail($post, $thumb_width = '', $thumb_height = '')
         {
             if($file['att_is_image'] == 'Y')
             {
-                return thumbnail($file['att_filename'], $thumb_width, $thumb_height);
+                return thumbnail($file['att_filepath'], $thumb_width, $thumb_height);
             }
         }
     }

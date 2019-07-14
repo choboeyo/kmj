@@ -49,7 +49,7 @@
                 <div class="controls">
                     <?php foreach($view['file'] as $attach) : ?>
                         <div class="col-sm-3">
-                            <?php $img_url = ($attach['att_is_image'] == 'Y') ? base_url($attach['att_filename']) : base_url('assets/images/common/attach.png');  ?>
+                            <?php $img_url = ($attach['att_is_image'] == 'Y') ? base_url($attach['att_filepath']) : base_url('assets/images/common/attach.png');  ?>
                             <figure>
                                 <img class="img-responsive" src="<?=$img_url?>" <?=($attach['att_is_image'] != 'Y')?'style="max-width:64px;margin:auto"':''?>>
                                 <figcaption><?=$attach['att_origin']?></figcaption>

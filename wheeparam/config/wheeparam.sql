@@ -135,29 +135,6 @@ PRIMARY KEY (`brd_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-DROP TABLE IF EXISTS `wb_board_attach`;
-CREATE TABLE `wb_board_attach` (
-  `att_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `brd_key` varchar(20) NOT NULL DEFAULT '''''',
-  `post_idx` int(10) unsigned NOT NULL DEFAULT '0',
-  `att_is_image` enum('Y','N') NOT NULL DEFAULT 'N',
-  `att_origin` varchar(255) NOT NULL DEFAULT '''''',
-  `att_filename` varchar(255) NOT NULL DEFAULT '0',
-  `att_caption` varchar(255) NOT NULL DEFAULT '''''',
-  `att_downloads` int(10) unsigned NOT NULL DEFAULT '0',
-  `att_ext` varchar(10) NOT NULL DEFAULT '''''',
-  `att_regtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `att_ip` int(10) unsigned NOT NULL DEFAULT '0',
-  `att_filesize` int(10) unsigned NOT NULL DEFAULT '0',
-  `att_image_width` int(10) unsigned NOT NULL DEFAULT '0',
-  `att_image_height` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`att_idx`),
-  KEY `brd_key` (`brd_key`),
-  KEY `post_idx` (`post_idx`),
-  KEY `att_is_image` (`att_is_image`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `wb_board_category`;
 CREATE TABLE `wb_board_category` (
   `bca_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,

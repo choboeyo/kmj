@@ -54,7 +54,7 @@
             <h4>첨부파일</h4>
             <ul class="nav nav-pills nav-stacked">
                 <?php foreach($view['file'] as $f) :?>
-                <li><a href="<?=$f['link']?>"><i class="fa fa-download"></i> <?=$f['att_origin']?> (<?=format_size($f['att_filesize'])?>)</a></li>
+                <li><a href="<?=$f['link']?>"><i class="fa fa-download"></i> <?=$f['att_origin']?> (<?=format_size($f['att_filesize'])?>) <small>다운로드수 : <?=number_format($f['att_downloads'])?></small></a></li>
                 <?php endforeach;?>
             </ul>
         </div>

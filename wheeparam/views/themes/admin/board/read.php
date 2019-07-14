@@ -69,7 +69,7 @@
                         <!-- S:첨부파일중 이미지 표시 -->
                         <?php foreach($view['file'] as $f) : if($f['att_is_image']!='Y') continue;?>
                             <figure style="margin-bottom:10px;">
-                                <img src="<?=base_url($f['att_filename'])?>" alt="<?=$f['att_origin']?>">
+                                <img src="<?=base_url($f['att_filepath'])?>" alt="<?=$f['att_origin']?>">
                                 <figcaption class="sr-only"><?=$f['att_origin']?></figcaption>
                             </figure>
                         <?php endforeach;?>

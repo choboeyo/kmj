@@ -203,7 +203,7 @@ class Board_model extends WB_Model
     function get_attach_list($brd_key, $post_idx)
     {
         if(empty($brd_key) OR empty($post_idx)) return array();
-        $file_list =  $this->db->where('brd_key', $brd_key)->where('post_idx', $post_idx)->get('board_attach')->result_array();
+        $file_list =  $this->db->where('att_target_type', 'BOARD')->where('att_target', $post_idx)->get('attach')->result_array();
         foreach($file_list as &$f)
         {
             $f['link'] = base_url("board/{$brd_key}/download/{$post_idx}/{$f['att_idx']}");
@@ -290,15 +290,15 @@ class Board_model extends WB_Model
     {
         if(empty($att_idx)) return false;
         $this->db->where("att_idx", $att_idx);
-        $result = $this->db->get('board_attach');
+        $result = $this->db->get('attach');
         $attach = $result->row_array();
         if(! $attach) return false;
-        if( file_exists(FCPATH. $attach['att_filename']) )
+        if( file_exists(FCPATH. $attach['att_filepath']) )
         {
-            @unlink(FCPATH.$attach['att_filename']);
+            @unlink(FCPATH.$attach['att_filepath']);
         }
         $this->db->where("att_idx", $att_idx);
-        $this->db->delete("board_attach");
+        $this->db->delete("attach");
     }
 
     /**

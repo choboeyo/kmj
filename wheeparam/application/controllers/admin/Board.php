@@ -446,17 +446,17 @@ class Board extends WB_Controller
                     {
                         $filedata = $this->upload->data();
                         $this->data['upload_array'][] = array(
-                            "brd_key" => $brd_key,
+                            "att_target_type" => 'BOARD',
                             "att_origin" => $filedata['orig_name'],
-                            "att_filename" => $dir_path . "/" . $filedata['file_name'],
-                            "att_caption" => $filedata['orig_name'],
+                            "att_filepath" => $dir_path . "/" . $filedata['file_name'],
                             "att_downloads" => 0,
                             "att_filesize" => $filedata['file_size'] * 1024,
-                            "att_image_width" => $filedata['image_width'] ? $filedata['image_width'] : 0,
-                            "att_image_height" => $filedata['image_height'] ? $filedata['image_height'] : 0,
+                            "att_width" => $filedata['image_width'] ? $filedata['image_width'] : 0,
+                            "att_height" => $filedata['image_height'] ? $filedata['image_height'] : 0,
                             "att_ext" => $filedata['file_ext'],
                             "att_is_image" => ($filedata['is_image'] == 1) ? 'Y' : 'N',
-                            "att_regtime" => date('Y-m-d H:i:s')
+                            "reg_user" => $this->member->is_login(),
+                            "reg_datetime" => date('Y-m-d H:i:s')
                         );
                     }
                 }
@@ -554,9 +554,9 @@ class Board extends WB_Controller
             if(isset($this->data['upload_array']) && count($this->data['upload_array']) >0 )
             {
                 foreach($this->data['upload_array'] as &$arr) {
-                    $arr['post_idx'] = $post_idx;
+                    $arr['att_target'] = $post_idx;
                 }
-                $this->db->insert_batch("board_attach", $this->data['upload_array']);
+                $this->db->insert_batch("attach", $this->data['upload_array']);
             }
 
             alert(langs('게시판/msg/write_success'), base_url("admin/board/read/{$brd_key}/{$post_idx}"));
