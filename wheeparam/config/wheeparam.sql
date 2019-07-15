@@ -125,20 +125,21 @@ PRIMARY KEY (`brd_key`)
 DROP TABLE IF EXISTS `wb_board_comment`;
 CREATE TABLE `wb_board_comment` (
   `cmt_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `cmt_num` int(10) unsigned NOT NULL DEFAULT '0',
-  `cmt_parent` int(10) unsigned NOT NULL DEFAULT '0',
+  `cmt_num` int(10) unsigned NOT NULL DEFAULT 0,
+  `cmt_parent` int(10) unsigned NOT NULL DEFAULT 0,
   `cmt_reply` varchar(5) NOT NULL DEFAULT '',
   `brd_key` varchar(20) NOT NULL DEFAULT '',
-  `post_idx` int(10) unsigned NOT NULL DEFAULT '0',
-  `mem_userid` varchar(50) NOT NULL DEFAULT '',
-  `mem_nickname` varchar(20) NOT NULL DEFAULT '',
-  `mem_password` char(32) NOT NULL,
-  `cmt_regtime` datetime NOT NULL,
-  `cmt_modtime` datetime NOT NULL,
+  `post_idx` int(10) unsigned NOT NULL DEFAULT 0,
+  `cmt_nickname` varchar(20) NOT NULL DEFAULT '',
+  `cmt_password` char(32) NOT NULL,
   `cmt_content` text NOT NULL,
-  `cmt_ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `cmt_ip` int(10) unsigned NOT NULL DEFAULT 0,
   `cmt_status` enum('Y','N','B') NOT NULL DEFAULT 'Y',
   `cmt_mobile` enum('Y','N') NOT NULL DEFAULT 'N',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`cmt_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
