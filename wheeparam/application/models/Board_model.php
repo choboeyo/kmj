@@ -30,7 +30,7 @@ class Board_model extends WB_Model
         $param['from'] = "board_post AS P";
         $param['where']['post_notice'] = "Y";
         $param['join'][] = array("board_category AS PC","PC.bca_idx=P.bca_idx","left");
-        $param['join'][] = array("member AS M", "M.mem_userid=P.mem_userid","left");
+        $param['join'][] = array("member AS M", "M.mem_idx=P.upd_user","left");
         $param['limit'] = FALSE;
 
         $notice_list = array();
@@ -419,19 +419,6 @@ class Board_model extends WB_Model
         }
 
         return $return;
-    }
-
-    /**
-     * 게시판 목록을 가져온다.
-     */
-    function board_list()
-    {
-        $param['from'] = "board";
-        $param['order_by'] = "brd_sort ASC";
-        $param['limit'] = FALSE;
-
-        $result = $this->get_list($param);
-        return $result;
     }
 
     /**

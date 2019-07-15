@@ -1,7 +1,57 @@
+<div class="page-header" data-fit-aside>
+    <h1 class="page-title"><?=$board['brd_title']?></h1>
+</div>
+
+<form data-grid-search onsubmit="grid.refresh(1);return false;" data-fit-aside autocomplete="off">
+    <div data-ax-tbl>
+        <div data-ax-tr>
+            <div data-ax-td>
+                <div data-ax-td-label>작성 기간 검색</div>
+                <div data-ax-td-wrap>
+                    <input class="form-control" data-chained-datepicker="[name='enddate']" name="startdate" data-toggle="datepicker" value="">
+                </div>
+                <div data-ax-td-wrap>
+                    <input class="form-control" name="enddate" data-toggle="datepicker" value="">
+                </div>
+            </div>
+            <div data-ax-td>
+                <div data-ax-td-label>검색어 입력</div>
+                <div data-ax-td-wrap>
+                    <select class="form-control form-control-inline" name="sc">
+                        <option value="post_title">질문 제목</option>
+                        <option value="qna_name">작성자</option>
+                        <option value="qna_phone">연락처</option>
+                        <option value="qna_email">이메일</option>
+                    </select>
+                </div>
+            </div>
+
+            <div data-ax-td>
+                <div data-ax-td-wrap>
+                    <input class="form-control" name="st" value="">
+                </div>
+                <div data-ax-td-wrap>
+                    <button class="btn btn-default btn-sm"><i class="fal fa-search"></i> 필터적용</button>
+                </div>
+            </div>
+
+            <div data-ax-td class="right">
+                <div data-ax-td-wrap>
+                    <button type="button" class="btn btn-default btn-sm" data-button="qna-category"><i class="fal fa-sitemap"></i> Q&amp;A 유형 관리</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="ax-button-gorup" data-fit-aside>
+
+</div>
+
 <div class="container">
     <div class="ax-button-group">
         <div class="left">
-            <h2><?=$board['brd_title']?></h2>
+            <h2></h2>
         </div>
     </div>
     <div class="grid">
@@ -33,7 +83,7 @@
                         <?php if($row['is_new']) :?><label class="label label-warning ML10">NEW</label><?php endif;?>
                         <?php if($row['is_hot']) :?><label class="label label-danger ML10">HIT</label><?php endif;?>
                         <?php if($row['post_count_comment']>0) :?><small>(<?=$row['post_count_comment']?>)</small><?php endif;?>
-                        <?php if($row['is_secret']) :?><i class="far fa-lock"></i><?php endif;?>
+                        <?php if($row['is_secret']) :?><i class="fal fa-lock"></i><?php endif;?>
                     </td>
                     <td class="text-center"><?=$row['mem_nickname']?></td>
                     <td class="text-center"><?=$row['post_regtime']?></td>
@@ -65,9 +115,9 @@
         <div class="clearfix"></div>
     </div>
     <div class="MT10">
-        <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="far fa-trash"></i> 선택 삭제</button>
+        <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="fal fa-trash"></i> 선택 삭제</button>
         <div class="pull-right">
-            <a class="btn btn-primary" href="<?=base_url("admin/board/write/{$board['brd_key']}")?>"><i class="far fa-pencil"></i> 새 글 작성</a>
+            <a class="btn btn-primary" href="<?=base_url("admin/board/write/{$board['brd_key']}")?>"><i class="fal fa-pencil"></i> 새 글 작성</a>
         </div>
         <div class="clearfix"></div>
     </div>

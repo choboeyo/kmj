@@ -604,7 +604,7 @@ class Board extends WB_Controller {
             $data['post_secret'] = $this->input->post('post_secret', TRUE, 'N') == 'Y' ? "Y":'N';
             $data['post_content'] = $this->input->post('post_content', FALSE);
             $data['brd_key'] = $brd_key;
-            $data['post_modtime'] = date('Y-m-d H:i:s');
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
             $data['post_html'] = $this->data['use_wysiwyg'] ? 'Y' : 'N';
             $data['post_notice'] = $this->input->post('post_notice', TRUE) == 'Y' ? 'Y' : 'N';
             $data['post_ip'] = ip2long( $this->input->ip_address() );
@@ -635,15 +635,15 @@ class Board extends WB_Controller {
             // 로그인 상태에 따라 값을 수정
             if( $this->member->is_login() )
             {
-                $data['mem_userid'] = $this->member->info('userid');
-                $data['mem_nickname'] = $this->member->info('nickname');
-                $data['mem_password'] = $this->member->info('password');
+                $data['upd_user'] = $this->member->info('idx');
+                $data['post_nickname'] = $this->member->info('nickname');
+                $data['post_password'] = $this->member->info('password');
             }
             else
             {
-                $data['mem_userid'] = '';
-                $data['mem_nickname'] = $this->input->post('mem_nickname', TRUE);
-                $data['mem_password'] = get_password_hash( $this->input->post('mem_password', TRUE) );
+                $data['upd_user'] = 0;
+                $data['post_nickname'] = $this->input->post('mem_nickname', TRUE);
+                $data['post_password'] = get_password_hash( $this->input->post('mem_password', TRUE) );
             }
 
             // 게시판 설정을 이용해서 값 정리
@@ -730,10 +730,11 @@ class Board extends WB_Controller {
             // 수정이냐 신규냐에 따라 값 설정
             if( empty($post_idx) )
             {
-                $data['post_regtime'] = date('Y-m-d H:i:s');
                 $data['post_status'] = 'Y';
                 $data['post_count_comment'] = 0;
                 $data['post_hit'] = 0;
+                $data['reg_user'] = $data['upd_user'];
+                $data['reg_datetime'] = $data['upd_datetime'];
 
                 // 답글인경우
                 if(! empty($data['post_parent']))

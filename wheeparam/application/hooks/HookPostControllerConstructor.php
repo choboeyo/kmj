@@ -53,6 +53,7 @@ class HookPostControllerConstructor {
         $this->CI->load->library('member');
         $this->CI->load->library('user_agent');
         $this->CI->load->library('banner');
+        $this->CI->load->library('boardlib');
 
         if( PAGE_ADMIN )
         {

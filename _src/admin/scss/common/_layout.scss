@@ -15,11 +15,13 @@ $nav-height : 40px;
   position:relative;
   @include display-flex();
   height:$header-height;
-  background: #5399ea; /* Old browsers */
-  background: -moz-linear-gradient(left, #5399ea 0%, #5ec0cc 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #5399ea 0%,#5ec0cc 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #5399ea 0%,#5ec0cc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5399ea', endColorstr='#5ec0cc',GradientType=1 ); /* IE6-9 */
+
+  //background: #5399ea; /* Old browsers */
+  //background: -moz-linear-gradient(left, #5399ea 0%, #5ec0cc 100%); /* FF3.6-15 */
+  //background: -webkit-linear-gradient(left, #5399ea 0%,#5ec0cc 100%); /* Chrome10-25,Safari5.1-6 */
+  //background: linear-gradient(to right, #5399ea 0%,#5ec0cc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5399ea', endColorstr='#5ec0cc',GradientType=1 ); /* IE6-9 */
+  background:#282828;
   padding:0 30px;
   z-index:101;
   align-items: center;
@@ -162,9 +164,26 @@ $nav-height : 40px;
             font-size:12px;
             color:#282828;
             cursor:pointer;
+            position:relative;
 
             &:hover {
               background-color:#f4f8f9;
+            }
+            
+            .badge {
+              position:absolute;
+              right:5px;
+              top:50%;
+              -webkit-transform: translateY(-50%);
+              -moz-transform: translateY(-50%);
+              -ms-transform: translateY(-50%);
+              -o-transform: translateY(-50%);
+              transform: translateY(-50%);
+              font-size:10px;
+              background-color:#ff2222;
+              color:#fff;
+              padding:3px 5px;
+              line-height:10px;
             }
           }
 

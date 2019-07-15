@@ -64,6 +64,38 @@ class Site {
             $CI->cache->save($menu_key, $menu_list);
         }
 
+        foreach($menu_list as &$menu1) {
+            $menu1['active'] =  $CI->active == $menu1['mnu_active_key'];
+            foreach($menu1['children'] as &$mnu2)
+            {
+                $mnu2['active'] = $CI->active == $mnu2['mnu_active_key'];
+
+                foreach($mnu2['children'] as &$mnu3)
+                {
+                    $mnu3['active'] = $CI->active == $mnu3['mnu_active_key'];
+
+                    if( $mnu3['active'] ) {
+                        $mnu2['active'] = TRUE;
+                        $menu1['active'] = TRUE;
+                        break;
+                    }
+                }
+
+                if($CI->active == $mnu2['mnu_active_key'] )
+                {
+                    $mnu2['active'] = TRUE;
+                    $menu1['active'] = TRUE;
+                }
+            }
+
+            if( $CI->active == $menu1['mnu_active_key'] )
+            {
+                $menu1['active'] = TRUE;
+            }
+        }
+
+        //print_r2($menu_list);
+
         return $menu_list;
     }
 
@@ -73,6 +105,7 @@ class Site {
         $return = array();
 
         foreach($array as $arr) {
+            $arr['active'] = FALSE;
             if( $arr['mnu_parent'] ==  $parent_id ) {
                 $children = $this->menu_arrange( $array, $arr['mnu_idx'] );
                 if( $children ) {

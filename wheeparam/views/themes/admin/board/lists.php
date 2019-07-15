@@ -1,91 +1,152 @@
-<div class="page-header">
+<div class="page-header" data-fit-aside>
     <h1 class="page-title">게시판 관리</h1>
 </div>
 
-<div class="grid">
-    <table>
-        <thead>
-        <tr>
-            <th>번호</th>
-            <th>고유키</th>
-            <th>게시판 이름</th>
-            <th>목록 스킨</th>
-            <th>페이지당 글</th>
-            <th>등록된 글</th>
-            <th>카테고리</th>
-            <th>답글</th>
-            <th>댓글</th>
-            <th>목록</th>
-            <th>첨부파일</th>
-            <th>내용</th>
-            <th>쓰기</th>
-            <th>관리</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach($board_list['list'] as $brd) :?>
-            <tr>
-                <td class="text-center"><?=$brd['nums']?></td>
-                <td class="text-center"><?=$brd['brd_key']?></td>
-                <td class="text-center"><?=$brd['brd_title']?><a class="btn btn-default btn-xs ML10" data-toggle="tooltip"  title="게시판 바로가기" target="_blank" href="<?=base_url('board/'.$brd['brd_key'])?>"><i class="fal fa-external-link-square"></i></a></td>
-                <td class="text-center"><?=$brd['brd_skin_l']?></td>
-                <td class="text-center"><?=$brd['brd_page_limit']=='Y'?$brd['brd_page_rows']:'미사용'?></td>
-                <td class="text-center"><?=number_format($brd['brd_count_post'])?></td>
-                <td class="text-center"><?=$brd['brd_use_category']=='Y'?'사용':'미사용'?></td>
-                <td class="text-center"><?=$brd['brd_use_reply']=='Y'?'사용':'미사용'?></td>
-                <td class="text-center"><?=$brd['brd_use_comment']=='Y'?'사용':'미사용'?></td>
-                <td class="text-center"><?=$brd['brd_use_attach']=='Y'?'사용':'미사용'?></td>
-                <td class="text-center"><?=$brd['brd_lv_list']?></td>
-                <td class="text-center"><?=$brd['brd_lv_read']?></td>
-                <td class="text-center"><?=$brd['brd_lv_write']?></td>
-                <td class="text-center">
-                    <?php if($brd['brd_use_category']=='Y') :?>
-                        <a class="btn btn-default btn-xs" href="<?=base_url('admin/board/category/'.$brd['brd_key'])?>" data-toggle="tooltip"  title="카테고리 관리"><i class="far fa-sitemap"></i></a>
-                    <?php endif;?>
-                    <button class="btn btn-default btn-xs" data-button="copy-board" data-key="<?=$brd['brd_key']?>" data-toggle="tooltip"  title="게시판 복사"><i class="far fa-copy"></i></button>
-                    <a class="btn btn-default btn-xs" href="<?=base_url('admin/board/form/'.$brd['brd_key'])?>" data-toggle="tooltip"  title="정보 수정"><i class="far fa-pencil"></i></a>
-                    <a class="btn btn-danger btn-xs" href="<?=base_url('admin/board/remove/'.$brd['brd_key'])?>" onclick="return confirm('해당 게시판을 삭제하시겠습니까?');" data-toggle="tooltip"  title="게시판 삭제"><i class="far fa-trash"></i></a>
-                </td>
-            </tr>
-        <?php endforeach;?>
-
-        <?php if(count($board_list['list']) == 0) :?>
-            <tr>
-                <td colspan="14" class="empty">등록된 게시판이 없습니다.</td>
-            </tr>
-        <?php endif;?>
-        </tbody>
-    </table>
+<div class="ax-button-group" data-fit-aside>
+    <button type="button" class="btn btn-primary" onclick="grid.form();"><i class="fal fa-plus"></i> 게시판 신규등록</button>
 </div>
 
-<div class="ax-button-group ax-button-group-bottom">
-    <div class="right">
-        <a href="<?=base_url('admin/board/form')?>" class="btn btn-default"><i class="far fa-plus-circle"></i> 게시판 추가하기</a>
-    </div>
+<div class="grid-wrapper" data-fit-content>
+    <div id="grid-container" class="grid-container"></div>
 </div>
 
 <script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
+    var grid = new GRID('#grid-container', {
+        columns: [
+            {caption:'고유KEY', dataField:'brd_key', width:80, alignment:'left'},
+            {caption:'게시판이름', dataField:'brd_title', minWidth:100, alignment:'left'},
+            {
+                caption:'스킨',
+                columns: [
+                    {caption:'목록', dataField:'brd_skin_l', width:80, alignment:'left'},
+                    {caption:'목록(M)', dataField:'brd_skin_l_m', width:80, alignment:'left'},
+                    {caption:'글쓰기', dataField:'brd_skin_w', width:80, alignment:'left'},
+                    {caption:'글쓰기(M)', dataField:'brd_skin_w_m', width:80, alignment:'left'},
+                    {caption:'글보기', dataField:'brd_skin_v', width:80, alignment:'left'},
+                    {caption:'글보기(M)', dataField:'brd_skin_v_m', width:80, alignment:'left'},
+                    {caption:'댓글', dataField:'brd_skin_c', width:80, alignment:'left'},
+                    {caption:'댓글 (M)', dataField:'brd_skin_c_m', width:80, alignment:'left'},
+                ]
+            },
+            {caption:'목록개수', dataField:'brd_page_rows', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+            {caption:'현재글수', dataField:'brd_count_post', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+            {
+                caption:'기능사용',
+                columns: [
+                    {caption:'카테고리', dataField:'brd_use_category', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'답글기능', dataField:'brd_use_reply', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'댓글기능', dataField:'brd_use_comment', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'익명', dataField:'brd_use_category', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':(cell.value == 'A'?'강제사용':'')}},
+                    {caption:'비밀글', dataField:'brd_use_category', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':(cell.value == 'A'?'강제사용':'')}},
+                    {caption:'첨부파일', dataField:'brd_use_attach', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'이름가리기', dataField:'brd_blind_nickname', alignment:'center', width:75, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                ]
+            },
+            {
+                caption:'권한레벨',
+                columns: [
+                    {caption:'목록', dataField:'brd_lv_list', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                    {caption:'글쓰기', dataField:'brd_lv_write', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                    {caption:'글보기', dataField:'brd_lv_read', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                    {caption:'답글', dataField:'brd_lv_reply', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                    {caption:'댓글', dataField:'brd_lv_comment', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                    {caption:'다운로드', dataField:'brd_lv_download', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                ]
+            },
+        ],
+        dataSource: new DevExpress.data.DataSource({
+            key : 'brd_key',
+            load: function(loadOptions) {
+                var d = $.Deferred();
+                var params = grid.getSearchParam(loadOptions);
 
-        $('[data-button="copy-board"]').click(function(){
-            var brd_key = $(this).data('key');
-            APP.MODAL.callback = function() {
-                location.reload();
-            };
-            APP.MODAL.open({
-                iframe : {
-                    url : '/admin/board/board_copy/'+brd_key,
-                    param : {
-                        brd_key : brd_key
+                $.ajax({
+                    url : base_url + '/admin/ajax/board',
+                    type: 'GET',
+                    async: false,
+                    cache: false,
+                    data: params
+                }).done(function(res) {
+                    d.resolve(res.lists, {
+                        totalCount : res.totalCount
+                    });
+                });
+
+                return d.promise();
+            }
+        }),
+        onRowDblClick: function(e) {
+            grid.form(e.data.brd_key);
+        },
+        onContextMenuPreparing: function(e) {
+            if (e.row.rowType === "data") {
+                e.items = [
+                    {
+                        icon: 'edit',
+                        text: '정보 수정',
+                        onItemClick: function () {
+                            grid.form(e.row.data.brd_key);
+                        }
+                    },
+                    {
+                        icon: 'edit',
+                        text: '게시판복사',
+                        onItemClick: function () {
+                            grid.copy_board(e.row.data.brd_key);
+                        }
+                    },
+                    {
+                        icon : 'trash',
+                        text: "삭제",
+                        onItemClick: function () {
+                            grid.delete(e.row.data);
+                        }
                     }
-                },
-                header : {
-                    title : '게시판 복사하기'
-                },
-                width:400,
-                height:300
-            });
+                ]
+            }
+        },
+    });
+    
+    grid.form = function(brd_key) {
+        brd_key = typeof brd_key != 'undefined' && brd_key ? brd_key : '';
+        
+        APP.MODAL.callback = function() {
+            APP.MODAL.close();
+            grid.refresh();
+        }
+        APP.MODAL.open({
+            iframe: {
+                url :base_url + '/admin/board/form/' + brd_key
+            },
+            width: 940,
+            height: 600,
+            header: {
+                title: '게시판 정보 입력'
+            }
+        })
+    };
+
+    grid.copy_board = function(brd_key) {
+        APP.MODAL.callback = function() {
+            APP.MODAL.close();
+            grid.refresh();
+        };
+        APP.MODAL.open({
+            iframe : {
+                url : base_url + '/admin/board/board_copy/'+brd_key,
+                param : {
+                    brd_key : brd_key
+                }
+            },
+            header : {
+                title : '게시판 복사하기'
+            },
+            width:400,
+            height:300
         });
+    };
+    
+    $(function() {
+       grid.init();
     });
 </script>

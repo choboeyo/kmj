@@ -32,7 +32,7 @@
         </div>
         <div data-ax-td>
             <div data-ax-td-wrap>
-                <button class="btn btn-sm btn-default"><i class="far fa-search"></i> 필터적용</button>
+                <button class="btn btn-sm btn-default"><i class="fal fa-search"></i> 필터적용</button>
             </div>
         </div>
     </div>

@@ -51,7 +51,6 @@
         "_src/admin/js/admin.js",
         "_src/admin/js/modules/modal.js",
         "_src/admin/js/modules/board.js",
-        "_src/admin/js/modules/faq.js",
         "_src/admin/js/modules/member.js",
         "_src/admin/js/modules/datagrid.js"
       ]

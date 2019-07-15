@@ -63,7 +63,7 @@
     </div>
 </div>
 <div class="text-center MT15">
-    <button class="btn btn-primary"><i class="far fa-check"></i> 입력 완료</button>
+    <button class="btn btn-primary"><i class="fal fa-check"></i> 입력 완료</button>
 </div>
 <div class="H10"></div>
 <?=form_close()?>

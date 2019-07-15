@@ -8,10 +8,6 @@ class Board extends WB_Controller
      */
     public function lists()
     {
-        $this->load->model('board_model');
-
-        $this->data['board_list'] = $this->board_model->board_list();
-
         // 메타태그 설정
         $this->site->meta_title = "게시판 관리";
 

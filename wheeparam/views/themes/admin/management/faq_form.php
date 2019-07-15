@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="text-center MT10">
-    <button class="btn btn-primary"><i class="far fa-check-circle"></i> 확인</button>
+    <button class="btn btn-primary"><i class="fal fa-check-circle"></i> 확인</button>
     <button type="button" class="btn btn-default" onclick="parent.APP.MODAL.close();">닫기</button>
 </div>
 <?=form_close()?>

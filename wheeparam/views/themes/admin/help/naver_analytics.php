@@ -1,6 +1,6 @@
 <div class="col-xs-12">
     <div class="page-header">
-        <h2 class="page-title"><i class="far fa-question-circle" style="display:inline"></i> 네이버 애널리틱스 코드 등록 방법</h2>
+        <h2 class="page-title"><i class="fal fa-question-circle" style="display:inline"></i> 네이버 애널리틱스 코드 등록 방법</h2>
     </div>
     <div class="admin-help-wrap">
         <ul>

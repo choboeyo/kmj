@@ -92,20 +92,16 @@ CREATE TABLE `wb_board` (
   `brd_lv_reply` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `brd_lv_comment` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `brd_lv_download` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `brd_lv_upload` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `brd_use_anonymous` enum('Y','N','A') NOT NULL DEFAULT 'N',
+  `brd_category` varchar(255) NOT NULL DEFAULT '',
   `brd_use_category` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_secret` enum('Y','N','A') NOT NULL DEFAULT 'Y',
   `brd_use_reply` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_comment` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_attach` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_use_wysiwyg` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_use_list_thumbnail` enum('Y','N') NOT NULL DEFAULT 'N',
-  `brd_use_list_file` enum('Y','N') NOT NULL DEFAULT 'N',
-  `brd_use_view_list` enum('Y','N') NOT NULL DEFAULT 'N',
   `brd_use_assign` enum('Y','N') NOT NULL DEFAULT 'N',
-  `brd_thumb_width` int(10) unsigned NOT NULL DEFAULT 0,
-  `brd_thumb_height` int(10) unsigned NOT NULL DEFAULT 0,
+  `brd_thumb_width` smallint(5) unsigned NOT NULL DEFAULT 0,
+  `brd_thumb_height` smallint(5) unsigned NOT NULL DEFAULT 0,
   `brd_use_rss` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_total_rss` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_sitemap` enum('Y','N') NOT NULL DEFAULT 'Y',
@@ -131,6 +127,10 @@ CREATE TABLE `wb_board` (
   `brd_keywords` varchar(255) NOT NULL,
   `brd_description` text NOT NULL,
   `brd_blind_nickname` enum('Y','N') NOT NULL DEFAULT 'N',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 PRIMARY KEY (`brd_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -169,28 +169,26 @@ CREATE TABLE `wb_board_comment` (
 DROP TABLE IF EXISTS `wb_board_post`;
 CREATE TABLE `wb_board_post` (
   `post_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `post_num` int(10) unsigned NOT NULL DEFAULT '0',
-  `post_parent` int(10) unsigned NOT NULL DEFAULT '0',
+  `post_num` int(10) unsigned NOT NULL DEFAULT 0,
+  `post_parent` int(10) unsigned NOT NULL DEFAULT 0,
   `post_reply` varchar(10) NOT NULL DEFAULT '',
   `brd_key` varchar(20) NOT NULL DEFAULT '',
-  `bca_idx` int(10) unsigned NOT NULL DEFAULT '0',
+  `bca_idx` int(10) unsigned NOT NULL DEFAULT 0,
   `post_title` varchar(255) NOT NULL DEFAULT '',
+  `post_thumbnail` varchar(255) NOT NULL DEFAULT '' COMMENT '썸네일 파일',
   `post_content` longtext NOT NULL,
   `post_status` enum('Y','N','B') NOT NULL DEFAULT 'Y',
-  `mem_userid` varchar(100) NOT NULL DEFAULT '',
-  `mem_nickname` varchar(20) NOT NULL DEFAULT '',
-  `mem_password` char(32) DEFAULT NULL,
-  `post_regtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `post_modtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `post_count_comment` int(10) unsigned NOT NULL DEFAULT '0',
-  `post_recent_comment` datetime DEFAULT NULL,
+  `post_nickname` varchar(20) NOT NULL DEFAULT '',
+  `post_password` char(32) NOT NULL DEFAULT '',
+  `post_count_comment` int(10) unsigned NOT NULL DEFAULT 0,
+  `post_recent_comment` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_secret` enum('Y','N') NOT NULL DEFAULT 'N',
   `post_html` enum('Y','N') NOT NULL DEFAULT 'Y',
   `post_notice` enum('Y','N') NOT NULL DEFAULT 'N',
-  `post_hit` int(10) unsigned NOT NULL DEFAULT '0',
+  `post_hit` int(10) unsigned NOT NULL DEFAULT 0,
   `post_mobile` enum('Y','N') NOT NULL DEFAULT 'N',
   `post_assign` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `post_ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `post_ip` int(10) unsigned NOT NULL DEFAULT 0,
   `post_keywords` varchar(255) NOT NULL,
   `post_ext1` text NOT NULL,
   `post_ext2` text NOT NULL,
@@ -201,6 +199,10 @@ CREATE TABLE `wb_board_post` (
   `post_ext7` text NOT NULL,
   `post_ext8` text NOT NULL,
   `post_ext9` text NOT NULL,
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`post_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -268,8 +270,12 @@ CREATE TABLE `wb_faq` (
   `fac_idx` varchar(20) NOT NULL,
   `faq_status` enum('Y','N') NOT NULL DEFAULT 'Y',
   `faq_title` varchar(255) NOT NULL,
-  `faq_content` mediumtext,
-  `faq_sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `faq_content` mediumtext DEFAULT NULL,
+  `sort` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`faq_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -279,8 +285,12 @@ CREATE TABLE `wb_faq_category` (
   `fac_idx` varchar(20) NOT NULL,
   `fac_title` varchar(255) NOT NULL,
   `fac_status` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `fac_count` int(10) unsigned NOT NULL DEFAULT '0',
-  `fac_sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `fac_count` int(10) unsigned NOT NULL DEFAULT 0,
+  `sort` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`fac_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -650,7 +660,3 @@ Create Table `wb_uniqid` (
   `uq_ip` int(10) unsigned NOT NULL,
 PRIMARY KEY (`uq_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-# VIEW 생성
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `wb_board_post_new` AS (SELECT  `wb_board_post`.`brd_key` AS `brd_key`, count(*) AS `new_cnt` from `wb_board_post` where ((`wb_board_post`.`post_regtime` > (now() + interval - (24)hour))  and (`wb_board_post`.`post_status` = 'Y')) group by `wb_board_post`.`brd_key`);

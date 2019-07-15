@@ -25,7 +25,7 @@
                     <div class="controls">
                         <input class="form-control form-control-inline" maxlength="20" name="brd_key" value="<?=element('brd_key', $view)?>" <?=$brd_key?'readonly':'required'?>>
                         <?php if (empty($brd_key)) : ?>
-                            <button type="button" class="btn btn-default ML10" id="btn-check-brd-key"><i class="far fa-check"></i> 중복 확인</button>
+                            <button type="button" class="btn btn-default ML10" id="btn-check-brd-key"><i class="fal fa-check"></i> 중복 확인</button>
                         <?php endif;?>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                 <h4 class="panel-title">게시판 권한 설정</h4>
             </div>
             <div class="panel-body">
-                <p class="alert alert-info"><i class="far fa-info-circle"></i> 레벨0은 비회원을 의미합니다.</p>
+                <p class="alert alert-info"><i class="fal fa-info-circle"></i> 레벨0은 비회원을 의미합니다.</p>
                 <div class="form-group">
                     <label class="control-label">목록 보기</label>
                     <div class="controls">
@@ -249,7 +249,7 @@
                 <h4 class="panel-title">글 목록 설정</h4>
             </div>
             <div class="panel-body">
-                <p class="alert alert-info"><i class="far fa-info-circle"></i> 갤러리 형식의 게시판에서는 '목록에서 썸내일 불러오기' / '목록에서 첨부파일 불러오기'를 활성화 하세요.</p>
+                <p class="alert alert-info"><i class="fal fa-info-circle"></i> 갤러리 형식의 게시판에서는 '목록에서 썸내일 불러오기' / '목록에서 첨부파일 불러오기'를 활성화 하세요.</p>
                 <div class="form-group">
                     <label class="control-label">썸네일 생성하기</label>
                     <div class="controls">
@@ -437,9 +437,9 @@
             </div>
             <div class="panel-body">
                 <?php if($this->site->config('point_use') == 'Y') :?>
-                    <p class="alert alert-info"><i class="far fa-info-circle"></i> <?=$this->site->config('point_name')?> 지급은 +값, <?=$this->site->config('point_name')?> 차감은 -값을 입력합니다.<br><i class="far fa-info-circle"></i> 포인트 차감이 설정된 경우 강제로 회원전용 기능으로 전환합니다.</p>
+                    <p class="alert alert-info"><i class="fal fa-info-circle"></i> <?=$this->site->config('point_name')?> 지급은 +값, <?=$this->site->config('point_name')?> 차감은 -값을 입력합니다.<br><i class="fal fa-info-circle"></i> 포인트 차감이 설정된 경우 강제로 회원전용 기능으로 전환합니다.</p>
                 <?php else :?>
-                    <p class="alert alert-info"><i class="far fa-info-circle"></i> <?=$this->site->config('point_name')?> 기능을 사용 하는경우만 아래 옵션이 활성화 됩니다.</p>
+                    <p class="alert alert-info"><i class="fal fa-info-circle"></i> <?=$this->site->config('point_name')?> 기능을 사용 하는경우만 아래 옵션이 활성화 됩니다.</p>
                 <?php endif;?>
                 <div class="form-group">
                     <label class="control-label">글쓰기</label>

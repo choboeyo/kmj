@@ -10,6 +10,6 @@
 </div>
 <div class="H10"></div>
 <div class="text-center">
-    <button class="btn btn-primary"><i class="far fa-save"></i> 저장하기</button>
+    <button class="btn btn-primary"><i class="fal fa-save"></i> 저장하기</button>
 </div>
 <?=form_close()?>

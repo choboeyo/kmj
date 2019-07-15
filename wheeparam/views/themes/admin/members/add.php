@@ -4,7 +4,7 @@
             <h1>신규 회원 등록</h1>
         </div>
         <div class="right">
-            <button type="button" class="btn btn-default" onclick="history.back();"><i class="far fa-chevron-left"></i> 회원목록으로</button>
+            <button type="button" class="btn btn-default" onclick="history.back();"><i class="fal fa-chevron-left"></i> 회원목록으로</button>
         </div>
     </div>
 

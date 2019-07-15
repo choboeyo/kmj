@@ -10,17 +10,17 @@
             <div class="login-body">
                 <?=$form_open?>
                 <div class="form-group">
-                    <label for="login-id"><i class="far fa-pen-square"></i> ID</label>
+                    <label for="login-id"><i class="fal fa-pen-square"></i> ID</label>
                     <input class="form-control" id="login-id" name="login_id" placeholder="ID" value="<?=set_value('login_id')?>" maxlength="50" autofocus="1">
                 </div>
                 <div class="form-group MT10">
-                    <label for="login-pass"><i class="far fa-key"></i> PASSWORD</label>
+                    <label for="login-pass"><i class="fal fa-key"></i> PASSWORD</label>
                     <input type="password" class="form-control" id="login-pass" name="login_pass" placeholder="PASSWORD" value="" maxlength="20">
                 </div>
                 <button class="btn btn-block MT10">LOGIN</button>
                 <?=$form_close?>
             </div>
         </div>
-        <p class="login-notice"><i class="far fa-exclamation-circle"></i> 관리자모드는 IE9 이하의 브라우져를 지원하지 않습니다.</p>
+        <p class="login-notice"><i class="fal fa-exclamation-circle"></i> 관리자모드는 IE9 이하의 브라우져를 지원하지 않습니다.</p>
     </div>
 </article>

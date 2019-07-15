@@ -25,11 +25,11 @@
             </div>
             <div data-ax-td-wrap>
                 <?php if($mem['mem_status'] == 'H') : ?>
-                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="far fa-user-secret"></i> 휴면 해제</a>
+                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="fal fa-user-secret"></i> 휴면 해제</a>
                 <?php elseif( $mem['mem_status'] == 'Y' ) :?>
-                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','D')"><i class="far fa-ban"></i> 로그인 금지</a>
+                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','D')"><i class="fal fa-ban"></i> 로그인 금지</a>
                 <?php elseif( $mem['mem_status'] == 'D' ) :?>
-                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="far fa-ban"></i> 로그인 금지 해제</a>
+                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="fal fa-ban"></i> 로그인 금지 해제</a>
                 <?php endif;?>
             </div>
         </div>
@@ -91,6 +91,6 @@
 
 <div class="H20"></div>
 <div class="text-center">
-    <a href="<?=base_url('admin/members/modify/'.$mem['mem_idx'])?>" class="btn btn-default MR10"><i class="far fa-pencil"></i> 정보 수정</a>
-    <a href="#" class="btn btn-danger" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','N')"><i class="far fa-user-secret"></i> 회원 탈퇴</a>
+    <a href="<?=base_url('admin/members/modify/'.$mem['mem_idx'])?>" class="btn btn-default MR10"><i class="fal fa-pencil"></i> 정보 수정</a>
+    <a href="#" class="btn btn-danger" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','N')"><i class="fal fa-user-secret"></i> 회원 탈퇴</a>
 </div>

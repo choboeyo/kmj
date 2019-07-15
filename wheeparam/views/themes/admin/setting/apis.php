@@ -151,7 +151,7 @@
         <div data-ax-td class="width-100">
             <div data-ax-td-label>구글 reCaptcha</div>
             <div data-ax-td-wrap>
-                <p class="form-control-static"><i class="far fa-info-circle"></i> 구글 reCaptcha는 구글에서 제공하는 스팸방지 기능입니다.<br><i class="far fa-info-circle"></i> 비 회원 글쓰기시 적용되며, 등록을 추천합니다.</p>
+                <p class="form-control-static"><i class="fal fa-info-circle"></i> 구글 reCaptcha는 구글에서 제공하는 스팸방지 기능입니다.<br><i class="fal fa-info-circle"></i> 비 회원 글쓰기시 적용되며, 등록을 추천합니다.</p>
             </div>
         </div>
     </div>
@@ -263,7 +263,7 @@
     </div>
 </div>
 <div class="text-center MT15">
-    <button class="btn btn-primary"><i class="far fa-save"></i> 저장하기</button>
+    <button class="btn btn-primary"><i class="fal fa-save"></i> 저장하기</button>
 </div>
 <div class="H10"></div>
 <?=form_close()?>

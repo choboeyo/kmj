@@ -53,7 +53,7 @@
                     <div data-ax-td-wrap>
                         <ul class="list-group" style="margin-bottom:0px;">
                             <?php foreach($view['file'] as $f) :?>
-                                <li class="list-group-item"><a href="<?=$f['link']?>"><i class="far fa-download"></i> <?=$f['att_origin']?> (<?=format_size($f['att_filesize'])?>)</a></li>
+                                <li class="list-group-item"><a href="<?=$f['link']?>"><i class="fal fa-download"></i> <?=$f['att_origin']?> (<?=format_size($f['att_filesize'])?>)</a></li>
                             <?php endforeach;?>
                         </ul>
                     </div>
@@ -85,13 +85,13 @@
         <?php if( $board['brd_use_reply'] == 'Y' ):?>
             <a href="<?=base_url("admin/board/write/{$board['brd_key']}/?post_parent={$view['post_idx']}")?>" class="btn btn-default">답글</a>
         <?php endif;?>
-        <a href="<?=base_url("admin/board/write/{$board['brd_key']}/{$view['post_idx']}")?>" class="btn btn-default"><i class="far fa-pencil"></i> 수정</a>
-        <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="far fa-trash"></i> 선택 삭제</button>
+        <a href="<?=base_url("admin/board/write/{$board['brd_key']}/{$view['post_idx']}")?>" class="btn btn-default"><i class="fal fa-pencil"></i> 수정</a>
+        <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="fal fa-trash"></i> 선택 삭제</button>
         <?php if( $board['brd_use_assign'] == 'Y' ):?>
             <?php if($view['post_assign'] == 'Y') :?>
-                <button type="button" class="btn btn-default" data-button="btn-assign" data-value="N"><i class="far fa-ban"></i> 승인 취소</button>
+                <button type="button" class="btn btn-default" data-button="btn-assign" data-value="N"><i class="fal fa-ban"></i> 승인 취소</button>
             <?php else :?>
-                <button type="button" class="btn btn-default" data-button="btn-assign" data-value="Y"><i class="far fa-check"></i> 승인 처리</button>
+                <button type="button" class="btn btn-default" data-button="btn-assign" data-value="Y"><i class="fal fa-check"></i> 승인 처리</button>
             <?php endif;?>
         <?php endif;?>
     </div>

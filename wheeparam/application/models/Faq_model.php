@@ -27,7 +27,7 @@ class Faq_model extends WB_Model {
         $param['from'] = "faq_category";
         $param['limit'] = FALSE;
         $param['where']['fac_status'] = "Y";
-        $param['order_by'] = "fac_sort ASC";
+        $param['order_by'] = "sort ASC";
 
         return $this->get_list($param);
     }
@@ -62,13 +62,15 @@ class Faq_model extends WB_Model {
 
     function get_detail_list($fac_idx="")
     {
-        $param['from'] = "faq";
+        $param['select'] = 'F.*, M.mem_nickname AS upd_username';
+        $param['from'] = "faq AS F";
+        $param['join'][] = array('member AS M','M.mem_idx=F.upd_user','left');
         if($fac_idx)
         {
             $param['where']['fac_idx'] = $fac_idx;
         }
         $param['where']['faq_status'] = "Y";
-        $param['order_by'] = "faq_sort ASC";
+        $param['order_by'] = "sort ASC";
 
         return $this->get_list($param);
     }

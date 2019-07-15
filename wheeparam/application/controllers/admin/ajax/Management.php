@@ -29,6 +29,82 @@ class Management extends REST_Controller
         $this->db->update_batch($table, $update_array, $key);
     }
 
+    /**********************************************************************
+     * FAQ 카테고리 삭제
+     ***********************************************************************/
+    function faq_category_delete()
+    {
+        $fac_idx = $this->delete('fac_idx', TRUE);
+        if (empty($fac_idx)) $this->error_return("FAQ 그룹 고유키값이 없습니다.", 400);
+
+        $upd_user = $this->member->is_login();
+        $upd_datetime = date('Y-m-d H:i:s');
+
+        $this->db
+            ->where('fac_idx', $fac_idx)
+            ->set('fac_status','N')
+            ->set('sort','0')
+            ->set('upd_user', $upd_user)
+            ->set('upd_datetime', $upd_datetime)
+            ->update('faq_category');
+
+        $this->db
+            ->where('fac_idx', $fac_idx)
+            ->set('faq_status','N')
+            ->set('sort','0')
+            ->set('upd_user', $upd_user)
+            ->set('upd_datetime', $upd_datetime)
+            ->update('faq');
+    }
+
+    /**********************************************************************
+     * FAQ 목록 가져오기
+     ***********************************************************************/
+    function faq_get()
+    {
+        $this->load->model('faq_model');
+
+        $fac_idx = trim($this->get('fac_idx', TRUE));
+        if (empty($fac_idx)) $this->error_return("FAQ 그룹 고유키값이 없습니다.", 400);
+
+        $faq_list = $this->faq_model->get_detail_list($fac_idx);
+        $this->response($faq_list, 200);
+    }
+
+    function faq_category_get()
+    {
+        $this->load->model('faq_model');
+
+        $fac_idx = trim($this->get('fac_idx', TRUE));
+        if (empty($fac_idx)) $this->error_return("FAQ 그룹 고유키값이 없습니다.", 400);
+
+        $result = $this->faq_model->get_category($fac_idx);
+
+        $this->response($result, 200);
+    }
+
+    /**********************************************************************
+     * FAQ 삭제
+     ***********************************************************************/
+    function faq_delete()
+    {
+        $this->load->model('faq_model');
+        $faq_idx = $this->delete('faq_idx', TRUE);
+        if (empty($faq_idx)) $this->error_return("FAQ 고유키값이 없습니다.", 400);
+
+        // 기존 FAQ 값을 불러온다.
+        $faq = $this->faq_model->get_faq($faq_idx);
+
+        $this->db
+            ->where('faq_idx', $faq_idx)
+            ->set('faq_status','N')
+            ->set('upd_user', $this->member->is_login() )
+            ->set('upd_datetime', date('Y-m-d H:i:s'))
+            ->update('faq');
+
+        $this->faq_model->update_category_count($faq['fac_idx']);
+    }
+
     /**
      * 팝업 목록
      */

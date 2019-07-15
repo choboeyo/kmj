@@ -16,7 +16,7 @@
                 <tr>
                     <th class="W20"></th>
                     <th>분류이름</th>
-                    <th class="W140">관리</th>
+                    <th class="W80">관리</th>
                 </tr>
                 </thead>
                 <tbody data-toggle="sortable" data-key="bng_idx" data-sort="bng_sort" data-table="banner_group">
@@ -26,10 +26,10 @@
                             <span class="move-grip"></span>
                             <input type="hidden" name="bng_idx[]" value="<?=$row['bng_idx']?>">
                         </td>
-                        <td><i class="far <?=isset($bng_key)&&$bng_key==$row['bng_key']?'fa-folder-open':'fa-folder'?>"></i>&nbsp;<a href="<?=base_url('admin/management/banner/'.$row['bng_key'])?>"><?=$row['bng_name']?></a></td>
+                        <td><i class="fal <?=isset($bng_key)&&$bng_key==$row['bng_key']?'fa-folder-open':'fa-folder'?>"></i>&nbsp;<a href="<?=base_url('admin/management/banner/'.$row['bng_key'])?>"><?=$row['bng_name']?></a></td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-default btn-xs MR5" data-button="btn-banner-group-form" data-idx="<?=$row['bng_idx']?>"><i class="far fa-pencil"></i> 수정</button>
-                            <button type="button" class="btn btn-danger btn-xs" data-button="btn-banner-group-delete" data-idx="<?=$row['bng_idx']?>"><i class="far fa-trash"></i> 삭제</button>
+                            <button type="button" class="btn btn-default btn-xs MR5" data-button="btn-banner-group-form" data-idx="<?=$row['bng_idx']?>"><i class="fal fa-pencil"></i></button>
+                            <button type="button" class="btn btn-danger btn-xs" data-button="btn-banner-group-delete" data-idx="<?=$row['bng_idx']?>"><i class="fal fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php endforeach;?>
@@ -51,7 +51,7 @@
                     <h4>[<?=$banner_group['bng_name']?>] 배너 관리</h4>
                 </div>
                 <div class="right">
-                    <button type="button" class="btn btn-default" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx=""><i class="far fa-plus-circle"></i> 배너 추가</button>
+                    <button type="button" class="btn btn-default" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx=""><i class="fal fa-plus-circle"></i> 배너 추가</button>
                 </div>
             </div>
 
@@ -77,8 +77,8 @@
                             <td><?=thumb_img($row['ban_filepath'],'img-thumbnail','style="max-width:250px"')?></td>
                             <td><?=$row['ban_name']?></td>
                             <td class="text-center W150">
-                                <button type="button" class="btn btn-default btn-sm MR5" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx="<?=$row['ban_idx']?>"><i class="far fa-pencil"></i> 수정</button>
-                                <button type="button" class="btn btn-danger btn-sm" data-button="btn-banner-delete" data-idx="<?=$row['ban_idx']?>"><i class="far fa-trash"></i> 삭제</button>
+                                <button type="button" class="btn btn-default btn-xs MR5" data-button="btn-banner-form" data-bng-key="<?=$bng_key?>" data-idx="<?=$row['ban_idx']?>"><i class="fal fa-pencil"></i></button>
+                                <button type="button" class="btn btn-danger btn-xs" data-button="btn-banner-delete" data-idx="<?=$row['ban_idx']?>"><i class="fal fa-trash"></i></button>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -90,22 +90,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <script>
-                $(function(){
-
-                    $("#banner-list").sortable({
-                        handle : 'i.far.fa-bars',
-                        update: function(){
-                            var sort_array = [];
-                            $("#banner-list input[name='ban_idx[]']").each(function(){
-                                sort_array.push( $(this).val() );
-                            });
-                            $.post('/admin/management/banner_sort',{sort_idx:sort_array});
-                        }
-                    });
-                });
-            </script>
         <?php endif;?>
     </div>
 </div>
@@ -118,7 +102,7 @@
 
             APP.MODAL.open({
                 iframe : {
-                    url : '/admin/management/banner_group_form',
+                    url : base_url + '/admin/management/banner_group_form',
                     param : {
                         bng_idx : bng_idx
                     }
@@ -142,7 +126,7 @@
                 return;
             }
 
-            location.href="/admin/management/banner_group_delete/" + idx;
+            location.href = base_url + "/admin/management/banner_group_delete/" + idx;
         });
 
         $('[data-button="btn-banner-form"]').click(function(){
@@ -156,7 +140,7 @@
 
             APP.MODAL.open({
                 iframe : {
-                    url : '/admin/management/banner_form',
+                    url : base_url + '/admin/management/banner_form',
                     param : {
                         bng_key : bng_key,
                         ban_idx : ban_idx
@@ -181,7 +165,7 @@
                 return;
             }
 
-            location.href="/admin/management/banner_delete/" + idx;
+            location.href = base_url + "/admin/management/banner_delete/" + idx;
         });
     });
 </script>

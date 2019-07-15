@@ -7025,8 +7025,8 @@
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) > td:not(.dx-focused),
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) > tr > td:not(.dx-focused),
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) .dx-command-edit .dx-link {
-  background-color: #337ab7;
-  color: #fff;
+  background-color: #f0f0f0;
+  ///color: #fff;
 }
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) > td:not(.dx-focused) .dx-datagrid-group-opened,
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) > tr > td:not(.dx-focused) .dx-datagrid-group-opened,
@@ -7038,14 +7038,14 @@
 }
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) > td,
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row) > tr:last-child > td {
-  border-bottom: 1px solid #337ab7;
+  border-bottom: 1px solid #f0f0f0;
 }
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row):not(.dx-row-lines) > td,
 .dx-datagrid-rowsview .dx-row-focused.dx-data-row:not(.dx-edit-row):not(.dx-row-lines) > tr:first-child > td {
-  border-top: 1px solid #337ab7;
+  border-top: 1px solid #f0f0f0;
 }
 .dx-datagrid-rowsview .dx-row-focused.dx-group-row {
-  background-color: #337ab7;
+  background-color: #f0f0f0;
   color: #fff;
 }
 .dx-datagrid-rowsview .dx-row-focused.dx-group-row .dx-datagrid-group-opened,

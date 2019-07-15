@@ -33,7 +33,7 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
 <nav id="nav">
     <ul class="main-navigation">
         <li>
-            <a href="javascript:;"><i class="far fa-wrench"></i><span>사이트 관리</span></a>
+            <a href="javascript:;"><i class="fal fa-wrench"></i><span>사이트 관리</span></a>
             <ul>
                 <li data-active="management/popup"><a href="<?=base_url('admin/management/popup')?>">팝업 관리</a></li>
                 <li data-active="management/banner"><a href="<?=base_url('admin/management/banner')?>">배너 관리</a></li>
@@ -43,7 +43,7 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
             </ul>
         </li>
         <li>
-            <a href="javascript:;"><i class="far fa-users"></i><span>회원 관리</span></a>
+            <a href="javascript:;"><i class="fal fa-users"></i><span>회원 관리</span></a>
             <ul>
                 <li data-active="members/lists"><a href="<?=base_url('admin/members/lists')?>">회원 목록</a></li>
                 <li data-active="members/add"><a href="<?=base_url('admin/members/add')?>">회원 등록</a></li>
@@ -56,21 +56,23 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
 
         <?php if(USE_BOARD OR IS_TEST) : ?>
             <li>
-                <a href="javascript:;"><i class="far fa-th-large"></i><span>게시판 관리</span></a>
+                <a href="javascript:;"><i class="fal fa-th-large"></i><span>게시판 관리</span></a>
                 <ul>
                     <li data-active="board/lists"><a href="<?=base_url('admin/board/lists')?>">게시판 관리</a></li>
                     <li class="divider"></li>
                     <?php
-                    $board_list = $this->db->select('B.brd_key,B.brd_title,BPN.new_cnt')->from('board AS B')->join('board_post_new AS BPN','BPN.brd_key=B.brd_key','left')->order_by('B.brd_title')->get()->result_array();
+                    $board_list = $this->boardlib->getNewPostBoards();
                     foreach($board_list as $row): ?>
-                        <li data-active="board/<?=$row['brd_key']?>"><a href="<?=base_url('admin/board/posts/'.$row['brd_key'])?>"><?=$row['brd_title']?><?=$row['new_cnt']>0?" <span class='badge pull-right'>{$row['new_cnt']}</span>":''?></a></li>
+                        <li data-active="board/<?=$row['brd_key']?>"><a href="<?=base_url('admin/board/posts/'.$row['brd_key'])?>"><?=$row['brd_title']?><?=$row['new_cnt']>0?" <span class='badge'>{$row['new_cnt']}</span>":''?></a></li>
                     <?php endforeach;?>
                 </ul>
             </li>
+
         <?php endif;?>
 
+
         <li>
-            <a href="javascript:;"><i class="far fa-chart-bar"></i><span>방문 통계</span></a>
+            <a href="javascript:;"><i class="fal fa-chart-bar"></i><span>방문 통계</span></a>
             <ul>
                 <li data-active="statics/visit"><a href="<?=base_url('admin/statics/visit')?>">사용자 접속 로그</a></li>
                 <li data-active="statics/keyword"><a href="<?=base_url('admin/statics/keyword')?>">키워드별 통계</a></li>
@@ -83,7 +85,7 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
         </li>
 
         <li>
-            <a href="javascript:;"><i class="far fa-cog"></i><span>환경 설정</span></a>
+            <a href="javascript:;"><i class="fal fa-cog"></i><span>환경 설정</span></a>
             <ul>
                 <li data-active="setting/basic"><a href="<?=base_url('admin/setting/basic')?>">사이트 기본 설정</a></li>
                 <li data-active="setting/localize"><a href="<?=base_url('admin/setting/localize')?>">다국어 설정</a></li>

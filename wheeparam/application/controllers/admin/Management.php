@@ -253,12 +253,18 @@ class Management extends WB_Controller {
         {
             $data['fac_idx'] = $this->input->post('fac_idx', TRUE);
             $data['fac_title'] = trim($this->input->post('fac_title', TRUE));
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+
             $mode = $this->input->post('mode', TRUE);
 
             if( $mode == 'INSERT' )
             {
+                $data['reg_user'] = $data['upd_user'];
+                $data['reg_datetime'] =  $data['upd_datetime'];
+
                 // 가장큰 순서값을 가져온다.
-                $data['fac_sort'] = ((int) $this->db->select_max("fac_sort","max")->where('fac_status','Y')->get('faq_category')->row(0)->max)  + 1;
+                $data['sort'] = ((int) $this->db->select_max("sort","max")->where('fac_status','Y')->get('faq_category')->row(0)->max)  + 1;
 
                 if(( $exist = $this->faq_model->get_category($data['fac_idx'])) && isset($exist['fac_idx']) )
                 {
@@ -321,6 +327,8 @@ class Management extends WB_Controller {
             $data['fac_idx'] = $this->input->post('fac_idx', TRUE);
             $data['faq_title'] = $this->input->post('faq_title', TRUE);
             $data['faq_content'] = $this->input->post('faq_content', FALSE);
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
 
             if(empty($data['fac_idx']))
             {
@@ -330,7 +338,10 @@ class Management extends WB_Controller {
 
             if(empty($data['faq_idx']))
             {
-                $data['faq_sort'] = ((int) $this->db->select_max("faq_sort","max")->where('faq_status','Y')->where('fac_idx', $data['fac_idx'])->get('faq')->row(0)->max)  + 1;
+                $data['sort'] = ((int) $this->db->select_max("sort","max")->where('faq_status','Y')->where('fac_idx', $data['fac_idx'])->get('faq')->row(0)->max)  + 1;
+                $data['reg_user'] = $data['upd_user'];
+                $data['reg_datetime'] = $data['upd_datetime'];
+
                 if( ! $this->db->insert("faq", $data) )
                 {
                     alert("DB정보 등록에 실패하였습니다.");

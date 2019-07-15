@@ -37,7 +37,7 @@
 <div class="H10"></div>
 <div class="ax-button-group">
     <div class="left">
-        <button type="button" class="btn btn-default" onclick="APP.MEMBER.POP_POINT_FORM_ADMIN('<?=$mem['mem_idx']?>');"><i class="far fa-plus-circle"></i> <?=$this->site->config('point_name')?> 등록</button>
+        <button type="button" class="btn btn-default" onclick="APP.MEMBER.POP_POINT_FORM_ADMIN('<?=$mem['mem_idx']?>');"><i class="fal fa-plus-circle"></i> <?=$this->site->config('point_name')?> 등록</button>
     </div>
 </div>
 <div id="grid-container"></div>

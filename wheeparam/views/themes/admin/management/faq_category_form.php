@@ -5,7 +5,7 @@
 <div data-ax-tbl>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>FAQ 그룹 이름</div>
+            <div data-ax-td-label>분류 이름</div>
             <div data-ax-td-wrap>
                 <input type="text" class="form-control" name="fac_title" value="<?=element('fac_title', $view) ?>" required maxlength="50" autofocus>
             </div>
@@ -13,7 +13,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>FAQ 그룹 이름</div>
+            <div data-ax-td-label>분류 고유 KEY</div>
             <div data-ax-td-wrap>
                 <input type="text" maxlength="20" name="fac_idx" value="<?=element('fac_idx', $view) ?>" class="form-control" <?= element('fac_idx', $view) ? 'readonly="readonly"' : 'required="required"' ?>>
                 <p class="help-block"><?= base_url("faq/" . element('fac_idx', $view)) ?></p>
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="text-center MT15">
-    <button class="btn btn-primary"><i class="far fa-check-circle"></i> 확인</button>
+    <button class="btn btn-primary"><i class="fal fa-check-circle"></i> 확인</button>
     <button type="button" class="btn btn-default" onclick="parent.APP.MODAL.close();">닫기</button>
 </div>
 <?=form_close()?>
@@ -42,7 +42,7 @@
                 return false;
             }
 
-            if( ! faq.category.exist($this.val() ))
+            if( ! categoryExistCheck($this.val() ))
             {
                 alert('이미 사용중인 고유키 입니다.');
                 $this.val('');
@@ -54,5 +54,21 @@
             $this.next('p.help-block').text(base_url + "faq/" + $this.val());
         });
     });
+
+    var categoryExistCheck = function(fac_idx) {
+        if(typeof fac_idx == 'undefined' || ! fac_idx || fac_idx.trim() == '') return false;
+        var result = false;
+        $.ajax({
+            url : base_url + '/admin/ajax/management/faq_category',
+            type:'get',
+            async:false,
+            cache:false,
+            data:{fac_idx:fac_idx},
+            success:function (res) {
+                result = !(res && typeof res.fac_idx != 'undefined' && res.fac_idx);
+            }
+        });
+        return result;
+    }
 </script>
 <?php endif;?>

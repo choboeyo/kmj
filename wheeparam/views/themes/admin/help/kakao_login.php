@@ -1,6 +1,6 @@
 <div class="col-xs-12">
     <div class="page-header">
-        <h2 class="page-title"><i class="far fa-question-circle" style="display:inline"></i> 카카오 로그인 등록방법</h2>
+        <h2 class="page-title"><i class="fal fa-question-circle" style="display:inline"></i> 카카오 로그인 등록방법</h2>
     </div>
     <div class="admin-help-wrap">
         <ul>
