@@ -10,12 +10,9 @@
         <div class="form-group">
             <label class="control-label col-sm-3 col-md-2">카테고리</label>
             <div class="col-sm-9 col-md-10">
-                <select class="form-control" name="bca_idx">
-                    <?php foreach($board['category'] as $cate) :?>
-                    <option value="<?=$cate['bca_idx']?>" <?=element('bca_idx', $view)==$cate['bca_idx']?'selected':''?>><?=$cate['bca_name']?></option>
-                        <?php foreach($cate['items'] as $sub_cate) : ?>
-                        <option value="<?=$sub_cate['bca_idx']?>" <?=element('bca_idx', $view)==$sub_cate['bca_idx']?'selected':''?>><?=$cate['bca_name']?> > <?=$sub_cate['bca_name']?></option>
-                        <?php endforeach;?>
+                <select class="form-control" name="post_category">
+                    <?php foreach($board['category'] as $cate):?>
+                        <option value="<?=$cate?>" <?=$cate==element('post_category', $view)?'selected':''?>><?=$cate?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -64,32 +61,23 @@
         <div class="form-group">
             <label class="control-label col-sm-3 col-md-2">작성자</label>
             <div class="col-sm-9 col-md-10">
-                <input class="form-control" name="mem_nickname" value="<?=element('mem_nickname', $view)?>" required>
+                <input class="form-control" name="post_nickname" value="<?=element('post_nickname', $view)?>" required>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-3 col-md-2">비밀번호</label>
             <div class="col-sm-9 col-md-10">
-                <input type="password" class="form-control" name="mem_password" value="" required>
+                <input type="password" class="form-control" name="post_password" value="" required>
             </div>
         </div>
         <!--END :: 비회원일 경우 입력폼 추가 -->
         <?php endif;?>
-
-        <!-- START :: 추가입력필드 SAMPLE // 관리자->게시판관리 에서 추가입력필드를 추가한 후 사용
-        <div class="form-group">
-            <label class="control-label col-sm-3 col-md-2">주소</label>
-            <div class="col-sm-9 col-md-10">
-                <input class="form-control" name="extra[address]" value="<?=element('bmt_value', element('address', element('extra',$view )))?>" required>
-            </div>
-        </div>
-        <!-- END :: 추가입력필드 SAMPLE -->
         
         <div class="form-group">
             <label class="control-label col-sm-3 col-md-2">글 내용</label>
             <div class="col-sm-9 col-md-10">
-                <?=get_editor('post_content', element('post_content', $view), '', $use_wysiwyg);?>
+                <?=get_editor('post_content', element('post_content', $view), '');?>
             </div>
         </div>
 
@@ -99,8 +87,7 @@
                 <input class="form-control" name="post_keywords" value="<?=element('post_keywords', $view)?>">
             </div>
         </div>
-        
-        <?php if( $use_attach ) :?>
+
         <!-- START :: 파일 첨부 기능을 사용하고, 권한이 있을경우 -->
         <div class="form-group">
             <label class="control-label col-sm-3 col-md-2">파일 첨부</label>
@@ -109,9 +96,8 @@
             </div>
         </div>
         <!-- END :: 파일 첨부 기능을 사용하고, 권한이 있을경우 -->
-        <?php endif;?>
 
-        <?php if($use_attach && $post_idx && count(element('file', $view)) > 0) :?>
+        <?php if( $post_idx && count(element('file', $view)) > 0) :?>
         <!-- START :: 현재 첨부되어 있는 이미지 -->
         <div class="form-group">
             <label class="control-label col-sm-3 col-md-2">첨부된 파일</label>

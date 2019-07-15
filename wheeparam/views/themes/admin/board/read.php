@@ -14,15 +14,30 @@
         <div data-ax-tr>
             <div data-ax-td>
                 <div data-ax-td-label>작성자</div>
-                <div data-ax-td-wrap><p class="form-control-static"><?=$view['mem_nickname']?></p></div>
+                <div data-ax-td-wrap><p class="form-control-static"><?=$view['post_nickname']?></p></div>
             </div>
             <div data-ax-td>
                 <div data-ax-td-label>작성시간</div>
-                <div data-ax-td-wrap><p class="form-control-static"><?=$view['post_regtime']?></p></div>
+                <div data-ax-td-wrap><p class="form-control-static"><?=$view['reg_datetime']?></p></div>
+            </div>
+            <div data-ax-td>
+                <div data-ax-td-label>최종수정</div>
+                <div data-ax-td-wrap><p class="form-control-static"><?=$view['upd_datetime']?></p></div>
             </div>
             <div data-ax-td>
                 <div data-ax-td-label>조회수</div>
                 <div data-ax-td-wrap><p class="form-control-static"><?=number_format($view['post_hit'])?></p></div>
+            </div>
+        </div>
+        <div data-ax-tr>
+            <div data-ax-td>
+                <div data-ax-td-label>작성IP</div>
+                <div data-ax-td-wrap><p class="form-control-static"><?=long2ip((int)$view['post_ip'])?></p></div>
+            </div>
+
+            <div data-ax-td>
+                <div data-ax-td-label>모바일</div>
+                <div data-ax-td-wrap><p class="form-control-static"><?=$view['post_mobile']?></p></div>
             </div>
         </div>
 
@@ -51,11 +66,9 @@
                 <div data-ax-td class="width-100">
                     <div data-ax-td-label>첨부파일</div>
                     <div data-ax-td-wrap>
-                        <ul class="list-group" style="margin-bottom:0px;">
-                            <?php foreach($view['file'] as $f) :?>
-                                <li class="list-group-item"><a href="<?=$f['link']?>"><i class="fal fa-download"></i> <?=$f['att_origin']?> (<?=format_size($f['att_filesize'])?>)</a></li>
-                            <?php endforeach;?>
-                        </ul>
+                        <?php foreach($view['file'] as $f) :?>
+                            <a class="btn btn-xs btn-default" href="<?=$f['link']?>"><i class="fal fa-download"></i> <?=$f['att_origin']?> (<?=format_size($f['att_filesize'])?>)</a>
+                        <?php endforeach;?>
                     </div>
                 </div>
             </div>
@@ -81,19 +94,12 @@
         </div>
     </div>
     <div class="text-center MT10">
-        <a href="<?=base_url("admin/board/posts/{$board['brd_key']}/?".http_build_query($this->input->get()))?>" class="btn btn-default">목록</a>
+        <a href="<?=base_url("admin/board/posts/{$board['brd_key']}/?".http_build_query($this->input->get()))?>" class="btn btn-default MR5">목록</a>
         <?php if( $board['brd_use_reply'] == 'Y' ):?>
-            <a href="<?=base_url("admin/board/write/{$board['brd_key']}/?post_parent={$view['post_idx']}")?>" class="btn btn-default">답글</a>
+            <a href="<?=base_url("admin/board/write/{$board['brd_key']}/?post_parent={$view['post_idx']}")?>" class="btn btn-default MR5">답글</a>
         <?php endif;?>
-        <a href="<?=base_url("admin/board/write/{$board['brd_key']}/{$view['post_idx']}")?>" class="btn btn-default"><i class="fal fa-pencil"></i> 수정</a>
-        <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="fal fa-trash"></i> 선택 삭제</button>
-        <?php if( $board['brd_use_assign'] == 'Y' ):?>
-            <?php if($view['post_assign'] == 'Y') :?>
-                <button type="button" class="btn btn-default" data-button="btn-assign" data-value="N"><i class="fal fa-ban"></i> 승인 취소</button>
-            <?php else :?>
-                <button type="button" class="btn btn-default" data-button="btn-assign" data-value="Y"><i class="fal fa-check"></i> 승인 처리</button>
-            <?php endif;?>
-        <?php endif;?>
+        <a href="<?=base_url("admin/board/write/{$board['brd_key']}/{$view['post_idx']}")?>" class="btn btn-default MR5"><i class="fal fa-pencil"></i> 수정</a>
+        <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="fal fa-trash"></i> 글 삭제</button>
     </div>
 </div>
 
@@ -113,27 +119,6 @@
                 },
                 success:function(){
                     location.href = "<?=base_url("admin/board/posts/{$board['brd_key']}/?".http_build_query($this->input->get()))?>";
-                }
-            })
-        });
-
-        $('[data-button="btn-assign"]').click(function(e){
-            var value = $(this).data('value');
-
-            var message = "현재 글을 승인 처리하시겠습니까?";
-            if( value == 'N' ) message = '현재 글을 승인 취소하시겠습니까?';
-
-            if(! confirm(message)) return;
-
-            $.ajax({
-                url : '/ajax/board/assign',
-                type:'POST',
-                data : {
-                    post_idx : '<?=$view['post_idx']?>',
-                    post_assign : value
-                },
-                success:function(){
-                    location.reload();
                 }
             })
         });

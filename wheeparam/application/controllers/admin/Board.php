@@ -3,18 +3,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Board extends WB_Controller
 {
-    /**
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->theme = 'admin';
+
+        $this->load->library('boardlib');
+    }
+
+    /******************************************************************************************************
      * 게시판 목록
-     */
+     ******************************************************************************************************/
     public function lists()
     {
         // 메타태그 설정
         $this->site->meta_title = "게시판 관리";
 
         // 레이아웃 & 뷰파일 설정
-        $this->theme    = "admin";
-        $this->view     = "board/lists";
-        $this->active   = "board/lists";
+        $this->view = $this->active = "board/lists";
     }
 
     /**
@@ -31,8 +38,7 @@ class Board extends WB_Controller
         if( $this->form_validation->run() != FALSE )
         {
             $data['brd_key'] = $this->input->post('brd_key', TRUE);
-            $data['brd_title'] = $this->input->post('brd_title', TRUE);
-            $data['brd_title_m'] = $this->input->post('brd_title_m', TRUE);
+            $data['brd_title'] = $this->input->post('brd_title', TRUE,'');
             $data['brd_keywords'] = $this->input->post('brd_keywords', TRUE);
             $data['brd_description'] = $this->input->post('brd_description', TRUE);
             $data['brd_skin_l'] = $this->input->post('brd_skin_l', TRUE);
@@ -43,23 +49,14 @@ class Board extends WB_Controller
             $data['brd_skin_v_m'] = $this->input->post('brd_skin_v_m', TRUE);
             $data['brd_skin_c'] = $this->input->post('brd_skin_c', TRUE);
             $data['brd_skin_c_m'] = $this->input->post('brd_skin_c_m', TRUE);
-            $data['brd_search'] = $this->input->post('brd_search', TRUE, "N");
-            $data['brd_sort'] = $this->input->post('brd_sort', TRUE);
             $data['brd_use_category'] = $this->input->post('brd_use_category', TRUE, "N");
+            $data['brd_category'] = rtrim(trim($this->input->post('brd_category', TRUE, '')), ';');
             $data['brd_lv_list'] = $this->input->post('brd_lv_list', TRUE);
             $data['brd_lv_read'] = $this->input->post('brd_lv_read', TRUE);
             $data['brd_lv_write'] = $this->input->post('brd_lv_write', TRUE);
             $data['brd_lv_reply'] = $this->input->post('brd_lv_reply', TRUE);
             $data['brd_lv_comment'] = $this->input->post('brd_lv_comment', TRUE);
             $data['brd_lv_download'] = $this->input->post('brd_lv_download', TRUE);
-            $data['brd_lv_upload'] = $this->input->post('brd_lv_upload', TRUE);
-            $data['brd_use_list_thumbnail'] = $this->input->post('brd_use_list_thumbnail', TRUE);
-            $data['brd_use_list_file'] = $this->input->post('brd_use_list_file', TRUE);
-            $data['brd_use_view_list'] = $this->input->post('brd_use_view_list', TRUE);
-            $data['brd_thumb_width'] = $this->input->post('brd_thumb_width', TRUE);
-            $data['brd_thumb_height'] = $this->input->post('brd_thumb_height', TRUE);
-            $data['brd_time_new'] = $this->input->post('brd_time_new', TRUE);
-            $data['brd_hit_count'] = $this->input->post('brd_hit_count', TRUE);
             $data['brd_page_limit'] = $this->input->post('brd_page_limit', TRUE);
             $data['brd_page_rows'] = $this->input->post('brd_page_rows', TRUE);
             $data['brd_page_rows_m'] = $this->input->post('brd_page_rows_m', TRUE);
@@ -70,27 +67,28 @@ class Board extends WB_Controller
             $data['brd_use_secret'] = $this->input->post('brd_use_secret', TRUE);
             $data['brd_use_reply'] = $this->input->post('brd_use_reply', TRUE);
             $data['brd_use_comment'] = $this->input->post('brd_use_comment', TRUE);
-            $data['brd_use_wysiwyg'] = $this->input->post('brd_use_wysiwyg', TRUE);
-            $data['brd_use_attach'] = $this->input->post('brd_use_attach', TRUE);
-            $data['brd_use_assign'] = $this->input->post('brd_use_assign', TRUE, 'N') == 'Y' ? 'Y' : 'N';
-            $data['brd_point_read'] = $this->input->post('brd_point_read', TRUE);
-            $data['brd_point_write'] = $this->input->post('brd_point_write', TRUE);
-            $data['brd_point_comment'] = $this->input->post('brd_point_comment', TRUE);
-            $data['brd_point_download'] =  $this->input->post('brd_point_download', TRUE);
-            $data['brd_point_reply'] =  $this->input->post('brd_point_reply', TRUE);
-            $data['brd_use_total_rss'] = $this->input->post('brd_use_total_rss', TRUE);
-            $data['brd_use_rss'] = $this->input->post('brd_use_rss', TRUE);
-            $data['brd_use_sitemap'] = $this->input->post('brd_use_sitemap', TRUE);
+            $data['brd_point_read'] = $this->input->post('brd_point_read', TRUE, 0);
+            $data['brd_point_write'] = $this->input->post('brd_point_write', TRUE, 0);
+            $data['brd_point_comment'] = $this->input->post('brd_point_comment', TRUE, 0);
+            $data['brd_point_download'] =  $this->input->post('brd_point_download', TRUE, 0);
+            $data['brd_point_reply'] =  $this->input->post('brd_point_reply', TRUE, 0);
+            $data['brd_point_read_flag'] = $this->input->post('brd_point_read_flag', TRUE, -1);
+            $data['brd_point_write_flag'] = $this->input->post('brd_point_write_flag', TRUE, 1);
+            $data['brd_point_comment_flag'] = $this->input->post('brd_point_comment_flag', TRUE, 1);
+            $data['brd_point_download_flag'] =  $this->input->post('brd_point_download_flag', TRUE, -1);
+            $data['brd_point_reply_flag'] =  $this->input->post('brd_point_reply_flag', TRUE, 1);
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
 
             if(empty($brd_key))
             {
-                $tmp = (int)$this->db->select_max('brd_sort',"max")->from('board')->get()->row(0)->max;
-                $data['brd_sort'] = $tmp +1;
+                $data['reg_user'] = $data['upd_user'];
+                $data['reg_datetime'] = $data['upd_datetime'];
                 $data['brd_count_post'] = 0;
 
                 if( $this->db->insert('board', $data) )
                 {
-                    alert('게시판 생성이 완료되었습니다.',base_url('/admin/board/lists'));
+                    alert_modal_close('게시판 생성이 완료되었습니다.');
                     exit;
                 }
             }
@@ -98,8 +96,8 @@ class Board extends WB_Controller
             {
                 $this->db->where('brd_key', $brd_key);
                 if( $this->db->update('board', $data) ) {
-                    $this->board_model->delete_cache($brd_key);
-                    alert('게시판 정보 수정이 완료되었습니다.',base_url('/admin/board/lists'));
+                    $this->boardlib->delete_cache($brd_key);
+                    alert_modal_close('게시판 정보 수정이 완료되었습니다.');
                     exit;
                 }
             }
@@ -109,7 +107,7 @@ class Board extends WB_Controller
         }
         else
         {
-            $this->data['view'] = (empty($brd_key)) ? array() : $this->board_model->get_board($brd_key, TRUE);
+            $this->data['view'] = (empty($brd_key)) ? array() : $this->boardlib->get($brd_key, TRUE);
             $this->data['brd_key'] = $brd_key;
             $this->data['skin_list_l'] = get_skin_list('board/list');
             $this->data['skin_list_w'] = get_skin_list('board/write');
@@ -120,9 +118,8 @@ class Board extends WB_Controller
             $this->site->meta_title = "게시판 관리";
 
             // 레이아웃 & 뷰파일 설정
-            $this->theme    = "admin";
             $this->view     = "board/form";
-            $this->active   = "board/lists";
+            $this->theme_file = 'iframe';
         }
     }
 
@@ -155,7 +152,7 @@ class Board extends WB_Controller
 
         if( $this->form_validation->run() != FALSE )
         {
-            $data = $this->board_model->get_board( $this->input->post('original', TRUE) , TRUE);
+            $data = $this->boardlib->get( $this->input->post('original', TRUE) , TRUE);
 
             if(! $data || !isset($data['brd_key']) || !$data['brd_key'])
             {
@@ -165,10 +162,9 @@ class Board extends WB_Controller
 
             $data['brd_key'] = $this->input->post('brd_key', TRUE);
             $data['brd_title'] = $this->input->post('brd_title', TRUE);
-            $data['brd_title_m'] = "";
-            $tmp = (int)$this->db->select_max('brd_sort',"max")->from('board')->get()->row(0)->max;
-            $data['brd_sort'] = $tmp +1;
             $data['brd_count_post'] = 0;
+            $data['upd_user'] = $data['reg_user'] = $this->member->is_login();
+            $data['upd_datetime'] = $data['reg_datetime'] = date('Y-m-d H:i:s');
 
             $this->db->insert('board', $data);
 
@@ -178,7 +174,7 @@ class Board extends WB_Controller
         }
         else
         {
-            $this->data['view'] = $this->board_model->get_board($brd_key, TRUE);
+            $this->data['view'] = $this->boardlib->get($brd_key, TRUE);
             if(! $this->data['view'] || !isset($this->data['view']['brd_key']) || ! $this->data['view']['brd_key'])
             {
                 alert_modal_close('원본 게시판 설정을 찾을수 없습니다.');
@@ -206,7 +202,7 @@ class Board extends WB_Controller
             return FALSE;
         }
 
-        if( $board = $this->board_model->get_board($str, TRUE) ) {
+        if( $board = $this->boardlib->get($str, TRUE) ) {
             $this->form_validation->set_message('brd_key_check', "이미 사용중인 {field} 입니다 : {$str}");
             return FALSE;
         }
@@ -215,130 +211,13 @@ class Board extends WB_Controller
     }
 
     /**
-     * 게시판 카테고리 관리
-     * @param string $brd_key
-     */
-    function category($brd_key="")
-    {
-        $this->load->model('board_model');
-
-        if(empty($brd_key))
-        {
-            alert('잘못된 접근입니다.');
-            exit;
-        }
-
-        $this->data['board'] = $this->board_model->get_board($brd_key, FALSE);
-
-        if( $this->data['board']['brd_use_category'] != 'Y' )
-        {
-            alert('게시판 카테고리 사용설정이 되어있지 않습니다.');
-            exit;
-        }
-
-        // 메타태그 설정
-        $this->site->meta_title = "게시판 관리";
-
-        // 레이아웃 & 뷰파일 설정
-        $this->theme    = "admin";
-        $this->view     = "board/category";
-        $this->active   = "board/lists";
-    }
-
-    /**
-     * 카테고리 등록/수정 폼
-     */
-    function category_form()
-    {
-        $this->load->library('form_validation');
-        $this->load->model('board_model');
-
-        $this->form_validation->set_rules('brd_key', "게시판 고유키","required|trim");
-        $this->form_validation->set_rules('bca_name', "카테고리 이름","required|trim");
-
-        if( $this->form_validation->run() != FALSE )
-        {
-            $data['bca_idx'] = $this->input->post('bca_idx', TRUE);
-            $data['bca_parent'] = $this->input->post('bca_parent', TRUE);
-            $data['brd_key'] = $this->input->post('brd_key', TRUE);
-            $data['bca_name'] = $this->input->post('bca_name', TRUE);
-
-            if( empty($data['bca_idx']) )
-            {
-                $tmp = (int)$this->db->select_max('bca_sort','max')->where('brd_key',$data['brd_key'])->where('bca_parent', $data['bca_parent'])->get('board_category')->row(0)->max;
-                $data['bca_sort'] = $tmp+1;
-
-                if( $this->db->insert("board_category", $data) )
-                {
-                    $this->board_model->delete_cache($data['brd_key']);
-                    alert_modal_close('새로운 카테고리가 추가되었습니다.');
-                    exit;
-                }
-            }
-            else
-            {
-                $this->db->where('bca_idx', $data['bca_idx']);
-                $this->db->where('bca_parent', $data['bca_parent']);
-                $this->db->where('brd_key', $data['brd_key']);
-                $this->db->set('bca_name', $data['bca_name']);
-                if( $this->db->update('board_category') )
-                {
-                    $this->board_model->delete_cache($data['brd_key']);
-                    alert_modal_close('카테고리 이름을 변경하었습니다.');
-                    exit;
-                }
-            }
-
-            alert('DB 입력에 실패하였습니다');
-            exit;
-
-        }
-        else
-        {
-            $this->data['brd_key']      = $this->input->get('brd_key', TRUE);
-            $this->data['bca_parent']   = $this->input->get('bca_parent', TRUE);
-            $this->data['bca_idx']      = $this->input->get('bca_idx', TRUE);
-
-            $this->data['view'] = empty($this->data['bca_idx']) ? array() : $this->board_model->get_category($this->data['bca_idx']);
-
-            $this->theme    = "admin";
-            $this->theme_file = "iframe";
-            $this->view     = "board/category_form";
-        }
-    }
-
-
-    function board_common($brd_key)
-    {
-        $this->load->model('board_model');
-        $this->data['board'] = $this->board_model->get_board($brd_key, FALSE);
-
-        if(empty($this->data['board']) OR ! isset($this->data['board']['brd_key']) )
-        {
-            alert('존재하지 않는 게시판 또는 삭제된 게시판입니다.');
-            exit;
-        }
-
-        $this->param['page'] = $this->data['page'] = (int)$this->input->get('page', TRUE) >= 1 ? $this->input->get('page', TRUE) : 1;
-        $this->param['scol'] = $this->data['scol'] = $this->input->get('scol', TRUE);
-        $this->param['stxt'] = $this->data['stxt'] = $this->input->get('stxt', TRUE);
-        $this->param['category'] = $this->data['category'] = $this->input->get('category', TRUE);
-
-        $this->data['use_wysiwyg'] = ($this->data['board']['brd_use_wysiwyg'] == 'Y');
-        $this->data['use_secret'] = ($this->member->is_login() && $this->data['board']['brd_use_secret'] == 'Y');
-        $this->data['use_notice'] = TRUE;
-        $this->data['use_category'] = (($this->data['board']['brd_use_category'] == 'Y') && (count($this->data['board']['category']) > 0));
-        $this->data['use_attach'] = ($this->data['board']['brd_use_attach'] == 'Y');
-    }
-
-    /**
      * 게시판 글 목록
      */
     function posts($brd_key)
     {
-        $this->board_common($brd_key);
+        $this->boardlib->common_data($brd_key);
 
-        $this->data['list'] = $this->board_model->post_list($this->data['board'], $this->param);
+        $this->data['list'] = $this->boardlib->post_list($this->data['board'], $this->param);
 
         $paging['page'] = $this->param['page'];
         $paging['page_rows'] = 20;
@@ -354,9 +233,9 @@ class Board extends WB_Controller
 
     function read($brd_key, $post_idx="")
     {
-        $this->board_common($brd_key);
+        $this->boardlib->common_data($brd_key);
 
-        $this->data['view'] = $this->board_model->get_post($brd_key, $post_idx, FALSE);
+        $this->data['view'] = $this->boardlib->get_post($brd_key, $post_idx, FALSE);
 
         $this->active = "board/" . $brd_key;
         $this->theme = "admin";
@@ -366,7 +245,7 @@ class Board extends WB_Controller
     function write($brd_key, $post_idx="")
     {
         $this->load->library('form_validation');
-        $this->board_common($brd_key);
+        $this->boardlib->common_data($brd_key);
 
         $this->form_validation->set_rules('post_title', langs('게시판/form/post_title') ,'required|trim');
         $this->form_validation->set_rules('post_content', langs('게시판/form/post_content'),'required|trim');
@@ -377,13 +256,13 @@ class Board extends WB_Controller
 
             // 받아온 값을 정리한다.
             $data['post_title'] = $this->input->post('post_title', TRUE);
-            $data['bca_idx'] = (int) $this->input->post('bca_idx', TRUE);
+            $data['post_category'] = $this->input->post('post_category', TRUE, '');
             $data['post_parent'] = $this->input->post('post_parent', TRUE, 0);
             $data['post_secret'] = $this->input->post('post_secret', TRUE, 'N') == 'Y' ? "Y":'N';
             $data['post_content'] = $this->input->post('post_content', FALSE);
             $data['brd_key'] = $brd_key;
-            $data['post_modtime'] = date('Y-m-d H:i:s');
-            $data['post_html'] = $this->data['use_wysiwyg'] ? 'Y' : 'N';
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+            $data['upd_user'] = $this->member->is_login();
             $data['post_notice'] = $this->input->post('post_notice', TRUE) == 'Y' ? 'Y' : 'N';
             $data['post_ip'] = ip2long( $this->input->ip_address() );
             $data['post_mobile'] = $this->site->viewmode == DEVICE_MOBILE ? 'Y' : 'N';
@@ -562,8 +441,8 @@ class Board extends WB_Controller
             // 수정일경우를 대비해서 글 고유 pk 넘김
             $this->data['post_idx'] = (int)$post_idx;
             $this->data['post_parent'] = $this->input->get('post_parent', TRUE);
-            $this->data['view'] = empty($post_idx) ? array() : $this->board_model->get_post($brd_key, $post_idx, FALSE);
-            $this->data['parent'] = empty($this->data['post_parent']) ? array() : $this->board_model->get_post($brd_key, $this->data['post_parent'], FALSE);
+            $this->data['view'] = empty($post_idx) ? array() : $this->boardlib->get_post($brd_key, $post_idx, FALSE);
+            $this->data['parent'] = empty($this->data['post_parent']) ? array() : $this->boardlib->get_post($brd_key, $this->data['post_parent'], FALSE);
 
             if( $this->data['post_idx'] && (! $this->data['view'] OR ! isset($this->data['view']['post_idx']) OR !$this->data['view']['post_idx'] ) )
             {

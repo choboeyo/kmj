@@ -21,37 +21,31 @@ function latest($skin_name="", $brd_key="", $rows=5, $get_thumb_img=FALSE, $file
 
     $cache_name = "board-{$brd_key}-{$rows}-".($get_thumb_img ? 'thumb' : 'nothumb');
 
-    $CI->load->model('board_model');
-    $data['board'] = $CI->board_model->get_board($brd_key, FALSE);
+    $CI->load->library('boardlib');
+    $data['board'] = $CI->boardlib->get($brd_key, FALSE);
 
     if(empty($data['board']) OR !isset($data['board']['brd_key'])) return '<p class="alert alert-danger">'.langs('게시판/msg/not_exist').'</p>';
 
-    if( ! $data['list'] = $CI->cache->get($cache_name) ) {
-        // 일반 글 목록 가져오기
-        $param['select'] = "P.*, PC.bca_name, B.brd_title";
-        $param['where']['P.brd_key'] = $brd_key;
-        $param['where_in']['post_status'] = array('Y','B');
-        $param['order_by'] = "post_num DESC, post_reply ASC, post_idx ASC";
-        $param['from'] = "board_post AS P";
-        $param['join'][] = array("board_category AS PC","PC.bca_idx=P.bca_idx","left");
-        $param['join'][] = array("board AS B","B.brd_key=P.brd_key","inner");
-        $param['limit'] = TRUE;
-        $param['where']['post_notice'] = "N";
-        $param['page_rows'] = $rows;
-        $param['page'] = 1;
-        if ( $data['board']['brd_use_assign'] == 'Y' && ! PAGE_ADMIN )
+    if( ! $data['list'] = $CI->cache->get($cache_name) )
+    {
+        $CI->db
+            ->select("P.*, B.brd_title")
+            ->from('board_post AS P')
+            ->join("board AS B","B.brd_key=P.brd_key","inner")
+            ->where('P.brd_key', $brd_key)
+            ->where('post_status','Y')
+            ->where('post_notice', 'N')
+            ->order_by("post_num DESC, post_reply ASC, post_idx ASC")
+            ->limit(5);
+
+        $post_list = $CI->db->get()->Result_array();
+
+        foreach($post_list as &$row)
         {
-            $param['where']['post_assign'] = 'Y';
+            $row = $CI->boardlib->post_process($data['board'], $row, "",  $file_list);
         }
 
-        $post_list = $CI->board_model->get_list($param);
-
-        foreach($post_list['list'] as &$row)
-        {
-            $row = $CI->board_model->post_process($data['board'], $row, "",  $file_list, $get_thumb_img);
-        }
-
-        $data['list'] = $post_list['list'];
+        $data['list'] = $post_list;
 
         if(! IS_TEST) {
             $CI->cache->save($cache_name, $data['list'], 60*5);

@@ -7,7 +7,7 @@ class Board extends WB_Controller {
     {
         parent::__construct();
 
-        $this->load->model('board_model');
+        $this->load->library('boardlib');
     }
 
     /**
@@ -26,7 +26,7 @@ class Board extends WB_Controller {
     public function view($brd_key, $post_idx)
     {
         $this->board_common($brd_key, 'read');
-        $this->data['view'] = $this->board_model->get_post($brd_key, $post_idx, FALSE);
+        $this->data['view'] = $this->boardlib->get_post($brd_key, $post_idx, FALSE);
 
         if(! in_array( $this->data['view']['post_status'], array("Y","B")))
         {
@@ -39,7 +39,7 @@ class Board extends WB_Controller {
         {
             $is_auth = FALSE;
 
-            if( !empty($this->data['view']['mem_userid']) && $this->data['view']['mem_userid'] == $this->member->info('userid') )
+            if( !empty($this->data['view']['reg_user']) && $this->data['view']['reg_user'] == $this->member->info('idx') )
             {
                 $is_auth = TRUE;
             }
@@ -55,7 +55,7 @@ class Board extends WB_Controller {
                 $tmp = $this->db->where('post_num', $this->data['view']['post_num'])->where('brd_key', $brd_key)->get('board_post')->result_array();
                 foreach($tmp as $t)
                 {
-                    if( $t['mem_userid'] && $t['mem_userid'] == $this->member->info('userid') )
+                    if( $t['reg_user'] && $t['reg_user'] == $this->member->info('idx') )
                     {
                         $is_auth = TRUE;
                         break;
@@ -81,7 +81,7 @@ class Board extends WB_Controller {
         }
 
         // 포인트 관련 프로세스
-        $this->point_process('brd_point_read', 'POST_READ', '게시글 읽기', $post_idx, ($this->data['view']['mem_userid'] == $this->member->info('userid')) );
+        $this->point_process('brd_point_read', 'POST_READ', '게시글 읽기', $post_idx, ($this->data['view']['reg_user'] == $this->member->info('idx')) );
 
         // 링크 추가
         $this->data['board']['link']['reply'] = base_url("board/{$brd_key}/write/?post_parent={$post_idx}");
@@ -108,8 +108,8 @@ class Board extends WB_Controller {
         $list_skin_path = DIR_SKIN . "/board/comment/" . $this->data['board']['brd_skin_c'] . "/c_list";
         if( $this->data['board']['brd_use_comment'] == 'Y' )
         {
-            $mem_userid = ($this->member->is_login()) ? $this->member->info('userid') : '';
-            $tmp2['comment_list'] = $this->board_model->comment_list($brd_key, $post_idx, $this->data['board']['auth']['admin'], $mem_userid);
+            $mem_userid = ($this->member->is_login()) ? $this->member->is_login() : '';
+            $tmp2['comment_list'] = $this->boardlib->comment_list($brd_key, $post_idx, $this->data['board']['auth']['admin'], $mem_userid);
             // 각 댓글마다 대댓글 폼을 만든다.
             foreach($tmp2['comment_list']['list'] as &$row)
             {
@@ -892,9 +892,9 @@ class Board extends WB_Controller {
             exit;
         }
 
-        $post = $this->board_model->get_post($brd_key, $post_idx, TRUE);
+        $post = $this->boardlib->get_post($brd_key, $post_idx, TRUE);
 
-        $this->point_process('brd_point_download', "POST_ATTACH_DOWNLOAD", "첨부파일 다운로드", $post_idx, ($post['mem_userid'] == $this->member->info('userid')) );
+        $this->point_process('brd_point_download', "POST_ATTACH_DOWNLOAD", "첨부파일 다운로드", $post_idx, ($post['reg_user'] == $this->member->info('idx')) );
 
         $this->db->where('att_idx', $att['att_idx'])->set('att_downloads', 'att_downloads + 1', FALSE)->update('attach');
 
@@ -1025,14 +1025,7 @@ class Board extends WB_Controller {
     {
         $return = array();
 
-        $return['admin'] = ( ( $this->member->is_super() ) OR ( $this->board_model->is_admin($this->data['board']['brd_key'], $this->member->is_login())) );
-        $return['read'] = (  $return['admin']  OR ($this->member->level() >= $this->data['board']['brd_lv_read']) );
-        $return['list'] = (  $return['admin']  OR ($this->member->level() >= $this->data['board']['brd_lv_list']) );
-        $return['write'] = (  $return['admin']  OR ($this->member->level() >= $this->data['board']['brd_lv_write']) );
-        $return['upload'] = ( $return['admin'] OR ($this->member->level() >= $this->data['board']['brd_lv_upload']) );
-        $return['download'] = ( $return['admin'] OR ($this->member->level() >= $this->data['board']['brd_lv_download']) );
-        $return['comment'] = ( $return['admin'] OR ($this->member->level() >= $this->data['board']['brd_lv_comment']) );
-        $return['reply'] = ( $return['admin'] OR ($this->member->level() >= $this->data['board']['brd_lv_reply']) );
+
 
         return $return;
     }
@@ -1044,45 +1037,7 @@ class Board extends WB_Controller {
      */
     private function board_common($brd_key, $check_type="")
     {
-        $this->param = array();
-
-        // 넘어온 값을 정리
-        $this->data['board'] = $this->board_model->get_board($brd_key, FALSE);
-
-        if(empty($this->data['board']) OR ! isset($this->data['board']['brd_key']) )
-        {
-            alert('존재하지 않는 게시판 또는 삭제된 게시판입니다.');
-            exit;
-        }
-
-        $this->data['board']['auth'] = $this->check_auth();
-        $this->data['board']['link'] = $this->board_model->get_link($brd_key);
-
-        // front-end 에서 알아보기쉽게 값을 정리
-        $this->data['use_wysiwyg'] = ($this->data['board']['brd_use_wysiwyg'] == 'Y');
-        $this->data['use_secret'] = ($this->member->is_login() && $this->data['board']['brd_use_secret'] == 'Y');
-        $this->data['use_notice'] = ($this->data['board']['auth']['admin']);
-        $this->data['use_category'] = (($this->data['board']['brd_use_category'] == 'Y') && (count($this->data['board']['category']) > 0));
-        $this->data['use_attach'] = ($this->data['board']['brd_use_attach'] == 'Y' && $this->data['board']['auth']['upload']);
-
-        // 접속한 기기에 따라 설정을 바꾼다.
-        $this->data['board']['brd_skin_l'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_l_m'] : $this->data['board']['brd_skin_l'];
-        $this->data['board']['brd_skin_w'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_w_m'] : $this->data['board']['brd_skin_w'];
-        $this->data['board']['brd_skin_c'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_c_m'] : $this->data['board']['brd_skin_c'];
-        $this->data['board']['brd_skin_v'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_skin_v_m'] : $this->data['board']['brd_skin_v'];
-        $this->data['board']['brd_title'] = ($this->site->viewmode == DEVICE_MOBILE) ? ($this->data['board']['brd_title_m']?$this->data['board']['brd_title_m']:$this->data['board']['brd_title']) : $this->data['board']['brd_title'];
-        $this->data['board']['brd_page_rows'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_page_rows_m'] : $this->data['board']['brd_page_rows'];
-        $this->data['board']['brd_fixed_num'] = ($this->site->viewmode == DEVICE_MOBILE) ? $this->data['board']['brd_fixed_num_m'] : $this->data['board']['brd_fixed_num'];
-
-        unset($this->data['board']['brd_skin_m'], $this->data['board']['brd_title_m'], $this->data['board']['brd_page_rows_m'], $this->data['board']['brd_fixed_num_m']);
-
-        $this->data['category_list'] = ( $this->data['use_category'] && count($this->data['board']['category']) > 0 ) ? $this->data['board']['category'] : NULL;
-
-        // 리스트 불러오기
-        $this->param['page'] = $this->data['page'] = (int)$this->input->get('page', TRUE) >= 1 ? $this->input->get('page', TRUE) : 1;
-        $this->param['scol'] = $this->data['scol'] = $this->input->get('scol', TRUE);
-        $this->param['stxt'] = $this->data['stxt'] = $this->input->get('stxt', TRUE);
-        $this->param['category'] = $this->data['category'] = $this->input->get('category', TRUE);
+        $this->boardlib->common_data($brd_key);
 
         if( $check_type && ! $this->data['board']['auth'][$check_type] )
         {
@@ -1097,15 +1052,7 @@ class Board extends WB_Controller {
             exit;
         }
 
-        $use_list = TRUE;
-        if( $check_type == 'download' OR $check_type == 'comment' OR $check_type == 'write' OR $check_type == 'reply' )
-        {
-            $use_list = FALSE;
-        }
-        else if( ($check_type == "view" OR $check_type == "read" ) && $this->data['board']['brd_use_view_list'] == 'N' )
-        {
-            $use_list = FALSE;
-        }
+        $use_list = $check_type == 'list';
 
         $this->data['list'] = array(
             "list"=>array(),
@@ -1116,7 +1063,7 @@ class Board extends WB_Controller {
         if( $use_list )
         {
             // 게시글 목록 가져오기
-            $this->data['list'] = $this->board_model->post_list($this->data['board'], $this->param);
+            $this->data['list'] = $this->boardlib->post_list($this->data['board'], $this->param);
 
             // 페이지네이션 세팅
             $paging['page'] = $this->param['page'];

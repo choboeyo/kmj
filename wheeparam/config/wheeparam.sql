@@ -75,7 +75,6 @@ DROP TABLE IF EXISTS `wb_board`;
 CREATE TABLE `wb_board` (
   `brd_key` varchar(20) NOT NULL DEFAULT '',
   `brd_title` varchar(30) NOT NULL DEFAULT '',
-  `brd_title_m` varchar(20) NOT NULL DEFAULT '',
   `brd_skin_l` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_l_m` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_v` varchar(100) NOT NULL DEFAULT '',
@@ -84,8 +83,6 @@ CREATE TABLE `wb_board` (
   `brd_skin_w_m` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_c` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_c_m` varchar(100) NOT NULL DEFAULT '',
-  `brd_sort` int(10) unsigned NOT NULL DEFAULT 0,
-  `brd_search` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_lv_list` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `brd_lv_read` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `brd_lv_write` tinyint(3) unsigned NOT NULL DEFAULT 0,
@@ -98,13 +95,6 @@ CREATE TABLE `wb_board` (
   `brd_use_secret` enum('Y','N','A') NOT NULL DEFAULT 'Y',
   `brd_use_reply` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_use_comment` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_use_attach` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_use_assign` enum('Y','N') NOT NULL DEFAULT 'N',
-  `brd_thumb_width` smallint(5) unsigned NOT NULL DEFAULT 0,
-  `brd_thumb_height` smallint(5) unsigned NOT NULL DEFAULT 0,
-  `brd_use_rss` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_use_total_rss` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `brd_use_sitemap` enum('Y','N') NOT NULL DEFAULT 'Y',
   `brd_display_time` enum('sns','basic','full') NOT NULL DEFAULT 'sns',
   `brd_count_post` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_page_limit` enum('Y','N') NOT NULL DEFAULT 'Y',
@@ -122,8 +112,6 @@ CREATE TABLE `wb_board` (
   `brd_point_download_flag` tinyint(4) NOT NULL DEFAULT -1,
   `brd_point_reply` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_point_reply_flag` tinyint(4) NOT NULL DEFAULT 1,
-  `brd_time_new` int(10) unsigned NOT NULL DEFAULT 0,
-  `brd_hit_count` int(10) unsigned NOT NULL DEFAULT 0,
   `brd_keywords` varchar(255) NOT NULL,
   `brd_description` text NOT NULL,
   `brd_blind_nickname` enum('Y','N') NOT NULL DEFAULT 'N',
@@ -133,18 +121,6 @@ CREATE TABLE `wb_board` (
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 PRIMARY KEY (`brd_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-DROP TABLE IF EXISTS `wb_board_category`;
-CREATE TABLE `wb_board_category` (
-  `bca_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `brd_key` varchar(20) NOT NULL,
-  `bca_name` varchar(20) NOT NULL,
-  `bca_parent` int(10) unsigned NOT NULL DEFAULT '0',
-  `bca_sort` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`bca_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `wb_board_comment`;
 CREATE TABLE `wb_board_comment` (
@@ -173,7 +149,7 @@ CREATE TABLE `wb_board_post` (
   `post_parent` int(10) unsigned NOT NULL DEFAULT 0,
   `post_reply` varchar(10) NOT NULL DEFAULT '',
   `brd_key` varchar(20) NOT NULL DEFAULT '',
-  `bca_idx` int(10) unsigned NOT NULL DEFAULT 0,
+  `post_category` varchar(255) NOT NULL DEFAULT '' COMMENT '카테고리',
   `post_title` varchar(255) NOT NULL DEFAULT '',
   `post_thumbnail` varchar(255) NOT NULL DEFAULT '' COMMENT '썸네일 파일',
   `post_content` longtext NOT NULL,
@@ -183,11 +159,9 @@ CREATE TABLE `wb_board_post` (
   `post_count_comment` int(10) unsigned NOT NULL DEFAULT 0,
   `post_recent_comment` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_secret` enum('Y','N') NOT NULL DEFAULT 'N',
-  `post_html` enum('Y','N') NOT NULL DEFAULT 'Y',
   `post_notice` enum('Y','N') NOT NULL DEFAULT 'N',
   `post_hit` int(10) unsigned NOT NULL DEFAULT 0,
   `post_mobile` enum('Y','N') NOT NULL DEFAULT 'N',
-  `post_assign` enum('Y','N') NOT NULL DEFAULT 'Y',
   `post_ip` int(10) unsigned NOT NULL DEFAULT 0,
   `post_keywords` varchar(255) NOT NULL,
   `post_ext1` text NOT NULL,

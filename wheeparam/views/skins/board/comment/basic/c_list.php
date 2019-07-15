@@ -19,7 +19,7 @@
                     <!-- END :: 대댓글일 경우-->
 
                     <div class="media-body" style="padding-left:<?=strlen($cmt['cmt_reply'])*50?>px">
-                        <h4><?=$cmt['mem_nickname']?> <small><?=$cmt['cmt_datetime']?></small></h4>
+                        <h4><?=$cmt['cmt_nickname']?> <small><?=$cmt['cmt_datetime']?></small></h4>
                         <div data-container="container-comment-content">
                             <?php
                             if( $cmt['cmt_status'] == 'Y' ) :

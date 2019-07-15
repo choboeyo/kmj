@@ -1,5 +1,6 @@
 <style>
     html,body,.frame-content {height:100%;}
+    .frame-content {padding:0;}
 </style>
 <article id="login-form">
     <div class="login-wrap">

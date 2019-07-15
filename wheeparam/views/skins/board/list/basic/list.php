@@ -13,14 +13,7 @@
     <ul class="board-category">
         <li><a href="<?=$board['link']['base_url']?>">전체 보기</a></li>
         <?php foreach($category_list as $cate) :?>
-        <li>
-            <a href="<?=$cate['link']?>"><?=$cate['bca_name']?></a>
-            <ul>
-                <?php foreach($cate['items'] as $subcate) :?>
-                <li><a href="<?=$subcate['link']?>"><?=$subcate['bca_name']?></a></li>
-                <?php endforeach;?>
-            </ul>
-        </li>
+        <li><a href="<?=base_url("board/{$board['brd_key']}/?category={$cate}")?>"><?=$cate?></a></li>
         <?php endforeach;?>
     </ul>
     <div class="H30"></div>
@@ -53,7 +46,7 @@
                 endif;?>
             </td>
             <?php if($use_category) :?>
-            <td class="text-center"><?=$post['bca_name']?></td>
+            <td class="text-center"><?=$post['post_category']?></td>
             <?php endif;?>
             <td>
                 <?php if(strlen($post['post_reply']) >0) :?>
@@ -66,7 +59,7 @@
                 <?php if($post['post_count_comment']>0) :?><small>(<?=$post['post_count_comment']?>)</small><?php endif;?>
                 <?php if($post['is_secret']) :?><i class="fa fa-lock"></i><?php endif;?>
             </td>
-            <td class="text-center"><?=$post['mem_nickname']?></td>
+            <td class="text-center"><?=$post['post_nickname']?></td>
             <td class="text-center"><?=$post['post_hit']?></td>
             <td class="text-center"><?=$post['post_datetime']?></td>
         </tr>
@@ -76,7 +69,7 @@
         <!-- START:: 등록된 글이 없는 경우-->
         <?php if(count($list['list'])==0):?>
         <tr>
-            <td colspan="5" class="text-center">등록된 글이 없습니다.</td>
+            <td colspan="6" class="text-center">등록된 글이 없습니다.</td>
         </tr>
         <?php endif;?>
         <!-- END:: 등록된 글이 없는 경우-->
