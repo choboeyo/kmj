@@ -459,7 +459,7 @@ CREATE TABLE `wb_member_autologin` (
 DROP TABLE IF EXISTS `wb_member_auth`;
 CREATE TABLE `wb_member_auth` (
   `mem_idx` int(11) NOT NULL,
-  `ath_type` enum('SUPER','BOARD') NOT NULL,
+  `ath_type` varchar(30) NOT NULL DEFAULT '',
   `ath_key` varchar(20) NOT NULL DEFAULT '',
 PRIMARY KEY (`mem_idx`,`ath_type`,`ath_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

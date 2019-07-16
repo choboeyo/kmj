@@ -62,6 +62,11 @@ class Install extends CI_Controller {
         $data['ath_type'] = "SUPER";
         $data['ath_key'] = "";
         $this->db->insert('member_auth',$data);
+
+        $data['ath_type'] = 'MASTER';
+        $this->db->insert('member_auth',$data);
+
+
         unset($data);
         
         // 인스톨 파일 삭제
