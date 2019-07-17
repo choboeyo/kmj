@@ -20,66 +20,10 @@ class Board extends REST_Controller
 
         if (empty($brd_key)) $this->error_return("FAQ 고유키값이 없습니다.", 400);
 
-        $this->load->model('board_model');
-        $board = $this->board_model->get_board($brd_key, $is_raw);
+        $this->load->library('boardlib');
+        $board = $this->boardlib->get($brd_key, $is_raw);
 
         $this->response($board, 200);
-    }
-
-    function category_delete()
-    {
-        $bca_idx = $this->delete('bca_idx', TRUE);
-
-        if( empty($bca_idx) ) $this->error_return("FAQ 고유키값이 없습니다.", 400);
-
-        $this->db->where('bca_idx', $bca_idx);
-        $result = $this->db->delete('board_category');
-
-        $this->response(array('result'=>$result), 200);
-    }
-
-    /**
-     * 카테고리 순서 정렬
-     */
-    function category_sort_post()
-    {
-        $this->load->model('board_model');
-
-        $brd_key = $this->post('brd_key', TRUE);
-        $idxs = $this->post('idxs', TRUE);
-
-        $update_array = array();
-        foreach($idxs as $i=>$idx)
-        {
-            $update_array[] = array(
-                'bca_idx' => $idx,
-                'bca_sort' => $i+1
-            );
-        }
-
-        $this->db->update_batch("board_category", $update_array, "bca_idx");
-
-        $this->board_model->delete_cache($brd_key);
-    }
-
-    function category_count_get()
-    {
-        $bca_idx = $this->get('bca_idx', TRUE);
-        if( empty($bca_idx) ) $this->error_return("카테고리 지정이 잘못되었습니다.", 400);
-
-        $count = (int) $this->db->select('COUNT(*) AS count')->where('bca_parent', $bca_idx)->get('board_category')->row(0)->count;
-
-        $this->response(array("result"=>$count), 200);
-    }
-
-    function category_post_count_get()
-    {
-        $bca_idx = $this->get('bca_idx', TRUE);
-        if( empty($bca_idx) ) $this->error_return("카테고리 지정이 잘못되었습니다.", 400);
-
-        $count = (int) $this->db->select('COUNT(*) AS count')->where('bca_idx', $bca_idx)->where_in('post_status',array('Y','B'))->get('board_post')->row(0)->count;
-
-        $this->response(array("result"=>$count), 200);
     }
 
     /**

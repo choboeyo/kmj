@@ -9,13 +9,13 @@ class Rss extends WB_Controller {
 
     function index($brd_key="")
     {
-        $this->load->model('board_model');
+        $this->load->library('boardlib');
 
         $brd_array = array();
         // 통합 RSS 인 경우
         if( empty($brd_key) )
         {
-            $board_list = $this->db->where('brd_use_total_rss','Y')->where('brd_lv_read', '0')->get('board')->result_array();
+            $board_list = $this->db->where('brd_lv_read', '0')->get('board')->result_array();
             foreach($board_list as $b)
             {
                 $brd_array[] = $b['brd_key'];
@@ -23,7 +23,7 @@ class Rss extends WB_Controller {
         }
         else
         {
-            $board = $this->board_model->get_board($brd_key, TRUE);
+            $board = $this->boardlib->get($brd_key, TRUE);
             if( $board['brd_use_rss'] != 'Y' OR $board['brd_lv_read'] > 0 )
             {
                 die('해당 게시판은 RSS 사용 설정이 되어있지 않습니다.');
@@ -41,6 +41,7 @@ class Rss extends WB_Controller {
                 ->join('board','board.brd_key=board_post.brd_key','inner')
                 ->where_in('board_post.brd_key', $brd_array)
                 ->where('post_status' ,'Y')
+                ->where('post_secret', 'N')
                 ->order_by('post_num DESC, post_reply ASC, post_idx DESC')
                 ->limit(50)
                 ->get('board_post')
@@ -72,8 +73,8 @@ class Rss extends WB_Controller {
             echo "<item>\n";
             echo "<title><![CDATA[" . element('post_title', $row) . "]]></title>\n";
             echo "<link>" . base_url( "board/{$row['brd_key']}/{$row['post_idx']}") . "</link>\n";
-            echo "<author>" . html_escape(element('mem_nickname', $row)) . "</author>\n";
-            echo "<pubDate>" . date('Y-m-d', strtotime($row['post_regtime'])) . "</pubDate>\n";
+            echo "<author>" . html_escape(element('post_nickname', $row)) . "</author>\n";
+            echo "<pubDate>" . date('Y-m-d', strtotime($row['reg_datetime'])) . "</pubDate>\n";
             echo "<description><![CDATA[" . display_html_content($row['post_content']) . "]]></description>\n";
             echo "<category>" . html_escape($row['brd_title']) . "</category>\n";
             echo "</item>\n";

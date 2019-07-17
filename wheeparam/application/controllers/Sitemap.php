@@ -47,7 +47,7 @@ class Sitemap extends WB_Controller {
      */
     function index()
     {
-        $list = $this->db->where('brd_use_sitemap','Y')->where('brd_lv_read','0')->get('board')->result_array();
+        $list = $this->db->where('brd_lv_read','0')->get('board')->result_array();
 
         ob_start();
         echo "<?xml version=\"1.0\" encoding=\"" . config_item('charset') . "\"?".">\n";
@@ -78,16 +78,14 @@ class Sitemap extends WB_Controller {
      */
     function board($brd_key)
     {
-        $this->load->model('board_model');
-
         if(empty($brd_key))
         {
             die('잘못된 접근입니다.');
         }
 
-        $board = $this->board_model->get_board($brd_key, TRUE);
+        $board = $this->boardlib->get($brd_key, TRUE);
 
-        if( !$board OR $board['brd_use_sitemap'] != 'Y' OR $board['brd_lv_read'] > 0 )
+        if( !$board OR  $board['brd_lv_read'] > 0 )
         {
             die('이 게시판은 사이트맵을 사용하지 않습니다.');
         }
@@ -98,7 +96,7 @@ class Sitemap extends WB_Controller {
 
         // 게시판 자체 사이트맵 추가
         // 게시판글 최종수정일 가져오기
-        $max_date = $this->db->select_max('post_modtime', 'max')->where('post_status','Y')->where('brd_key',$brd_key)->from('board_post')->get()->row(0)->max;
+        $max_date = $this->db->select_max('upd_datetime', 'max')->where('post_status','Y')->where('brd_key',$brd_key)->from('board_post')->get()->row(0)->max;
         $data['list'][] = array(
             "loc"  => base_url("/board/{$brd_key}"),
             "lastmod" => date('Y-m-d', strtotime($max_date)),
@@ -110,7 +108,7 @@ class Sitemap extends WB_Controller {
         {
             $data['list'][] = array(
                 "loc"  => base_url("/board/{$brd_key}/{$row['post_idx']}"),
-                "lastmod" => date('Y-m-d', strtotime($row['post_modtime'])),
+                "lastmod" => date('Y-m-d', strtotime($row['upd_datetime'])),
                 "priority" => "0.7",
                 "changefreq" => "daily"
             );

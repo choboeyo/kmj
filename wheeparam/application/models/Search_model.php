@@ -22,7 +22,7 @@ class Search_model extends WB_Model
         foreach( $search_array as $st )
         {
             $this->db->like("post_title", trim($st));
-            $this->db->or_like("mem_nickname", trim($st));
+            $this->db->or_like("post_nickname", trim($st));
             //$this->db->or_like("post_content", trim($st));
         }
         $this->db->group_end();
@@ -42,12 +42,12 @@ class Search_model extends WB_Model
         $result = $this->db->get();
         $list = $result->result_array();
 
-        $this->load->model('board_model');
+        $this->load->library('boardlib');
 
         foreach($list as &$row)
         {
-            $b = $this->board_model->get_board($row['brd_key']);
-            $row = $this->board_model->post_process($b, $row, '',  TRUE, TRUE);
+            $b = $this->boardlib->get($row['brd_key']);
+            $row = $this->boardlib->post_process($b, $row, '',  TRUE, TRUE);
         }
 
         return $list;
@@ -68,7 +68,7 @@ class Search_model extends WB_Model
         foreach($search_array as $st)
         {
             $this->db->like("post_title", trim($st));
-            $this->db->or_like("mem_nickname", trim($st));
+            $this->db->or_like("post_nickname", trim($st));
             //$this->db->or_like("post_content", trim($st));
         }
         $this->db->group_by("board_post.brd_key");

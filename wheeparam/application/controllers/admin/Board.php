@@ -30,7 +30,6 @@ class Board extends WB_Controller
      */
     public function form($brd_key="")
     {
-        $this->load->model('board_model');
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('brd_key','게시판 고유 키',"required|trim|min_length[3]|max_length[20]". (empty($brd_key)?"|callback_brd_key_check":""));
@@ -144,7 +143,6 @@ class Board extends WB_Controller
      */
     public function board_copy($brd_key)
     {
-        $this->load->model('board_model');
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('original', "원본 게시판", "required|trim");
@@ -194,7 +192,6 @@ class Board extends WB_Controller
      */
     function brd_key_check($str)
     {
-        $this->load->model('board_model');
 
         if(! preg_match("/^[a-z][a-z0-9_]{2,19}$/", $str))
         {

@@ -71,7 +71,7 @@ function latest($skin_name="", $brd_key="", $rows=5, $get_thumb_img=FALSE, $file
  * @param int $cache_time 캐시 저장시간
  * @return string
  */
-function latest_multi($skin_name="", $except_brd_key=array(), $rows=5, $get_thumb_img=FALSE, $file_list=FALSE, $cache_time=1)
+function latest_multi($skin_name="", $except_brd_key=array(), $rows=5, $get_thumb_img=FALSE, $cache_time=1)
 {
     $CI =& get_instance();
 
@@ -85,34 +85,31 @@ function latest_multi($skin_name="", $except_brd_key=array(), $rows=5, $get_thum
 
     $cache_name = "board-multiples-{$rows}-".($get_thumb_img ? 'thumb' : 'nothumb');
 
-    $CI->load->model('board_model');
+    $CI->load->library('boardlib');
 
     if( ! $data['list'] = $CI->cache->get($cache_name) ) {
         // 일반 글 목록 가져오기
-        $param['select'] = "P.*, PC.bca_name, B.brd_title";
         if(is_array($except_brd_key) && count($except_brd_key) > 0)
         {
             foreach( $except_brd_key as $brd_key ) {
-                $param['where']['P.brd_key !='] = $brd_key;
+                $CI->db->where('P.brd_key !=', $brd_key);
             }
         }
-        $param['where_in']['post_status'] = array('Y','B');
-        $param['order_by'] = "post_num DESC, post_reply ASC, post_idx ASC";
-        $param['from'] = "board_post AS P";
-        $param['join'][] = array("board_category AS PC","PC.bca_idx=P.bca_idx","left");
-        $param['join'][] = array("board AS B","B.brd_key=P.brd_key","inner");
-        $param['limit'] = TRUE;
-        $param['where']['post_notice'] = "N";
-        $param['page_rows'] = $rows;
-        $param['page'] = 1;
 
+        $CI->db
+            ->select("P.*, PC.bca_name, B.brd_title")
+            ->where('post_status','Y')
+            ->where('post_notice', 'N')
+            ->order_by('post_num DESC, post_reply ASC, post_idx ASC')
+            ->from('board_post AS P')
+            ->join("board AS B","B.brd_key=P.brd_key","inner")
+            ->limit($rows);
 
-        $post_list = $CI->board_model->get_list($param);
+        $post_list['list'] = $CI->db->get()->result_array();
 
         foreach($post_list['list'] as &$row)
         {
-            $board = $CI->board_model->get_board($row['brd_key'], FALSE);
-            $row = $CI->board_model->post_process($board, $row, "",  $file_list, $get_thumb_img);
+            $row = $CI->boardlib->post_process($row['brd_key'], $row, "",  FALSE);
         }
 
         $data['list'] = $post_list['list'];
@@ -121,8 +118,6 @@ function latest_multi($skin_name="", $except_brd_key=array(), $rows=5, $get_thum
             $CI->cache->save($cache_name, $data['list'], 60*5);
         }
     }
-
-    $data['brd_key'] = $brd_key;
 
     // 스킨 불러오기
     $skin = $CI->load->view( DIR_SKIN . DIRECTORY_SEPARATOR . 'latest'. DIRECTORY_SEPARATOR . $skin_name . DIRECTORY_SEPARATOR . "skin.php", $data, TRUE );
