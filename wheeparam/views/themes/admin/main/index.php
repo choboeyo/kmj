@@ -99,11 +99,11 @@
                 <h4>회원 통계</h4>
             </div>
         </div>
-        <div  \class="grid">
+        <div class="grid">
             <table>
                 <thead>
                 <tr>
-                    <th>구분</th>
+                    <th class="W100">구분</th>
                     <th>회원수</th>
                 </tr>
                 </thead>

@@ -96,12 +96,86 @@
     <div class="text-center MT10">
         <a href="<?=base_url("admin/board/posts/{$board['brd_key']}/?".http_build_query($this->input->get()))?>" class="btn btn-default MR5">목록</a>
         <?php if( $board['brd_use_reply'] == 'Y' ):?>
-            <a href="<?=base_url("admin/board/write/{$board['brd_key']}/?post_parent={$view['post_idx']}")?>" class="btn btn-default MR5">답글</a>
+            <a href="<?=$board['link']['reply']?>" class="btn btn-default MR5">답글</a>
         <?php endif;?>
-        <a href="<?=base_url("admin/board/write/{$board['brd_key']}/{$view['post_idx']}")?>" class="btn btn-default MR5"><i class="fal fa-pencil"></i> 수정</a>
+        <a href="<?=$board['link']['modify']?>" class="btn btn-default MR5"><i class="fal fa-pencil"></i> 수정</a>
         <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="fal fa-trash"></i> 글 삭제</button>
     </div>
+
+    <?php if($board['brd_use_comment'] == 'Y') :?>
+    <div class="H30"></div>
+    <?=form_open("admin/board/comment/{$board['brd_key']}/{$view['post_idx']}",array("id"=>"form-board-comment","data-form"=>"board-comment"))?>
+    <input type="hidden" name="cmt_nickname" value="<?=$this->member->info('nickname')?>">
+    <div data-ax-tbl>
+        <div class="caption">댓글 입력</div>
+        <div data-ax-tr>
+            <div data-ax-td class="width-100">
+                <div data-ax-td-label>내용</div>
+                <div data-ax-td-wrap>
+                    <textarea class="form-control" name="cmt_content" data-autosize required placeholder="댓글 내용 입력"></textarea>
+                </div>
+                <button class="btn btn-primary btn-comment" style="margin:7px;"><i class="fal fa-reply"></i> 댓글 등록</button>
+            </div>
+        </div>
+    </div>
+    <?=form_close()?>
+
+    <ul class="comment-list">
+        <?php foreach($comments['list'] as $cmt) :?>
+        <li class="comment-depth-<?=strlen($cmt['cmt_reply'])?>">
+            <h4 class=""><?=$cmt['cmt_nickname']?> <small><?=$cmt['cmt_datetime']?></small></h4>
+            <div class="content" data-container="container-comment-content">
+                <?php
+                if( $cmt['cmt_status'] == 'Y' ) :
+                    echo display_html_content($cmt['cmt_content'],600);
+                elseif ( $cmt['cmt_status'] == 'B' ):
+                    echo '<p class="alert alert-danger">관리자에 의해서 블라인드 된 댓글입니다.</p>';
+                else :
+                    echo '<p class="alert alert-danger">삭제된 댓글입니다.</p>';
+                endif;
+                ?>
+            </div>
+            <div class="comment-action MT10">
+                <button type="button" class="btn btn-default btn-xs MR5" onclick="$(this).parents('li').find('.comment-reply-form').slideToggle('fast');">대댓글</button>
+                <button type="button" class="btn btn-default btn-xs MR5" onclick="APP.BOARD.COMMENT.modify('<?=$cmt['cmt_idx']?>')">수정</button>
+                <a class="btn btn-danger btn-xs" onclick="return confirm('댓글을 삭제하시겠습니까?');" href="<?=$cmt['link']['delete']?>">삭제</a>
+            </div>
+            <div class="comment-reply-form MT10" style="display:none;">
+                <div class="comment-write">
+                    <h4>댓글 입력</h4>
+                    <?=form_open("admin/board/comment/{$board['brd_key']}/{$view['post_idx']}", array("data-form"=>"board-comment"))?>
+                    <input type="hidden" name="cmt_idx" value="">
+                    <input type="hidden" name="cmt_parent" value="<?=$cmt['cmt_idx']?>">
+                    <input type="hidden" name="reurl" value="<?=current_full_url()?>">
+                    <input type="hidden" name="cmt_nickname" value="<?=$this->member->info('nickname')?>">
+                    <div class="comment-write-inputs">
+                        <textarea class="form-control" name="cmt_content" data-autosize required placeholder="댓글 내용 입력"></textarea>
+                        <button class="btn btn-primary W200">대댓글 등록</button>
+                    </div>
+                    <?=form_close()?>
+                </div>
+            </div>
+        </li>
+        <?php endforeach;?>
+
+        <?php if( count($comments['list']) == 0 ):?>
+            <p class="empty" style="padding:15px; text-align:center;">작성된 댓글이 없습니다.</p>
+        <?php endif;?>
+    </ul>
+    <?php endif;?>
 </div>
+
+<style>
+    .comment-list {margin:0; padding:0; list-style:none;}
+    .comment-list li { position: relative; padding: 5px 15px; border-top: 1px solid #eceff3; background: #f5f8f9;color: #000;word-break: break-all;}
+    .comment-write-inputs { display:flex;}
+    .comment-list li.comment-depth-0 {padding-left:15px;}
+    .comment-list li.comment-depth-1 {padding-left:50px;}
+    .comment-list li.comment-depth-2 {padding-left:85px;}
+    .comment-list li.comment-depth-3 {padding-left:120px;}
+    .comment-list li.comment-depth-4 {padding-left:155px;}
+    .comment-list li.comment-depth-5 {padding-left:190px;}
+</style>
 
 <script>
     $(function(){

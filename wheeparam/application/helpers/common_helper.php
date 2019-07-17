@@ -302,6 +302,7 @@ function format_size($bytes, $decimals = 2) {
  * HTML SYMBOL 변환
  * &nbsp; &amp; &middot; 등을 정상으로 출력
  *****************************************************************************************/
+
 function html_symbol($str)
 {
     return preg_replace("/\&([a-z0-9]{1,20}|\#[0-9]{0,3});/i", "&#038;\\1;", $str);
@@ -689,86 +690,6 @@ function get_google_map($geo_data = '', $maxwidth = '')
     $google_map .= '</div>' . PHP_EOL;
 
     return $google_map;
-}
-
-
-/**
- * 게시물중에서
- * @param $post
- * @param string $thumb_width
- * @param string $thumb_height
- * @return string|void
- */
-function get_post_thumbnail($post, $thumb_width = '', $thumb_height = '')
-{
-    $CI = & get_instance();
-
-    if(empty($post) OR !is_array($post)) return '';
-
-    // 첨부파일중 이미지중 첫번째를 가져온다.
-    if( isset($post['file'])  && count($post['file'])>0)
-    {
-        foreach($post['file'] as $file)
-        {
-            if($file['att_is_image'] == 'Y')
-            {
-                return thumbnail($file['att_filepath'], $thumb_width, $thumb_height);
-            }
-        }
-    }
-
-    $matches = get_editor_image($post['post_content']);
-    if (! empty($matches)) {
-        $img = element(0, element(1, $matches));
-        if (! empty($img)) {
-
-            preg_match("/src=[\'\"]?([^>\'\"]+[^>\'\"]+)/i", $img, $m);
-            $src = isset($m[1]) ? $m[1] : '';
-
-            $p = parse_url($src);
-
-            if (isset($p['host']) && $p['host'] === $CI->input->server('HTTP_HOST')
-                && strpos($p['path'], '/' . DIR_UPLOAD) !== false) {
-                $src = str_replace(base_url('/') , '', $src);
-                $src = thumbnail( $src , $thumb_width, $thumb_height);
-            }
-
-            return $src;
-
-        }
-    }
-
-    // 본문 내용중에 iframe 동영상 포함여부를 확인한다.
-    preg_match_all("/<iframe[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/i", $post['post_content'], $matches);
-    for($i=0; $i<count($matches[1]); $i++) {
-        if(! isset($matches[1][$i]) ) continue;
-
-        $video = get_video_info( $matches[1][$i] );
-
-        // 비디오 타입이 아니거나, 알려지지 않은 비디오 일경우 건너뛴다.
-        if(! $video['type'] OR ! $video['thumb']) continue;
-
-        if($video['thumb']) {
-            return $video['thumb'];
-        }
-    }
-
-    // 본문내용중에 embed 태그 포함여부를 확인한다.
-    preg_match_all("/<embed[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/i", $post['post_content'], $matches);
-    for($i=0; $i<count($matches[1]); $i++) {
-        if(! isset($matches[1][$i]) ) continue;
-
-        $video = get_video_info( $matches[1][$i] );
-
-        // 비디오 타입이 아니거나, 알려지지 않은 비디오 일경우 건너뛴다.
-        if(! $video['type'] OR ! $video['thumb']) continue;
-
-        if($video['thumb']) {
-            return $video['thumb'];
-        }
-    }
-
-    return '';
 }
 
 function get_array_query($str) {

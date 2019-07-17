@@ -231,241 +231,57 @@ class Board extends WB_Controller
     }
 
 
+    /**
+     * 게시글 읽기
+     */
     function read($brd_key, $post_idx="")
     {
         $this->boardlib->common_data($brd_key);
-
-        $this->data['view'] = $this->boardlib->get_post($brd_key, $post_idx, FALSE);
-
-        $this->active = "board/" . $brd_key;
+        $this->boardlib->read_process($brd_key, $post_idx);
         $this->theme = "admin";
-        $this->view = "board/read";
     }
 
+    /**
+     * 게시글 작성/수정
+     */
     function write($brd_key, $post_idx="")
     {
-        $this->load->library('form_validation');
         $this->boardlib->common_data($brd_key);
+        $this->boardlib->write_process($brd_key, $post_idx);
+    }
 
-        $this->form_validation->set_rules('post_title', langs('게시판/form/post_title') ,'required|trim');
-        $this->form_validation->set_rules('post_content', langs('게시판/form/post_content'),'required|trim');
+    /**
+     * 댓글 작성/수정 처리부분
+     */
+    function comment($brd_key, $post_idx)
+    {
+        $this->boardlib->common_data($brd_key);
+        $this->boardlib->comment_process($brd_key, $post_idx);
+    }
 
-        if( $this->form_validation->run()  != FALSE)
+    /**
+     * 댓글 작성/수정 폼
+     */
+    function comment_modify($cmt_idx="")
+    {
+        if( ! $comment = $this->db->where('cmt_idx', $cmt_idx)->where('cmt_status', 'Y')->get('board_comment')->row_array() )
         {
-            $this->load->library('upload');
-
-            // 받아온 값을 정리한다.
-            $data['post_title'] = $this->input->post('post_title', TRUE);
-            $data['post_category'] = $this->input->post('post_category', TRUE, '');
-            $data['post_parent'] = $this->input->post('post_parent', TRUE, 0);
-            $data['post_secret'] = $this->input->post('post_secret', TRUE, 'N') == 'Y' ? "Y":'N';
-            $data['post_content'] = $this->input->post('post_content', FALSE);
-            $data['brd_key'] = $brd_key;
-            $data['upd_datetime'] = date('Y-m-d H:i:s');
-            $data['upd_user'] = $this->member->is_login();
-            $data['post_notice'] = $this->input->post('post_notice', TRUE) == 'Y' ? 'Y' : 'N';
-            $data['post_ip'] = ip2long( $this->input->ip_address() );
-            $data['post_mobile'] = $this->site->viewmode == DEVICE_MOBILE ? 'Y' : 'N';
-            $data['post_keywords'] = $this->input->post('post_keywords', TRUE);
-            for($i=1; $i<=9; $i++)
-            {
-                $data['post_ext'.$i] = $this->input->post('post_ext'.$i, TRUE,'');
-            }
-
-            $parent = array();
-            if(! empty( $data['post_parent'] ) )
-            {
-                $parent = $this->board_model->get_post($brd_key, $data['post_parent'], FALSE);
-            }
-
-            // 게시판 설정을 이용해서 값 정리
-            if( $this->data['board']['brd_use_secret'] == 'N' ) $data['post_secret'] = 'N';
-            else if ( $this->data['board']['brd_use_secret'] == 'A' ) $data['post_secret'] = 'Y';
-            // 답글인경우 원글이 비밀글이면 답글도 비밀글
-            else if ( ! empty($data['post_parent']) && $parent['post_secret'] == 'Y' ) $data['post_secret'] = 'Y';
-
-            // 파일 업로드가 있다면
-            if( isset($_FILES) && isset($_FILES['userfile']) && count($_FILES['userfile']) > 0 )
-            {
-                $dir_path = DIR_UPLOAD . "/board/{$brd_key}/".date('Y')."/".date('m');
-                make_dir($dir_path,FALSE);
-
-                $upload_config['upload_path'] = "./".$dir_path;
-                $upload_config['file_ext_tolower'] = TRUE;
-                $upload_config['allowed_types'] = FILE_UPLOAD_ALLOW;
-                $upload_config['encrypt_name'] = TRUE;
-
-                $this->load->library("upload", $upload_config);
-                $this->data['upload_array'] = array();
-
-                // FOR문으로 업로드하기 위해 돌리기
-                $files = NULL;
-                foreach ($_FILES['userfile'] as $key => $value) {
-                    foreach ($value as $noKey => $noValue) {
-                        $files[$noKey][$key] = $noValue;
-                    }
-                }
-                unset($_FILES);
-
-                // FOR 문 돌면서 정리
-                foreach ($files as $file) {
-                    $_FILES['userfile'] = $file;
-                    $this->upload->initialize($upload_config);
-                    if( ! isset($_FILES['userfile']['tmp_name']) OR ! $_FILES['userfile']['tmp_name']) continue;
-                    if (! $this->upload->do_upload('userfile') )
-                    {
-                        alert('파일 업로드에 실패하였습니다.\\n'.$this->upload->display_errors(' ',' '));
-                        exit;
-                    }
-                    else
-                    {
-                        $filedata = $this->upload->data();
-                        $this->data['upload_array'][] = array(
-                            "att_target_type" => 'BOARD',
-                            "att_origin" => $filedata['orig_name'],
-                            "att_filepath" => $dir_path . "/" . $filedata['file_name'],
-                            "att_downloads" => 0,
-                            "att_filesize" => $filedata['file_size'] * 1024,
-                            "att_width" => $filedata['image_width'] ? $filedata['image_width'] : 0,
-                            "att_height" => $filedata['image_height'] ? $filedata['image_height'] : 0,
-                            "att_ext" => $filedata['file_ext'],
-                            "att_is_image" => ($filedata['is_image'] == 1) ? 'Y' : 'N',
-                            "reg_user" => $this->member->is_login(),
-                            "reg_datetime" => date('Y-m-d H:i:s')
-                        );
-                    }
-                }
-            }
-
-            // 첨부파일 삭제가 있다면 삭제한다.
-            $del_file = $this->input->post("del_file", TRUE);
-            if( $del_file && count($del_file) > 0 )
-            {
-                foreach($del_file as $att_idx) {
-                    $this->board_model->attach_remove($att_idx);
-                }
-            }
-
-            // 수정이냐 신규냐에 따라 값 설정
-            if( empty($post_idx) )
-            {
-                $data['mem_userid'] = $this->member->info('userid');
-                $data['mem_nickname'] = $this->member->info('nickname');
-                $data['mem_password'] = $this->member->info('password');
-
-                $data['post_regtime'] = date('Y-m-d H:i:s');
-                $data['post_status'] = 'Y';
-                $data['post_count_comment'] = 0;
-                $data['post_hit'] = 0;
-
-                // 답글인경우
-                if(! empty($data['post_parent']))
-                {
-                    if( strlen($parent['post_reply']) >= 10 )
-                    {
-                        alert('더 이상 답변하실 수 없습니다.\\n답변은 10단계 까지만 가능합니다.');
-                        exit;
-                    }
-
-                    $reply_len = strlen($parent['post_reply']) + 1;
-
-                    $begin_reply_char = 'A';
-                    $end_reply_char = 'Z';
-                    $reply_number = +1;
-
-                    $reply_char = "";
-
-                    $this->db->select("MAX(SUBSTRING(post_reply, {$reply_len}, 1)) AS reply")->from('board_post')->where('post_num', $parent['post_num'])->where('brd_key', $brd_key)->where("SUBSTRING(post_reply, {$reply_len}, 1) <>", '');
-                    if($parent['post_reply']) $this->db->like('post_reply', $parent['post_reply'],'after');
-                    $row = $this->db->get()->row_array();
-
-                    if(! $row['reply']) {
-                        $reply_char = $begin_reply_char;
-                    }
-                    else if ($row['reply'] == $end_reply_char) {
-                        alert("더 이상 답변하실 수 없습니다.\\n답변은 26개 까지만 가능합니다.");
-                        exit;
-                    }
-                    else {
-                        $reply_char = chr(ord($row['reply']) + $reply_number);
-                    }
-
-                    $data['post_reply'] = $parent['post_reply'] . $reply_char;
-
-                    // 답변의 원글이 비밀글이라면, 비밀번호는 원글과 동일하게 넣는다.
-                    if( $parent['post_secret'] == 'Y' ) {
-                        $data['mem_password'] = $parent['mem_password'];
-                    }
-
-                    $data['post_num'] = $parent['post_num'];
-                }
-                else {
-                    $tmp  = (int)$this->db->select_max('post_num','max')->from('board_post')->where('brd_key',$brd_key)->get()->row(0)->max;
-                    $data['post_reply'] = "";
-                    $data['post_num'] = $tmp+1;
-                }
-
-                if(! $this->db->insert('board_post', $data) )
-                {
-                    alert(langs('게시판/msg/write_failed'));
-                    exit;
-                }
-
-                $post_idx = $this->db->insert_id();
-            }
-            else {
-                $this->db->where('brd_key', $brd_key);
-                $this->db->where('post_idx', $post_idx);
-
-                if(! $this->db->update('board_post', $data))
-                {
-                    alert(langs('게시판/msg/write_failed'));
-                    exit;
-                }
-
-            }
-
-            // 업로드된 데이타가 있을경우에 DB에 기록
-            if(isset($this->data['upload_array']) && count($this->data['upload_array']) >0 )
-            {
-                foreach($this->data['upload_array'] as &$arr) {
-                    $arr['att_target'] = $post_idx;
-                }
-                $this->db->insert_batch("attach", $this->data['upload_array']);
-            }
-
-            alert(langs('게시판/msg/write_success'), base_url("admin/board/read/{$brd_key}/{$post_idx}"));
+            alert_close(langs('게시판/msg/invalid_comment'));
             exit;
         }
-        else {
-            // 수정일경우를 대비해서 글 고유 pk 넘김
-            $this->data['post_idx'] = (int)$post_idx;
-            $this->data['post_parent'] = $this->input->get('post_parent', TRUE);
-            $this->data['view'] = empty($post_idx) ? array() : $this->boardlib->get_post($brd_key, $post_idx, FALSE);
-            $this->data['parent'] = empty($this->data['post_parent']) ? array() : $this->boardlib->get_post($brd_key, $this->data['post_parent'], FALSE);
 
-            if( $this->data['post_idx'] && (! $this->data['view'] OR ! isset($this->data['view']['post_idx']) OR !$this->data['view']['post_idx'] ) )
-            {
-                alert('잘못된 접근입니다.');
-                exit;
-            }
-
-            $hidden = array();
-            // 답글작성일경우 부모 번호 넘겨주기
-            if($this->data['post_parent']) {
-                $hidden['post_parent'] = $this->data['post_parent'];
-                $this->data['view']['post_title'] = "RE : ". $this->data['parent']['post_title'];
-            }
-
-            $write_url = base_url("admin/board/write/{$brd_key}" . ($post_idx ? '/'.$post_idx : ''), SSL_VERFIY ? "https":'http');
-
-            $this->data['form_open'] = form_open_multipart($write_url, array("autocomplete"=>"off"), $hidden);
-            $this->data['form_close'] = form_close();
-
-            // 레이아웃 & 뷰파일 설정
-            $this->active = "board/".$brd_key;
-            $this->theme = "admin";
-            $this->view     = "board/write";
-        }
+        $this->boardlib->common_data($comment['brd_key']);
+        $this->boardlib->comment_modify_form($cmt_idx,$comment);
+    }
+    /**
+     * 댓글 삭제
+     * @param $brd_key
+     * @param $post_idx
+     * @param $cmt_idx
+     */
+    public function comment_delete($brd_key, $post_idx, $cmt_idx)
+    {
+        $this->boardlib->common_data($brd_key);
+        $this->boardlib->comment_delete_process($brd_key, $post_idx, $cmt_idx);
     }
 }

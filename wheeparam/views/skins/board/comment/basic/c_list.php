@@ -32,11 +32,6 @@
                             ?>
                         </div>
                         <div class="text-right">
-
-                            <?php if($board['auth']['comment']) : ?>
-                                <button type="button" class="btn btn-default btn-xs" onclick="APP.BOARD.COMMENT.reply('<?=$cmt['cmt_idx']?>','<?= $cmt['cmt_num']?>')">대댓글</button>
-                            <?php endif;?>
-
                             <?php if($cmt['auth']) :?>
                                 <button type="button" class="btn btn-default btn-xs" onclick="APP.BOARD.COMMENT.modify('<?=$cmt['cmt_idx']?>')">수정</button>
                                 <a class="btn btn-danger btn-xs" onclick="return confirm('댓글을 삭제하시겠습니까?');" href="<?=$cmt['link']['delete']?>">삭제</a>

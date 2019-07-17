@@ -10,12 +10,12 @@
             <div class="form-inline">
                 <?php if($is_reply):?>
                     <div class="pull-left">
-                        <input class="form-control" name="mem_nickname" placeholder="닉네임" required>
+                        <input class="form-control" name="cmt_nickname" placeholder="닉네임" required>
                     </div>
                 <?php endif;?>
                 <?php if(! $this->member->is_login()) :?>
                     <div class="pull-left">
-                        <input type="password" class="form-control" name="mem_password" placeholder="비밀번호" required>
+                        <input type="password" class="form-control" name="cmt_password" placeholder="비밀번호" required>
                     </div>
                 <?php endif;?>
             </div>

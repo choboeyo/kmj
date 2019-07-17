@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit();
 
 class WB_Controller extends CI_Controller
 {
-    protected $view = FALSE;
+    public $view = FALSE;
     public $data = array();
     protected $asides = array();
     public $theme = FALSE;

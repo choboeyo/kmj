@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs col-4">
             <div class="form-group">
-                <input class="form-control" name="cmt_name" placeholder="닉네임" required maxlength="20" value="<?=element('cmt_name',$comment_view, $this->member->info('nickname'))?>">
+                <input class="form-control" name="cmt_nickname" placeholder="닉네임" required maxlength="20" value="<?=element('cmt_nickname',$comment_view, $this->member->info('nickname'))?>">
             </div>
         </div>
         <?php if(!$this->member->is_login()):?>
