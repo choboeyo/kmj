@@ -22,7 +22,7 @@ class Faq extends WB_Controller {
         // 레이아웃 & 뷰파일 설정
         $this->theme    = $this->site->get_layout();
         $this->view     = "customer/faq/lists";
-        $this->active   = "/customer/faq";
+        $this->active   = "customer/faq";
     }
 
     /**********************************************************************************************
@@ -47,7 +47,7 @@ class Faq extends WB_Controller {
         // 레이아웃 & 뷰파일 설정
         $this->theme    = $this->site->get_layout();
         $this->view     = "customer/faq/view";
-        $this->active   = "/customer/faq";
+        $this->active   = "customer/faq";
     }
 
     /**********************************************************************************************

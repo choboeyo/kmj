@@ -50,7 +50,7 @@ class Qna extends WB_Controller
         $this->data['pagination'] = $this->paging->create();
 
         $this->theme = $this->site->get_layout();
-        $this->view = "customer/qna/lists";
+        $this->view = "customer/qna";
     }
 
     function write()
@@ -157,7 +157,7 @@ class Qna extends WB_Controller
             $this->data['qna_category'] = $this->db->where('qnc_status','Y')->order_by('sort')->get('qna_category')->result_array();
 
             $this->theme = $this->site->get_layout();
-            $this->view = "customer/qna/write";
+            $this->view = "customer/qna";
         }
     }
 
