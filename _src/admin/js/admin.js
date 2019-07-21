@@ -218,7 +218,7 @@ APP.memberMenuObject = function(e, point_name, obj) {
             text: '회원 탈퇴',
             visible: e.row.data.mem_status != 'N',
             onItemClick: function() {
-                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,'D','Y');
+                APP.MEMBER.STATUS_CHANGE(e.row.data.mem_idx,e.row.data.mem_status,'Y');
             }
         },
         {
