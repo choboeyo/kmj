@@ -68,7 +68,8 @@ class WB_Controller extends CI_Controller
         $data['contents'] = $this->load->view($view, $this->data, TRUE);
         if( $this->skin && $this->skin_type )
         {
-            $data['contents'] = "<div id=\"skin-{$this->skin_type}-{$this->skin}\">" . $data['contents'] . '</div>';
+            $skin_type_tmp = str_replace("/","-",$this->skin_type);
+            $data['contents'] = "<div id=\"skin-{$skin_type_tmp}-{$this->skin}\">" . $data['contents'] . '</div>';
         }
 
         $data = array_merge($this->data, $data);
