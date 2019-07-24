@@ -915,6 +915,7 @@ class Boardlib {
 
         // 댓글 목록
         $list_skin_path = DIR_SKIN . "/board/comment/" . $this->CI->data['board']['brd_skin_c'] . "/c_list";
+        $this->CI->data['comment_list'] = array();
         if( $this->CI->data['board']['brd_use_comment'] == 'Y' )
         {
             $mem_useridx = $this->CI->member->is_login();
