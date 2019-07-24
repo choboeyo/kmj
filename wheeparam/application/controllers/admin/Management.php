@@ -696,7 +696,7 @@ class Management extends WB_Controller {
 
             if(empty($data['ban_idx']))
             {
-                $data['ban_regtime'] = date('Y-m-d H:i:s');
+                $data['reg_datetime'] = date('Y-m-d H:i:s');
                 $data['reg_user'] = $data['upd_user'];
 
                 $sort = (int)$this->db->select_max('ban_sort', 'max')->where('bng_key', $data['bng_key'])->get('banner')->row(0)->max;
