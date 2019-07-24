@@ -3,7 +3,6 @@
  ***********************************************************************************/
 APP.init = function(){
     APP.initMenu();
-    APP.initAx5();
     APP.initPlugins();
     APP.initFitHeight();
     APP.initSortableList();
@@ -118,26 +117,6 @@ APP.initSortableList = function() {
                 })
             }
         })
-    });
-};
-
-/**********************************************************************************************************************
- * MODAL 관련
- *********************************************************************************************************************/
-APP.initAx5 = function(){
-    APP.MASK = new ax5.ui.mask({
-        zIndex: 1000}
-        );
-    APP.MASK2 = new ax5.ui.mask({
-        zIndex: 2000
-    });
-    APP.modal = new ax5.ui.modal({
-        absolute: true,
-        iframeLoadingMsg: '<i class="far fa-spinner"></i>'
-    });
-    APP.modal2 = new ax5.ui.modal({
-        absolute: true,
-        iframeLoadingMsg: '<i class="far fa-spinner"></i>'
     });
 };
 

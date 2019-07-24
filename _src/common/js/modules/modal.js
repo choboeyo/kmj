@@ -1,3 +1,17 @@
+APP.MASK = new ax5.ui.mask({
+    zIndex: 1000}
+);
+APP.MASK2 = new ax5.ui.mask({
+    zIndex: 2000
+});
+APP.modal = new ax5.ui.modal({
+    absolute: true,
+    iframeLoadingMsg: '<i class="fal fa-spinner"></i>'
+});
+APP.modal2 = new ax5.ui.modal({
+    absolute: true,
+    iframeLoadingMsg: '<i class="fal fa-spinner"></i>'
+});
 APP.MODAL = function() {
     var modalCallback = {};
 
