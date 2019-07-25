@@ -16,6 +16,14 @@
             {caption:'고유KEY', dataField:'brd_key', width:80, alignment:'left'},
             {caption:'게시판이름', dataField:'brd_title', minWidth:100, alignment:'left'},
             {
+                caption:'타입', dataField:'brd_type', width:60, alignment:'center',
+                customizeText:function(cell) {
+                    if(cell.value == 'list') return '목록형';
+                    else if (cell.value == 'gallery') return '앨범형';
+                    else if (cell.value == 'webzine') return '웹진형';
+                }
+            },
+            {
                 caption:'스킨',
                 columns: [
                     {caption:'목록', dataField:'brd_skin_l', width:80, alignment:'left'},

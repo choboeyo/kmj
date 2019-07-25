@@ -37,6 +37,7 @@ class Board extends WB_Controller
         if( $this->form_validation->run() != FALSE )
         {
             $data['brd_key'] = $this->input->post('brd_key', TRUE);
+            $data['brd_type'] = $this->input->post('brd_type',TRUE,'list');
             $data['brd_title'] = $this->input->post('brd_title', TRUE,'');
             $data['brd_keywords'] = $this->input->post('brd_keywords', TRUE);
             $data['brd_description'] = $this->input->post('brd_description', TRUE);

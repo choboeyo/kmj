@@ -28,6 +28,16 @@
                 <input class="form-control" name="brd_title" maxlength="30" value="<?=element('brd_title', $view)?>" required>
             </div>
         </div>
+        <div data-ax-td>
+            <div data-ax-td-label>게시판 형태</div>
+            <div data-ax-td-wrap>
+                <select class="form-control" name="brd_type">
+                    <option value="list" <?=element('brd_type', $view)=='list'?'selected':''?>>목록형</option>
+                    <option value="gallery" <?=element('brd_type', $view)=='gallery'?'selected':''?>>앨범형</option>
+                    <option value="webzine" <?=element('brd_type', $view)=='webzine'?'selected':''?>>웹진형</option>
+                </select>
+            </div>
+        </div>
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">

@@ -479,8 +479,14 @@ class Boardlib {
 
         if( $this->CI->form_validation->run() != FALSE )
         {
-            // 비회원이로 리캡쳐 설정이 되있을 경우 구글 리캡챠 확인
+            // 수정글이면 기존 글의 정보를 가져온다.
+            $post = array();
 
+            if( $post_idx ) {
+                $post = $this->get_post($brd_key, $post_idx, FALSE);
+            }
+
+            // 비회원이로 리캡쳐 설정이 되있을 경우 구글 리캡챠 확인
             if( ! $this->CI->member->is_login() )
             {
                 // 비회원이고 리캡쳐 설정이 되있을 경우 경우 구글 리캡챠확인
@@ -498,8 +504,6 @@ class Boardlib {
                 // 비회원일이고 수정일 경우 입력한 패스워드와 기존 패스워드 확인
                 if( $post_idx )
                 {
-                    $post = $this->get_post($brd_key, $post_idx, FALSE);
-
                     if( get_password_hash( $this->CI->input->post('post_password', TRUE) ) != $post['post_password'] )
                     {
                         alert('잘못된 비밀번호 입니다.');
@@ -596,7 +600,7 @@ class Boardlib {
                     }
                     else
                     {
-                        $filedata = $this->upload->data();
+                        $filedata = $this->CI->upload->data();
                         $upload_array[] = array(
                             "att_target_type" => 'BOARD',
                             "att_origin" => $filedata['orig_name'],
@@ -619,70 +623,6 @@ class Boardlib {
             if( $del_file && count($del_file) > 0 ) {
                 foreach($del_file as $att_idx) {
                     $this->attach_remove($att_idx);
-                }
-            }
-
-            // 게시글의 대표 이미지를 가져온다.
-            if ( count($upload_array) > 0 ) {
-                // 첨부파일중에 이미지가 있으면 그중에 가장 먼저나오는걸 설정
-                foreach($upload_array as $row) {
-                    if($row['att_is_image'] == 'Y') {
-                        $data['post_thumbnail'] = $row['att_filepath'];
-                        break;
-                    }
-                }
-
-                // 첨부파일중에 없다면 HTML 코드에서 이미지를 찾아낸다.
-                if( empty($data['post_thumbnail']) ) {
-                    $matches = get_editor_image($data['post_content']);
-                    if(! empty($matches)) {
-                        $img = element(0, element(1, $matches));
-
-                        if(! empty($img)) {
-                            preg_match("/src=[\'\"]?([^>\'\"]+[^>\'\"]+)/i", $img, $m);
-                            $src = isset($m[1]) ? $m[1] : '';
-
-                            if(! empty($src)) {
-                                $data['post_thumbnail'] = $src;
-                            }
-                        }
-                    }
-                }
-                $matches = null;
-
-                // 거기서도 없으면 본문내용에 포함된 iframe 동영상에서..
-                if( empty($data['post_thumbnail']) ) {
-                    preg_match_all("/<iframe[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/i", $data['post_content'], $matches);
-                    for ($i = 0; $i < count($matches[1]); $i++) {
-                        if (!isset($matches[1][$i])) continue;
-
-                        $video = get_video_info($matches[1][$i]);
-
-                        // 비디오 타입이 아니거나, 알려지지 않은 비디오 일경우 건너뛴다.
-                        if (!$video['type'] OR !$video['thumb']) continue;
-
-                        if ($video['thumb']) {
-                            $data['post_thumbnail'] = $video['thumb'];
-                        }
-                    }
-                }
-
-                // 그래도 없으면 embed 태그 포함여부 확인해서..
-                $matches = null;
-                if( empty($data['post_thumbnail']) ) {
-                    preg_match_all("/<embed[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/i", $data['post_content'], $matches);
-                    for($i=0; $i<count($matches[1]); $i++) {
-                        if(! isset($matches[1][$i]) ) continue;
-
-                        $video = get_video_info( $matches[1][$i] );
-
-                        // 비디오 타입이 아니거나, 알려지지 않은 비디오 일경우 건너뛴다.
-                        if(! $video['type'] OR ! $video['thumb']) continue;
-
-                        if($video['thumb']) {
-                            $data['post_thumbnail'] = $video['thumb'];
-                        }
-                    }
                 }
             }
 
@@ -763,6 +703,74 @@ class Boardlib {
                 }
                 $this->CI->db->insert_batch("attach", $upload_array);
             }
+
+            // 게시글의 대표 이미지를 가져온다.
+            $attach_list = $this->get_attach_list($data['brd_key'], $post_idx);
+            if ( count($attach_list) > 0 ) {
+                foreach($attach_list as $row) {
+                    if($row['att_is_image'] == 'Y') {
+                        $data['post_thumbnail'] = base_url($row['att_filepath']);
+                        break;
+                    }
+                }
+            }
+
+            // 첨부파일중에 없다면 HTML 코드에서 이미지를 찾아낸다.
+            if( empty($data['post_thumbnail']) ) {
+                $matches = get_editor_image($data['post_content']);
+
+                if(! empty($matches)) {
+                    $img = element(0, element(1, $matches));
+
+                    if(! empty($img)) {
+                        preg_match("/src=[\'\"]?([^>\'\"]+[^>\'\"]+)/i", $img, $m);
+                        $src = isset($m[1]) ? $m[1] : '';
+
+                        if(! empty($src)) {
+                            $data['post_thumbnail'] = str_replace(base_url()."/", "", $src);
+                        }
+                    }
+                }
+            }
+            $matches = null;
+
+            // 거기서도 없으면 본문내용에 포함된 iframe 동영상에서..
+            if( empty($data['post_thumbnail']) ) {
+                preg_match_all("/<iframe[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/i", $data['post_content'], $matches);
+                for ($i = 0; $i < count($matches[1]); $i++) {
+                    if (!isset($matches[1][$i])) continue;
+
+                    $video = get_video_info($matches[1][$i]);
+
+                    // 비디오 타입이 아니거나, 알려지지 않은 비디오 일경우 건너뛴다.
+                    if (!$video['type'] OR !$video['thumb']) continue;
+
+                    if ($video['thumb']) {
+                        $data['post_thumbnail'] = $video['thumb'];
+                    }
+                }
+            }
+
+            // 그래도 없으면 embed 태그 포함여부 확인해서..
+            $matches = null;
+            if( empty($data['post_thumbnail']) ) {
+                preg_match_all("/<embed[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/i", $data['post_content'], $matches);
+                for($i=0; $i<count($matches[1]); $i++) {
+                    if(! isset($matches[1][$i]) ) continue;
+
+                    $video = get_video_info( $matches[1][$i] );
+
+                    // 비디오 타입이 아니거나, 알려지지 않은 비디오 일경우 건너뛴다.
+                    if(! $video['type'] OR ! $video['thumb']) continue;
+
+                    if($video['thumb']) {
+                        $data['post_thumbnail'] = $video['thumb'];
+                    }
+                }
+            }
+
+            $this->CI->db->where('post_idx', $post_idx)->set('post_thumbnail', $data['post_thumbnail'])->update('board_post');
+
 
             // 자신의 글은 비밀글이더라도 바로 보거나, 아니면 수정/삭제를 할수 있도록 세션처리
             if($this->CI->member->is_login() ) {
@@ -1393,5 +1401,4 @@ class Boardlib {
         $this->CI->db->where('brd_key', $brd_key)->where('post_idx', $post_idx)->set('post_count_comment', (int)$count);
         return $this->CI->db->update('board_post');
     }
-
 }

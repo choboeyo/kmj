@@ -74,6 +74,7 @@ CREATE TABLE `wb_banner_group` (
 DROP TABLE IF EXISTS `wb_board`;
 CREATE TABLE `wb_board` (
   `brd_key` varchar(20) NOT NULL DEFAULT '',
+  `brd_type` enum('list','gallery','webzine') NOT NULL DEFAULT 'list',
   `brd_title` varchar(30) NOT NULL DEFAULT '',
   `brd_skin_l` varchar(100) NOT NULL DEFAULT '',
   `brd_skin_l_m` varchar(100) NOT NULL DEFAULT '',
