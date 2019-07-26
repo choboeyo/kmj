@@ -100,7 +100,7 @@ class Boardlib {
 
             // 개발환경에선 테스트를 위해 CACHE 저장을 하지 않는다.
             if( ENVIRONMENT !== 'development') {
-                $this->cache->save('board_'.$brd_key, $board, 60*5);
+                $this->CI->cache->save('board_'.$brd_key, $board, 60*5);
             }
 
         }
