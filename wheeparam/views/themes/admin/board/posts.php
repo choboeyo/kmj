@@ -82,6 +82,7 @@
         </tbody>
     </table>
 </div>
+<div class="text-center MT10"><?=$pagination?></div>
 <div class="ax-button-group ax-button-group-bottom">
     <div class="left">
         <button type="button" class="btn btn-danger" data-button="btn-remove-posts"><i class="fal fa-trash"></i> 선택 삭제</button>

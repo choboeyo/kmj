@@ -218,7 +218,7 @@ class Board extends WB_Controller
         $this->data['list'] = $this->boardlib->post_list($this->data['board'], $this->param);
 
         $paging['page'] = $this->param['page'];
-        $paging['page_rows'] = 20;
+        $paging['page_rows'] = $this->data['board']['brd_page_rows'];
         $paging['total_rows'] = $this->data['list']['total_count'];
         $this->load->library('paging', $paging);
         $this->data['pagination'] = $this->paging->create();

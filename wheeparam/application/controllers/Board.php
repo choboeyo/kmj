@@ -171,7 +171,7 @@ class Board extends WB_Controller {
 
         $post = $this->boardlib->get_post($brd_key, $post_idx, TRUE);
 
-        $this->point_process('brd_point_download', "POST_ATTACH_DOWNLOAD", "첨부파일 다운로드", $post_idx, ($post['reg_user'] == $this->member->info('idx')) );
+        $this->boardlib->point_process('brd_point_download', "POST_ATTACH_DOWNLOAD", "첨부파일 다운로드", $post_idx, ($post['reg_user'] == $this->member->info('idx')) );
 
         $this->db->where('att_idx', $att['att_idx'])->set('att_downloads', 'att_downloads + 1', FALSE)->update('attach');
 
