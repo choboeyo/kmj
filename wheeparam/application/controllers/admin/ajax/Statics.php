@@ -35,6 +35,7 @@ class Statics extends REST_Controller
             $row['nums'] = $return['totalCount'] - $i - $start;
             $row['sta_ip'] = long2ip((int)$row['sta_ip']);
             $row['sta_is_mobile'] = ($row['sta_is_mobile'] == 'Y');
+            $row['sta_device'] = $row['sta_is_mobile'] ? $row['sta_mobile'] : $row['sta_platform'];
         }
 
         $this->response($return, 200);

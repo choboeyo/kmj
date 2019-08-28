@@ -26,6 +26,7 @@ class Members extends REST_Controller
 
         $this->db->select("SQL_CALC_FOUND_ROWS *", FALSE);
         $this->db->from('member');
+        $this->db->limit($page_rows, $start);
 
         $result = $this->db->get();
         $return['lists'] = $result->result_array();
