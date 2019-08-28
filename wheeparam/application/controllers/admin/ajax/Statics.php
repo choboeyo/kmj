@@ -36,6 +36,7 @@ class Statics extends REST_Controller
             $row['sta_ip'] = long2ip((int)$row['sta_ip']);
             $row['sta_is_mobile'] = ($row['sta_is_mobile'] == 'Y');
             $row['sta_device'] = $row['sta_is_mobile'] ? $row['sta_mobile'] : $row['sta_platform'];
+            $row['sta_browser'] = $row['sta_browser'] == 'Internet Explorer' ? $row['sta_browser'] .' ' .$row['sta_version'] : $row['sta_browser'];
         }
 
         $this->response($return, 200);
