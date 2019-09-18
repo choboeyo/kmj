@@ -31,13 +31,21 @@ function GRID (element, addOptions) {
         paging: {
             pageSize: 30,
             showNavigationButtons: true
+        },pager: {
+            showNavigationButtons: true,
+            showPageSizeSelector: true,
+            allowedPageSizes: [10, 15, 20, 30, 50, 100],
+            infoText: "{0}페이지 / 총 {1} 페이지 (검색결과 : {2}건)",
+            showInfo: true,
+            visible: true
         },
         selection : {
             mode: 'single',
-            selectAllMode : 'page'
+            selectAllMode : 'page',
+            showCheckBoxesMode: "always"
         },
         scrolling: {
-            showScrollbar: 'onHover'
+            showScrollbar: 'always'
         },
         focusedRowEnabled: true,
         columns: null,
@@ -52,6 +60,15 @@ function GRID (element, addOptions) {
             allowUpdating: false,
             allowAdding: false,
             allowDeleting: false
+        },
+        columnFixing: {
+            enabled: true,
+            texts: {
+                fix: '열 고정',
+                leftPosition: '왼쪽에 고정',
+                rightPosition: '오른쪽에 고정',
+                unfix:'열 고정 해제'
+            }
         },
         onRowClick: function(e) {
             self.OnRowSingleClick(e.data);

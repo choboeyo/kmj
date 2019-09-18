@@ -16,25 +16,12 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
 </head>
 <body>
 <script>var menuActive="<?=$this->active?>";</script>
-
-<header id="header">
-    <a class="logo" href="<?=base_url('admin')?>">Administrator</a>
-    <div class="top-navs"></div>
-    <div class="right-actions">
-        <div class="dropdown btn-user">
-            <button type="button" class="btn-top-action" data-toggle="dropdown"><i class="fas fa-user"></i> <?=$this->member->info('nickname')?>님</button>
-            <ul class="dropdown-menu pull-right">
-                <li><a href="<?=base_url('members/logout')?>?reurl=<?=current_full_url()?>">로그아웃</a></li>
-            </ul>
-        </div>
-    </div>
-</header>
-
 <nav id="nav">
-    <ul class="main-navigation">
-        <li>
-            <a href="javascript:;"><i class="fal fa-wrench"></i><span>사이트 관리</span></a>
-            <ul>
+    <ul class="nav-menu" data-main-navigation>
+        <li><a class="logo" href="<?=base_url('/admin')?>"><i class="fal fa-home"></i></a></li>
+        <li class="dropdown">
+            <span data-toggle="dropdown"><i class="fal fa-wrench"></i>사이트 관리</span>
+            <ul class="dropdown-menu">
                 <li data-active="management/popup"><a href="<?=base_url('admin/management/popup')?>">팝업 관리</a></li>
                 <li data-active="management/banner"><a href="<?=base_url('admin/management/banner')?>">배너 관리</a></li>
                 <li data-active="management/menu"><a href="<?=base_url('admin/management/menu')?>">메뉴 관리</a></li>
@@ -42,9 +29,9 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <li data-active="management/qna"><a href="<?=base_url('admin/management/qna')?>">Q&A 관리</a></li>
             </ul>
         </li>
-        <li>
-            <a href="javascript:;"><i class="fal fa-users"></i><span>회원 관리</span></a>
-            <ul>
+        <li class="dropdown">
+            <span data-toggle="dropdown"><i class="fal fa-users"></i>회원 관리</span>
+            <ul class="dropdown-menu">
                 <li data-active="members/lists"><a href="<?=base_url('admin/members/lists')?>">회원 목록</a></li>
                 <li data-active="members/add"><a href="<?=base_url('admin/members/add')?>">회원 등록</a></li>
                 <li data-active="members/log"><a href="<?=base_url('admin/members/log')?>">회원 로그인 기록</a></li>
@@ -53,27 +40,21 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <?php endif;?>
             </ul>
         </li>
-
-        <?php if(USE_BOARD OR IS_TEST) : ?>
-            <li>
-                <a href="javascript:;"><i class="fal fa-th-large"></i><span>게시판 관리</span></a>
-                <ul>
-                    <li data-active="board/lists"><a href="<?=base_url('admin/board/lists')?>">게시판 관리</a></li>
-                    <li class="divider"></li>
-                    <?php
-                    $board_list = $this->boardlib->getNewPostBoards();
-                    foreach($board_list as $row): ?>
-                        <li data-active="board/<?=$row['brd_key']?>"><a href="<?=base_url('admin/board/posts/'.$row['brd_key'])?>"><?=$row['brd_title']?><?=$row['new_cnt']>0?" <span class='badge'>{$row['new_cnt']}</span>":''?></a></li>
-                    <?php endforeach;?>
-                </ul>
-            </li>
-
-        <?php endif;?>
-
-
-        <li>
-            <a href="javascript:;"><i class="fal fa-chart-bar"></i><span>방문 통계</span></a>
-            <ul>
+        <li class="dropdown">
+            <span data-toggle="dropdown"><i class="fal fa-th-large"></i>게시판 관리</span>
+            <ul class="dropdown-menu">
+                <li data-active="board/lists"><a href="<?=base_url('admin/board/lists')?>">게시판 관리</a></li>
+                <li class="divider"></li>
+                <?php
+                $board_list = $this->boardlib->getNewPostBoards();
+                foreach($board_list as $row): ?>
+                    <li data-active="board/<?=$row['brd_key']?>"><a href="<?=base_url('admin/board/posts/'.$row['brd_key'])?>"><?=$row['brd_title']?><?=$row['new_cnt']>0?" <span class='badge'>{$row['new_cnt']}</span>":''?></a></li>
+                <?php endforeach;?>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <span data-toggle="dropdown"><i class="fal fa-chart-bar"></i>방문 통계</span>
+            <ul class="dropdown-menu">
                 <li data-active="statics/visit"><a href="<?=base_url('admin/statics/visit')?>">사용자 접속 로그</a></li>
                 <li data-active="statics/keyword"><a href="<?=base_url('admin/statics/keyword')?>">키워드별 통계</a></li>
                 <li data-active="statics/times"><a href="<?=base_url('admin/statics/times')?>">방문 시간별 통계</a></li>
@@ -83,10 +64,9 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <li data-active="statics/os"><a href="<?=base_url('admin/statics/os')?>">OS별 통계</a></li>
             </ul>
         </li>
-
-        <li>
-            <a href="javascript:;"><i class="fal fa-cog"></i><span>환경 설정</span></a>
-            <ul>
+        <li class="dropdown">
+            <span data-toggle="dropdown"><i class="fal fa-cog"></i>환경 설정</span>
+            <ul class="dropdown-menu">
                 <li data-active="setting/basic"><a href="<?=base_url('admin/setting/basic')?>">사이트 기본 설정</a></li>
                 <li data-active="setting/localize"><a href="<?=base_url('admin/setting/localize')?>">다국어 설정</a></li>
                 <li data-active="setting/apis"><a href="<?=base_url('admin/setting/apis')?>">소셜/API 설정</a></li>
@@ -98,8 +78,11 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <?php endif;?>
             </ul>
         </li>
-
     </ul>
+
+    <div class="nav-right">
+
+    </div>
 </nav>
 
 <article id="contents">

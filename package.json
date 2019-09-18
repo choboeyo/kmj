@@ -15,18 +15,18 @@
   "devDependencies": {
     "ax5ui-toast": "^1.4.126",
     "gulp": "^4.0.2",
-    "gulp-clean-css": "^3.9.4",
+    "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0",
-    "gulp-sass": "^3.2.1",
+    "gulp-sass": "^4.0.2",
     "gulp-size": "^3.0.0",
-    "gulp-sourcemaps": "^2.6.4"
+    "gulp-sourcemaps": "^2.6.5"
   },
   "dependencies": {
     "ax5core": "^1.4.126",
     "ax5ui-mask": "^1.4.126",
     "ax5ui-modal": "^1.4.126",
-    "clipboard": "^2.0.1",
-    "devextreme": "19.1.4"
+    "clipboard": "^2.0.4",
+    "devextreme": "^19.1.6"
   }
 }

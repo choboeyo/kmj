@@ -14,7 +14,7 @@ APP.init = function(){
  * 메뉴관련 초기화
  ***********************************************************************************/
 APP.initMenu = function(){
-    $('#nav .main-navigation li').each(function(){
+    $('[data-main-navigation] li').each(function(){
        var $this = $(this);
        var menuCode = $this.data('active');
 

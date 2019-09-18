@@ -9,6 +9,8 @@
   border: 1px solid transparent;
   @include button-size( $input-btn-padding-y , $input-btn-padding-x, $input-btn-font-size, $input-btn-line-height, $input-btn-border-radius );
   @include transition();
+  transition: all .2s ease;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 
   &:hover {
     color: $body-color;
