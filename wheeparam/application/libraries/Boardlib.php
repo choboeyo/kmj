@@ -1253,7 +1253,7 @@ class Boardlib {
     /**
      * 수정이나 삭제 권한을 확인한다.
      */
-    private function _check_modify_auth($brd_key, $post_idx="")
+    public function _check_modify_auth($brd_key, $post_idx="")
     {
         if(empty($post_idx)) return;
         if(PAGE_ADMIN) return;  // 관리자 페이지일 경우도 리턴

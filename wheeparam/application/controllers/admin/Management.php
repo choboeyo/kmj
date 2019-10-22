@@ -653,7 +653,7 @@ class Management extends WB_Controller {
             $data['ban_name'] = $this->input->post('ban_name', TRUE);
             $data['ban_link_use'] = $this->input->post('ban_link_use', TRUE) == 'Y' ? 'Y' : 'N';
             $data['ban_link_url'] = $this->input->post('ban_link_url', TRUE, "");
-            $data['ban_link_type'] = $this->input->post('ban_link_url', TRUE) == 'Y' ? 'Y': 'N';
+            $data['ban_link_type'] = $this->input->post('ban_link_type', TRUE) == 'Y' ? 'Y': 'N';
             $data['ban_status'] = $this->input->post('ban_status', TRUE) == 'H' ? 'H' : 'Y';
             $data['ban_timer_use'] = $this->input->post('ban_timer_use', TRUE) == 'Y' ? 'Y' : 'N';
             $data['ban_timer_start'] = $this->input->post('ban_timer_start', TRUE, '0000-00-00 00:00:00');
