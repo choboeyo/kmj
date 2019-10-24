@@ -8,7 +8,7 @@
         <div data-ax-tr>
             <div data-ax-td class="width-100">
                 <div data-ax-td-label>제목</div>
-                <div data-ax-td-wrap><p class="form-control-static"><?=$view['post_title']?></p></div>
+                <div data-ax-td-wrap><p class="form-control-static"><?=html_escape($view['post_title'])?></p></div>
             </div>
         </div>
         <div data-ax-tr>

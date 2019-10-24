@@ -61,7 +61,7 @@
                         <span style="display:inline-block;width:<?=((strlen($row['post_reply'])-1) * 16)?>px"></span>
                         <img src="<?=base_url('assets/images/common/icon_reply.gif')?>">
                     <?php endif;?>
-                    <a href="<?=base_url("admin/board/read/{$board['brd_key']}/{$row['post_idx']}/?").http_build_query($this->input->get()) ?>"><?=$row['post_title']?></a>
+                    <a href="<?=base_url("admin/board/read/{$board['brd_key']}/{$row['post_idx']}/?").http_build_query($this->input->get()) ?>"><?=html_escape($row['post_title'])?></a>
                     <?php if($row['is_new']) :?><label class="label label-warning ML10">NEW</label><?php endif;?>
                     <?php if($row['is_hot']) :?><label class="label label-danger ML10">HIT</label><?php endif;?>
                     <?php if($row['post_count_comment']>0) :?><small>(<?=$row['post_count_comment']?>)</small><?php endif;?>
