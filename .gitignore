@@ -60,3 +60,6 @@ _session/
 /wheeparam/application/cache/*
 !/wheeparam/application/cache/index.html
 !/wheeparam/application/cache/.htaccess
+
+package-lock.json
+yarn.lock
