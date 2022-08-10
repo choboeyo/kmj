@@ -18,7 +18,7 @@ gulp.task('minify-desktop-css', function () {
 
     return gulp.src( theme.desktop.css )
         .pipe(sourcemaps.init())
-        .pipe( sass({outputStyle: 'compact'}).on('error', sass.logError))
+        .pipe( sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe( concat(fileName)) //병합하고
         .pipe(cleanCSS().on('error', function(e){console.log(e);}))
         .pipe(size({ gzip: true, showFiles: true }))
