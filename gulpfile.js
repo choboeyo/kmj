@@ -4,7 +4,7 @@ let fs = require('fs'),
     minify = require('gulp-minify'),
     cleanCSS  = require('gulp-clean-css'),
     size = require('gulp-size'),
-    sass = require('gulp-sass'),
+    sass = require('gulp-sass')(require('sass')),
     sourcemaps = require('gulp-sourcemaps');
 
 let packageFile = JSON.parse(fs.readFileSync('source.info.json'));
