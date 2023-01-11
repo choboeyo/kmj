@@ -4,7 +4,17 @@
   "description": "휘파람 보드",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "------------ DOCKER ----------": "",
+    "docker-build": "docker-compose build",
+    "docker-up": "docker-compose up -d",
+    "------------   GULP   ----------": "",
+    "minify-desktop-css": "gulp minify-desktop-css",
+    "minify-desktop-js": "gulp minify-desktop-js",
+    "minify-mobile-css": "gulp minify-mobile-css",
+    "minify-mobile-js": "gulp minify-mobile-js",
+    "minify-admin-css": "gulp minify-admin-css",
+    "minify-admin-js": "gulp minify-admin-js",
+    "scss-watch": "gulp scss-watch"
   },
   "repository": {
     "type": "git",

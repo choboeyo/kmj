@@ -1,0 +1,32 @@
+version: "3.8"
+networks:
+  wheeparam:
+services:
+  # nginx
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "8088:80"
+    volumes:
+      - ./public_html:/var/www/html
+      - ./wheeparam:/var/www/wheeparam
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - wheeparam
+  php:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: php
+    volumes:
+      - ./public_html:/var/www/html
+      - ./wheeparam:/var/www/wheeparam
+    ports:
+      - "9000:9000"
+    networks:
+      - wheeparam
+    environment:
+      CI_ENV: development
