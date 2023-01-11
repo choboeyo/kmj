@@ -12,8 +12,8 @@ define('PROJECT', 'wheeparamboard');
 // 개발용 설정
 if( IS_TEST )
 {
-    define("BASE_URL", "http://www.wboard.com");    // 기본 설정 URL
-    define("COOKIE_DOMAIN", ".wboard.com");  // 쿠키도메인
+    define("BASE_URL", "http://localhost:8088");    // 기본 설정 URL
+    define("COOKIE_DOMAIN", "localhost:8088");  // 쿠키도메인
     define("SSL_VERFIY", FALSE);    // 보안인증서 사용 여부
 
     // 데이타베이스 설정
