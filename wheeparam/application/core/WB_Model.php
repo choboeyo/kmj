@@ -6,6 +6,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * WB_Model
  *-------------------------------------------------------------
  * CI_Model 를 확장합니다.
+ *
+ * @property CI_Loader $load
+ * @property CI_DB $db
+ * @property CI_Output $output
+ * @property CI_Cache $cache
+ * @property CI_Email $email
+ * @property CI_Session $session
+ * @property CI_User_agent $agent
+ * @property WB_Input $input
+ * @property WB_Form_validation $form_validation
+ * @property WB_Upload $upload
+ * @property Faq_model $faq_model
+ * @property Member_model $member_model
+ * @property Popup_model $popup_model
+ * @property Search_model $search_model
+ * @property Statics_model $statics_model
+ * @property Site $site
+ * @property Boardlib $boardlib
+ * @property Paging $paging
+ * @property Member $member
+ * @property Banner $banner
  */
 class WB_Model extends CI_Model
 {

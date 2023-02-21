@@ -26,10 +26,10 @@
             {caption:'팝업 이름', dataField:'pop_title', alignment:'left', minWidth:120},
             {caption:'너비 (px)', dataField:'pop_width', alignment:'right', dataType:'number', format:'fixedPoint', width:80},
             {caption:'높이 (px)', dataField:'pop_height', alignment:'right', dataType:'number', format:'fixedPoint', width:80},
-            {caption:'표시 시작일', dataField:'pop_start', alignment:'center', width:120},
-            {caption:'표시 종료일', dataField:'pop_end', alignment:'center', width:120},
+            {caption:'표시 시작일', dataField:'pop_start', alignment:'center', width:160},
+            {caption:'표시 종료일', dataField:'pop_end', alignment:'center', width:160},
             {caption:'최종수정자', dataField:'upd_username', alignment:'center', width:120},
-            {caption:'최종수정일', dataField:'upd_datetime', alignment:'center', width:120},
+            {caption:'최종수정일', dataField:'upd_datetime', alignment:'center', width:160},
         ],
         onCellPrepared: function(e) {
             if(e.rowType == 'data') {

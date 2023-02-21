@@ -3,9 +3,14 @@
  * Class Members
  * -------------------------------------------
  * 회원 관련 페이지
+ *
+ * @property Shop_model $shop_model
  */
 class Members extends WB_Controller {
 
+    /**
+     * 회원가입 페이지
+     */
     public function register()
     {
         if( $this->member->is_login() ) {
@@ -19,13 +24,15 @@ class Members extends WB_Controller {
         $form_attributes['data-form'] = "form-register";
         $form_hidden_inputs['reurl'] = set_value('reurl', $this->input->get("reurl", TRUE, base_url()));
 
-        $action_url = base_url( 'members/register', SSL_VERFIY ? 'https' : 'http' );
+        $action_url = base_url( 'members/register');
         $this->data['form_open'] = form_open($action_url, $form_attributes, $form_hidden_inputs);
         $this->data['form_close'] = form_close();
 
         $this->site->meta_title = langs('회원/register');
         $this->theme = $this->site->get_layout();
-        $this->view = "members/register";
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+        $this->view = "register";
     }
 
     /**********************************************************
@@ -44,13 +51,14 @@ class Members extends WB_Controller {
         $form_attributes['data-role'] = "form-login";
         $form_hidden_inputs['reurl'] = set_value('reurl', $this->input->get("reurl", TRUE, base_url()));
 
-        $action_url = base_url( 'members/login', SSL_VERFIY ? 'https' : 'http' );
+        $action_url = base_url( 'members/login');
         $this->data['form_open'] = form_open($action_url, $form_attributes, $form_hidden_inputs);
         $this->data['form_close'] = form_close();
 
         $this->site->meta_title = langs('회원/signin');
         $this->theme = $this->site->get_layout();
-        $this->view = "members/login";
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));        $this->view = "login";
     }
 
     /**********************************************************
@@ -90,8 +98,9 @@ class Members extends WB_Controller {
             $this->site->meta_title = langs('회원/info/profile');
             $this->theme = $this->site->get_layout();
             $this->active = "members/info";
-            $this->asides['member'] = "members/aside";
-            $this->view = "members/info";
+            $this->asides['member'] = "aside";
+            $this->skin_type = "members";
+            $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));            $this->view = "info";
         }
     }
 
@@ -160,7 +169,10 @@ class Members extends WB_Controller {
             $this->site->meta_title = langs('회원/info/change_photo');
             $this->theme = $this->site->get_layout();
             $this->theme_file = "popup";
-            $this->view = "members/photo_change";
+
+            $this->skin_type = "members";
+            $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+            $this->view = "photo_change";
         }
 
     }
@@ -182,15 +194,18 @@ class Members extends WB_Controller {
         $form_attributes['data-form'] = "form-member-modify";
         $form_hidden_inputs['reurl'] = set_value('reurl', $this->input->get("reurl", TRUE, base_url()));
 
-        $action_url = base_url( 'members/modify', SSL_VERFIY ? 'https' : 'http' );
+        $action_url = base_url( 'members/modify');
         $this->data['form_open'] = form_open($action_url, $form_attributes, $form_hidden_inputs);
         $this->data['form_close'] = form_close();
 
         $this->site->meta_title = langs('회원/info/modify');
         $this->theme = $this->site->get_layout();
-        $this->asides['member'] = "members/aside";
+        $this->asides['member'] = "aside";
         $this->active = "members/modify";
-        $this->view = "members/modify";
+
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+        $this->view = "modify";
     }
 
     /**********************************************************
@@ -229,15 +244,18 @@ class Members extends WB_Controller {
             exit;
         }
         else {
-            $action_url = base_url('members/password_change', SSL_VERFIY ? 'https' : 'http' );
+            $action_url = base_url('members/password_change');
             $this->data['form_open'] = form_open($action_url, array('data-form'=>'form-password-change'));
             $this->data['form_close'] = form_close();
 
             $this->site->meta_title = langs('회원/info/password_change');
             $this->theme = $this->site->get_layout();
             $this->active = "members/password_change";
-            $this->asides['member'] = "members/aside";
-            $this->view = "members/password_change";
+            $this->asides['member'] = "aside";
+
+            $this->skin_type = "members";
+            $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+            $this->view = "password_change";
         }
     }
 
@@ -275,15 +293,18 @@ class Members extends WB_Controller {
             exit;
         }
         else {
-            $action_url = base_url('members/withdrawals', SSL_VERFIY ? 'https' : 'http' );
+            $action_url = base_url('members/withdrawals');
             $this->data['form_open'] = form_open($action_url, array('data-form'=>'form-withdrawals'));
             $this->data['form_close'] = form_close();
 
             $this->site->meta_title = langs('회원/info/withdrawals');
             $this->theme = $this->site->get_layout();
             $this->active = "members/withdrawals";
-            $this->asides['member'] = "members/aside";
-            $this->view = "members/withdrawals";
+            $this->asides['member'] = "aside";
+
+            $this->skin_type = "members";
+            $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+            $this->view = "withdrawals";
         }
     }
 
@@ -300,9 +321,12 @@ class Members extends WB_Controller {
 
         $this->site->meta_title = langs('회원/info/social');
         $this->theme = $this->site->get_layout();
-        $this->asides['member'] = "members/aside";
+        $this->asides['member'] = "aside";
         $this->active = "members/info/social";
-        $this->view = "members/info_social";
+
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+        $this->view = "info_social";
     }
 
     /**********************************************************
@@ -433,8 +457,6 @@ class Members extends WB_Controller {
                 exit;
             }
         }
-
-        print_r($result);
     }
 
     /**********************************************************
@@ -473,7 +495,186 @@ class Members extends WB_Controller {
         else {
             $this->site->meta_title = langs('회원/info/activation');
             $this->theme = $this->site->get_layout();
-            $this->view = "members/activation";
+            $this->skin_type = "members";
+            $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+            $this->view = "activation";
         }
+    }
+
+    /**
+     * 내 주문내역
+     */
+    public function my_order($od_id= "")
+    {
+        $mem_idx = $this->member->is_login();
+
+        if(empty($od_id)) {
+            $this->data['list'] = $this->db
+                ->from('shop_order')
+                ->where('mem_idx', $mem_idx)
+                ->order_by('od_id DESC')
+                ->get()
+                ->result_array();
+
+            $this->site->meta_title = '내 주문내역';
+            $this->view = "my_order";
+        }
+        else {
+            $this->data['order']=$this->db
+                ->from('shop_order')
+                ->where('od_id', $od_id)
+                ->get()
+                ->row_array();
+
+            $this->load->model('shop_model');
+            $_temp = $this->shop_model->getCartListByOrder($od_id);
+
+            $this->data['list'] = $_temp['list'];
+
+            $this->site->meta_title = '주문 상세내역';
+            $this->view = "my_order_view";
+        }
+
+        $this->active = "members/my-order";
+        $this->asides['member'] = "aside";
+        $this->theme = $this->site->get_layout();
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+    }
+
+    /**
+     * 내가 작성한 리뷰
+     */
+    public function my_reviews()
+    {
+        if(! $mem_idx = $this->member->is_login())
+        {
+            alert_login();
+        }
+
+
+        if(! USE_SHOP) {
+            alert('쇼핑몰 사용설정이 되어있지 않습니다.');
+            exit;
+        }
+
+        $this->load->model('shop_model');
+        $this->data['page'] = $this->input->get('page', TRUE, 1);
+        $this->data['page_rows'] = 5;
+        $this->data['mem_idx'] = $mem_idx;
+        $this->data['load_images'] = TRUE;
+
+        $result = $this->shop_model->getProductReviews($this->data);
+        $this->data['list'] = $result['list'];
+        $this->data['totalCount'] = $result['totalCount'];
+
+        // 페이지네이션 세팅
+        $paging['page'] = $this->data['page'];
+        $paging['page_rows'] = $this->data['page_rows'];
+        $paging['total_rows'] = $this->data['totalCount'];
+
+        $this->load->library('paging', $paging);
+        $this->data['pagination'] = $this->paging->create();
+
+        $this->active = "members/my-reviews";
+        $this->asides['member'] = "aside";
+
+
+        $this->site->meta_title = '내가 작성한 리뷰';
+        $this->theme = $this->site->get_layout();
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+        $this->view = "my_reviews";
+    }
+
+    /**
+     * 내가 작성한 리뷰
+     */
+    public function my_qna()
+    {
+        if(! $mem_idx = $this->member->is_login())
+        {
+            alert_login();
+        }
+
+
+        if(! USE_SHOP) {
+            alert('쇼핑몰 사용설정이 되어있지 않습니다.');
+            exit;
+        }
+
+        $this->load->model('shop_model');
+        $this->data['page'] = $this->input->get('page', TRUE, 1);
+        $this->data['page_rows'] = 5;
+        $this->data['mem_idx'] = $mem_idx;
+        $this->data['load_images'] = TRUE;
+
+        $result = $this->shop_model->getProductQna($this->data);
+        $this->data['list'] = $result['list'];
+        $this->data['totalCount'] = $result['totalCount'];
+
+        // 페이지네이션 세팅
+        $paging['page'] = $this->data['page'];
+        $paging['page_rows'] = $this->data['page_rows'];
+        $paging['total_rows'] = $this->data['totalCount'];
+
+        $this->load->library('paging', $paging);
+        $this->data['pagination'] = $this->paging->create();
+
+        $this->active = "members/my-qna";
+        $this->asides['member'] = "aside";
+
+
+        $this->site->meta_title = '내가 작성한 리뷰';
+        $this->theme = $this->site->get_layout();
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+        $this->view = "my_qna";
+    }
+    
+    /**
+     * 찜 보관함
+     */
+    public function my_wishlist()
+    {
+        if(! $mem_idx = $this->member->is_login())
+        {
+            alert_login();
+        }
+
+        if(! USE_SHOP) {
+            alert('쇼핑몰 사용설정이 되어있지 않습니다.');
+            exit;
+        }
+
+        // 내 찜 목록 가져오기
+        $this->data['list'] = $this->db
+            ->select('P.*, PA.att_filepath')
+            ->from('products_wish AS PW')
+            ->join('products AS P','P.prd_idx=PW.prd_idx')
+            ->join('attach AS PA', 'P.prd_thumbnail=PA.att_idx','left')
+            ->where('PW.mem_idx', $mem_idx)
+            ->get()
+            ->result_array();
+
+        foreach($this->data['list'] as &$row)
+        {
+            $row['thumbnail'] = '';
+            if(!empty($row['att_filepath']) && file_exists(FCPATH . $row['att_filepath'])) {
+                $row['thumbnail'] = $row['att_filepath'];
+            }
+            $row['link'] = base_url('products/items/'.$row['prd_idx']);
+
+        }
+
+        $this->active = "members/my-wishlist";
+        $this->asides['member'] = "aside";
+
+
+        $this->site->meta_title = '내 주문내역';
+        $this->theme = $this->site->get_layout();
+        $this->skin_type = "members";
+        $this->skin =  $this->site->config('skin_members' . ($this->site->viewmode === DEVICE_MOBILE ? '_m' : ''));
+        $this->view = "my_wishlist";
     }
 }

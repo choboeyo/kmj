@@ -7,7 +7,7 @@
             </div>
         </div>
 
-        <div data-ax-td>
+        <div data-ax-td class="W400">
             <div data-ax-td-label>상태</div>
             <div data-ax-td-wrap>
                 <?php
@@ -25,11 +25,11 @@
             </div>
             <div data-ax-td-wrap>
                 <?php if($mem['mem_status'] == 'H') : ?>
-                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="fal fa-user-secret"></i> 휴면 해제</a>
+                    <a href="#" class="btn btn-default" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="fal fa-user-secret"></i> 휴면 해제</a>
                 <?php elseif( $mem['mem_status'] == 'Y' ) :?>
-                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','D')"><i class="fal fa-ban"></i> 로그인 금지</a>
+                    <a href="#" class="btn btn-default" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','D')"><i class="fal fa-ban"></i> 로그인 금지</a>
                 <?php elseif( $mem['mem_status'] == 'D' ) :?>
-                    <a href="#" class="btn btn-default btn-sm" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="fal fa-ban"></i> 로그인 금지 해제</a>
+                    <a href="#" class="btn btn-default" onclick="APP.MEMBER.STATUS_CHANGE('<?=$mem['mem_idx']?>','<?=$mem['mem_status']?>','Y')"><i class="fal fa-ban"></i> 로그인 금지 해제</a>
                 <?php endif;?>
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div data-ax-td>
             <div data-ax-td-label>비밀번호</div>
             <div data-ax-td-wrap>
-                <a href="<?=base_url('admin/members/password/'.$mem['mem_idx'])?>" class="btn btn-default btn-sm"><i class="fal fa-lock"></i> 비밀번호 변경</a>
+                <a href="<?=base_url('admin/members/password/'.$mem['mem_idx'])?>" class="btn btn-default"><i class="fal fa-lock"></i> 비밀번호 변경</a>
             </div>
         </div>
     </div>

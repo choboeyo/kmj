@@ -12,6 +12,37 @@ class Statics extends WB_Controller {
         $this->data['enddate'] = $this->input->get('enddate', TRUE, date('Y-m-d', strtotime("-1 days")));
     }
 
+    public function sms_send()
+    {
+        $this->data['startdate'] = $this->input->get('startdate', TRUE, date('Y-m-d', strtotime("-1 month")));
+        $this->data['enddate'] = $this->input->get('enddate', TRUE, date('Y-m-d'));
+
+        $this->data['page'] = $this->input->get('page', TRUE, 1);
+        $this->data['page_rows'] = 10;
+
+        $this->data['list'] = $this->db
+            ->select("SQL_CALC_FOUND_ROWS *", FALSE)
+            ->where('sml_regtime >=', $this->data['startdate']. " 00:00:00")
+            ->where('sml_regtime <=', $this->data['enddate']. " 23:59:59")
+            ->order_by('sml_idx DESC')
+            ->limit($this->data['page_rows'], ($this->data['page'] - 1) * $this->data['page_rows'])
+            ->get('sms_log')
+            ->result_array();
+        $this->data['totalCount'] = (int)$this->db->query("SELECT FOUND_ROWS() AS cnt")->row(0)->cnt;
+
+        // 페이지네이션 세팅
+        $paging['page'] = $this->data['page'];
+        $paging['page_rows'] = $this->data['page_rows'];
+        $paging['total_rows'] = $this->data['totalCount'];
+
+        $this->load->library('paging', $paging);
+        $this->data['pagination'] = $this->paging->create();
+
+        $this->theme = "admin";
+        $this->active = $this->view = "statics/sms_send";
+
+    }
+
     /**
      * 사용자 접속 로그
      */

@@ -48,7 +48,6 @@ class Management extends WB_Controller {
         if( $this->form_validation->run() != FALSE )
         {
             $data['mnu_idx'] = $this->input->post('mnu_idx', TRUE);
-            $data['mnu_parent'] = $this->input->post('mnu_parent', TRUE);
             $data['mnu_name'] = $this->input->post('mnu_name', TRUE);
             $data['mnu_parent'] = $this->input->post('mnu_parent', TRUE);
             $data['mnu_link'] = str_replace(base_url(), '/', $this->input->post('mnu_link', TRUE));
@@ -893,6 +892,71 @@ class Management extends WB_Controller {
 
             $this->theme_file = 'iframe';
             $this->view = "management/qna_category_form";
+        }
+    }
+
+    /**
+     * 연혁 관리
+     */
+    public function history()
+    {
+        // 메타태그 설정
+        $this->site->meta_title = "연혁 관리";
+        // 레이아웃 & 뷰파일 설정
+        $this->active = $this->view = "management/history";
+    }
+
+
+    /**
+     * 연혁 등록/수정
+     */
+    public function history_form($his_idx="")
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('his_content', '내용', 'required');
+
+
+        if( $this->form_validation->run() != FALSE )
+        {
+            $data['upd_user'] = $this->member->is_login();
+            $data['upd_datetime'] = date('Y-m-d H:i:s');
+            $data['his_year'] =$this->input->post('his_year',TRUE);
+            $data['his_month'] = $this->input->post('his_month',TRUE);
+            $data['his_content'] = $this->input->post('his_content',FALSE,'');
+
+            if( empty($his_idx) )
+            {
+                $data['reg_datetime'] = $data['upd_datetime'];
+                $data['reg_user'] = $data['upd_user'];
+                $this->db->insert('history', $data);
+            }
+            else
+            {
+                $this->db->where('his_idx', $his_idx);
+                $this->db->update('history', $data);
+            }
+
+            alert_modal_close('연혁 정보 입력이 완료되었습니다.', FALSE);
+            exit;
+        }
+        else
+        {
+            $this->data['view'] = array();
+            if(! empty($his_idx))
+            {
+                if(! $this->data['view'] = $this->db->where('his_idx', $his_idx)->get('history')->row_array())
+                {
+                    alert_modal_close('잘못된 접근입니다.',false);
+                }
+            }
+
+            // 메타태그 설정
+            $this->site->meta_title = "연혁 관리";
+
+            // 레이아웃 & 뷰파일 설정
+            $this->theme_file = "iframe";
+            $this->view     = "management/history_form";
         }
     }
 }

@@ -5,6 +5,8 @@
 @import "../../common/scss/global";
 @import "variables";
 
+@import "boot/mixins";
+
 // 애니메이션,레이아웃,유틸리티,컴포넌트
 @import "common/animation";
 @import "common/layout";
@@ -14,6 +16,7 @@
 @import "components/icons";
 @import "components/button";
 @import "components/popup_layer";
+@import "components/form";
 
 // 각종 플러그인 SCSS 및 플러그인 커스텀
 

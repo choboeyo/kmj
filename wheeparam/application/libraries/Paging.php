@@ -148,7 +148,7 @@ class Paging
             }
             else if ($this->display_first_always === TRUE OR $this->cur_page != 1)
             {
-                $output .= $this->first_tag_open.'<a href="'.$base_url.'?'.$this->page_param.'=1'.$this->add_param.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+                $output .= $this->first_tag_open.'<a data-page="1" href="'.$base_url.'?'.$this->page_param.'=1'.$this->add_param.'">'.$this->first_link.'</a>'.$this->first_tag_close;
             }
         }
 
@@ -164,7 +164,7 @@ class Paging
                 // 이전페이지 번호를 가져온다. 단, 현재페이지가 1이면, 이전페이지도 1을 가져온다.
                 $i = ($uri_page_number == 1) ? 1 : ( $uri_page_number - 1);
 
-                $output .= $this->prev_tag_open.'<a href="'.$base_url.'?'.$this->page_param."=".$i.$this->add_param.'">'
+                $output .= $this->prev_tag_open.'<a data-page="'.$i.'" href="'.$base_url.'?'.$this->page_param."=".$i.$this->add_param.'">'
                     .$this->prev_link.'</a>'.$this->prev_tag_close;
             }
         }
@@ -185,7 +185,7 @@ class Paging
                     }
                     else
                     {
-                        $output .= $this->item_tag_open.'<a href="'.$base_url.'?'.$this->page_param."=".$loop.$this->add_param.'">'.$loop.'</a>'.$this->item_tag_close;
+                        $output .= $this->item_tag_open.'<a data-page="'.$loop.'" href="'.$base_url.'?'.$this->page_param."=".$loop.$this->add_param.'">'.$loop.'</a>'.$this->item_tag_close;
                     }
                 }
             }
@@ -203,7 +203,7 @@ class Paging
                 // 다음페이지를 계산해준다. 현재페이지가 마지막페이지라면, 현재페이지를 세팅
                 $i = ($this->cur_page == $num_pages)? $num_pages : $this->cur_page + 1;
 
-                $output .= $this->next_tag_open.'<a href="'.$base_url.'?'.$this->page_param."=".$i.$this->add_param.'">'.$this->next_link.'</a>'.$this->next_tag_close;
+                $output .= $this->next_tag_open.'<a data-page="'.$i.'" href="'.$base_url.'?'.$this->page_param."=".$i.$this->add_param.'">'.$this->next_link.'</a>'.$this->next_tag_close;
             }
         }
 
@@ -218,7 +218,7 @@ class Paging
             {
                 $i = $num_pages;
 
-                $output .= $this->last_tag_open.'<a href="'.$base_url.'?'.$this->page_param."=".$i.'">'.$this->last_link.'</a>'.$this->last_tag_close;
+                $output .= $this->last_tag_open.'<a data-page="'.$i.'" href="'.$base_url.'?'.$this->page_param."=".$i.'">'.$this->last_link.'</a>'.$this->last_tag_close;
             }
         }
 

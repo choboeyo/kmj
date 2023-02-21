@@ -13,11 +13,11 @@
             <fieldset>
                 <div class="form-group">
                     <label for="login-id" class="sr-only"><?=langs('회원/info/userid')?></label>
-                    <input class="form-control" id="login-id" name="login_id" placeholder="ID" value="<?=set_value('login_id')?>" maxlength="50">
+                    <input class="wb-input" id="login-id" name="login_id" placeholder="ID" value="<?=set_value('login_id')?>" maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="login-pass" class="sr-only"><?=langs('회원/info/password')?></label>
-                    <input type="password" class="form-control" id="login-pass" name="login_pass" placeholder="PASSWORD" value="" maxlength="20">
+                    <input type="password" class="wb-input" id="login-pass" name="login_pass" placeholder="PASSWORD" value="" maxlength="20">
                 </div>
                 <div class="form-group">
                     <div class="pull-left">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="pull-right">
-                        <button class="btn btn-primary"><i class="far fa-check"></i>&nbsp;<?=langs('회원/signin')?></button>
+                        <button class="wb-btn primary"><i class="far fa-check"></i>&nbsp;<?=langs('회원/signin')?></button>
                     </div>
                 </div>
 

@@ -26,13 +26,13 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td>
-            <div data-ax-td-label>팝업 너비 (px)</div>
+            <div data-ax-td-label>너비 (px)</div>
             <div data-ax-td-wrap>
                 <input class="form-control text-right" data-number-only name="pop_width" value="<?=(element('pop_width', $view, set_value('pop_width', 600)))?>" required>
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>팝업 높이 (px)</div>
+            <div data-ax-td-label>높이 (px)</div>
             <div data-ax-td-wrap>
                 <input class="form-control text-right" data-number-only name="pop_height" value="<?=(element('pop_height', $view, set_value('pop_height', 600)))?>" required>
             </div>
@@ -49,13 +49,13 @@
 
     <div data-ax-tr>
         <div data-ax-td>
-            <div data-ax-td-label>표시 시작 일시</div>
+            <div data-ax-td-label>표시시작일시</div>
             <div data-ax-td-wrap>
                 <div data-toggle="datetime-picker" data-type="datetime" data-name="pop_start" data-value="<?=element('pop_start', $view, set_value('pop_start'))?>"></div>
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>표시 종료 일시</div>
+            <div data-ax-td-label>표시종료일시</div>
             <div data-ax-td-wrap>
                 <div data-toggle="datetime-picker" data-type="datetime" data-name="pop_end" data-value="<?=element('pop_end', $view, set_value('pop_end'))?>"></div>
             </div>

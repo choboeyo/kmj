@@ -1,1 +1,1 @@
-<textarea name="<?=$name?>" class="ckeditor" id="<?=$id?>" style="width:100%;height:<?=$height?>"><?=$contents?></textarea>
+<textarea name="<?=$name?>" class="ckeditor" id="<?=$id?>" style="width:100%;height:<?=$height?>" <?=$attributes?>><?=$contents?></textarea>

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .row {
   @include clear-fix-after();
   &:before {
@@ -14,7 +16,7 @@
   .col-lg-#{$i}{
     float:left;
     min-height:1px;
-    width: ( $i / 12 * 100% );
+    width: math.percentage(math.div( $i , 12 ));
     padding:0 15px;
   }
 }
@@ -56,8 +58,8 @@
           text-align:center;
           border:1px solid #ddd;
           font-weight:400;
-          font-size:12px;
-          line-height:(16em / 12);
+          font-size:1rem;
+          line-height:math.div(16em , 12);
         }
       }
     }
@@ -79,8 +81,8 @@
           background-color:#fff;
           border:1px solid #ddd;
           font-weight:300;
-          font-size:12px;
-          line-height:(16em / 12);
+          font-size:1rem;
+          line-height:math.div(16em , 12);
 
           &.empty {
             height:300px;

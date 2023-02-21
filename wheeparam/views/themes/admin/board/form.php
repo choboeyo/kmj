@@ -7,7 +7,7 @@
     <div class="caption">게시판 기본 설정</div>
     <div data-ax-tr>
         <div data-ax-td>
-            <div data-ax-td-label>게시판 고유 키</div>
+            <div data-ax-td-label>고유 키</div>
             <div data-ax-td-wrap>
                 <input class="form-control form-control-inline" maxlength="20" name="brd_key" value="<?=element('brd_key', $view)?>" <?=$brd_key?'readonly':'required'?>>
                 <p class="help-block">4-20자의 영어소문자</p>
@@ -16,7 +16,7 @@
         <div data-ax-td>
             <div data-ax-td-wrap>
                 <?php if (empty($brd_key)) : ?>
-                    <button type="button" class="btn btn-default btn-sm ML10" id="btn-check-brd-key"><i class="fal fa-check"></i> 중복 확인</button>
+                    <button type="button" class="btn btn-default ML10" id="btn-check-brd-key"><i class="fal fa-check"></i> 중복 확인</button>
                 <?php endif;?>
             </div>
         </div>
@@ -41,7 +41,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>게시판 키워드</div>
+            <div data-ax-td-label>키워드</div>
             <div data-ax-td-wrap>
                 <input class="form-control" name="brd_keywords" value="<?=element('brd_keywords', $view)?>">
             </div>
@@ -49,7 +49,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>게시판 요약설명</div>
+            <div data-ax-td-label>요약설명</div>
             <div data-ax-td-wrap>
                 <textarea class="form-control" name="brd_description" data-autosize><?=element('brd_description', $view)?></textarea>
             </div>
@@ -67,7 +67,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>카테고리 목록</div>
+            <div data-ax-td-label>카테고리목록</div>
             <div data-ax-td-wrap>
                 <input class="form-control" name="brd_category" value="<?=element('brd_category', $view)?>" maxlength="255">
                 <p class="help-block">카테고리를 세미콜론(;)으로 여러개를 입력해주세요. ex) 자유;정보;잡담</p>
@@ -76,7 +76,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>시간 표시형식</div>
+            <div data-ax-td-label>시간표시형식</div>
             <div data-ax-td-wrap>
                 <select class="form-control form-control-inline" name="brd_display_time">
                     <option value="sns"  <?=element('brd_use_anonymous',$view)=='sns'?'selected':''?>>SNS형식</option>
@@ -105,7 +105,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td>
-            <div data-ax-td-label>한페이지 글수</div>
+            <div data-ax-td-label>페이지당글수</div>
             <div data-ax-td-wrap>
                 <input type="number" min="0" class="form-control form-control-inline" name="brd_page_rows" value="<?=element('brd_page_rows', $view, 15)?>" required>
             </div>
@@ -286,7 +286,7 @@
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>첨부파일 다운</div>
+            <div data-ax-td-label>첨부파일다운</div>
             <div data-ax-td-wrap>
                 <select class="form-control" name="brd_lv_download">
                     <?php for($i=0; $i<=10; $i++):?>
@@ -344,13 +344,17 @@
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>이름 * 처리</div>
+            <div data-ax-td-label>
+                <div>
+                    이름 * 처리
+                    <p class="help-block">관리자<i class="fal fa-caret-right"></i>관*자</p>
+                </div>
+            </div>
             <div data-ax-td-wrap>
                 <select class="form-control form-control-inline" name="brd_blind_nickname">
                     <option value="Y" <?=element('brd_blind_nickname',$view, 'N')=='Y'?'selected':''?>>사용</option>
                     <option value="N" <?=element('brd_blind_nickname',$view, 'N')=='N'?'selected':''?>>미사용</option>
                 </select>
-                <p class="help-block">관리자 <i class="fal fa-caret-right"></i> 관*자</p>
             </div>
         </div>
     </div>
@@ -366,7 +370,7 @@
     <div class="caption"><?=$this->site->config('point_name')?> 설정</div>
     <div data-ax-tr>
         <div data-ax-td>
-            <div data-ax-td-label>글쓰기 <?=$this->site->config('point_name')?></div>
+            <div data-ax-td-label>글쓰기<br><?=$this->site->config('point_name')?></div>
             <div data-ax-td-wrap>
                 <input type="number" class="form-control text-right" name="brd_point_write" value="<?=element('brd_point_write', $view, 0)?>" <?=$this->site->config('point_use') != 'Y'?'readonly':''?>>
             </div>
@@ -378,7 +382,7 @@
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>답글쓰기 <?=$this->site->config('point_name')?></div>
+            <div data-ax-td-label>답글쓰기<br><?=$this->site->config('point_name')?></div>
             <div data-ax-td-wrap>
                 <input type="number" class="form-control text-right" name="brd_point_reply" value="<?=element('brd_point_reply', $view, 0)?>" <?=$this->site->config('point_use') != 'Y'?'readonly':''?>>
             </div>
@@ -390,7 +394,7 @@
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>댓글쓰기 <?=$this->site->config('point_name')?></div>
+            <div data-ax-td-label>댓글쓰기<br><?=$this->site->config('point_name')?></div>
             <div data-ax-td-wrap>
                 <input type="number" class="form-control text-right" name="brd_point_comment" value="<?=element('brd_point_comment', $view, 0)?>" <?=$this->site->config('point_use') != 'Y'?'readonly':''?>>
             </div>
@@ -410,20 +414,20 @@
             </div>
             <div data-ax-td-wrap>
                 <select class="form-control" name="brd_point_read_flag">
-                    <option value="1" <?=element('brd_point_read_flag', $view, 1)=='1'?'selected':''?>>증가</option>
-                    <option value="-1" <?=element('brd_point_read_flag', $view, 1)=='-1'?'selected':''?>>차감</option>
+                    <option value="1" <?=element('brd_point_read_flag', $view, -1)=='1'?'selected':''?>>증가</option>
+                    <option value="-1" <?=element('brd_point_read_flag', $view, -1)=='-1'?'selected':''?>>차감</option>
                 </select>
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>첨부파일 다운</div>
+            <div data-ax-td-label>첨부파일<br>다운</div>
             <div data-ax-td-wrap>
                 <input type="number" class="form-control text-right" name="brd_point_download" value="<?=element('brd_point_download', $view, 0)?>" <?=$this->site->config('point_use') != 'Y'?'readonly':''?>>
             </div>
             <div data-ax-td-wrap>
                 <select class="form-control" name="brd_point_download_flag">
-                    <option value="1" <?=element('brd_point_download_flag', $view, 1)=='1'?'selected':''?>>증가</option>
-                    <option value="-1" <?=element('brd_point_download_flag', $view, 1)=='-1'?'selected':''?>>차감</option>
+                    <option value="1" <?=element('brd_point_download_flag', $view, -1)=='1'?'selected':''?>>증가</option>
+                    <option value="-1" <?=element('brd_point_download_flag', $view, -1)=='-1'?'selected':''?>>차감</option>
                 </select>
             </div>
         </div>

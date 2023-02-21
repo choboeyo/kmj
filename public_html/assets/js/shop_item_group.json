@@ -1,0 +1,1689 @@
+{
+  "wear":{
+    "title":"의류",
+    "items":{
+      "material":{
+        "key":"제품소재",
+        "content":"섬유의 조성 또는 혼용률을 백분율로 표시, 기능성인 경우 성적서 또는 허가서"
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "size":{
+        "key":"치수",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "caution":{
+        "key":"세탁방법 및 취급시 주의사항",
+        "content":""
+      },
+      "manufacturing_ym":{
+        "key":"제조연월",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "shoes":{
+    "title":"구두/신발",
+    "items":{
+      "material":{
+        "key":"제품소재",
+        "content":"운동화인 경우에는 겉감, 안감을 구분하여 표시"
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "size":{
+        "key":"치수-발길이",
+        "content":"해외사이즈 표기 시 국내사이즈 병행 표기 (mm)"
+      },
+      "height":{
+        "key":"치수-굽높이",
+        "content":"굽 재료를 사용하는 여성화에 한함 (cm)"
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "caution":{
+        "key":"취급시 주의사항",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "bag":{
+    "title":"가방",
+    "items":{
+      "kind":{
+        "key":"종류",
+        "content":""
+      },
+      "material":{
+        "key":"소재",
+        "content":""
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "caution":{
+        "key":"취급시 주의사항",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "fashion":{
+    "title":"패션잡화(모자/벨트/액세서리)",
+    "items":{
+      "kind":{
+        "key":"종류",
+        "content":""
+      },
+      "material":{
+        "key":"소재",
+        "content":""
+      },
+      "size":{
+        "key":"치수",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "caution":{
+        "key":"취급시 주의사항",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "bedding":{
+    "title":"침구류/커튼",
+    "items":{
+      "material":{
+        "key":"제품소재",
+        "content":"(섬유의 조성 또는 혼용률을 백분율로 표시) 충전재를 사용한 제품은 충전재를 함께 표기"
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "size":{
+        "key":"치수",
+        "content":""
+      },
+      "component":{
+        "key":"제품구성",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "caution":{
+        "key":"세탁방법 및 취급시 주의사항",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "furniture":{
+    "title":"가구(침대/소파/싱크대/DIY제품)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "certification":{
+        "key":"KC 인증 필 유무",
+        "content":"(품질경영 및 공산품안전관리법 상 안전·품질표시대상공산품에 한함)"
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "component":{
+        "key":"구성품",
+        "content":""
+      },
+      "material":{
+        "key":"주요소재",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)\r\n구성품 별 제조자가 다른 경우 각 구성품의 제조자, 수입자"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":"구성품 별 제조국이 다른 경우 각 구성품의 제조국"
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "delivery":{
+        "key":"배송·설치비용",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "image_appliances":{
+    "title":"영상가전 (TV류)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"전기용품 안전인증 필 유무",
+        "content":"전기용품안전관리법 상 안전인증대상전기용품, 자율안전확인대상전기용품, 공급자적합성확인대상전기용품에 한함"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "energy_efficiency":{
+        "key":"에너지효율등급",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":"구성품 별 제조국이 다른 경우 각 구성품의 제조국"
+      },
+      "size":{
+        "key":"크기",
+        "content":"형태포함"
+      },
+      "display_specification":{
+        "key":"화면사양",
+        "content":"크기, 해상도, 화면비율 등"
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "home_appliances":{
+    "title":"가정용전기제품(냉장고/세탁기/식기세척기/전자레인지)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"전기용품 안전인증 필 유무",
+        "content":"전기용품안전관리법 상 안전인증대상전기용품, 자율안전확인대상전기용품, 공급자적합성확인대상전기용품에 한함"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "energy_efficiency":{
+        "key":"에너지효율등급",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":"형태포함"
+      },
+      "display_specification":{
+        "key":"화면사양",
+        "content":"크기, 해상도, 화면비율 등"
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "season_appliances":{
+    "title":"계절가전(에어컨/온풍기)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"전기용품 안전인증 필 유무",
+        "content":"전기용품안전관리법 상 안전인증대상전기용품, 자율안전확인대상전기용품, 공급자적합성확인대상전기용품에 한함"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "energy_efficiency":{
+        "key":"에너지효율등급",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":"형태 및 실외기 포함"
+      },
+      "area":{
+        "key":"냉난방면적",
+        "content":""
+      },
+      "installation_costs":{
+        "key":"추가설치비용",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "office_appliances":{
+    "title":"사무용기기(컴퓨터/노트북/프린터)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"KCC 인증 필 유무",
+        "content":"전파법 상 인증대상상품에 한함, MIC 인증 필 혼용 가능"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "energy_efficiency":{
+        "key":"에너지효율등급",
+        "content":"에너지이용합리화법 상 의무대상상품에 한함"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":"구성품 별 제조국이 다른 경우 각 구성품의 제조국"
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"무게",
+        "content":"무게는 노트북에 한함"
+      },
+      "specification":{
+        "key":"주요사양",
+        "content":"컴퓨터와 노트북의 경우 성능, 용량, 운영체제 포함여부 등 / 프린터의 경우 인쇄 속도 등"
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "optics_appliances":{
+    "title":"광학기기(디지털카메라/캠코더)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"KCC 인증 필 유무",
+        "content":"전파법 상 인증대상상품에 한함, MIC 인증 필 혼용 가능"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"무게",
+        "content":""
+      },
+      "specification":{
+        "key":"주요사양",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "microelectronics":{
+    "title":"소형전자(MP3/전자사전등)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"KCC 인증 필 유무",
+        "content":"전파법 상 인증대상상품에 한함, MIC 인증 필 혼용 가능"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":""
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"무게",
+        "content":""
+      },
+      "specification":{
+        "key":"주요사양",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "mobile":{
+    "title":"휴대폰",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"KCC 인증 필 유무",
+        "content":"전파법 상 인증대상상품에 한함, MIC 인증 필 혼용 가능"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"무게",
+        "content":""
+      },
+      "telecom":{
+        "key":"이동통신사",
+        "content":""
+      },
+      "join_process":{
+        "key":"가입절차",
+        "content":""
+      },
+      "extra_burden":{
+        "key":"소비자의 추가적인 부담사항 ",
+        "content":"가입비, 유심카드 구입비 등 추가로 부담하여야 할 금액, 부가서비스, 의무사용기간, 위약금 등"
+      },
+      "specification":{
+        "key":"주요사양",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "navigation":{
+    "title":"네비게이션",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"KCC 인증 필 유무",
+        "content":"전파법 상 인증대상상품에 한함, MIC 인증 필 혼용 가능"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":""
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"무게",
+        "content":""
+      },
+      "specification":{
+        "key":"주요사양",
+        "content":""
+      },
+      "update_cost":{
+        "key":"맵 업데이트 비용",
+        "content":""
+      },
+      "freecost_period":{
+        "key":"무상기간",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "car":{
+    "title":"자동차용품(자동차부품/기타자동차용품)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "certification":{
+        "key":"자동차부품 자기인증 유무 ",
+        "content":"자동차 관리법 상 인증 대상 자동차 부품에 한함"
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":"구성품 별 제조국이 다른 경우 각 구성품의 제조국"
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "apply_model":{
+        "key":"적용차종",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "medical":{
+    "title":"의료기기",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "license_number":{
+        "key":"의료기기법상 허가·신고 번호",
+        "content":"허가·신고 대상 의료기기에 한함"
+      },
+      "advertising":{
+        "key":"광고사전심의필 유무",
+        "content":""
+      },
+      "certification":{
+        "key":"전기용품안전관리법상 KC 인증 필 유무 ",
+        "content":"안전인증 또는 자율안전확인 대상 전기용품에 한함"
+      },
+      "rated_voltage":{
+        "key":"정격전압",
+        "content":"전기용품에 한함"
+      },
+      "power_consumption":{
+        "key":"소비전력",
+        "content":"전기용품에 한함"
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "appliances_purpose":{
+        "key":"제품의 사용목적",
+        "content":""
+      },
+      "appliances_usage":{
+        "key":"제품의 사용목적",
+        "content":""
+      },
+      "display_specification":{
+        "key":"화면사양",
+        "content":"(크기, 해상도, 화면비율 등)"
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "kitchenware":{
+    "title":"주방용품",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "material":{
+        "key":"재질",
+        "content":""
+      },
+      "component":{
+        "key":"구성품",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "import_declaration":{
+        "key":"식품위생법에 따른 수입 신고",
+        "content":"식품위생법에 따른 수입 기구·용기의 경우 \"식품위생법에 따른 수입신고를 필함\"의 문구"
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "cosmetics":{
+    "title":"화장품",
+    "items":{
+      "capacity":{
+        "key":"용량 또는 중량",
+        "content":""
+      },
+      "specification":{
+        "key":"제품 주요사양",
+        "content":"피부타입, 색상(호, 번) 등"
+      },
+      "expiration_date":{
+        "key":"사용기한 또는 개봉 후 사용기간",
+        "content":"개봉 후 사용기간을 기재할 경우에는 제조연월일을 병행표기"
+      },
+      "usage":{
+        "key":"사용방법",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":""
+      },
+      "distributor":{
+        "key":"제조판매업자",
+        "content":""
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "mainingredient":{
+        "key":"주요성분",
+        "content":"유기농 화장품의 경우 유기농 원료 함량 포함"
+      },
+      "certification":{
+        "key":"식품의약품안전청 심사 필 유무",
+        "content":"기능성 화장품의 경우 화장품법에 따른 식품의약품안전청 심사 필 유무 (미백, 주름개선, 자외선차단 등)"
+      },
+      "caution":{
+        "key":"사용할 때 주의사항",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "jewelry":{
+    "title":"귀금속/보석/시계류",
+    "items":{
+      "material":{
+        "key":"소재",
+        "content":""
+      },
+      "purity":{
+        "key":"순도",
+        "content":""
+      },
+      "band":{
+        "key":"밴드재질",
+        "content":"시계의 경우"
+      },
+      "weight":{
+        "key":"중량",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":"원산지와 가공지 등이 다를 경우 함께 표기"
+      },
+      "size":{
+        "key":"치수",
+        "content":""
+      },
+      "caution":{
+        "key":"착용 시 주의사항",
+        "content":""
+      },
+      "specification":{
+        "key":"주요사양",
+        "content":"귀금속, 보석류는 등급, 시계는 기능, 방수 등"
+      },
+      "provide_warranty":{
+        "key":"보증서 제공여부",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호",
+        "content":""
+      }
+    }
+  },
+  "food":{
+    "title":"식품(농수산물)",
+    "items":{
+      "weight":{
+        "key":"포장단위별 용량(중량)",
+        "content":""
+      },
+      "quantity":{
+        "key":"포장단위별 수량",
+        "content":""
+      },
+      "size":{
+        "key":"포장단위별 크기",
+        "content":""
+      },
+      "producer":{
+        "key":"생산자",
+        "content":"수입품의 경우 수입자를 함께 표기"
+      },
+      "origin":{
+        "key":"원산지",
+        "content":"농수산물의 원산지 표시에 관한 법률에 따른 원산지"
+      },
+      "manufacturing_ymd":{
+        "key":"제조연월일",
+        "content":"포장일 또는 생산연도"
+      },
+      "expiration_date":{
+        "key":"유통기한 또는 품질유지기한",
+        "content":""
+      },
+      "law_content":{
+        "key":"관련법상 표시사항",
+        "content":"농산물 - 농산물품질관리법상 유전자변형농산물 표시, 지리적표시\r\n  축산물 - 축산법에 따른 등급 표시, 쇠고기의 경우 이력관리에 따른 표시 유무\r\n  수산물 - 수산물품질관리법상 유전자변형수산물 표시, 지리적표시\r\n  수입식품에 해당하는 경우\"식품위생법에 따른 수입신고를 필함\"의 문구"
+      },
+      "product_composition":{
+        "key":"상품구성",
+        "content":""
+      },
+      "keep":{
+        "key":"보관방법 또는 취급방법",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "general_food":{
+    "title":"가공식품",
+    "items":{
+      "food_type":{
+        "key":"식품의 유형",
+        "content":""
+      },
+      "producer":{
+        "key":"생산자",
+        "content":""
+      },
+      "location":{
+        "key":"소재지",
+        "content":"수입품의 경우 수입자를 함께 표기"
+      },
+      "manufacturing_ymd":{
+        "key":"제조연월일",
+        "content":""
+      },
+      "expiration_date":{
+        "key":"유통기한 또는 품질유지기한",
+        "content":""
+      },
+      "weight":{
+        "key":"포장단위별 용량(중량)",
+        "content":""
+      },
+      "quantity":{
+        "key":"포장단위별 수량",
+        "content":""
+      },
+      "ingredients":{
+        "key":"원재료명 및 함량",
+        "content":"농수산물의 원산지 표시에 관한 법률에 따른 원산지 표시 포함"
+      },
+      "nutrition_component":{
+        "key":"영양성분",
+        "content":"식품위생법에 따른 영양성분 표시대상 식품에 한함"
+      },
+      "genetically_modified":{
+        "key":"유전자재조합식품에 해당하는 경우의 표시",
+        "content":""
+      },
+      "baby_food":{
+        "key":"영유아식 또는 체중조절식품 등에 해당하는 경우 표시광고 사전심의필",
+        "content":""
+      },
+      "imported_food":{
+        "key":"수입식품에 해당하는 경우 “식품위생법에 따른 수입신고를 필함”의 문구",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "diet_food":{
+    "title":"건강기능식품",
+    "items":{
+      "food_type":{
+        "key":"식품의 유형",
+        "content":""
+      },
+      "producer":{
+        "key":"생산자",
+        "content":""
+      },
+      "location":{
+        "key":"소재지",
+        "content":"수입품의 경우 수입자를 함께 표기"
+      },
+      "manufacturing_ymd":{
+        "key":"제조연월일",
+        "content":""
+      },
+      "expiration_date":{
+        "key":"유통기한 또는 품질유지기한",
+        "content":""
+      },
+      "waight":{
+        "key":"포장단위별 용량(중량)",
+        "content":""
+      },
+      "quantity":{
+        "key":"포장단위별 수량",
+        "content":""
+      },
+      "ingredients":{
+        "key":"원재료명 및 함량",
+        "content":"농수산물의 원산지 표시에 관한 법률에 따른 원산지 표시 포함"
+      },
+      "nutrition":{
+        "key":"영양정보",
+        "content":""
+      },
+      "specification":{
+        "key":"기능정보",
+        "content":""
+      },
+      "intake":{
+        "key":"섭취량, 섭취방법 및 섭취 시 주의사항",
+        "content":""
+      },
+      "disease":{
+        "key":"질병의 예방 및 치료를 위한 의약품이 아니라는 내용의 표현",
+        "content":""
+      },
+      "genetically_modified":{
+        "key":"유전자재조합식품에 해당하는 경우의 표시",
+        "content":""
+      },
+      "display_ad":{
+        "key":"표시광고 사전심의필",
+        "content":""
+      },
+      "imported_food":{
+        "key":"수입식품에 해당하는 경우 \"건강기능식품에 관한 법률에 따른 수입신고를 필함\"의 문구",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "kids":{
+    "title":"영유아용품",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certification":{
+        "key":"KC 인증 필",
+        "content":"품질경영 및 공산품안전관리법 상 안전인증대상 또는 자율안전확인대상 공산품에 한함"
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"중량",
+        "content":""
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "material":{
+        "key":"재질",
+        "content":"섬유의 경우 혼용률"
+      },
+      "age":{
+        "key":"사용연령",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "caution":{
+        "key":"취급방법 및 취급시 주의사항, 안전표시 (주의, 경고 등)",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "instrument":{
+    "title":"악기",
+    "items":{
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "material":{
+        "key":"재질",
+        "content":""
+      },
+      "components":{
+        "key":"제품구성",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "detailed_specifications":{
+        "key":"상품별 세부 사양",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "sports":{
+    "title":"스포츠용품",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":""
+      },
+      "weight":{
+        "key":"중량",
+        "content":""
+      },
+      "color":{
+        "key":"색상",
+        "content":""
+      },
+      "material":{
+        "key":"재질",
+        "content":""
+      },
+      "components":{
+        "key":"제품구성",
+        "content":""
+      },
+      "released_date":{
+        "key":"동일모델의 출시년월",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "madein":{
+        "key":"제조국",
+        "content":""
+      },
+      "detailed_specifications":{
+        "key":"상품별 세부 사양",
+        "content":""
+      },
+      "warranty":{
+        "key":"품질보증기준",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "books":{
+    "title":"서적",
+    "items":{
+      "product_name":{
+        "key":"도서명",
+        "content":""
+      },
+      "author":{
+        "key":"저자",
+        "content":""
+      },
+      "publisher":{
+        "key":"출판사",
+        "content":""
+      },
+      "size":{
+        "key":"크기",
+        "content":"전자책의 경우 파일의 용량"
+      },
+      "pages":{
+        "key":"쪽수",
+        "content":"전자책의 경우 제외"
+      },
+      "components":{
+        "key":"제품구성",
+        "content":"전집 또는 세트일 경우 낱권 구성, CD 등"
+      },
+      "publish_date":{
+        "key":"출간일",
+        "content":""
+      },
+      "description":{
+        "key":"목차 또는 책소개",
+        "content":""
+      }
+    }
+  },
+  "reserve":{
+    "title":"호텔/펜션예약",
+    "items":{
+      "location":{
+        "key":"국가 또는 지역명",
+        "content":""
+      },
+      "lodgment_type":{
+        "key":"숙소형태",
+        "content":""
+      },
+      "grade":{
+        "key":"등급",
+        "content":""
+      },
+      "room_type":{
+        "key":"객실타입",
+        "content":""
+      },
+      "room_capacity":{
+        "key":"사용가능인원",
+        "content":""
+      },
+      "extra_person_charge":{
+        "key":"인원 추가시 비용",
+        "content":""
+      },
+      "facilities":{
+        "key":"부대시설",
+        "content":""
+      },
+      "provided_service":{
+        "key":"제공서비스",
+        "content":"조식 등"
+      },
+      "cancellation_policy":{
+        "key":"취소규정",
+        "content":"환불 위약금 등"
+      },
+      "booking_contacts":{
+        "key":"예약담당 연락처",
+        "content":""
+      }
+    }
+  },
+  "travel":{
+    "title":"여행패키지",
+    "items":{
+      "travel_agency":{
+        "key":"여행사",
+        "content":""
+      },
+      "flight":{
+        "key":"이용항공편",
+        "content":""
+      },
+      "travel_period":{
+        "key":"여행기간",
+        "content":""
+      },
+      "schedule":{
+        "key":"일정",
+        "content":""
+      },
+      "maximum_people":{
+        "key":"총예정인원",
+        "content":""
+      },
+      "minimum_people":{
+        "key":"출발가능인원",
+        "content":""
+      },
+      "accomodation_info":{
+        "key":"숙박정보",
+        "content":""
+      },
+      "details":{
+        "key":"포함내역",
+        "content":"식사, 인솔자, 공연관람 등"
+      },
+      "additional_charge":{
+        "key":"추가 경비 항목과 금액",
+        "content":"유류할증료, 공항이용료, 관광지 입장료, 안내원수수료, 식사비용, 선택사항 등"
+      },
+      "cancellation_policy":{
+        "key":"취소규정",
+        "content":"환불, 위약금 등"
+      },
+      "travel_warnings":{
+        "key":"해외여행의 경우 외교통상부가 지정하는 여행경보단계",
+        "content":""
+      },
+      "booking_contacts":{
+        "key":"예약담당 연락처",
+        "content":""
+      }
+    }
+  },
+  "airline_ticket":{
+    "title":"항공권",
+    "items":{
+      "charge_condition":{
+        "key":"요금조건",
+        "content":""
+      },
+      "round_trip":{
+        "key":"왕복·편도 여부",
+        "content":""
+      },
+      "expiration_date":{
+        "key":"유효기간",
+        "content":""
+      },
+      "restriction":{
+        "key":"제한사항",
+        "content":"출발일, 귀국일 변경가능 여부 등"
+      },
+      "ticket_delivery_mean":{
+        "key":"티켓수령방법",
+        "content":""
+      },
+      "seat_type":{
+        "key":"좌석종류",
+        "content":""
+      },
+      "additional_charge":{
+        "key":"추가 경비 항목과 금액",
+        "content":"유류할증료, 공항이용료 등"
+      },
+      "cancellation_policy":{
+        "key":"취소 규정",
+        "content":"환불, 위약금 등"
+      },
+      "booking_contacts":{
+        "key":"예약담당 연락처",
+        "content":""
+      }
+    }
+  },
+  "rent_car":{
+    "title":"자동차대여서비스(렌터카)",
+    "items":{
+      "model":{
+        "key":"차종",
+        "content":""
+      },
+      "ownership_transfer":{
+        "key":"소유권 이전 조건",
+        "content":"소유권이 이전되는 경우에 한함"
+      },
+      "additional_charge":{
+        "key":"추가 선택 시 비용",
+        "content":"자차면책제도, 내비게이션 등"
+      },
+      "fuel_cost":{
+        "key":"차량 반환 시 연료대금 정산 방법",
+        "content":""
+      },
+      "vehicle_breakdown":{
+        "key":"차량의 고장·훼손 시 소비자 책임",
+        "content":""
+      },
+      "cancellation_policy":{
+        "key":"예약취소 또는 중도 해약 시 환불 기준",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "rental_water":{
+    "title":"물품대여서비스(정수기,비데,공기청정기 등)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "transfer_of_ownership":{
+        "key":"소유권 이전 조건",
+        "content":"소유권이 이전되는 경우에 한함"
+      },
+      "maintenance":{
+        "key":"유지보수 조건",
+        "content":"점검·필터교환 주기, 추가 비용 등"
+      },
+      "consumer_responsibility":{
+        "key":"상품의 고장·분실·훼손 시 소비자 책임",
+        "content":""
+      },
+      "refund":{
+        "key":"중도 해약 시 환불 기준",
+        "content":""
+      },
+      "specification":{
+        "key":"제품 사양",
+        "content":"용량, 소비전력 등"
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "rental_etc":{
+    "title":"물품대여서비스(서적,유아용품,행사용품 등)",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "transfer_of_ownership":{
+        "key":"소유권 이전 조건",
+        "content":"소유권이 이전되는 경우에 한함"
+      },
+      "consumer_responsibility":{
+        "key":"상품의 고장·분실·훼손 시 소비자 책임",
+        "content":""
+      },
+      "refund":{
+        "key":"중도 해약 시 환불 기준",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "digital_contents":{
+    "title":"디지털콘텐츠(음원,게임,인터넷강의 등)",
+    "items":{
+      "producer":{
+        "key":"제작자 또는 공급자",
+        "content":""
+      },
+      "terms_of_use":{
+        "key":"이용조건",
+        "content":""
+      },
+      "use_period":{
+        "key":"이용기간",
+        "content":""
+      },
+      "product_offers":{
+        "key":"상품 제공 방식",
+        "content":"CD, 다운로드, 실시간 스트리밍 등"
+      },
+      "minimum_system":{
+        "key":"최소 시스템 사양, 필수 소프트웨어",
+        "content":""
+      },
+      "transfer_of_ownership":{
+        "key":"소유권 이전 조건",
+        "content":"소유권이 이전되는 경우에 한함"
+      },
+      "maintenance":{
+        "key":"청약철회 또는 계약의 해제·해지에 따른 효과",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "gift_card":{
+    "title":"상품권/쿠폰",
+    "items":{
+      "isseur":{
+        "key":"발행자",
+        "content":""
+      },
+      "expiration_date":{
+        "key":"유효기간",
+        "content":""
+      },
+      "terms_of_use":{
+        "key":"이용조건",
+        "content":"유효기간 경과 시 보상 기준, 사용제한품목 및 기간 등"
+      },
+      "use_store":{
+        "key":"이용 가능 매장",
+        "content":""
+      },
+      "refund_policy":{
+        "key":"잔액 환급 조건",
+        "content":""
+      },
+      "as":{
+        "key":"소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  },
+  "etc":{
+    "title":"기타",
+    "items":{
+      "product_name":{
+        "key":"품명",
+        "content":""
+      },
+      "model_name":{
+        "key":"모델명",
+        "content":""
+      },
+      "certified_by_law":{
+        "key":"법에 의한 인증·허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항",
+        "content":""
+      },
+      "origin":{
+        "key":"제조국 또는 원산지",
+        "content":""
+      },
+      "maker":{
+        "key":"제조자",
+        "content":"수입품의 경우 수입자를 함께 표기 (병행수입의 경우 병행수입 여부로 대체 가능)"
+      },
+      "as":{
+        "key":"A/S 책임자와 전화번호 또는 소비자상담 관련 전화번호",
+        "content":""
+      }
+    }
+  }
+}

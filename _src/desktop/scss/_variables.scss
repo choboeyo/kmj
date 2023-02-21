@@ -1,6 +1,18 @@
 // 색상 변수
-$color-primary : #282828;   // 메인 컬러
+$color-primary : #45c580;   // 메인 컬러
 $color-secondary : #282828; // 서브 컬러
+
+// 각종 컬러 세팅
+$color-blue:    #0d6efd !default;
+$color-indigo:  #6610f2 !default;
+$color-purple:  #6f42c1 !default;
+$color-pink:    #d63384 !default;
+$color-red:     #dc3545 !default;
+$color-orange:  #fd7e14 !default;
+$color-yellow:  #ffc107 !default;
+$color-green:   #198754 !default;
+$color-teal:    #20c997 !default;
+$color-cyan:    #0dcaf0 !default;
 
 $body-color : #212529;      // 기본 텍스트 색상
 $body-bg-color : #FFFFFF;   // 기본 배경 색상
@@ -9,7 +21,7 @@ $link-color : $body-color;          // 링크 텍스트 색상
 $link-hover-color : $color-primary; // 링크 오버시 텍스트 색상
 
 // 폰트 관련
-$font-family-base : 나눔고딕,NanumGothic,NanumGothicWeb,'나눔 고딕',sans-serif;     // 기본글자에 사용 되는 폰트
+$font-family-base : 'Lato','Noto Sans KR','Apple Gothic',sans-serif;     // 기본글자에 사용 되는 폰트
 $font-family-heading : $font-family-base;                                           // 헤딩태그에 사용 되는 폰트
 $font-size-base   : 16px;
 $font-weight-base : 400;
@@ -24,6 +36,28 @@ $break-desktop : 1200px;
 $break-tablet : 992px;
 $break-mobile : 768px;
 
+$content-width : 1200px;
+
 // 테이블 관련
 $table-cell-padding:          .75rem !default;
 $table-cell-padding-sm:       .3rem !default;
+
+// 버튼과 Input
+$global-radius: .25rem;
+$input-padding-y: .375rem;
+$input-padding-x: .75rem;
+
+:root {
+  --theme-color-primary: #{$color-primary};
+  --theme-color-secondary: #{$color-secondary};
+  --theme-color-primary-hover: #{darken($color-primary, 7.5%)};
+  --theme-color-secondary-hover: #{darken($color-secondary, 7.5%)};
+  --theme-link-color:#{$link-color};
+  --theme-link-hover-color:#{#link-hover-color};
+  --theme-font-family-base: #{$font-family-base};
+  --theme-font-family-heading: #{$font-family-heading};
+  --theme-font-size-base: #{$font-size-base};
+  --theme-font-weight-base: #{$font-weight-base};
+  --theme-font-weight-bold: #{$font-weight-bold};
+  --theme-line-height-base: #{$line-height-base};
+}

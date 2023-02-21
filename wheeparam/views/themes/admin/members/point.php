@@ -27,7 +27,7 @@
             </div>
             <div data-ax-td class="W100">
                 <div data-ax-td-wrap>
-                    <button class="btn btn-default btn-sm"><i class="fal fa-search"></i> 필터적용</button>
+                    <button class="btn btn-default"><i class="fal fa-search"></i> 필터적용</button>
                 </div>
             </div>
         </div>

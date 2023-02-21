@@ -259,4 +259,40 @@ class Management extends REST_Controller
         $this->db->where($key_column, $key);
         $this->db->update($table, $values);
     }
+
+    /**
+     * 연혁 목록 가져오기
+     */
+    function history_get() {
+
+        $this->db
+            ->select('SQL_CALC_FOUND_ROWS H.*, M.mem_nickname AS upd_user_name',FALSE)
+            ->from('history AS H')
+            ->join('member AS M','M.mem_idx=H.upd_user','inner')
+            ->where('his_status', 'Y')
+            ->order_by('his_year DESC, his_month DESC, his_idx DESC');
+        $result = $this->db->get();
+
+        $return['lists'] = $result->result_array();
+        $return['totalCount'] = (int)$this->db->query("SELECT FOUND_ROWS() AS cnt")->row(0)->cnt;
+
+        $this->response($return, 200);
+    }
+
+    /**
+     * 연혁 삭제
+     */
+    function history_delete()
+    {
+        $his_idx = $this->delete('his_idx', TRUE);
+        $mem_idx = $this->member->is_login();
+
+        if(empty($his_idx)) $this->response('잘못된 접근입니다.', 400);
+
+        $data['upd_datetime'] = date('Y-m-d H:i:s');
+        $data['upd_user'] = $mem_idx;
+        $data['his_status'] = 'N';
+        $this->db->where('his_idx', $his_idx);
+        $this->db->update('history', $data);
+    }
 }

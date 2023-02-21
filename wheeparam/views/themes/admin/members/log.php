@@ -29,7 +29,7 @@
                     <input class="form-control" name="st" value="<?=$st?>">
                 </div>
                 <div data-ax-td-wrap>
-                    <button class="btn btn-default btn-sm"><i class="fal fa-search"></i> 필터적용</button>
+                    <button class="btn btn-default"><i class="fal fa-search"></i> 필터적용</button>
                 </div>
             </div>
         </div>
@@ -51,9 +51,9 @@
             {caption:'순번', dataField:'nums', alignment:'right', width:80, dataType:'number', format:'fixedPoint'},
             {caption:'일시', dataField:'mlg_regtime', alignment:'center', width:160},
             {caption:'아이디', dataField:'mem_userid', alignment:'left', width:160},
-            {caption:'이름', dataField:'mem_nickanem', alignment:'left', width:100},
+            {caption:'이름', dataField:'mem_nickname', alignment:'left', width:100},
             {caption:'브라우져', dataField:'mlg_browser', alignment:'left', width:80},
-            {caption:'OS', dataField:'mlg_platform', alignment:'left', width:80},
+            {caption:'OS', dataField:'mlg_platform', alignment:'left', width:150},
             {caption:'모바일', dataField:'mlg_is_mobile', alignment:'center', width:60},
             {caption:'IP', dataField:'mlg_ip', alignment:'center', width:120},
             {caption:'', calculateCellValue:function(e) {return ''}}

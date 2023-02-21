@@ -1,0 +1,3 @@
+.widget-hello-world {display:block;}
+.widget-hello-world .tit {color:var(--theme-color-primary); cursor:pointer;}
+.widget-hello-world .tit:hover {color:var(--theme-color-primary-hover)}

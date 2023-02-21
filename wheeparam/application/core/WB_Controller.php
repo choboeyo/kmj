@@ -8,6 +8,28 @@ defined('BASEPATH') OR exit();
  * @copyright Copyright (c) 2012, Jamie Rumbelow <http://jamierumbelow.net>
  */
 
+/**
+ * @property CI_Loader $load
+ * @property CI_DB $db
+ * @property CI_Output $output
+ * @property CI_Cache $cache
+ * @property CI_Email $email
+ * @property CI_Session $session
+ * @property CI_User_agent $agent
+ * @property WB_Input $input
+ * @property WB_Form_validation $form_validation
+ * @property WB_Upload $upload
+ * @property Faq_model $faq_model
+ * @property Member_model $member_model
+ * @property Popup_model $popup_model
+ * @property Search_model $search_model
+ * @property Statics_model $statics_model
+ * @property Site $site
+ * @property Boardlib $boardlib
+ * @property Paging $paging
+ * @property Member $member
+ * @property Banner $banner
+ */
 class WB_Controller extends CI_Controller
 {
     public $view = FALSE;
@@ -41,9 +63,6 @@ class WB_Controller extends CI_Controller
     {
         if( empty($this->view) ) return;
 
-        $this->data['skin_url'] =  ( $this->skin && $this->skin_type ) ? base_url("views/".DIR_SKIN . '/' . $this->skin_type . '/' . $this->skin . '/') : NULL;
-        $this->data['theme_url'] = (isset($this->theme) && $this->theme != FALSE) ? base_url("views/". DIR_THEME . "/" . $this->theme . "/") : NULL;
-
         if( $this->skin && $this->skin_type )
         {
             $view = DIR_SKIN . '/' . $this->skin_type . '/' . $this->skin . '/' . $this->view;
@@ -60,16 +79,30 @@ class WB_Controller extends CI_Controller
         {
             foreach ($this->asides as $name => $file)
             {
-                $file_url = (isset($this->theme) && $this->theme) ? DIR_THEME . '/' . $this->theme .'/' . $file : $file;
+                if($this->skin && $this->skin_type) {
+                    $file_url = DIR_SKIN . DIRECTORY_SEPARATOR . $this->skin_type . DIRECTORY_SEPARATOR . $this->skin . DIRECTORY_SEPARATOR . $file;
+                }
+                else {
+                    $file_url = (isset($this->theme) && $this->theme) ? DIR_THEME . '/' . $this->theme .'/' . $file : $file;
+                }
+
                 $this->data['asides_'.$name] = $this->load->view($file_url, $this->data, TRUE);
             }
         }
 
         $data['contents'] = $this->load->view($view, $this->data, TRUE);
-        if( $this->skin && $this->skin_type )
+        if( $this->theme !== FALSE && $this->skin && $this->skin_type )
         {
-            $skin_type_tmp = str_replace("/","-",$this->skin_type);
-            $data['contents'] = "<div id=\"skin-{$skin_type_tmp}-{$this->skin}\">" . $data['contents'] . '</div>';
+            if(is_file(VIEWPATH .DIR_SKIN . DIRECTORY_SEPARATOR . $this->skin_type . DIRECTORY_SEPARATOR . $this->skin . DIRECTORY_SEPARATOR . "skin.css")) {
+                $data['contents'] .= "<style>";
+                $data['contents'] .= file_get_contents(VIEWPATH .DIR_SKIN . DIRECTORY_SEPARATOR . $this->skin_type . DIRECTORY_SEPARATOR . $this->skin . DIRECTORY_SEPARATOR."skin.css");
+                $data['contents'] .= "</style>";
+            }
+            if(is_file(VIEWPATH .DIR_SKIN . DIRECTORY_SEPARATOR . $this->skin_type . DIRECTORY_SEPARATOR . $this->skin . DIRECTORY_SEPARATOR."skin.js")) {
+                $data['contents'] .= "<script>";
+                $data['contents'] .= file_get_contents(VIEWPATH .DIR_SKIN . DIRECTORY_SEPARATOR . $this->skin_type . DIRECTORY_SEPARATOR . $this->skin . DIRECTORY_SEPARATOR."skin.js");
+                $data['contents'] .= "</script>";
+            }
         }
 
         $data = array_merge($this->data, $data);

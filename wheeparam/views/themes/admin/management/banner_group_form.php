@@ -12,7 +12,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>배너 그룹 이름</div>
+            <div data-ax-td-label>이름</div>
             <div data-ax-td-wrap>
                 <input class="form-control" name="bng_name" value="<?=element('bng_name', $view)?>" required maxlength="50">
             </div>
@@ -20,13 +20,13 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td>
-            <div data-ax-td-label>권장 너비 (px)</div>
+            <div data-ax-td-label>권장너비(px)</div>
             <div data-ax-td-wrap>
                 <input type="number" class="form-control text-right" name="bng_width" value="<?=element('bng_width', $view, 0)?>">
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>권장 높이 (px)</div>
+            <div data-ax-td-label>권장높이(px)</div>
             <div data-ax-td-wrap>
                 <input type="number" class="form-control text-right" name="bng_height" value="<?=element('bng_height', $view, 0)?>">
             </div>

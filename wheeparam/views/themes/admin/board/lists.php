@@ -26,14 +26,14 @@
             {
                 caption:'스킨',
                 columns: [
-                    {caption:'목록', dataField:'brd_skin_l', width:80, alignment:'left'},
-                    {caption:'목록(M)', dataField:'brd_skin_l_m', width:80, alignment:'left'},
-                    {caption:'글쓰기', dataField:'brd_skin_w', width:80, alignment:'left'},
-                    {caption:'글쓰기(M)', dataField:'brd_skin_w_m', width:80, alignment:'left'},
-                    {caption:'글보기', dataField:'brd_skin_v', width:80, alignment:'left'},
-                    {caption:'글보기(M)', dataField:'brd_skin_v_m', width:80, alignment:'left'},
-                    {caption:'댓글', dataField:'brd_skin_c', width:80, alignment:'left'},
-                    {caption:'댓글 (M)', dataField:'brd_skin_c_m', width:80, alignment:'left'},
+                    {caption:'목록', dataField:'brd_skin_l', width:80, alignment:'center'},
+                    {caption:'목록(M)', dataField:'brd_skin_l_m', width:80, alignment:'center'},
+                    {caption:'글쓰기', dataField:'brd_skin_w', width:80, alignment:'center'},
+                    {caption:'글쓰기(M)', dataField:'brd_skin_w_m', width:80, alignment:'center'},
+                    {caption:'글보기', dataField:'brd_skin_v', width:80, alignment:'center'},
+                    {caption:'글보기(M)', dataField:'brd_skin_v_m', width:80, alignment:'center'},
+                    {caption:'댓글', dataField:'brd_skin_c', width:80, alignment:'center'},
+                    {caption:'댓글 (M)', dataField:'brd_skin_c_m', width:80, alignment:'center'},
                 ]
             },
             {caption:'목록개수', dataField:'brd_page_rows', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
@@ -41,13 +41,13 @@
             {
                 caption:'기능사용',
                 columns: [
-                    {caption:'카테고리', dataField:'brd_use_category', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
-                    {caption:'답글기능', dataField:'brd_use_reply', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
-                    {caption:'댓글기능', dataField:'brd_use_comment', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'카테고리', dataField:'brd_use_category', alignment:'center', width:80, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'답글기능', dataField:'brd_use_reply', alignment:'center', width:80, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'댓글기능', dataField:'brd_use_comment', alignment:'center', width:80, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
                     {caption:'익명', dataField:'brd_use_category', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':(cell.value == 'A'?'강제사용':'')}},
                     {caption:'비밀글', dataField:'brd_use_category', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':(cell.value == 'A'?'강제사용':'')}},
-                    {caption:'첨부파일', dataField:'brd_use_attach', alignment:'center', width:60, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
-                    {caption:'이름가리기', dataField:'brd_blind_nickname', alignment:'center', width:75, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'첨부파일', dataField:'brd_use_attach', alignment:'center', width:80, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
+                    {caption:'이름가리기', dataField:'brd_blind_nickname', alignment:'center', width:90, customizeText:function(cell){return cell.value == 'Y'?'사용':''}},
                 ]
             },
             {
@@ -58,7 +58,7 @@
                     {caption:'글보기', dataField:'brd_lv_read', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
                     {caption:'답글', dataField:'brd_lv_reply', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
                     {caption:'댓글', dataField:'brd_lv_comment', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
-                    {caption:'다운로드', dataField:'brd_lv_download', width:60, alignment:'right', dataType:'number', format:'fixedPoint'},
+                    {caption:'다운로드', dataField:'brd_lv_download', width:80, alignment:'right', dataType:'number', format:'fixedPoint'},
                 ]
             },
         ],

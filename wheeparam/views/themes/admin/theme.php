@@ -2,7 +2,7 @@
 $this->site->add_css('https://fonts.googleapis.com/earlyaccess/notosanskr.css', TRUE);
 $this->site->add_css("/assets/css/admin.min.css", TRUE);
 
-$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js', TRUE);
+$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js', TRUE);
 $this->site->add_js("/assets/js/admin.min.js", TRUE);
 $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl.min.js', TRUE);
 ?><!DOCTYPE html>
@@ -12,7 +12,6 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1200">
     <?=$this->site->display_meta()?>
-    <?=$this->site->display_css()?>
 </head>
 <body>
 <script>var menuActive="<?=$this->active?>";</script>
@@ -27,6 +26,7 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <li data-active="management/menu"><a href="<?=base_url('admin/management/menu')?>">메뉴 관리</a></li>
                 <li data-active="management/faq"><a href="<?=base_url('admin/management/faq')?>">FAQ 관리</a></li>
                 <li data-active="management/qna"><a href="<?=base_url('admin/management/qna')?>">Q&A 관리</a></li>
+                <li data-active="management/history"><a href="<?=base_url('admin/management/history')?>">연혁 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -52,6 +52,33 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <?php endforeach;?>
             </ul>
         </li>
+        <?php if(USE_SHOP):?>
+        <li class="dropdown">
+            <span data-toggle="dropdown"><i class="fal fa-gift"></i>상품 관리</span>
+            <ul class="dropdown-menu">
+                <li data-active="products/categories"><a href="<?=base_url('admin/products/categories')?>">상품 분류 관리</a></li>
+                <li data-active="products/items"><a href="<?=base_url('admin/products/items')?>">상품 관리</a></li>
+                <li class="divider"></li>
+                <li data-active="products/displays"><a href="<?=base_url('admin/products/displays')?>">상품 진열장 관리</a></li>
+                <li class="divider"></li>
+                <li data-active="products/reviews"><a href="<?=base_url('admin/products/reviews')?>">상품 리뷰 관리</a></li>
+                <li data-active="products/qna"><a href="<?=base_url('admin/products/qna')?>">상품 문의 관리</a></li>
+                <li class="divider"></li>
+                <li data-active="products/stocks"><a href="<?=base_url('admin/products/stocks')?>">상품 재고 관리</a></li>
+                <li data-active="products/options-stocks"><a href="<?=base_url('admin/products/options-stocks')?>">상품 옵션 재고 관리</a></li>
+                <li data-active="products/labels"><a href="<?=base_url('admin/products/labels')?>">상품 라벨 일괄 관리</a></li>
+            </ul>
+        </li>
+            <li class="dropdown">
+                <span data-toggle="dropdown"><i class="fal fa-gift"></i>주문 관리</span>
+                <ul class="dropdown-menu">
+                    <li data-active="orders/index"><a href="<?=base_url('admin/orders')?>">주문 관리</a></li>
+                    <!--<li data-active="orders/statics"><a href="<?=base_url('admin/orders/statics')?>">주문 통계</a></li>-->
+                    <li data-active="orders/ranks"><a href="<?=base_url('admin/orders/ranks')?>">상품 판매 순위</a></li>
+                    <li data-active="orders/wish"><a href="<?=base_url('admin/orders/wish')?>">상품 찜 순위</a></li>
+                </ul>
+            </li>
+        <?php endif;?>
         <li class="dropdown">
             <span data-toggle="dropdown"><i class="fal fa-chart-bar"></i>방문 통계</span>
             <ul class="dropdown-menu">
@@ -62,12 +89,21 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <li data-active="statics/device"><a href="<?=base_url('admin/statics/device')?>">PC/MOBILE 통계</a></li>
                 <li data-active="statics/browser"><a href="<?=base_url('admin/statics/browser')?>">브라우져별 통계</a></li>
                 <li data-active="statics/os"><a href="<?=base_url('admin/statics/os')?>">OS별 통계</a></li>
+                <?php if(USE_SHOP):?>
+                <li class="divider"></li>
+                <li data-active="statics/sms-send"><a href="<?=base_url('admin/statics/sms-send')?>">문자발송기록</a></li>
+                <?php endif?>
             </ul>
         </li>
         <li class="dropdown">
             <span data-toggle="dropdown"><i class="fal fa-cog"></i>환경 설정</span>
             <ul class="dropdown-menu">
                 <li data-active="setting/basic"><a href="<?=base_url('admin/setting/basic')?>">사이트 기본 설정</a></li>
+                <?php if(USE_SHOP):?>
+                    <li data-active="setting/shop"><a href="<?=base_url('admin/setting/shop')?>">쇼핑몰 환경 설정</a></li>
+                    <li data-active="setting/shop-delivery"><a href="<?=base_url('admin/setting/shop-delivery')?>">쇼핑몰 배송 설정</a></li>
+                    <li data-active="setting/shop-sms"><a href="<?=base_url('admin/setting/shop-sms')?>">쇼핑몰 문자 발송</a></li>
+                <?php endif;?>
                 <li data-active="setting/localize"><a href="<?=base_url('admin/setting/localize')?>">다국어 설정</a></li>
                 <li data-active="setting/apis"><a href="<?=base_url('admin/setting/apis')?>">소셜/API 설정</a></li>
                 <li data-active="setting/agreement"><a href="<?=base_url('admin/setting/agreement')?>">약관 설정</a></li>

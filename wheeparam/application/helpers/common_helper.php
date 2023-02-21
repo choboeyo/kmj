@@ -310,12 +310,14 @@ function html_symbol($str)
 /******************************************************************************************
  * 에디터를 호출한다.
  *****************************************************************************************/
-function get_editor($name, $contents="", $class="", $is_dhtml_editor = true, $editor_type = 'ckeditor')
+function get_editor($name, $contents="", $class="", $is_dhtml_editor = true, $editor_type = 'ckeditor', $addAttributes="")
 {
     $param['id'] = $name;
     $param['name'] = $name;
     $param['height'] = '300px';
     $param['contents'] = $contents;
+    $param['attributes'] = $addAttributes;
+
     $CI =& get_instance();
     if( $editor_type == 'smarteditor' && $is_dhtml_editor )
     {
@@ -1211,7 +1213,8 @@ function get_uniqid()
 
     while (1) {
         // 년월일시분초에 100분의 1초 두자리를 추가함 (1/100 초 앞에 자리가 모자르면 0으로 채움)
-        $key = date('YmdHis') . sprintf('%02d', (int)(microtime()*100));
+        $key = date('YmdHis');
+        $key .= sprintf('%02d', (microtime(true)-time())*100);
         $ip_addr = ip2long($CI->input->ip_address());
         $result = $CI->db->set('uq_id', $key)->set('uq_ip', $ip_addr)->insert('uniqid');
         if ($result) break; // 쿼리가 정상이면 빠진다.

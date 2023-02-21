@@ -1,16 +1,18 @@
+@use 'sass:math';
+
 .form-control {
   display: block;
-  font-size:12px;
+  font-size:1rem;
   font-weight:400;
-  height:24px;
+  height:2.5rem;
   width: 100%;  ;
-  padding: $input-btn-padding-y-sm ( $input-btn-padding-x-sm / 2);
-  line-height: (16em / 12);
+  padding: $input-btn-padding-y-sm math.div( $input-btn-padding-x-sm , 2);
+  line-height: math.div(16em , 12);
   color: #333;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #dddddd;
-  border-radius: 4px;
+  border-radius: .25rem;
   box-shadow:none;
   @include transition();
 
@@ -37,7 +39,7 @@
 
   &.form-control-sm {
     height: 34px;
-    padding: $input-btn-padding-y-sm ($input-btn-padding-x-sm /2 );
+    padding: $input-btn-padding-y-sm math.div($input-btn-padding-x-sm ,2 );
     font-size: $input-btn-font-size-sm;
     line-height: $input-btn-line-height-sm;
     border-radius:$input-btn-border-radius-sm;
@@ -45,7 +47,7 @@
 
   &.form-control-xs {
     height: 26px;
-    padding: $input-btn-padding-y-xs ($input-btn-padding-x-xs /2 );
+    padding: $input-btn-padding-y-xs math.div($input-btn-padding-x-xs ,2 );
     font-size: $input-btn-font-size-xs;
     line-height: $input-btn-line-height-xs;
     border-radius:$input-btn-border-radius-xs;
@@ -53,7 +55,7 @@
 
   &.form-control-lg {
     height: 48px;
-    padding: $input-btn-padding-y-lg ( $input-btn-padding-x-lg / 2);
+    padding: $input-btn-padding-y-lg math.div( $input-btn-padding-x-lg , 2);
     font-size: $input-btn-font-size-lg;
     line-height: $input-btn-line-height-lg;
     border-radius:$input-btn-border-radius-lg;
@@ -169,7 +171,7 @@ textarea.form-control[data-autosize] {
     &:before {
       content:"";
       @include display-flex();
-      font-family: "Font Awesome 5 Pro";
+      font-family: "Font Awesome 6 Pro";
       width:18px;
       height:18px;
       border:1px solid #e9e9e9;
@@ -194,6 +196,32 @@ textarea.form-control[data-autosize] {
       content:"\f00c";
       border-color:$color-primary;
       color:$color-primary;
+    }
+  }
+}
+
+.toggle-box {
+  display:inline-flex;
+  input[type=checkbox],
+  input[type=radio] {
+    display:none;
+
+    & + span {
+      display:flex;
+      min-width:100px;
+      padding:.75rem 1rem;
+      border:1px solid #ccc;
+      color:#6c757d;
+      cursor:pointer;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:checked + span {
+      background:$color-primary;
+      color:#fff;
+      border-color:$color-primary;
+      cursor:default;
     }
   }
 }
@@ -245,12 +273,24 @@ textarea.form-control[data-autosize] {
 }
 
 [data-ax-tbl] {
-  font-size: 0.9em;
+  font-size: 1rem;
   background: #fff;
   border-top: 1px solid #D8D8D8;
   border-right: 1px solid #D8D8D8;
   border-left: 1px solid #D8D8D8;
   position: relative;
+
+  .required {
+    font-size:0;
+    display:inline-block;
+    margin-left:5px;
+
+    &:before {
+      content:'*';
+      font-size:12px;
+      color:red;
+    }
+  }
 
   .caption {
     width:100%;
@@ -294,12 +334,14 @@ textarea.form-control[data-autosize] {
         align-items: center;
         justify-content: center;
         width: 100px;
-        padding: 7px;
+        padding: .375rem .75rem;
         @include background-gradient(#fbfbfb, #f6f6f6);
         border-right: 1px solid #D8D8D8;
         vertical-align: middle;
         text-align: center;
         color: #363636;
+        font-size:.9rem;
+        font-weight:700;
 
         fieldset[readonly] &,
         fieldset[disabled] & {

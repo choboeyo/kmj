@@ -67,6 +67,86 @@
 <div class="H30"></div>
 
 <div data-ax-tbl>
+    <div class="caption">사업장 정보 설정</div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>사업자명</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_name]" value="<?=$this->site->config('company_name')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>대표성함</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_ceo]" value="<?=$this->site->config('company_ceo')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>사업자등록번호</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_biznum]" value="<?=$this->site->config('company_biznum')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>통신판매업 신고번호</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_shopnum]" value="<?=$this->site->config('company_shopnum')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>사업장 전화번호</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_tel]" value="<?=$this->site->config('company_tel')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>사업장 FAX</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_fax]" value="<?=$this->site->config('company_fax')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td class="width-100">
+            <div data-ax-td-label>사업장 주소</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_address]" value="<?=$this->site->config('company_address')?>">
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td>
+            <div data-ax-td-label>개인정보<br>관리책임자</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_privacy_name]" value="<?=$this->site->config('company_privacy_name')?>">
+            </div>
+        </div>
+        <div data-ax-td>
+            <div data-ax-td-label>E-mail</div>
+            <div data-ax-td-wrap>
+                <input class="form-control" name="setting[company_privacy_email]" value="<?=$this->site->config('company_privacy_email')?>">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center MT10">
+    <button class="btn btn-primary"><i class="fal fa-save"></i> 저장하기</button>
+</div>
+
+<div class="H30"></div>
+
+<div data-ax-tbl>
     <div class="caption">관리자 설정</div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">

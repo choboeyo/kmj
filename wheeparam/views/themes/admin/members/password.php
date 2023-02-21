@@ -12,7 +12,7 @@
             </div>
         </div>
         <div data-ax-td>
-            <div data-ax-td-label>비밀번호 확인 <span class="text-danger">*</span></div>
+            <div data-ax-td-label class="W110">비밀번호확인 <span class="text-danger">*</span></div>
             <div data-ax-td-wrap>
                 <input type="password" class="form-control" name="mem_password2" required>
             </div>

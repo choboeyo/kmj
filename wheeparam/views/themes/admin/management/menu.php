@@ -21,9 +21,9 @@
             <th class="W80">메뉴 순서</th>
             <th class="W100">새창보기</th>
             <th class="W80">PC보기</th>
-            <th class="W80">모바일보기</th>
+            <th class="W100">모바일보기</th>
             <th>Active 값</th>
-            <th class="W160">관리</th>
+            <th class="W220">관리</th>
         </tr>
         </thead>
         <tbody>
@@ -61,8 +61,8 @@
                     <input class="form-control" name="mnu_active_key[]" value="<?=$row['mnu_active_key']?>">
                 </td>
                 <td>
-                    <button type="button" class="btn btn-default btn-sm MR5" onclick="menu_form('<?=$row['mnu_idx']?>');"><i class="fal fa-plus-circle"></i> 하위메뉴 등록</button>
-                    <a class="btn btn-danger btn-sm" href="<?=base_url('admin/management/menu_delete/'.$row['mnu_idx'])?>" onclick="return confirm('메뉴를 삭제하시겠습니까?');">삭제</a>
+                    <button type="button" class="btn btn-default MR5" onclick="menu_form('<?=$row['mnu_idx']?>');"><i class="fal fa-plus-circle"></i> 하위메뉴 등록</button>
+                    <a class="btn btn-danger" href="<?=base_url('admin/management/menu_delete/'.$row['mnu_idx'])?>" onclick="return confirm('메뉴를 삭제하시겠습니까?');">삭제</a>
                 </td>
             </tr>
             <?php foreach($row['children'] as $row2) :?>
@@ -100,8 +100,8 @@
                         <input class="form-control" name="mnu_active_key[]" value="<?=$row2['mnu_active_key']?>">
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm MR5" onclick="menu_form('<?=$row2['mnu_idx']?>');"><i class="fal fa-plus-circle"></i> 하위메뉴 등록</button>
-                        <a class="btn btn-danger btn-sm" href="<?=base_url('admin/management/menu_delete/'.$row2['mnu_idx'])?>" onclick="return confirm('메뉴를 삭제하시겠습니까?');">삭제</a>
+                        <button type="button" class="btn btn-default MR5" onclick="menu_form('<?=$row2['mnu_idx']?>');"><i class="fal fa-plus-circle"></i> 하위메뉴 등록</button>
+                        <a class="btn btn-danger" href="<?=base_url('admin/management/menu_delete/'.$row2['mnu_idx'])?>" onclick="return confirm('메뉴를 삭제하시겠습니까?');">삭제</a>
                     </td>
                 </tr>
                 <?php foreach($row2['children'] as $row3) :?>
@@ -140,7 +140,7 @@
                             <input class="form-control" name="mnu_active_key[]" value="<?=$row3['mnu_active_key']?>">
                         </td>
                         <td>
-                            <a class="btn btn-danger btn-sm" href="<?=base_url('admin/management/menu_delete/'.$row3['mnu_idx'])?>" onclick="return confirm('메뉴를 삭제하시겠습니까?');">삭제</a>
+                            <a class="btn btn-danger" href="<?=base_url('admin/management/menu_delete/'.$row3['mnu_idx'])?>" onclick="return confirm('메뉴를 삭제하시겠습니까?');">삭제</a>
                         </td>
                     </tr>
                 <?php endforeach;?>

@@ -52,7 +52,11 @@
                 <td class="text-center">
                     <label class="w-check margin-auto"><input type="checkbox" data-checkbox="post" name="post_idx[]" value="<?=$row['post_idx']?>"><span class="empty"></span></label>
                 </td>
+                <?php if($row['post_notice'] == 'Y') :?>
+                <td class="text-center"><label class="label">공지</label></td>
+                <?php else :?>
                 <td class="text-right"><?=number_format($row['nums'])?></td>
+                <?php endif;?>
                 <?php if($use_category) :?>
                 <td><?=$row['post_category']?></td>
                 <?php endif;?>

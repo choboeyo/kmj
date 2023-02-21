@@ -1,10 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Contact 페이지
+ */
 class Contact extends WB_Controller {
 
+    /**
+     * Contact 페이지
+     */
     public function index()
     {
+        // 폼검증 라이브러리 호출
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('con_name',"이름","required|trim");
@@ -12,6 +19,7 @@ class Contact extends WB_Controller {
         $this->form_validation->set_rules('con_phone',"연락처","required|trim");
         $this->form_validation->set_rules('con_content', "문의 내용","required|trim");
 
+        // 문의 요청에 관한 Parmeter가 넘어올 경우
         if( $this->form_validation->run() != FALSE )
         {
             $reurl = $this->input->post('reurl', TRUE, base_url());
@@ -37,6 +45,7 @@ class Contact extends WB_Controller {
 
             $con_content = $extra_content . "문의 내용 : ".PHP_EOL.$con_content;
 
+            // 이메일 라이브러리 로드
             $this->load->library('email');
 
             $email_config = array();
@@ -81,7 +90,7 @@ class Contact extends WB_Controller {
             // 레이아웃 & 뷰파일 설정
             $this->theme    = $this->site->get_layout();
             $this->view     = "contact/index";
-            $this->active   = "/contact";
+            $this->active   = "contact/index";
         }
     }
 }

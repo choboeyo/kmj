@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * 일반 페이지
+ */
 class Content extends WB_Controller {
 
     public function index($page="")

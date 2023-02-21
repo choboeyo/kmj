@@ -1,17 +1,16 @@
 <?php
 // CSS 파일과 JS파일 추가 (TRUE 옵션을 준경우 옵션을 주지않은경우보다 상위에 위치한다.)
-$this->site->add_css('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css',TRUE);
+$this->site->add_css("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Noto+Sans+KR:wght@300&display=swap", TRUE);
 $this->site->add_css("/assets/css/desktop.min.css", TRUE);
 
-$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js', TRUE);
-$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js', TRUE);
+$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js', TRUE);
 $this->site->add_js("/assets/js/desktop.min.js", TRUE);
 ?><!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?=$this->site->display_meta()?>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -20,123 +19,181 @@ $this->site->add_js("/assets/js/desktop.min.js", TRUE);
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <?=$this->site->display_css()?>
 </head>
 <body>
-<div class="container-fluid">
-    <header id="header" class="row">
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?=base_url()?>"><?=$this->site->config('site_title')?></a>
-                </div>
+<ul class="sr-only">
+    <li><a href="#contents">컨텐츠 바로가기</a></li>
+    <li><a href="#main-navigation">메인 메뉴 바로가기</a></li>
+</ul>
 
-                <div class="collapse navbar-collapse" id="main-navigation">
-                    <ul class="nav navbar-nav">
-                        <?php $menu = $this->site->menu(); // 메뉴를 가져온다. ?>
+<!-- S: 헤더 영역 -->
+<header id="header" class="wb-header" data-fit-aside>
 
-                        <?php foreach($menu as $menu1) : ?>
+    <div class="container header-inner">
+        <a class="brand-logo" href="<?=base_url()?>"><?=$this->site->config('site_title')?></a>
 
-                            <?php if( count($menu1['children']) >0 ) : // 1차메뉴가 하위메뉴가 있다면 ?>
-                                <li class="dropdown <?=$menu1['active']?'active':''?>">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$menu1['mnu_name']?> <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <?php foreach($menu1['children'] as $menu2) :?>
+        <nav class="main-navigation-wrap">
 
-                                            <?php if( count($menu2['children']) > 0 ) : // 2차메뉴가 하위메뉴가 있다면?>
-                                                <li class="<?=$menu2['active']?'active':''?>">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$menu2['mnu_name']?></a>
-                                                    <ul class="dropdown-menu">
-                                                        <?php foreach($menu2['children'] as $menu3) :?>
-                                                            <li class="<?=$menu3['active']?'active':''?>">
-                                                                <a href="<?=$menu3['mnu_link']?>" <?=$menu3['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu3['mnu_name']?></a>
-                                                            </li>
-                                                        <?php endforeach;?>
-                                                    </ul>
-                                                </li>
-                                            <?php else : // 2차메뉴가 하위메뉴가 없다면?>
-                                                <li class="<?=$menu2['active']?'active':''?>">
-                                                    <a href="<?=$menu2['mnu_link']?>" <?=$menu2['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu2['mnu_name']?></a>
-                                                </li>
-                                            <?php endif;?>
+            <ul class="main-navigation">
+                <?php $menu = $this->site->menu(); // 메뉴를 가져온다. ?>
 
-                                        <?php endforeach;?>
-                                    </ul>
-                                </li>
+                <?php foreach($menu as $menu1) : ?>
 
-                            <?php else : // 1차메뉴가 하위메뉴가 없다면 ?>
-                                <li class="<?=$menu1['active']?'active':''?>">
-                                    <a href='<?=$menu1['mnu_link']?>' <?=$menu1['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu1['mnu_name']?></a>
-                                </li>
-                            <?php endif; ?>
+                    <?php if( count($menu1['children']) >0 ) : // 1차메뉴가 하위메뉴가 있다면 ?>
+                        <li class="dropdown <?=$menu1['active']?'active':''?>">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$menu1['mnu_name']?> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <?php foreach($menu1['children'] as $menu2) :?>
 
-                        <?php endforeach; ?>
-                    </ul>
+                                    <?php if( count($menu2['children']) > 0 ) : // 2차메뉴가 하위메뉴가 있다면?>
+                                        <li class="<?=$menu2['active']?'active':''?>">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$menu2['mnu_name']?></a>
+                                            <ul class="dropdown-menu">
+                                                <?php foreach($menu2['children'] as $menu3) :?>
+                                                    <li class="<?=$menu3['active']?'active':''?>">
+                                                        <a href="<?=$menu3['mnu_link']?>" <?=$menu3['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu3['mnu_name']?></a>
+                                                    </li>
+                                                <?php endforeach;?>
+                                            </ul>
+                                        </li>
+                                    <?php else : // 2차메뉴가 하위메뉴가 없다면?>
+                                        <li class="<?=$menu2['active']?'active':''?>">
+                                            <a href="<?=$menu2['mnu_link']?>" <?=$menu2['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu2['mnu_name']?></a>
+                                        </li>
+                                    <?php endif;?>
 
-                    <?php if( $this->member->is_login() ) :?>
-                        <!--START:: 회원전용 메뉴-->
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$this->member->info('nickname')?> <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?=base_url('members/info')?>">내 정보</a></li>
-                                    <li><a href="<?=base_url('members/info/social')?>">소셜 연동 설정</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="<?=base_url('members/logout')?>">로그아웃</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!--END:: 회원전용 메뉴-->
-                    <?php else :?>
-                        <!--START:: 비회원 전용 메뉴-->
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="<?=base_url('members/login?reurl='.current_full_url(TRUE))?>">로그인</a></li>
-                            <li><a href="<?=base_url('members/register')?>">회원가입</a></li>
-                        </ul>
-                        <!--END:: 비회원전용 메뉴-->
-                    <?php endif;?>
-                    <form class="navbar-form navbar-left" id="search_box" action="<?=base_url('search')?>">
-                        <div class="form-group">
-                            <input class="form-control" placeholder="<?=langs('공통/search/search_placeholder')?>" name="query">
-                        </div>
-                        <button class="btn btn-default"><?=langs('공통/search/search_submit')?></button>
-                    </form>
-                </div>
-            </nav>
-        </header>
-    </div>
-    <section id="contents">
-        <div class="container">
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
 
-            <div class="col-sm-3">
-                <?=outlogin('basic')?>
-            </div>
-            <div class="col-sm-9">
-                <?=$contents?>
-            </div>
+                    <?php else : // 1차메뉴가 하위메뉴가 없다면 ?>
+                        <li class="<?=$menu1['active']?'active':''?>">
+                            <a href='<?=$menu1['mnu_link']?>' <?=$menu1['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu1['mnu_name']?></a>
+                        </li>
+                    <?php endif; ?>
 
-        </div>
-    </section>
-
-    <footer id="footer">
-        <div class="container">
-            <ul>
-                <li><a href="<?=base_url('agreement/site')?>">사이트 이용약관</a></li>
-                <li><a class="font-bold" href="<?=base_url('agreement/privacy')?>">개인정보 취급방침</a></li>
-                <li><a class="font-bold" href="<?=base_url('customer/faq')?>">자주 묻는 질문</a></li>
-                <li><a class="font-bold" href="<?=base_url('customer/qna')?>">1:1문의</a></li>
+                <?php endforeach; ?>
             </ul>
-        </div>
-    </footer>
+
+            <ul class="member-navigation">
+                <?php if(USE_SHOP) :?>
+                    <li class="dropdown"><a href="<?=base_url('shop/cart')?>"><i class="fas fa-shopping-cart"></i>&nbsp;장바구니</a></li>
+                <?php endif;?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$this->member->info('nickname')?> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <?php if( $this->member->is_login() ) :?>
+                        <li><a href="<?=base_url('members/info')?>"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
+                            <?php if(USE_SHOP) :?>
+                            <li><a href="<?=base_url('members/my-order')?>"><i class="fas fa-bags-shopping"></i>&nbsp;내 주문내역</a></li>
+                            <li><a href="<?=base_url('members/my-wishlist')?>"><i class="fas fa-heart"></i>&nbsp;찜보관함</a></li>
+                            <?php endif;?>
+                        <li class="divider"></li>
+                        <li><a href="<?=base_url('members/logout')?>"><i class="fas fa-sign-out"></i>&nbsp;로그아웃</a></li>
+                        <?php else :?>
+                        <li><a href="<?=base_url('members/login?reurl='.current_full_url(TRUE))?>">로그인</a></li>
+                        <li><a href="<?=base_url('members/register')?>">회원가입</a></li>
+                        <?php endif;?>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <button type="button" class="navbar-toggle collapsed" data-button="menu-toggle">
+            <span class="sr-only">메인 메뉴 토글</span>
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+
+            </div>
+
+            <div class="collapse navbar-collapse" id="main-navigation">
+
+
+                <form class="navbar-form navbar-left" id="search_box" action="<?=base_url('search')?>">
+                    <div class="form-group">
+                        <input class="wb-input" placeholder="<?=langs('공통/search/search_placeholder')?>" name="query">
+                    </div>
+                    <button class="wb-btn"><?=langs('공통/search/search_submit')?></button>
+                </form>
+            </div>
+    </nav>
+</header>
+<!-- E: 헤더 영역 -->
+
+<div class="container">
+    <div class="wb-main-layout" data-fit>
+        <aside id="aside-left" class="wb-aside-left">
+            <?=outlogin('basic')?>
+        </aside>
+
+        <main id="contents" class="wb-main">
+            <?=$contents?>
+        </main>
+    </div>
 </div>
+
+<!-- S: 푸터 영역 -->
+<footer id="footer" class="wb-footer" data-fit-aside>
+    <div class="container">
+        <!-- S: 하단 메뉴 -->
+        <nav class="bottom-nav">
+            <ul class="bottom-navigation">
+                <li class="--nav-item"><a class="--anchor" href="<?=base_url('agreement/site')?>">사이트 이용약관</a></li>
+                <li class="--nav-item"><a class="--anchor strong" href="<?=base_url('agreement/privacy')?>">개인정보 취급방침</a></li>
+                <li class="--nav-item"><a class="--anchor" href="<?=base_url('customer/faq')?>">자주 묻는 질문</a></li>
+                <li class="--nav-item"><a class="--anchor" href="<?=base_url('customer/qna')?>">1:1문의</a></li>
+            </ul>
+        </nav>
+        <!-- E: 하단 메뉴 -->
+
+        <!-- S: 사업자 정보 -->
+        <div class="site-info">
+            <dl>
+                <dt class="sr-only">사업자명</dt>
+                <dd><?=$this->site->config('company_name')?></dd>
+            </dl>
+            <dl>
+                <dt>대표자</dt>
+                <dd><?=$this->site->config('company_ceo')?></dd>
+            </dl>
+            <dl>
+                <dt>TEL.</dt>
+                <dd><a href="tel:<?=$this->site->config('company_tel')?>"><?=$this->site->config('company_tel')?></a></dd>
+            </dl>
+            <dl>
+                <dt>FAX.</dt>
+                <dd><?=$this->site->config('company_fax')?></dd>
+            </dl>
+            <hr class="break">
+            <dl>
+                <dt>사업자등록번호</dt>
+                <dd><?=$this->site->config('company_biznum')?></dd>
+            </dl>
+            <dl>
+                <dt>통신판매업등록번호</dt>
+                <dd><?=$this->site->config('company_shopnum')?></dd>
+            </dl>
+            <dl>
+                <dt>개인정보관리책임자</dt>
+                <dd><?=$this->site->config('company_privacy_name')?> <a href="mailto:<?=$this->site->config('company_privacy_email')?>"><?=$this->site->config('company_privacy_email')?></a></dd>
+            </dl>
+            <hr class="break">
+            <dl>
+                <dt class="sr-only">주소</dt>
+                <dd><address><?=$this->site->config('company_address')?></address></dd>
+            </dl>
+        </div>
+        <!-- E: 사업자 정보 -->
+
+        <p class="copyright">Copyright &copy; <?=$this->site->config('company_name')?> All rights reserved.</p>
+    </div>
+</footer>
+<!-- E: 푸터 영역 -->
 </body>
 </html>
-
-
-

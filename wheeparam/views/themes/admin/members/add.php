@@ -20,7 +20,7 @@
             </div>
             <div data-ax-td>
                 <div data-ax-td-wrap>
-                    <button type="button" class="btn btn-default btn-sm" data-target="mem_userid" data-check="mem_userid" data-toggle="check-member-exist"><i class="fal fa-search"></i> 중복확인</button>
+                    <button type="button" class="btn btn-default" data-target="mem_userid" data-check="mem_userid" data-toggle="check-member-exist"><i class="fal fa-search"></i> 중복확인</button>
                 </div>
             </div>
         </div>

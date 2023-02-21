@@ -1,0 +1,375 @@
+.skin-shop-basic {}
+
+/** 카테고리 네비게이션 **/
+.skin-shop-basic .product-category-breadcrumb {position: relative; height: 2rem; border-bottom: 1px solid #eee; background-color: #fafafa; font-size: .9rem; zoom: 1;}
+.skin-shop-basic .product-category-breadcrumb ol {list-style:none; padding:0 1rem; margin:0; display:flex; align-items: center; height:100%;}
+.skin-shop-basic .product-category-breadcrumb ol li {display:flex; align-items: center; padding:0;}
+.skin-shop-basic .product-category-breadcrumb ol li a {display:block; color:#222;}
+.skin-shop-basic .product-category-breadcrumb ol li a:hover {color:var(--theme-color-primary)}
+.skin-shop-basic .product-category-breadcrumb ol li + li:before {content: ' > '; margin:0 .5rem}
+
+
+/** 상품 라벨 **/
+.skin-shop-basic .label {display:inline-block; padding:.175rem .75rem; font-size:.9rem;text-align:center; user-select: none; border-radius:.125rem; font-weight:700; margin-bottom:.5rem;}
+.skin-shop-basic .label.label-hit {color:#842029; background-color:#f8d7da }
+.skin-shop-basic .label.label-best {color:#0f5132; background-color:#d1e7dd }
+.skin-shop-basic .label.label-new {color:#664d03; background-color:#fff3cd }
+.skin-shop-basic .label.label-recommend {color:#000; background-color:#f0f0f0 }
+.skin-shop-basic .label.label-sale {color: #042870; background-color:#7Ea9ff }
+
+/** Input **/
+.skin-shop-basic .cart-input {display:block; width:100%; height:2rem; border:1px solid #ccc; border-radius:0;}
+
+/*
+ * --------------------------------------------------------------------
+ * 상품 상세보기 페이지
+ * --------------------------------------------------------------------
+ *
+ */
+.skin-shop-basic .product-info-wrap {display:flex; margin:0 -1rem 2rem; padding:1rem 0;}
+.skin-shop-basic .product-info-wrap .product-images-wrap {width:50%; padding:0 1rem;position:relative;}
+.skin-shop-basic .product-info-wrap .product-info {width:50%; padding:0 1rem;}
+
+/** 큰 이미지 **/
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-images {list-style:none; padding:0; margin:0;}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-images li {display:none;}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-images li.visible {display:block;}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-images li .thumbnail {margin:0;}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-images li .thumbnail img {display:block; max-width:100%;}
+
+/** 작은 이미지 **/
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-small-images {list-style:none; padding:1rem 0; margin:0 -.25rem; display:flex; flex-wrap:wrap; align-items: stretch}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-small-images li {width:25%; display:block; padding:.25rem; position:relative;}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-small-images li .thumbnail {margin:0; height:100%; border:1px solid transparent; }
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-small-images li .thumbnail:hover,
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-small-images li.visible .thumbnail {border-color:#000;}
+.skin-shop-basic .product-info-wrap .product-images-wrap .product-small-images li .thumbnail img {display:block; max-width:100%;}
+
+/** 이미지 확대 버튼 **/
+.skin-shop-basic .product-info-wrap .product-images-wrap .btn-image-zoom {position:absolute; left:2rem; top:1rem; z-index:1; width:2.5rem; height:2.5rem; display:flex; justify-content: center; align-items: center; font-size:1.2rem; border: 1px solid #ccc; background:#fff;}
+
+.skin-shop-basic .product-info-wrap .product-info .product-name {font-size:1.25rem; font-weight:700;}
+.skin-shop-basic .product-info-wrap .product-info .product-review-info {display:flex; align-items: center; width:100%; margin-bottom:.5rem;}
+.skin-shop-basic .product-info-wrap .product-info .product-review-info .rating-container {display:block; width:75px; height:15px; background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDIzIDIxIj4KICAgIDxwYXRoIGZpbGw9IiNDQ0MiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1IDYuMzY4bDYuNjk0IDEuMTE5Yy43NTQuMTI1LjkzMi42Ni4zOTggMS4xOTdsLTQuNzQ0IDQuNzQ4Ljk4MSA2LjU2MmMuMTEuNzQtLjM1NyAxLjA3Mi0xLjA0Mi43NGwtNi4wODctMi45NC02LjA4NyAyLjk0Yy0uNjg1LjMzMi0xLjE1MiAwLTEuMDQyLS43NGwuOTgtNi41NjJMLjMwOCA4LjY4NGMtLjUzNC0uNTM2LS4zNTYtMS4wNzIuMzk4LTEuMTk3TDcuNCA2LjM2OCAxMC41NTcuNDk2Yy4zNTUtLjY2MS45MzEtLjY2MSAxLjI4NiAwTDE1IDYuMzY4eiIvPgo8L3N2Zz4K) repeat-x; background-size:15px; }
+.skin-shop-basic .product-info-wrap .product-info .product-review-info .rating-container .rating-value {height:100%; content:'';display:block; background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDIzIDIxIj4KICAgIDxwYXRoIGZpbGw9IiNGRjk2MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjg0My40OTZMMTUgNi4zNjhsNi42OTQgMS4xMTljLjc1NC4xMjUuOTMyLjY2LjM5OCAxLjE5N2wtNC43NDQgNC43NDguOTgxIDYuNTYyYy4xMS43NC0uMzU3IDEuMDcyLTEuMDQyLjc0bC02LjA4Ny0yLjk0LTYuMDg3IDIuOTRjLS42ODUuMzMyLTEuMTUyIDAtMS4wNDItLjc0bC45OC02LjU2MkwuMzA4IDguNjg0Yy0uNTM0LS41MzYtLjM1Ni0xLjA3Mi4zOTgtMS4xOTdMNy40IDYuMzY4IDEwLjU1Ny40OTZjLjM1NS0uNjYxLjkzMS0uNjYxIDEuMjg2IDAiLz4KPC9zdmc+Cg==) repeat-x; background-size:15px; }
+.skin-shop-basic .product-info-wrap .product-info .product-review-info .review-count {margin:0;}
+.skin-shop-basic .product-info-wrap .product-info .product-review-info .rating-container + .review-count {margin-left:1rem;}
+.skin-shop-basic .product-info-wrap .product-info .product-price-info .cust-price {display:flex; width:100%; align-items: center;}
+.skin-shop-basic .product-info-wrap .product-info .product-price-info .cust-price .price-won {color:#888; text-decoration: line-through}
+.skin-shop-basic .product-info-wrap .product-info .product-price-info .cust-price dl + dl {margin-left:.25rem;}
+.skin-shop-basic .product-info-wrap .product-info .product-price-info .sale-price { color:#ae0000; font-size:2rem; font-weight:700;}
+
+.skin-shop-basic .product-info-tab {list-style:none; padding:0; margin:0 0 1rem; display:flex; width:100%; position:sticky; top:0; z-index:10;}
+.skin-shop-basic .product-info-tab li {flex:1;margin-right:-1px;}
+.skin-shop-basic .product-info-tab li a {display:flex; justify-content: center; align-items: center; height:3rem; background-color:#fff; border:1px solid #eceff3;}
+.skin-shop-basic .product-info-tab li.active a {background-color:var(--theme-color-primary); color:#fff;}
+
+.skin-shop-basic .product-info-title {font-size:1rem; font-weight:700; margin-bottom:.5rem; }
+.skin-shop-basic .extra-info-wrap {border:1px solid #eee; border-bottom:0 none;}
+.skin-shop-basic .extra-info-wrap .extra-info {display:flex; align-items: stretch;  color:#111; font-weight:400; font-size:.9rem; width:100%;}
+.skin-shop-basic .extra-info-wrap .extra-info .extra-title {width:150px; flex-shrink: 0; padding:.325rem .75rem; border-bottom: 1px solid #eee; background-color: #fafafa;}
+.skin-shop-basic .extra-info-wrap .extra-info .extra-content { padding:.325rem .75rem; border-bottom: 1px solid #eee; background:#fff;  flex:1;}
+.skin-shop-basic .product-content-html {padding:1rem 0;}
+
+.skin-shop-basic .product-buy-form .sec-title {font-size:1rem; font-weight:700; margin-bottom:.25rem;}
+.skin-shop-basic .product-buy-form .option-select {margin-bottom:.25rem;}
+.skin-shop-basic .product-buy-form .option-select .qbf-select {display:block; width:100%; padding:.5rem 1rem; border:1px solid #cdcdcd; -webkit-appearance: none; -moz-appearance: none; appearance: none; background: url(/assets/images/admin/frm-select-arrow.png) no-repeat 96% 50%}
+
+.skin-shop-basic .product-buy-form .selected-options {list-style:none; padding:0; margin:0;}
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item {padding:.5rem 1rem; background:#f9f9f9; border:1px solid #e6e9ed; margin:.5rem 0; position:relative;}
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item .btn-remove-qty { position: absolute; right: 0; top: 0; font-size: 1rem; border: 0; border-left: 1px solid #e6e9ed; border-bottom: 1px solid #e6e9ed; width: 1.875rem; height: 1.875rem; background:#fff; color:#666; }
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item .opt-name {font-weight:700; margin-bottom:.5rem;}
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item .opt-count {display:flex; align-items: stretch}
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item .opt-count .btn-qty {display:block; width:1.875rem;height:1.875rem;background:#fff;border:1px solid #e6e9ed; font-size:1rem; color:#666;}
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item .opt-count .input-qty {height:1.875rem; width:4rem; border:1px solid #e6e9ed; text-align:center;}
+.skin-shop-basic .product-buy-form .selected-options .selected-option-item .opt-count .add-price {margin-left:auto;}
+.skin-shop-basic .product-buy-form .total-price-row {display:flex; align-items: center; margin-bottom:1rem; width:100%;}
+.skin-shop-basic .product-buy-form .total-price-row dt {font-weight:700; font-size:1rem;}
+.skin-shop-basic .product-buy-form .total-price-row dd {margin-left:auto;}
+.skin-shop-basic .product-buy-form .total-price-row dd strong {font-size:1.4rem; font-weight:700;}
+.skin-shop-basic .product-buy-form .buy-button-wrap {display:flex; margin:0; padding:0; align-items: stretch}
+.skin-shop-basic .product-buy-form .buy-button-wrap .buy-button {flex:1; width:auto; height:3rem; display:flex; justify-content: center; align-items: center; font-size:1.2rem; border:1px solid #e6e9ed; background:#fff; color:#282828;}
+.skin-shop-basic .product-buy-form .buy-button-wrap .buy-button:hover {background-color:#fafafa; border-color:#eee;}
+.skin-shop-basic .product-buy-form .buy-button-wrap .buy-button.primary {border-color:var(--theme-color-primary); color:#fff; background-color:var(--theme-color-primary);}
+.skin-shop-basic .product-buy-form .buy-button-wrap .buy-button.primary:hover {background-color:var(--theme-color-primary-hover);}
+.skin-shop-basic .product-buy-form .buy-button-wrap .buy-button.wish {flex:none; width:3rem;}
+.skin-shop-basic .product-buy-form .buy-button-wrap .buy-button.wish.wished {color:#9c3328}
+
+/*
+ * --------------------------------------------------------------------
+ * 상품 리뷰
+ * --------------------------------------------------------------------
+ *
+ */
+.skin-shop-basic .products-review-container {}
+.skin-shop-basic .products-review-container .review-search-box {display:flex; padding:1rem; background:#555;}
+.skin-shop-basic .products-review-container .review-search-box .review-score-filter {margin-left:auto; height:2rem;border:0 none;}
+.skin-shop-basic .products-review-container .review-search-box .review-order-type {display:inline-flex; margin-right:1rem;}
+.skin-shop-basic .products-review-container .review-search-box .review-order-type input[type="radio"] {display:none;}
+.skin-shop-basic .products-review-container .review-search-box .review-order-type input[type="radio"] + span {color:#9a9a9a; font-weight:300; cursor:pointer;}
+.skin-shop-basic .products-review-container .review-search-box .review-order-type input[type="radio"]:checked + span {font-weight:700; color:#fff; cursor:default;}
+
+.skin-shop-basic .products-review-container .review-empty {height:150px; display:flex; justify-content: center; align-items: center; font-size:1rem; color:#878787;}
+.skin-shop-basic .products-review-container .review-button-row {display:flex; width:100%; justify-content: center; align-items: center;}
+.skin-shop-basic .products-review-container .review-button-row .btn-review-write {display:flex; width:10rem; height:3rem; justify-content: center; align-items: center; background:var(--theme-color-primary); border:0 none; color:#fff;}
+.skin-shop-basic .products-review-container .review-button-row .btn-review-write:hover {background-color:var(--theme-color-primary-hover);}
+
+.skin-shop-basic .products-review-container .product-review-list-wrap {list-style:none; padding:0; margin:0;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item {padding:1rem 0; border-bottom:1px solid #eceff3;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-writer {display:flex; align-items: center}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-writer .w-name {font-size:1.2rem; font-weight:700; color:#282828; margin-right:1rem;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-writer .w-rating {margin-right:1rem;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-writer .w-regtime {margin-left:auto; color:#787878;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .order-items {padding:0;margin:0;list-style:none;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .order-items li {display:block; padding:.25rem 0; color:#888; font-size:.9rem;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-content {padding:1rem 0;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-content-images {list-style:none; padding:0; margin:0 -.5rem; display:flex; flex-wrap:wrap;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-content-images li {width:16.666666667%; padding:.5rem;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-content-images li .thumb {width:100%; height:0; padding-bottom:100%; position:relative;}
+.skin-shop-basic .products-review-container .product-review-list-wrap .review-item .review-content-images li .thumb img {display:block; width:100%; height:100%; object-fit: contain; position:absolute;top:0;left:0;}
+.skin-shop-basic .review-pagination {padding:1rem 0; margin:0; width:100%;}
+.skin-shop-basic .review-pagination .pagination {display:flex; justify-content: center; align-items: center; list-style:none;  padding:0; margin:0;}
+.skin-shop-basic .review-pagination .pagination li {display:block;}
+.skin-shop-basic .review-pagination .pagination li a,
+.skin-shop-basic .review-pagination .pagination li span { padding:.325rem .75rem; display:block; color:#787878; }
+.skin-shop-basic .review-pagination .pagination li.active span,
+.skin-shop-basic .review-pagination .pagination li.active a { color:var(--theme-color-primary); }
+.skin-shop-basic .review-pagination .pagination li.disabled span,
+.skin-shop-basic .review-pagination .pagination li.disabled a { color:#c0c0c0; cursor:default; }
+
+.skin-shop-basic .products-review-container .rating-container {display:block; width:75px; height:15px; background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDIzIDIxIj4KICAgIDxwYXRoIGZpbGw9IiNDQ0MiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1IDYuMzY4bDYuNjk0IDEuMTE5Yy43NTQuMTI1LjkzMi42Ni4zOTggMS4xOTdsLTQuNzQ0IDQuNzQ4Ljk4MSA2LjU2MmMuMTEuNzQtLjM1NyAxLjA3Mi0xLjA0Mi43NGwtNi4wODctMi45NC02LjA4NyAyLjk0Yy0uNjg1LjMzMi0xLjE1MiAwLTEuMDQyLS43NGwuOTgtNi41NjJMLjMwOCA4LjY4NGMtLjUzNC0uNTM2LS4zNTYtMS4wNzIuMzk4LTEuMTk3TDcuNCA2LjM2OCAxMC41NTcuNDk2Yy4zNTUtLjY2MS45MzEtLjY2MSAxLjI4NiAwTDE1IDYuMzY4eiIvPgo8L3N2Zz4K) repeat-x; background-size:15px; }
+.skin-shop-basic .products-review-container .rating-container .rating-value {height:100%; content:'';display:block; background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDIzIDIxIj4KICAgIDxwYXRoIGZpbGw9IiNGRjk2MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjg0My40OTZMMTUgNi4zNjhsNi42OTQgMS4xMTljLjc1NC4xMjUuOTMyLjY2LjM5OCAxLjE5N2wtNC43NDQgNC43NDguOTgxIDYuNTYyYy4xMS43NC0uMzU3IDEuMDcyLTEuMDQyLjc0bC02LjA4Ny0yLjk0LTYuMDg3IDIuOTRjLS42ODUuMzMyLTEuMTUyIDAtMS4wNDItLjc0bC45OC02LjU2MkwuMzA4IDguNjg0Yy0uNTM0LS41MzYtLjM1Ni0xLjA3Mi4zOTgtMS4xOTdMNy40IDYuMzY4IDEwLjU1Ny40OTZjLjM1NS0uNjYxLjkzMS0uNjYxIDEuMjg2IDAiLz4KPC9zdmc+Cg==) repeat-x; background-size:15px; }
+
+.skin-shop-basic .review-popup-layer {position:fixed;top:0;left:0;width:100%;height:100%; z-index:10000;}
+.skin-shop-basic .review-popup-layer:before {content:'';display:block;position:absolute;top:0;left:0;width:100%;height:100%; z-index:10001; background:rgba(0,0,0,0.1);}
+.skin-shop-basic .review-popup-layer .review-popup-inner { width:90%; max-width:650px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:10002; background:#fff; padding:2rem; height:90%; max-height:650px; box-shadow:.5rem .5rem .4rem rgba(0,0,0,0.2);overflow-y: auto;}
+
+.skin-shop-basic .review-form-group {margin-bottom:.5rem;}
+.skin-shop-basic .review-form-group label {display:block; font-weight:700; font-size:1rem; margin-bottom:.25rem;}
+.skin-shop-basic .review-form-group .review-write-input {height:2.5rem; display:block; width:100%; border:1px solid #ced4da; padding:.375rem .75rem;}
+.skin-shop-basic .review-form-group textarea.review-write-input {height:10rem; resize:none;}
+.skin-shop-basic .review-form-group .review-image-list {list-style:none; padding:0; margin:0 -.5rem; display:flex; flex-wrap:wrap; }
+.skin-shop-basic .review-form-group .review-image-list li {position:relative; padding:.5rem; width:16.66666667%;  }
+.skin-shop-basic .review-form-group .review-image-list li .inner {height:0; padding-bottom:100%;   }
+.skin-shop-basic .review-form-group .review-image-list li figure {position:absolute;width:100%; height:100%; display:block; margin:0;}
+.skin-shop-basic .review-form-group .review-image-list li figure img {display:block; width:100%; height:100%; object-fit: cover;}
+.skin-shop-basic .review-form-group .review-image-list li .upload-toggle {position:absolute; width:100%; height:100%; background:#3c3f45; color:#fff; display:flex; justify-content: center; align-items: center; cursor:pointer;}
+.skin-shop-basic .review-form-group input[type=file] {display:none;}
+
+.skin-shop-basic .review-action {padding:.5rem 0; display:flex; justify-content: center; align-items: center}
+.skin-shop-basic .review-action [class^="btn-review-"] {display:flex; justify-content: center; align-items: center; width:7rem; height:3rem; border:1px solid #ced4da; color:#282828; background-color:#fff;}
+.skin-shop-basic .review-action .btn-review-submit {background-color:var(--theme-color-primary); color:#fff; border-color:var(--theme-color-primary); margin-right:.5rem;}
+
+/*
+ * --------------------------------------------------------------------
+ * 상품 문의
+ * --------------------------------------------------------------------
+ *
+ */
+.skin-shop-basic .products-qna-container {}
+.skin-shop-basic .products-qna-container .qna-empty {height:150px; display:flex; justify-content: center; align-items: center; font-size:1rem; color:#878787;}
+.skin-shop-basic .products-qna-container .qna-button-row {display:flex; width:100%; justify-content: center; align-items: center;}
+.skin-shop-basic .products-qna-container .qna-button-row .btn-qna-write {display:flex; width:10rem; height:3rem; justify-content: center; align-items: center; background:var(--theme-color-primary); border:0 none; color:#fff;}
+.skin-shop-basic .products-qna-container .qna-button-row .btn-qna-write:hover {background-color:var(--theme-color-primary-hover);}
+
+.skin-shop-basic .products-qna-container .product-qna-list-wrap {list-style:none; padding:0; margin:0;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item {padding:1rem 0; border-bottom:1px solid #eceff3;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-writer {display:flex; align-items: center}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-writer .w-name {font-size:1.2rem; font-weight:700; color:#282828; margin-right:1rem;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-writer .w-regtime {margin-left:auto; color:#787878;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-content {padding:1rem 0 1rem 4rem; position:relative;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-answer {padding:1rem 1rem 1rem 6rem; position:relative; background:#f0f0f0; }
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-answer:before {content:''; background-size:cover; width:1rem; height:1rem; position:absolute; top:1rem; left:.5rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V224c0 53 43 96 96 96H402.7l-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256H96c-17.7 0-32-14.3-32-32V64z'/%3E%3C/svg%3E");}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-label {position:absolute; top:1rem; left:0; background-color:var(--theme-color-secondary); color:#fff; padding:.175rem .75rem; font-size:.9rem;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-label.answer {left:2rem; background-color:var(--theme-color-primary);}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-answer-header {display:flex; align-items: center; margin-bottom:1rem;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-answer-header .r-name {font-size:1.2rem; font-weight:700; color:#282828; margin-right:1rem;}
+.skin-shop-basic .products-qna-container .product-qna-list-wrap .qna-item .qna-answer-header .r-regtime {margin-left:auto; color:#787878;}
+
+.skin-shop-basic .qna-pagination {padding:1rem 0; margin:0; width:100%;}
+.skin-shop-basic .qna-pagination .pagination {display:flex; justify-content: center; align-items: center; list-style:none;  padding:0; margin:0;}
+.skin-shop-basic .qna-pagination .pagination li {display:block;}
+.skin-shop-basic .qna-pagination .pagination li a,
+.skin-shop-basic .qna-pagination .pagination li span { padding:.325rem .75rem; display:block; color:#787878; }
+.skin-shop-basic .qna-pagination .pagination li.active span,
+.skin-shop-basic .qna-pagination .pagination li.active a { color:var(--theme-color-primary); }
+.skin-shop-basic .qna-pagination .pagination li.disabled span,
+.skin-shop-basic .qna-pagination .pagination li.disabled a { color:#c0c0c0; cursor:default; }
+
+/*
+ * --------------------------------------------------------------------
+ * 장바구니 페이지
+ * --------------------------------------------------------------------
+ *
+ */
+.skin-shop-basic .cart-table {width:100%; border-collapse:collapse; }
+.skin-shop-basic .cart-table thead tr th {font-size:1rem; background:#fafafa; height:2.2rem; text-align:center; border-top:1px solid #ccc; border-bottom:1px solid #ccc; border-left:0 none; border-right:0 none; vertical-align: middle; white-space:nowrap; padding:0 .5rem;}
+.skin-shop-basic .cart-table thead tr th.th-check {width:30px;}
+.skin-shop-basic .cart-table thead tr th.th-name {}
+.skin-shop-basic .cart-table tbody tr td {padding:1.5rem .5rem;border-bottom: 1px solid #ccd2d9; border-right: 1px solid #f6f6f6;}
+.skin-shop-basic .cart-table tbody tr td.td-check {text-align:center; border-right:0;}
+.skin-shop-basic .cart-table tbody tr td.td-thumb {border-right:0 none; padding-right:0;}
+.skin-shop-basic .cart-table tbody tr td.td-name {vertical-align: top}
+.skin-shop-basic .cart-table tbody tr td.td-name .prd-options-info {margin-bottom:.25rem;}
+.skin-shop-basic .cart-table tbody tr td.td-name .prd-name {color:#282828; font-weight:500; word-break:break-all;}
+.skin-shop-basic .cart-table tbody tr td.td-name .prd-name:hover {text-decoration: underline;}
+.skin-shop-basic .cart-table tbody tr td.td-name .button-actions {margin-top:auto;}
+.skin-shop-basic .cart-table tbody tr td.td-cart-price {white-space: nowrap}
+.skin-shop-basic .cart-table tbody tr td.td-sell-price {white-space: nowrap}
+.skin-shop-basic .cart-table tbody tr td.td-sell-price strong {font-size:1.2rem;}
+.skin-shop-basic .cart-table tbody tr td .prd-options-list {list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; margin-bottom:.25rem;}
+.skin-shop-basic .cart-table tbody tr td .prd-options-list li {padding:.125rem 0; margin-right:.25rem; font-size:.9rem;}
+.skin-shop-basic .cart-table tbody tr td .prd-options-list li .opt-name {font-weight:700;}
+.skin-shop-basic .cart-table tbody tr td .prd-options-list li .opt-count {margin-left:1rem;}
+.skin-shop-basic .cart-table tbody tr td .prd-options-list li .opt-label { padding:.125rem .375rem; border:1px solid #ccc; color:var(--theme-color-primary); background:#fff; margin-right:.25rem;}
+
+.skin-shop-basic .cart-table-actions {padding:1rem 0;border-bottom: 1px solid #ccd2d9}
+.skin-shop-basic .cart-table-actions .cart-btn + .cart-btn {margin-left:.5rem;}
+.skin-shop-basic .cart-bottom-actions {margin:1rem 0 0 0; display:flex; justify-content: center; align-items: center;}
+.skin-shop-basic .cart-bottom-actions .cart-btn { width:40%; max-width: 150px; }
+.skin-shop-basic .cart-bottom-actions .cart-btn + .cart-btn {margin-left:.5rem;}
+
+
+.skin-shop-basic .cart-summary {display:flex;margin-top:1rem;}
+.skin-shop-basic .cart-summary dl {flex:1; display:flex; padding:.5rem; border: 1px solid #ccc;}
+.skin-shop-basic .cart-summary dl + dl {margin-left:-1px;}
+.skin-shop-basic .cart-summary dl dt {font-weight:400;}
+.skin-shop-basic .cart-summary dl dd {font-weight:400; margin-left:auto;}
+.skin-shop-basic .cart-summary dl dd strong {font-weight:700;}
+.skin-shop-basic .cart-summary dl.summary-total-sell-price { background:#fff; }
+.skin-shop-basic .cart-summary dl.summary-send-cost { background:#fff; }
+.skin-shop-basic .cart-summary dl.summary-total {background:#fefefe; color:var(--theme-color-primary); border-color:var(--theme-color-primary);}
+
+.skin-shop-basic .cart-check {display:inline-block; margin:0;}
+.skin-shop-basic .cart-check input[type=checkbox] {display:none;}
+.skin-shop-basic .cart-check input[type=checkbox] + span {display:block;}
+.skin-shop-basic .cart-check input[type=checkbox] + span:before {display:flex; width:1.2rem; height:1.2rem; content:'\f00c'; font-family: "Font Awesome 6 Pro"; font-size:1rem; justify-content: center; align-items: center; color:transparent; border: 1px solid #ccc;}
+.skin-shop-basic .cart-check input[type=checkbox]:checked + span:before {background-color:var(--theme-color-primary);border-color:var(--theme-color-primary);color:#fff;}
+
+.skin-shop-basic .cart-btn {display:inline-flex; justify-content: center;align-items: center; height:2rem; border:1px solid #d4d6db; color:#707070; background:#fff; cursor:pointer; border-radius:.25rem; white-space:nowrap;}
+.skin-shop-basic .cart-btn.large {height:3rem;}
+.skin-shop-basic .cart-btn[disabled] {background:#f0f0f0; color:#878787;}
+.skin-shop-basic .cart-btn.submit { background-color:var(--theme-color-primary); border-color:var(--theme-color-primary); color:#fff; }
+.skin-shop-basic .cart-btn.submit:disabled {opacity:.7; cursor:default;}
+
+.skin-shop-basic .cart-pop-layer {position:fixed; top:0; left:0; width:100%; height:100%; z-index:10000;}
+.skin-shop-basic .cart-pop-layer:before {content:''; position:absolute; top:0; left:0; width:100%; height:100%; z-index:10001; background:rgba(0,0,0,0.7);}
+.skin-shop-basic .cart-pop-layer .cart-pop-inner {position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:10002; background:#fff; padding:1rem; width:90%; max-width:600px; max-heght:90%; display:flex; flex-direction: column}
+.skin-shop-basic .cart-pop-layer .cart-pop-inner .modify-wrap {flex:1; overflow-y:auto;}
+.skin-shop-basic .cart-pop-layer .cart-pop-inner .cart-bottom-actions { flex-shrink: 0}
+.skin-shop-basic .cart-pop-title {font-size:1rem; flex-shrink: 0}
+
+.skin-shop-basic .cart-selected-options {list-style:none; padding:0; margin:0;}
+.skin-shop-basic .cart-selected-options li {padding:.5rem; background:#fefefe; border: 1px solid #ccc; margin-bottom:.25rem; display:flex; align-items: center;}
+.skin-shop-basic .cart-selected-options li .opt-name { margin-right:auto;}
+.skin-shop-basic .cart-selected-options li .opt-count {display:flex; align-items: center; margin-left:1rem; max-width:100px; }
+.skin-shop-basic .cart-selected-options li .opt-count .cart-input {margin-left:-1px; margin-right:-1px; text-align:center;}
+
+/*
+ * --------------------------------------------------------------------
+ * 주문서 작성 페이지
+ * --------------------------------------------------------------------
+ *
+ */
+.skin-shop-basic .order-wrap {display:flex; margin:0 -.5rem; padding:1rem 0 2rem;}
+.skin-shop-basic .order-wrap .left,
+.skin-shop-basic .order-wrap .right {padding:0 .5rem;}
+.skin-shop-basic .order-wrap .left {width:66.66666666666666667%}
+.skin-shop-basic .order-wrap .right {width:33.33333333333333333%}
+
+.skin-shop-basic .order-wrap .cart-summary {display:block; margin-bottom:1rem; margin-top:0;}
+.skin-shop-basic .order-wrap .cart-summary dl {position:relative; padding:1rem;}
+.skin-shop-basic .order-wrap .cart-summary dl +dl {margin-left:0; margin-top:-1px;}
+.skin-shop-basic .order-wrap .cart-summary dl.summary-send-cost:before {content:'+'; border:1px solid #ccc; position:absolute; top:-1rem; width:2rem; height:2rem; left:50%; margin-left:-1rem; display:flex; justify-content: center; align-items: center; border-radius:100%; background:#fff; color:#282828;}
+.skin-shop-basic .order-wrap .cart-summary dl.summary-total {font-size:1.25rem; }
+.skin-shop-basic .order-wrap .cart-summary dl.summary-total dt {font-weight:700;}
+.skin-shop-basic .order-wrap .cart-summary dl.summary-total:before {content:'='; border:1px solid #ccc; position:absolute; top:-1rem; width:2rem; height:2rem; left:50%; margin-left:-1rem; display:flex; justify-content: center; align-items: center; border-radius:100%; background:#fff; color:var(--theme-color-primary);}
+
+.skin-shop-basic .pay-method-wrap {display:flex; flex-wrap:wrap; margin-bottom:1rem;}
+.skin-shop-basic .pay-method-wrap .pay-method {width:50%; margin-bottom:-1px; margin-right:-1px;}
+.skin-shop-basic .pay-method-wrap .pay-method input[type=radio] {display:none;}
+.skin-shop-basic .pay-method-wrap .pay-method input[type=radio] + .pay-method-label {border:1px solid #dedede; display:flex; justify-content: center; align-items: center; height:4rem; padding-left:2rem; background-repeat: no-repeat; background-position-x: 1rem; background-position-y: center; cursor:pointer;}
+.skin-shop-basic .pay-method-wrap .pay-method input[type=radio]:checked + .pay-method-label {border-color:var(--theme-color-primary); z-index:2; position:relative; color:var(--theme-color-primary); cursor:default;}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-bank input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_bank.png);}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-card input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_card.png);}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-phone input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_phone.png); background-position-x: 1.6rem;}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-samsung input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_samsung.png); font-size:0; background-position: center center; background-size:90% auto;}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-trans input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_trans.png);}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-vbank input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_vbank.png);}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-kakaopay input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_kakaopay.png); font-size:0; background-position: center center;}
+.skin-shop-basic .pay-method-wrap .pay-method.pay-method-naverpay input[type=radio] + .pay-method-label {background-image:url(/assets/images/shop/pay_method_naverpay.png); font-size:0; background-position: center center;}
+
+.skin-shop-basic .field-caption {font-size:1rem; font-weight:700; margin-bottom:.5rem; }
+
+.skin-shop-basic .ord-form-group {display:flex; align-items: flex-start; margin-bottom:.5rem; position:relative;}
+.skin-shop-basic .ord-form-group .ord-form-label {width:80px; padding-top:.25rem;}
+.skin-shop-basic .ord-form-group .ord-form-input {display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #212529; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; -webkit-appearance: none; -moz-appearance: none; appearance: none; border-radius: 0.375rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+.skin-shop-basic .ord-form-group .ord-form-input[type=file] {overflow:hidden;}
+.skin-shop-basic .ord-form-group .ord-form-input[type=file]:not(:disabled):not([readonly]) { cursor: pointer; }
+.skin-shop-basic .ord-form-group .ord-form-input:focus { color: #212529; background-color: #fff; border-color: var(--theme-color-primary); outline: 0; box-shadow: 0 0 0 0.25rem rgba(var(--theme-color-primary), 0.25); }
+.skin-shop-basic .ord-form-group .ord-form-input::-webkit-date-and-time-value { height: 1.5em; }
+.skin-shop-basic .ord-form-group .ord-form-input::-moz-placeholder { color: #6c757d; opacity: 1; }
+.skin-shop-basic .ord-form-group .ord-form-input::placeholder { color: #6c757d; opacity: 1; }
+.skin-shop-basic .ord-form-group .ord-form-input:disabled,
+.skin-shop-basic .ord-form-group .ord-form-input[readonly] { background-color: #e9ecef; opacity: 1; }
+.skin-shop-basic .ord-form-group .ord-form-input::-webkit-file-upload-button { padding: 0.375rem 0.75rem; margin: -0.375rem -0.75rem; -webkit-margin-end: 0.75rem; margin-inline-end: 0.75rem; color: #212529; background-color: #e9ecef; pointer-events: none; border-color: inherit; border-style: solid; border-width: 0; border-inline-end-width: 1px; border-radius: 0; -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+.skin-shop-basic .ord-form-group .ord-form-input::file-selector-button { padding: 0.375rem 0.75rem; margin: -0.375rem -0.75rem; -webkit-margin-end: 0.75rem; margin-inline-end: 0.75rem; color: #212529; background-color: #e9ecef; pointer-events: none; border-color: inherit; border-style: solid; border-width: 0; border-inline-end-width: 1px; border-radius: 0; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+.skin-shop-basic .ord-form-group .ord-form-input:hover:not(:disabled):not([readonly])::-webkit-file-upload-button { background-color: #dde0e3; }
+.skin-shop-basic .ord-form-group .ord-form-input:hover:not(:disabled):not([readonly])::file-selector-button { background-color: #dde0e3; }
+.skin-shop-basic .ord-form-group textarea.ord-form-input { min-height: calc(1.5em + 0.75rem + 2px); }
+.skin-shop-basic .ord-form-group .ord-form-select { display: block; width: 100%; padding: 0.375rem 2.25rem 0.375rem 0.75rem; -moz-padding-start: calc(0.75rem - 3px); font-size: 1rem; font-weight: 400; line-height: 1.5; color: #212529; background-color: #fff; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 16px 12px; border: 1px solid #ced4da; border-radius: 0.375rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; -webkit-appearance: none; -moz-appearance: none; appearance: none;}
+.skin-shop-basic .ord-form-group .ord-form-select:focus { border-color: var(--theme-color-primary); outline: 0; box-shadow: 0 0 0 0.25rem rgba(var(--theme-color-primary), 0.25); }
+.skin-shop-basic .ord-form-group .ord-form-select[multiple], .contact-skin-basic .ord-form-select[size]:not([size="1"]) { padding-right: 0.75rem; background-image: none; }
+.skin-shop-basic .ord-form-group .ord-form-select:disabled { background-color: #e9ecef; }
+.skin-shop-basic .ord-form-group .ord-form-select:-moz-focusring { color: transparent; text-shadow: 0 0 0 #212529; }
+.skin-shop-basic .ord-form-group  .ord-form-label .required:before {content:'*'; color:#e74c3c; font-size:.75rem;}
+.skin-shop-basic .ord-form-group  > .ord-form-input,
+.skin-shop-basic .ord-form-group  > .ord-form-select { display:block; width:100%; }
+.skin-shop-basic .ord-form-group  > .ord-form-label { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 1rem 0.75rem; overflow: hidden; text-align: start; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; border: 1px solid transparent; transform-origin: 0 0; transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out; font-weight:700; }
+.skin-shop-basic .ord-form-group  > .ord-form-input { padding: 1.125rem 0.75rem; }
+.skin-shop-basic .ord-form-group  > .ord-form-input::-moz-placeholder { color: transparent; }
+.skin-shop-basic .ord-form-group  > .ord-form-input::placeholder { color: transparent;}
+.skin-shop-basic .ord-form-group  > .ord-form-input:not(:-moz-placeholder-shown)  { padding-top: 1.625rem; padding-bottom: 0.625rem; }
+.skin-shop-basic .ord-form-group  > .ord-form-input:focus,
+.skin-shop-basic .ord-form-group  > .ord-form-input:not(:placeholder-shown) { padding-top: 1.625rem; padding-bottom: 0.625rem; }
+.skin-shop-basic .ord-form-group  > .ord-form-input:-webkit-autofill { padding-top: 1.625rem; padding-bottom: 0.625rem; }
+.skin-shop-basic .ord-form-group  > .ord-form-select { padding-top: 1.625rem; padding-bottom: 0.625rem; }
+.skin-shop-basic .ord-form-group  > .ord-form-input:not(:-moz-placeholder-shown) ~ label { opacity: 0.65; transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem); }
+.skin-shop-basic .ord-form-group  > .ord-form-input:not([readonly]):focus ~ .ord-form-label,
+.skin-shop-basic .ord-form-group  > .ord-form-input:not(:placeholder-shown) ~ .ord-form-label,
+.skin-shop-basic .ord-form-group  > .ord-form-select ~ .ord-form-label { opacity: 0.65; transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem); }
+.skin-shop-basic .ord-form-group  > .ord-form-select:-webkit-autofill ~ label { opacity: 0.65; transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem); }
+.skin-shop-basic .ord-d-flex {display:flex;}
+.skin-shop-basic .ord-d-flex .cart-btn {margin-bottom:.5rem; height:auto; margin-left:.5rem;}
+
+@media (prefers-reduced-motion: reduce) {
+    .skin-shop-basic .ord-form-group .ord-form-input { transition: none; }
+    .skin-shop-basic .ord-form-group .ord-form-input::-webkit-file-upload-button { -webkit-transition: none; transition: none; }
+    .skin-shop-basic .ord-form-group .ord-form-input::file-selector-button { transition: none; }
+    .skin-shop-basic .ord-form-group .ord-form-select { transition: none; }
+    .skin-shop-basic .ord-form-group > label { transition: none;}
+}
+
+.skin-shop-basic .ord-form-group .required {font-size:0;display:inline-block;margin-left:.25rem;}
+.skin-shop-basic .ord-form-group .required:before {content:'*'; font-size:1rem; color:red;}
+
+.skin-shop-basic .pay-button-wrap .cart-btn {display:block; width:100%;}
+
+@media screen and (max-width:768px) {
+    .skin-shop-basic .order-wrap {display:block;}
+    .skin-shop-basic .order-wrap .left,
+    .skin-shop-basic .order-wrap .right {width:100%;}
+}
+
+/*
+ * --------------------------------------------------------------------
+ * 주문완료 페이지
+ * --------------------------------------------------------------------
+ */
+.skin-shop-basic .order-complete-title {font-size:1.2rem; text-align:center; margin-bottom:1rem; font-weight:700;}
+.skin-shop-basic .order-table {table-layout:fixed; width:100%; border-collapse: collapse}
+.skin-shop-basic .order-table th {background:#f0f0f0; padding:.5rem 1rem; text-align:center; width:100px; border-bottom:1px solid #ccc;}
+.skin-shop-basic .order-table td {background:#fff; padding:.5rem 1rem; border-bottom:1px solid #ccc; border-right:1px solid #ccc;}
+.skin-shop-basic .order-table tr:first-child th,
+.skin-shop-basic .order-table tr:first-child td {border-top:1px solid #ccc;}
+

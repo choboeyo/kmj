@@ -20,7 +20,7 @@ class Site {
 
     /**********************************************************
      * 사이트 전역설정중 특정 컬럼의 값을 반환한다.
-     * @param $column 반활할 컬럼 이름
+     * @param string $column 반활할 컬럼 이름
      * @return var 컬럼의 값
      *********************************************************/
     public function config($column) {
@@ -166,14 +166,6 @@ class Site {
         $CI =& get_instance();
         $return = '';
 
-        // Layout 기본 CSS가 있다면 추가한다.
-        if( $CI->skin_type && $CI->skin && file_exists(VIEWPATH.'/'.DIR_SKIN.'/'.$CI->skin_type.'/'.$CI->skin.'/skin.min.css')) {
-            $this->add_css( base_url("views/".DIR_SKIN."/".$CI->skin_type.'/'.$CI->skin."/skin.min.css"), TRUE);
-        }
-        else if( $CI->skin_type && $CI->skin && file_exists(VIEWPATH.'/'.DIR_SKIN.'/'.$CI->skin_type.'/'.$CI->skin.'/skin.css')) {
-            $this->add_css( base_url("views/".DIR_SKIN."/".$CI->skin_type.'/'.$CI->skin."/skin.css"), TRUE);
-        }
-
         $css_array = array_merge($this->css_before, $this->css_after);
         $css_array = array_unique($css_array);
         foreach($css_array as $css) {
@@ -199,12 +191,6 @@ class Site {
     public function display_js() {
         $CI =& get_instance();
         $return = '';
-        if( $CI->skin_type && $CI->skin && file_exists(VIEWPATH.'/'.DIR_SKIN.'/'.$CI->skin_type.'/'.$CI->skin.'/skin.min.js')) {
-            $this->add_js(base_url("views/".DIR_SKIN."/".$CI->skin_type.'/'.$CI->skin."/skin.min.js"), TRUE);
-        }
-        else if ($CI->skin_type && $CI->skin && file_exists(VIEWPATH.'/'.DIR_SKIN.'/'.$CI->skin_type.'/'.$CI->skin.'/skin.js')) {
-            $this->add_js(base_url("views/".DIR_SKIN."/".$CI->skin_type.'/'.$CI->skin."/skin.js"), TRUE);
-        }
 
         $js_array = array_merge($this->js_before, $this->js_after);
         $js_array = array_unique($js_array);

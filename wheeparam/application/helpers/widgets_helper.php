@@ -61,6 +61,62 @@ function latest($skin_name="", $brd_key="", $rows=5, $get_thumb_img=FALSE, $file
 }
 
 /**
+ * 상품 진열장
+ * @param string $skin_name 스킨이름
+ * @param string $dsp_key 진열장 고유키
+ * @return void
+ */
+function shop_display($skin_name="", $dsp_key="")
+{
+    $CI=&get_instance();
+
+    $CI->load->model('shop_model');
+    $CI->load->model('products_model');
+
+    if(empty($skin_name)) {
+        echo '<p class="alert alert-danger">스킨이 지정되지 않았습니다.</p>';
+        return;
+    }
+
+    if(empty($dsp_key)) {
+        echo '<p class="alert alert-danger">진열장 고유키가 지정되지 않았습니다.</p>';
+        return;
+    }
+
+    if(! file_exists(VIEWPATH . DIR_SKIN . DIRECTORY_SEPARATOR . "shop_list". DIRECTORY_SEPARATOR . $skin_name . DIRECTORY_SEPARATOR . "list.php"))
+    {
+        echo '<p class="alert alert-danger">지정한 스킨이 존재하지 않습니다.</p>';
+        return;
+    }
+
+    if(! $display_info = $CI->db->where('dsp_key', $dsp_key)->get('products_display')->row_array())
+    {
+        echo '<p class="alert alert-danger">진열장 정보가 존재하지 않습니다.</p>';
+        return;
+    }
+
+
+    $data['list'] = $CI->shop_model->getDisplayList($dsp_key, $display_info['dsp_idx']);
+    $data['list'] = $CI->products_model->generateProductList($data['list']);
+
+    $skin_dir = rtrim(VIEWPATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . DIR_SKIN . DIRECTORY_SEPARATOR . 'shop_list'. DIRECTORY_SEPARATOR . $skin_name;
+
+    // 스킨 불러오기
+    $skin = $CI->load->view( DIR_SKIN . DIRECTORY_SEPARATOR . 'shop_list'. DIRECTORY_SEPARATOR . $skin_name . DIRECTORY_SEPARATOR . "list.php", $data, TRUE );
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."skin.css")) {
+        $skin .= "<style>";
+        $skin .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."skin.css");
+        $skin .= "</style>";
+    }
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."skin.js")) {
+        $skin .= "<script>";
+        $skin .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."skin.js");
+        $skin .= "</script>";
+    }
+    return $skin;
+}
+
+/**
  * 전체 게시판 불러오기
  * @param string $skin_name 스킨 이름
  * @param array $except_brd_key 제외할 게시판 키
@@ -153,6 +209,8 @@ function contact_form($skin_name="",$complete_msg="문의 작성이 완료되었
     $skin_dir = rtrim(VIEWPATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . DIR_SKIN . DIRECTORY_SEPARATOR . 'contact'. DIRECTORY_SEPARATOR . $skin_name;
     $skin_file = $skin_dir . DIRECTORY_SEPARATOR . "skin.php";
 
+
+
     // 스킨 폴더나 스킨 파일이 존재하지 않을때
     if(! is_dir($skin_dir) OR !is_file($skin_file )) return '<p class="alert alert-danger">지정한 스킨이 존재하지 않습니다.</p>';
 
@@ -163,7 +221,16 @@ function contact_form($skin_name="",$complete_msg="문의 작성이 완료되었
 
     // 스킨 불러오기
     $skin = $CI->load->view( DIR_SKIN . DIRECTORY_SEPARATOR . 'contact'. DIRECTORY_SEPARATOR . $skin_name . DIRECTORY_SEPARATOR . "skin.php", $data, TRUE );
-
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."skin.css")) {
+        $skin .= "<style>";
+        $skin .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."skin.css");
+        $skin .= "</style>";
+    }
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."skin.js")) {
+        $skin .= "<script>";
+        $skin .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."skin.js");
+        $skin .= "</script>";
+    }
     return $skin;
 }
 
@@ -193,7 +260,7 @@ function outlogin($skin_name="") {
         $form_attributes['data-role'] = "form-login";
         $form_hidden_inputs['reurl'] = set_value('reurl', current_full_url());
 
-        $action_url = base_url( 'members/login', SSL_VERFIY ? 'https' : 'http' );
+        $action_url = base_url( 'members/login');
         $data['form_open'] = form_open($action_url, $form_attributes, $form_hidden_inputs);
         $data['form_close'] = form_close();
     }
@@ -201,5 +268,103 @@ function outlogin($skin_name="") {
     // 스킨 불러오기
     $skin = $CI->load->view( DIR_SKIN . DIRECTORY_SEPARATOR . 'outlogin'. DIRECTORY_SEPARATOR . $skin_name . DIRECTORY_SEPARATOR . $skin_file, $data, TRUE );
 
+    return $skin;
+}
+
+/**
+ * 일반 위젯
+ * @param string $widget_name               로드할 위젯 이름
+ * @param object|array|null $widget_vars    위젯에 넘겨줄 변수 데이타
+ * @return string
+ */
+function widget($widget_name = "", $widget_vars = [])
+{
+    $CI =& get_instance();
+    if(empty($widget_name)) return "<p class='alert alert-danger'>불러올 위젯이 정확하게 설정되지 않았습니다.</p>";
+
+    // 위젯의 파일위치를 구해온다.
+    $skin_dir = rtrim(VIEWPATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . DIR_SKIN . DIRECTORY_SEPARATOR . 'widgets'. DIRECTORY_SEPARATOR . $widget_name;
+    $skin_file = "widget.php";
+
+    // 위젯파일이 없다면 오류 표시
+    if(! is_dir($skin_dir) OR !is_file($skin_dir . DIRECTORY_SEPARATOR .$skin_file )) return '<p class="alert alert-danger">위젯 파일이 존재하지 않습니다.</p>';
+
+    $return = "";
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."widget.css")) {
+        $return .= "<style>";
+        $return .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."widget.css");
+        $return .= "</style>";
+    }
+
+    $return .= $CI->load->view( DIR_SKIN . DIRECTORY_SEPARATOR . 'widgets'. DIRECTORY_SEPARATOR . $widget_name . DIRECTORY_SEPARATOR . $skin_file, $widget_vars, TRUE );
+
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."widget.js")) {
+        $return .= "<script>";
+        $return .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."widget.js");
+        $return .= "</script>";
+    }
+
+    return $return;
+}
+
+/**
+ * 연혁 위젯
+ * @param string $skin_name
+ * @param string $order_year
+ * @param string $order_month
+ * @return string
+ */
+function history($skin_name = "", $order_year = "DESC", $order_month = "DESC")
+{
+    // 년도 순서와 월 순서 정렬방식을 대문자로 변환한다.
+    $order_year = strtoupper($order_year);
+    $order_month = strtoupper($order_month);
+
+    // 순서정렬값이 ASC나 DESC가 아니면 기본값이 DESC로 처리한다.
+    if($order_year !== 'ASC' && $order_year !== "DESC") $order_year = "DESC";
+    if($order_month !== 'ASC' && $order_month !== "DESC") $order_month = "DESC";
+
+    $CI =& get_instance();
+
+    // 스킨이름이 비어있을경우 오류 표시
+    if(empty($skin_name)) return "<p class='alert alert-danger'>연혁 스킨이 설정되지 않았습니다.</p>";
+
+    // 스킨파일위치를 구해온다.
+    $skin_dir = rtrim(VIEWPATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . DIR_SKIN . DIRECTORY_SEPARATOR . 'history'. DIRECTORY_SEPARATOR . $skin_name;
+    $skin_file = "skin.php";
+
+    // 스킨파일이 없다면 오류 표시
+    if(! is_dir($skin_dir) OR !is_file($skin_dir . DIRECTORY_SEPARATOR .$skin_file )) return '<p class="alert alert-danger">연혁 스킨파일이 존재하지 않습니다.</p>';
+
+    // 연혁 목록 구해오기
+    $list = $CI->db
+        ->where('his_status','Y')
+        ->order_by('his_year DESC, his_month DESC, his_idx DESC')
+        ->get('history')
+        ->result_array();
+
+    $return = [];
+    foreach($list as $row) {
+        if(! isset($return["{$row['his_year']}"])) {
+            $return["{$row['his_year']}"] = [];
+        }
+        if(! isset($return["{$row['his_year']}"]["{$row['his_month']}"]))
+        {
+            $return["{$row['his_year']}"]["{$row['his_month']}"] = [];
+        }
+        $return["{$row['his_year']}"]["{$row['his_month']}"][] = $row['his_content'];
+    }
+
+    $skin = $CI->load->view( DIR_SKIN . DIRECTORY_SEPARATOR . 'history'. DIRECTORY_SEPARATOR . $skin_name . DIRECTORY_SEPARATOR . $skin_file, ["list"=>$return], TRUE );
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."skin.css")) {
+        $skin .= "<style>";
+        $skin .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."skin.css");
+        $skin .= "</style>";
+    }
+    if(is_file($skin_dir.DIRECTORY_SEPARATOR."skin.js")) {
+        $skin .= "<script>";
+        $skin .= file_get_contents($skin_dir.DIRECTORY_SEPARATOR."skin.js");
+        $skin .= "</script>";
+    }
     return $skin;
 }

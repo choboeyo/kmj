@@ -12,9 +12,8 @@ define('PROJECT', 'wheeparamboard');
 // 개발용 설정
 if( IS_TEST )
 {
-    define("BASE_URL", "http://localhost:8088");    // 기본 설정 URL
-    define("COOKIE_DOMAIN", "localhost:8088");  // 쿠키도메인
-    define("SSL_VERFIY", FALSE);    // 보안인증서 사용 여부
+    define("BASE_URL", "http://localhost:7668");    // 기본 설정 URL
+    define("COOKIE_DOMAIN", "localhost");  // 쿠키도메인
 
     // 데이타베이스 설정
     define("DB_HOST", "115.68.120.149");     // DB 호스트
@@ -27,7 +26,6 @@ else
 {
     define("BASE_URL",  "http://www.wboard.com");
     define("COOKIE_DOMAIN", ".wboard.com");  // 쿠키도메인
-    define("SSL_VERFIY", FALSE);    // 보안인증서 사용 여부
 
     // 데이타베이스 설정
     define("DB_HOST", "127.0.0.1");     // DB 호스트

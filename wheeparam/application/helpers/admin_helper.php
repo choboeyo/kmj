@@ -66,3 +66,7 @@ function get_skin_list( $skin_type="")
     }
     return $return;
 }
+
+function get_item_group() {
+
+}

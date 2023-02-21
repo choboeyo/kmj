@@ -1,5 +1,5 @@
 html {
-  font-size:12px;
+  font-size:14px;
 }
 body {
   height:100vh;
@@ -91,7 +91,7 @@ $nav-height : 44px;
 
         &:after {
           content:'\f107';
-          font-family: "Font Awesome 5 Pro" !important;
+          font-family: "Font Awesome 6 Pro" !important;
           position:absolute;
           right:10px;
           top:50%;
@@ -158,7 +158,7 @@ $nav-height : 44px;
 
             &:after {
               content:'\f105';
-              font-family: "Font Awesome 5 Pro" !important;
+              font-family: "Font Awesome 6 Pro" !important;
               position:absolute;
               right:5px;
               top:50%;

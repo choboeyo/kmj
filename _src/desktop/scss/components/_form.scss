@@ -1,0 +1,86 @@
+.wb-input {
+  display: block;
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  font-family: inherit;
+  font-size:1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $body-color;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #c1c1c1;
+  appearance: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border-radius:$global-radius;
+
+  &[type="file"] {
+    overflow: hidden; // prevent pseudo element button overlap
+
+    &:not(:disabled):not([readonly]) {
+      cursor: pointer;
+    }
+  }
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  &:focus {
+    border-color: $color-primary;
+    outline: 0;
+  }
+
+  &::-webkit-date-and-time-value {
+    min-width: 85px;
+    margin: 0;
+    height: 1.5em;
+  }
+
+  &::-webkit-datetime-edit {
+    display: block;
+    padding: 0;
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: #898989;
+    opacity: 1;
+  }
+
+  &:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+  }
+
+  // File input buttons theming
+  &::file-selector-button {
+    padding: $input-padding-y $input-padding-x;
+    margin: (-$input-padding-y) (-$input-padding-x);
+    margin-inline-end: $input-padding-x;
+    color: $body-color;
+    background-color: #e9ecef;
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: 1px;
+    border-radius: 0; // stylelint-disable-line property-disallowed-list
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  &:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: #dde0e3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::-webkit-file-upload-button {
+      -webkit-transition: none;
+      transition: none;
+    }
+    &::file-selector-button {
+      transition: none;
+    }
+  }
+
+  &:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: #dde0e3;
+  }
+}

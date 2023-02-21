@@ -3,6 +3,7 @@
     .frame-content {padding:0;}
 </style>
 <article id="login-form">
+    <div class="bg"></div>
     <div class="login-wrap">
 
         <h1 class="login-logo">ADMINISTRATOR</h1>

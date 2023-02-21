@@ -2,11 +2,15 @@
 @import "mixins";
 @import "function";
 
-@import "plugins/fontawesome5/fontawesome";
-@import "plugins/fontawesome5/regular";
-@import "plugins/fontawesome5/light";
-@import "plugins/fontawesome5/solid";
-@import "plugins/fontawesome5/brands";
+@import "plugins/fontawesome-6.3.0/fontawesome";
+@import "plugins/fontawesome-6.3.0/regular";
+@import "plugins/fontawesome-6.3.0/light";
+@import "plugins/fontawesome-6.3.0/solid";
+@import "plugins/fontawesome-6.3.0/brands";
+@import "plugins/fontawesome-6.3.0/thin";
+@import "plugins/fontawesome-6.3.0/sharp-regular";
+@import "plugins/fontawesome-6.3.0/sharp-solid";
+@import "plugins/fontawesome-6.3.0/duotone";
 @import "plugins/toastr";
 @import "plugins/ax5ui/ax5";
 @import "plugins/ax5ui/ax5mask";

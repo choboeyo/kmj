@@ -88,7 +88,7 @@ class Boardlib {
 
             $board = $this->_get_board_raw($brd_key);
 
-            $board['category'] = explode(";", rtrim($board['brd_category'],';'));
+            $board['category'] = explode(";", rtrim(element('brd_category', $board, ''),';'));
 
             if(count($board['category']) > 0) {
                 foreach($board['category'] as &$row)

@@ -10,6 +10,7 @@ $(function() {
         else {
             if( request.status == 500 ) message = '서버 코드 오류가 발생하였습니다.\n관리자에게 문의하세요';
             else if ( request.status == 401 ) message = '해당 명령을 실행할 권한이 없습니다.';
+            else if ( request.status == 403) message = '한번에 업로드할 수 있는 용량을 초과하였습니다.';
         }
         toastr.error(message, '오류 발생');
     }).ajaxStart(function(){
@@ -49,6 +50,9 @@ $(function() {
  ***********************************************************************************************************************/
 $(function() {
     $(document).on('keyup', '[data-number-format]', function(e) {
+        if($(this).val() == '-0' || $(this).val() == '-') {
+            return;
+        }
         $(this).val( $(this).val().trim().unNumberFormat().numberFormat() );
     })
 });
@@ -58,6 +62,7 @@ $(function() {
  ***********************************************************************************************************************/
 $(function() {
     $(document).on('keypress', '[data-number-only]', function(e) {
+        console.log(e.which)
         if (e.which != 8 && e.which != 0 &&  e.which != 45 && (e.which < 48 || e.which > 57)) {
             e.preventDefault();
         }

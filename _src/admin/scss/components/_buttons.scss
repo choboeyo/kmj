@@ -11,6 +11,7 @@
   @include transition();
   transition: all .2s ease;
   box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  font-size:1rem;
 
   &:hover {
     color: $body-color;
@@ -94,4 +95,22 @@ input[type="button"] {
 .btn-group {
   display:inline-block;
   position:relative;
+
+  .btn {
+    border-radius:0;
+
+    &:first-child {
+      border-top-left-radius: .25rem;
+      border-bottom-left-radius: .25rem;
+    }
+
+    &:last-child {
+      border-top-right-radius: .25rem;
+      border-bottom-right-radius: .25rem;
+    }
+
+    & + .btn {
+      margin-left:-1px;
+    }
+  }
 }

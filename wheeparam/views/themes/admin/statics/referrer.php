@@ -7,7 +7,7 @@
 <?=form_open(NULL, array('method'=>'get','class'=>'form-flex','autocomplete'=>'off'))?>
 <div data-ax-tbl class="ax-search-tbl">
     <div data-ax-tr>
-        <div data-ax-td>
+        <div data-ax-td class="W350">
             <div data-ax-td-label>일자 검색</div>
             <div data-ax-td-wrap>
                 <input class="form-control" name="startdate" data-toggle="datepicker" data-chained-datepicker="[name='enddate']" value="<?=$startdate?>">
@@ -18,7 +18,7 @@
         </div>
         <div data-ax-td>
             <div data-ax-td-wrap>
-                <button class="btn btn-sm btn-default"><i class="fal fa-search"></i> 필터적용</button>
+                <button class="btn btn-default"><i class="fal fa-search"></i> 필터적용</button>
             </div>
         </div>
     </div>

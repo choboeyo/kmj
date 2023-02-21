@@ -46,7 +46,7 @@ gulp.task('minify-mobile-css', function () {
 
     return gulp.src( theme.mobile.css )
         .pipe(sourcemaps.init())
-        .pipe( sass({outputStyle: 'compact'}).on('error', sass.logError))
+        .pipe( sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe( concat(fileName)) //병합하고
         .pipe(cleanCSS().on('error', function(e){console.log(e);}))
         .pipe(size({ gzip: true, showFiles: true }))
@@ -74,7 +74,7 @@ gulp.task('minify-admin-css', function () {
 
     return gulp.src( theme.admin.css )
         .pipe(sourcemaps.init())
-        .pipe( sass({outputStyle: 'compact'}).on('error', sass.logError))
+        .pipe( sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe( concat(fileName)) //병합하고
         .pipe(cleanCSS().on('error', function(e){console.log(e);}))
         .pipe(size({ gzip: true, showFiles: true }))

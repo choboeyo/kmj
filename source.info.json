@@ -11,11 +11,13 @@
       "_src/common/js/plugins/jquery.tmpl.js",
       "_src/plugins/jquery-blockUI/jquery.blockUI.js",
       "_src/plugins/jquery-cookie/jquery.cookie.js",
+      "_src/plugins/jquery-tmpl/jquery.tmpl.js",
       "node_modules/ax5core/dist/ax5core.js",
       "node_modules/ax5ui-mask/dist/ax5mask.js",
       "node_modules/ax5ui-modal/dist/ax5modal.js",
       "_src/plugins/toastr/toastr.js",
       "_src/common/js/plugins/autosize.js",
+      "_src/common/js/plugins/jquery.chained.js",
       "_src/common/js/global.js",
       "_src/common/js/modules/regex.js",
       "_src/common/js/modules/formatter.js",
@@ -24,7 +26,8 @@
       "_src/common/js/modules/board.js",
       "_src/common/js/modules/components.js",
       "_src/common/js/modules/dropdown.js",
-      "_src/common/js/modules/modal.js"
+      "_src/common/js/modules/modal.js",
+      "_src/common/js/modules/shop.js"
     ],
     "desktop" : {
       "css" : [

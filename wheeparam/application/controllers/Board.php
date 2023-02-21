@@ -1,12 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Board extends WB_Controller {
-
+/**
+ * 게시판 컨트롤러
+ */
+class Board extends WB_Controller
+{
+    /**
+     * 생성자
+     */
     function __construct()
     {
+        // 기존 컨트롤러 생성자 실행
         parent::__construct();
 
+        // 게시판 라이브러리 불러오기
         $this->load->library('boardlib');
     }
 
@@ -110,7 +117,7 @@ class Board extends WB_Controller {
         if( $this->form_validation->run() == FALSE )
         {
             $hidden = array("reurl"=>$this->input->get('reurl', TRUE));
-            $action_url = base_url("board/{$brd_key}/password/{$post_idx}", SSL_VERFIY ? 'https':'http');
+            $action_url = base_url("board/{$brd_key}/password/{$post_idx}");
             $this->data['form_open'] = form_open($action_url,array("id"=>"form-post-password","data-form"=>"post-password-form"), $hidden);
             $this->data['form_close']= form_close();
 

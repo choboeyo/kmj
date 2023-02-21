@@ -1,8 +1,9 @@
 DROP TABLE IF EXISTS `wb_attach`;
 CREATE TABLE `wb_attach` (
   `att_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `att_target_type` enum('QNA','BOARD','ETC') NOT NULL DEFAULT 'ETC',
+  `att_target_type` enum('QNA','BOARD','ETC','PRODUCTS','PRODUCTS_REVIEW') NOT NULL DEFAULT 'ETC',
   `att_target` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '파일이 소속된 문서 PK',
+  `att_sort` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '이미지 정렬 순서',
   `att_is_image` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '이미지 인지 여부',
   `att_origin` varchar(255) NOT NULL COMMENT '원본 파일명',
   `att_filepath` varchar(255) NOT NULL COMMENT '실제 업로드된 파일 경로',
@@ -14,7 +15,7 @@ CREATE TABLE `wb_attach` (
   `reg_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '등록자 PK',
   `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '등록시간',
   PRIMARY KEY (`att_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_banner`;
 CREATE TABLE `wb_banner` (
@@ -41,7 +42,7 @@ CREATE TABLE `wb_banner` (
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ban_idx`),
   KEY `bng_key` (`bng_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 
@@ -68,7 +69,7 @@ CREATE TABLE `wb_banner_group` (
   `upd_user` int(11) NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`bng_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `wb_board`;
@@ -121,7 +122,7 @@ CREATE TABLE `wb_board` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 PRIMARY KEY (`brd_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_board_comment`;
 CREATE TABLE `wb_board_comment` (
@@ -142,7 +143,7 @@ CREATE TABLE `wb_board_comment` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`cmt_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_board_post`;
 CREATE TABLE `wb_board_post` (
@@ -180,14 +181,14 @@ CREATE TABLE `wb_board_post` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`post_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_config`;
 CREATE TABLE `wb_config` (
   `cfg_key` varchar(30) NOT NULL,
   `cfg_value` text NOT NULL,
   PRIMARY KEY (`cfg_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 insert  into `wb_config`(`cfg_key`,`cfg_value`) values
   ('agreement_privacy','개인정보 취급방침을 입력해주세요'),
@@ -237,8 +238,61 @@ insert  into `wb_config`(`cfg_key`,`cfg_value`) values
   ('social_naver_use','N'),
   ('social_kakao_clientid', ''),
   ('social_kakao_use','N'),
+  ('skin_members', 'basic'),
+  ('skin_members_m', 'basic'),
+  ('skin_shop', 'basic'),
+  ('skin_shop_m', 'basic'),
+  ('skin_shop_list', 'basic'),
+  ('skin_shop_list_m', 'basic'),
+  ('company_name', '휘파람소프트'),
+  ('company_ceo', '홍길동'),
+  ('company_tel', '02-1234-5678'),
+  ('company_fax', '02-1234-5679'),
+  ('company_biznum', '123-456-78910'),
+  ('company_shopnum', '2022-서울강남-1234'),
+  ('company_privacy_name', '김정보'),
+  ('company_privacy_email', 'info@naver.com'),
+  ('company_address', '(13112) 서울시 강남구 강남대로 123 3층'),
   ('google_recaptcha_site_key', ''),
-  ('google_recaptcha_secret_key', '');
+  ('google_recaptcha_secret_key', ''),
+  ('shop_delivery_company','우체국'),
+  ('shop_delivery_type','차등'),
+  ('shop_delivery_cost','[{"price":20000, "sc_cost":4000},{"price":30000, "sc_cost":3000},{"price":50000,"sc_cost":2000}]'),
+  ('shop_delivery_info','상품 배송 안내를 입력해주세요'),
+  ('shop_refund_info','교환/반품안내를 입력해주세요'),
+  ('shop_pg_service','kcp'),
+  ('shop_iche_use','Y'),
+  ('shop_card_pay_use','Y'),
+  ('shop_hp_pay_use','Y'),
+  ('shop_vbank_use','Y'),
+  ('shop_bank_account',''),
+  ('shop_bank_use','Y'),
+  ('shop_kcp_site_code',''),
+  ('shop_use_samsungpay','N'),
+  ('shop_use_global_naverpay','N'),
+  ('shop_sms_order_complete','N'),
+  ('shop_sms_bank_info','N'),
+  ('shop_sms_pay_complete','N'),
+  ('shop_sms_delivery','N'),
+  ('shop_sms_type','SMS'),
+  ('shop_sms_order_complete_c',''),
+  ('shop_sms_bank_info_c',''),
+  ('shop_sms_pay_complete_c',''),
+  ('shop_sms_delivery_c',''),
+  ('shop_sms_order_complete_cc','안녕하세요 #{주문자}님,\r\n소중한 주문이 접수완료되었습니다.\r\n\r\n- 주문번호: #{주문번호}\r\n- 주문상품: #{주문상품}\r\n- 금액: #{주문금액}원\r\n'),
+  ('shop_sms_bank_info_cc','안녕하세요 #{주문자}님,\r\n입금계좌 안내드립니다.\r\n감사합니다.\r\n\r\n- 주문번호: #{주문번호}\r\n- 주문상품: #{주문상품}\r\n- 계좌번호: #{계좌번호}\r\n- 금액: #{주문금액}원\r\n'),
+  ('shop_sms_pay_complete_cc','안녕하세요 #{주문자}님\r\n\r\n주문하신 상품의 입금확인 되었습니다.\r\n감사합니다.\r\n\r\n- 주문번호: #{주문번호}\r\n- 주문상품: #{주문상품}'),
+  ('shop_sms_delivery_cc','안녕하세요 #{주문자}님\r\n\r\n주문하신 상품이 발송처리 되었습니다.\r\n\r\n- 주문번호: #{주문번호}\r\n- 주문상품: #{주문상품}\r\n- 택배사 : #{택배사}\r\n- 운송장번호: #{운송장번호}'),
+  ('shop_sms_delivery_button','Y'),
+  ('shop_nc_k_plusFriend',''),
+  ('shop_nc_k_sid',''),
+  ('shop_nc_s_sid',''),
+  ('shop_nc_s_callback',''),
+  ('shop_nc_k_accessKey',''),
+  ('shop_nc_k_accessSecret',''),
+  ('shop_inicis_mid',''),
+  ('shop_kakaopay_use','N'),
+  ('shop_pay_test','N');
 
 DROP TABLE IF EXISTS `wb_faq`;
 CREATE TABLE `wb_faq` (
@@ -253,7 +307,7 @@ CREATE TABLE `wb_faq` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`faq_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `wb_faq_category`;
@@ -268,7 +322,7 @@ CREATE TABLE `wb_faq_category` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`fac_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_localize`;
 CREATE TABLE `wb_localize` (
@@ -279,7 +333,7 @@ CREATE TABLE `wb_localize` (
   `loc_value_zh-hans` text NOT NULL,
   `loc_value_zh-hant` text NOT NULL,
   PRIMARY KEY (`loc_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 insert  into `wb_localize`(`loc_key`,`loc_value_ko`,`loc_value_en`,`loc_value_ja`,`loc_value_zh-hans`,`loc_value_zh-hant`) values
   ('게시판/comment/content_required','댓글 내용을 입력하세요.','Please enter your comment.','コメントの内容を入力してください。','请输入您的评论。','請輸入您的評論。'),
@@ -443,7 +497,7 @@ CREATE TABLE `wb_member` (
   `mem_bantime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `mem_htime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`mem_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 
@@ -455,7 +509,7 @@ CREATE TABLE `wb_member_autologin` (
   `aul_ip` int(10) unsigned NOT NULL DEFAULT '0',
   `aul_regtime` datetime NOT NULL,
   PRIMARY KEY (`aul_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_member_auth`;
 CREATE TABLE `wb_member_auth` (
@@ -463,7 +517,7 @@ CREATE TABLE `wb_member_auth` (
   `ath_type` varchar(30) NOT NULL DEFAULT '',
   `ath_key` varchar(20) NOT NULL DEFAULT '',
 PRIMARY KEY (`mem_idx`,`ath_type`,`ath_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_member_log`;
 CREATE TABLE `wb_member_log` (
@@ -478,7 +532,7 @@ CREATE TABLE `wb_member_log` (
   `mlg_mobile` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`mlg_idx`),
   KEY `mem_idx` (`mem_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_member_point`;
 CREATE TABLE `wb_member_point` (
@@ -494,7 +548,7 @@ CREATE TABLE `wb_member_point` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`mpo_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
 
 
 
@@ -510,7 +564,7 @@ CREATE TABLE `wb_member_social` (
   `soc_regtime` datetime NOT NULL,
   `soc_content` text NOT NULL,
   PRIMARY KEY (`soc_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_menu`;
 CREATE TABLE `wb_menu` (
@@ -524,7 +578,7 @@ CREATE TABLE `wb_menu` (
   `mnu_mobile` enum('Y','N') NOT NULL DEFAULT 'Y',
   `mnu_active_key` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`mnu_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `wb_popup`;
@@ -543,7 +597,7 @@ CREATE TABLE `wb_popup` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`pop_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_qna`;
 CREATE TABLE `wb_qna` (
@@ -567,7 +621,7 @@ CREATE TABLE `wb_qna` (
   `qna_ans_upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '답변 수정 시간',
   `qna_ans_content` text NOT NULL COMMENT '답변 내용',
   PRIMARY KEY (`qna_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_qna_category`;
 CREATE TABLE `wb_qna_category` (
@@ -580,7 +634,7 @@ CREATE TABLE `wb_qna_category` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`qnc_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_search`;
 CREATE TABLE `wb_search` (
@@ -588,7 +642,7 @@ CREATE TABLE `wb_search` (
   `sea_query` varchar(255) NOT NULL DEFAULT '',
   `sea_regtime` datetime NOT NULL,
   PRIMARY KEY (`sea_idx`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `wb_sitemap`;
@@ -603,7 +657,7 @@ CREATE TABLE `wb_sitemap` (
   `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`sit_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_statics`;
 CREATE TABLE `wb_statics` (
@@ -620,7 +674,7 @@ CREATE TABLE `wb_statics` (
   `sta_keyword` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`sta_idx`),
   KEY `sta_ip` (`sta_ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_statics_date`;
 CREATE TABLE `wb_statics_date` (
@@ -628,11 +682,334 @@ CREATE TABLE `wb_statics_date` (
   `std_count` int(10) unsigned NOT NULL DEFAULT '0',
   `std_mobile` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`std_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `wb_uniqid`;
 Create Table `wb_uniqid` (
   `uq_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uq_ip` int(10) unsigned NOT NULL,
 PRIMARY KEY (`uq_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_history`;
+CREATE TABLE `wb_history` (
+  `his_idx` int(11) NOT NULL AUTO_INCREMENT COMMENT '연혁 PK',
+  `his_status` enum('Y','N') NOT NULL DEFAULT 'Y' COMMENT 'Y:정상 N:삭제',
+  `his_year` varchar(4) NOT NULL DEFAULT '' COMMENT '년도',
+  `his_month` varchar(2) NOT NULL DEFAULT '' COMMENT '월',
+  `his_content` varchar(128) NOT NULL DEFAULT '' COMMENT '내용',
+  `reg_datetime` datetime NOT NULL DEFAULT current_timestamp(),
+  `reg_user` int(10) unsigned NOT NULL,
+  `upd_datetime` datetime NOT NULL DEFAULT current_timestamp(),
+  `upd_user` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`his_idx`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_consulting`;
+CREATE TABLE `wb_consulting` (
+ `cst_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '상담신청 PK',
+ `cst_status` enum('Y','N') NOT NULL DEFAULT 'Y' COMMENT 'Y:정상 N:삭제',
+ `cst_step` varchar(20) NOT NULL DEFAULT '' COMMENT '단계:신청,처리중,답변완료',
+ `cst_regtime` datetime NOT NULL DEFAULT current_timestamp() COMMENT '상담신청 시간',
+ `cst_name` varchar(50) NOT NULL DEFAULT '' COMMENT '신청자 성명',
+ `cst_phone` varchar(50) NOT NULL DEFAULT '' COMMENT '신청자 연락처',
+ `cst_email` varchar(50) NOT NULL DEFAULT '' COMMENT '신청자 이메일',
+ `cst_content` text NOT NULL COMMENT '신청 내용 상세',
+ `cst_ip` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '신청자 IP',
+ `cst_memo_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '상담신청 메모 등록 수',
+ `cst_ext1` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext2` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext3` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext4` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext5` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext6` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext7` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext8` varchar(255) NOT NULL DEFAULT '',
+ `cst_ext9` varchar(255) NOT NULL DEFAULT '',
+ PRIMARY KEY (`cst_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_consulting_memo`;
+CREATE TABLE `wb_consulting_memo` (
+  `csm_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '상담메모 PK',
+  `csm_status` enum('Y','N') NOT NULL DEFAULT 'Y' COMMENT 'Y:정상 N:삭제',
+  `cst_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '상담신청 PK',
+  `csm_content` text NOT NULL COMMENT '상담메모 내용',
+  `reg_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '등록자',
+  `reg_datetime` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록시간',
+  `upd_user` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '수정자',
+  `upd_datetime` datetime NOT NULL DEFAULT current_timestamp() COMMENT '수정시간',
+  PRIMARY KEY (`csm_id`),
+  KEY `cst_id` (`cst_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products`;
+CREATE TABLE `wb_products` (
+   `prd_idx` int(11) unsigned NOT NULL AUTO_INCREMENT,
+   `prd_status` enum('Y','H','N','T') NOT NULL DEFAULT 'Y' COMMENT 'Y:정상 N:삭제 H:숨김 T:임시등록상태',
+   `prd_sell_status` enum('Y','O','D') NOT NULL DEFAULT 'Y' COMMENT 'Y:정상 O:품절 D:일시판매중지',
+   `cat_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '분류 PK',
+   `prd_sort` smallint(5) NOT NULL DEFAULT 0 COMMENT '출력 순서',
+   `prd_type` enum('H','C') NOT NULL DEFAULT 'H' COMMENT '상품 유형 (H:현물 / C:컨텐츠)',
+   `prd_hit` int(11) NOT NULL DEFAULT 0 COMMENT '상품 클릭 수',
+   `prd_is_best` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT 'BEST 상품',
+   `prd_is_hit` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '히트 상품',
+   `prd_is_new` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '최신 상품',
+   `prd_is_sale` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '할인 상품',
+   `prd_is_recommend` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '추천 상품',
+   `prd_sell_count` int(11) NOT NULL DEFAULT 0 COMMENT '상품 판매 개수',
+   `prd_use_options` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '필수 선택 옵션 사용여부',
+   `prd_wish_count` int(11) NOT NULL DEFAULT 0 COMMENT '찜한 목록에 담긴 개수',
+   `prd_review_count` int(11) NOT NULL DEFAULT 0 COMMENT '상품 리뷰 개수',
+   `prd_review_average` decimal(2,1) NOT NULL DEFAULT 0.0 COMMENT '상품 리뷰 평균 점수',
+   `prd_price` int(11) NOT NULL DEFAULT 0 COMMENT '상품 가격',
+   `prd_cust_price` int(11) NOT NULL DEFAULT 0 COMMENT '시중 가격',
+   `prd_name` varchar(255) NOT NULL DEFAULT '' COMMENT '상품명',
+   `prd_maker` varchar(255) NOT NULL DEFAULT '' COMMENT '제조원',
+   `prd_origin` varchar(255) NOT NULL DEFAULT '' COMMENT '원산지',
+   `prd_brand` varchar(255) NOT NULL DEFAULT '' COMMENT '브랜드',
+   `prd_model` varchar(255) NOT NULL DEFAULT '' COMMENT '모델명',
+   `prd_summary` varchar(255) NOT NULL DEFAULT '' COMMENT '상품에 대한 간단한 설명',
+   `prd_thumbnail` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '상품 대표이미지 ID',
+   `prd_content` mediumtext NOT NULL COMMENT '상품 상세 설명',
+   `prd_mobile_content` mediumtext NOT NULL COMMENT '모바일용 상품 상세 설명',
+   `prd_stock_qty` int(11) NOT NULL DEFAULT 0 COMMENT '재고 수량',
+   `prd_noti_qty` int(11) NOT NULL DEFAULT 0 COMMENT '재고 통보 수량',
+   `prd_buy_min_qty` int(11) NOT NULL DEFAULT 0 COMMENT '최소 구매 수량',
+   `prd_buy_max_qty` int(11) NOT NULL DEFAULT 0 COMMENT '최대 구매 수량',
+   `prd_extra_info` text NOT NULL,
+   `prd_item_group` varchar(50) NOT NULL DEFAULT '' COMMENT '전자상거래 명시를 위한 상품군',
+   `prd_item_options` text NOT NULL COMMENT '아이템 옵션',
+   `prd_sc_type` enum('','무료','조건부무료','유료','수량별') NOT NULL DEFAULT '' COMMENT '배송비 유형',
+   `prd_sc_method` enum('','선불','착불','사용자선택') NOT NULL DEFAULT '선불' COMMENT '배송비 결제',
+   `prd_sc_price` int(11) NOT NULL DEFAULT 0 COMMENT '기본배송비',
+   `prd_sc_minimum` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '배송비 상세조건 주문금액',
+   `prd_sc_qty` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '배송시 상세조건 수량',
+   `reg_user` int(11) NOT NULL DEFAULT 0 COMMENT '상품을 올린 회원 PK',
+   `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '상품을 입력 시간',
+   `upd_user` int(11) NOT NULL DEFAULT 0 COMMENT '상품을 수정한 회원 PK',
+   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '상품 최종 수정 시간',
+   `prd_extra_1` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 1',
+   `prd_extra_2` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 2',
+   `prd_extra_3` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 3',
+   `prd_extra_4` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 4',
+   `prd_extra_5` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 5',
+   `prd_extra_6` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 6',
+   `prd_extra_7` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 7',
+   `prd_extra_8` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 8',
+   `prd_extra_9` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 9',
+   `prd_extra_10` varchar(255) NOT NULL DEFAULT '' COMMENT '여분필드 내용 10',
+   PRIMARY KEY (`prd_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_category`;
+CREATE TABLE `wb_products_category` (
+    `cat_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+    `cat_parent_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '상위 카테고리 PK',
+    `cat_status` enum('Y','N','H') NOT NULL DEFAULT 'Y' COMMENT 'Y:정상 N:삭제 H:숨김',
+    `cat_sort` smallint(5) unsigned NOT NULL DEFAULT 0,
+    `cat_title` varchar(64) NOT NULL DEFAULT '' COMMENT '카테고리 이름',
+    `cat_skin` varchar(64) NOT NULL DEFAULT '' COMMENT 'PC의 스킨 파일',
+    `cat_skin_m` varchar(64) NOT NULL DEFAULT '' COMMENT '모바일의 스킨 파일',
+    `cat_use_paging` enum('Y','N','T') NOT NULL DEFAULT 'Y' COMMENT '페이징 사용여부 T:쇼핑몰설정 기본 사용',
+    `cat_page_rows` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '한번에 표시할 아이템 수',
+    `cat_product_count` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '등록된 상품 수',
+    `reg_user` int(10) unsigned NOT NULL DEFAULT 0,
+    `reg_datetime` datetime NOT NULL DEFAULT current_timestamp(),
+    `upd_user` int(10) unsigned NOT NULL DEFAULT 0,
+    `upd_datetime` datetime NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_options`;
+CREATE TABLE `wb_products_options` (
+   `opt_idx` int(11) unsigned NOT NULL AUTO_INCREMENT,
+   `prd_idx` int(11) NOT NULL DEFAULT 0 COMMENT '상품 PK',
+   `opt_code` varchar(255) NOT NULL DEFAULT '' COMMENT '정렬 순서',
+   `opt_subject` varchar(255) NOT NULL DEFAULT '',
+   `opt_status` enum('Y','N') NOT NULL DEFAULT 'Y' COMMENT '옵션 출력 여부',
+   `opt_type` enum('detail','addition') NOT NULL DEFAULT 'detail' COMMENT '옵션 유형',
+   `opt_add_price` int(11) NOT NULL DEFAULT 0 COMMENT '옵션 금액',
+   `opt_stock_qty` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '현재 재고',
+   `opt_noti_qty` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '알림 재고',
+   PRIMARY KEY (`opt_idx`),
+   KEY `prd_idx` (`prd_idx`),
+   KEY `opt_code` (`opt_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_qa`;
+CREATE TABLE `wb_products_qa` (
+  `qa_idx` int(11) NOT NULL AUTO_INCREMENT,
+  `prd_idx` int(11) NOT NULL DEFAULT 0 COMMENT '상품 PK',
+  `mem_idx` int(11) NOT NULL DEFAULT 0 COMMENT '회원 PK',
+  `qa_status` enum('Y','N') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'Y' COMMENT '문의 출력 여부',
+  `qa_secret` enum('Y','N') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'N' COMMENT '비밀글 여부',
+  `qa_content` text CHARACTER SET utf8mb4 NOT NULL COMMENT '내용',
+  `qa_is_answer` enum('Y','N') NOT NULL DEFAULT 'N',
+  `qa_a_content` text CHARACTER SET utf8mb4 NOT NULL COMMENT '답변',
+  `qa_a_mem_idx` int(11) NOT NULL DEFAULT 0 COMMENT '답변한 회원 PK',
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '질문 작성 일시',
+  `qa_a_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '답변 일시',
+  PRIMARY KEY (`qa_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_review`;
+CREATE TABLE `wb_products_review` (
+  `rev_idx` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `od_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '주문번호',
+  `prd_idx` int(11) NOT NULL DEFAULT 0 COMMENT '상품 PK',
+  `mem_idx` int(11) NOT NULL DEFAULT 0 COMMENT '회원 PK',
+  `rev_status` enum('Y','H','D') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'Y' COMMENT '리뷰 출력 여부',
+  `rev_score` decimal(2,1) NOT NULL DEFAULT 0.0 COMMENT '평점',
+  `reg_user` int(11) NOT NULL DEFAULT 0,
+  `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '생성 일시',
+  `upd_user` int(11) NOT NULL DEFAULT 0,
+  `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정 일시',
+  `rev_content` text CHARACTER SET utf8mb4 NOT NULL COMMENT '리뷰 작성 내용',
+  PRIMARY KEY (`rev_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_wish`;
+CREATE TABLE `wb_products_wish` (
+    `prd_idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `mem_idx` int(10) unsigned NOT NULL,
+    PRIMARY KEY (`prd_idx`,`mem_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_shop_cart`;
+CREATE TABLE `wb_shop_cart` (
+    `cart_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '장바구니 PK',
+    `od_id` char(16) NOT NULL DEFAULT '' COMMENT '주문번호',
+    `mem_idx` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '회원 PK',
+    `prd_idx` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '상품 번호',
+    `cart_status` enum('주문','쇼핑','입금','준비','취소','품절','반품','배송','완료') NOT NULL DEFAULT '쇼핑' COMMENT '주문 상태',
+    `cart_direct` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '바로구매 여부',
+    `cart_select` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '결제전 SELECT 여부',
+    `cart_use_stock` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '재고 사용',
+    `prd_name` varchar(255) NOT NULL DEFAULT '' COMMENT '상품 이름',
+    `cart_price` int(11) NOT NULL DEFAULT 0 COMMENT '판매가격',
+    `cart_point` int(11) NOT NULL DEFAULT 0 COMMENT '포인트 사용 금액',
+    `cart_point_use` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '포인트 결제 사용',
+    `cart_coupon` int(11) NOT NULL DEFAULT 0 COMMENT '쿠폰 사용 금액',
+    `cart_coupon_use` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '쿠폰 사용',
+    `cart_qty` int(11) NOT NULL DEFAULT 0 COMMENT '수량',
+    `opt_code` varchar(255) NOT NULL DEFAULT '' COMMENT '선택옵션명',
+    `opt_subject` varchar(255) NOT NULL,
+    `opt_type` enum('detail','addition','') NOT NULL DEFAULT '' COMMENT '필수옵션/추강보션',
+    `opt_price` int(11) NOT NULL DEFAULT 0 COMMENT '옵션 금액',
+    `cart_option` varchar(255) NOT NULL DEFAULT '' COMMENT '상품명 또는 옵션명',
+    `cart_sc_type` enum('무료','조건부무료','유료','수량별','차등','') NOT NULL DEFAULT '' COMMENT '배송비유형',
+    `cart_sc_method` enum('','선불','착불') NOT NULL DEFAULT '' COMMENT '배송비결제',
+    `cart_sc_price` int(11) NOT NULL DEFAULT 0 COMMENT '기본 배송비',
+    `cart_sc_minimum` int(11) NOT NULL DEFAULT 0 COMMENT '배송비 상세조건 주문금액',
+    `cart_sc_qty` int(11) NOT NULL DEFAULT 0 COMMENT '배송비 상세조건 수량',
+    `cart_regtime` datetime NOT NULL DEFAULT current_timestamp() COMMENT '장바구니 입력시간',
+    `cart_select_time` datetime DEFAULT NULL COMMENT '주문서 작성 시간',
+    `cart_ip` int(10) unsigned NOT NULL DEFAULT 0,
+    `cart_history` text DEFAULT NULL,
+    `cart_send_cost` tinyint(3) unsigned NOT NULL DEFAULT 0,
+    PRIMARY KEY (`cart_id`),
+    KEY `od_id` (`od_id`),
+    KEY `cart_status` (`cart_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_shop_order`;
+CREATE TABLE `wb_shop_order` (
+ `od_id` bigint(20) unsigned NOT NULL COMMENT '주문번호',
+ `mem_idx` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '주문자 PK',
+ `imp_uid` varchar(255) NOT NULL DEFAULT '' COMMENT '포트원 결제 PK',
+ `od_status` varchar(30) NOT NULL DEFAULT '' COMMENT '주문 상태',
+ `od_settle_case` varchar(30) NOT NULL DEFAULT '' COMMENT '결제 수단',
+ `od_receipt_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '주문완료 시간',
+ `od_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '주문번호 생성시간',
+ `od_name` varchar(20) NOT NULL DEFAULT '' COMMENT '주문자',
+ `od_email` varchar(100) NOT NULL DEFAULT '' COMMENT '주문자 Email',
+ `od_tel` varchar(20) NOT NULL DEFAULT '' COMMENT '주문자 전화번호',
+ `od_hp` varchar(20) NOT NULL DEFAULT '' COMMENT '주문자 휴대폰',
+ `od_zonecode` varchar(5) NOT NULL DEFAULT '' COMMENT '주문자 우편번호',
+ `od_addr1` varchar(100) NOT NULL DEFAULT '' COMMENT '주문자 주소1',
+ `od_addr2` varchar(100) NOT NULL DEFAULT '' COMMENT '주문자 주소2',
+ `od_title` varchar(255) NOT NULL DEFAULT '' COMMENT '주문 상품 요약',
+ `od_memo` text NOT NULL COMMENT '주문시 요청 메모',
+ `od_cart_count` int(11) NOT NULL DEFAULT 0 COMMENT '주문 상품 수',
+ `od_cart_price` int(11) NOT NULL DEFAULT 0 COMMENT '주문 상품 금액',
+ `od_send_cost` int(11) NOT NULL DEFAULT 0 COMMENT '배송비',
+ `od_receipt_price` int(11) NOT NULL DEFAULT 0 COMMENT '총 주문 금액',
+ `od_cancel_price` int(11) NOT NULL DEFAULT 0 COMMENT '취소 금액',
+ `od_refund_price` int(11) NOT NULL DEFAULT 0 COMMENT '환불 금액',
+ `od_misu` int(11) NOT NULL DEFAULT 0 COMMENT '미수금',
+ `od_shop_memo` text NOT NULL COMMENT '관리자용 메모',
+ `od_test` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '테스트 결제 여부',
+ `od_mobile` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '모바일 결제 여부',
+ `od_pg` varchar(30) NOT NULL DEFAULT '' COMMENT 'PG사',
+ `od_delivery_company` varchar(40) NOT NULL DEFAULT '' COMMENT '배송사',
+ `od_delivery_num` varchar(255) NOT NULL DEFAULT '' COMMENT '운송장번호',
+ `od_ip` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '주문자 IP',
+ `od_oc_send` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '주문완료 안내 발송여부',
+ `od_ip_send` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '입금계좌 안내 발송여부',
+ `od_ic_send` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '입금확인 안내 발송여부',
+ `od_sc_send` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '발송완료 안내 발송여부',
+ `od_oc_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '주문완료 안내 발송시간',
+ `od_ip_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '입금계좌 안내 발송시간',
+ `od_ic_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '입금확인 안내 발송시간',
+ `od_sc_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '발송완료 안내 발송시간',
+ PRIMARY KEY (`od_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_shop_order_address`;
+CREATE TABLE `wb_shop_order_address` (
+     `ad_id` int(11) NOT NULL AUTO_INCREMENT,
+     `mem_idx` int(10) unsigned NOT NULL DEFAULT 0,
+     `ad_subject` varchar(255) NOT NULL DEFAULT '',
+     `ad_default` enum('Y','N') NOT NULL DEFAULT 'N',
+     `ad_name` varchar(255) NOT NULL DEFAULT '',
+     `ad_tel` varchar(255) NOT NULL DEFAULT '',
+     `ad_hp` varchar(255) NOT NULL DEFAULT '',
+     `ad_zonecode` varchar(5) NOT NULL DEFAULT '',
+     `ad_addr1` varchar(255) NOT NULL DEFAULT '',
+     `ad_addr2` varchar(255) NOT NULL DEFAULT '',
+     PRIMARY KEY (`ad_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_display`;
+CREATE TABLE `wb_products_display` (
+   `dsp_idx` int(11) unsigned NOT NULL AUTO_INCREMENT,
+   `dsp_key` varchar(30) NOT NULL,
+   `dsp_status` enum('Y','N') NOT NULL DEFAULT 'Y' COMMENT '진열장 표시 여부',
+   `dsp_title` varchar(50) NOT NULL DEFAULT '' COMMENT '진열장 명',
+   `dsp_skin` varchar(50) NOT NULL DEFAULT '' COMMENT '진열장 스킨',
+   `dsp_skin_m` varchar(50) NOT NULL DEFAULT '' COMMENT '모바일 진열장 스킨',
+   `reg_user` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '생성한 회원 PK',
+   `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '최초 입력 시간',
+   `upd_user` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '수정한 회원 PK',
+   `upd_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '수정한 시간',
+   PRIMARY KEY (`dsp_idx`),
+   KEY `dsp_key` (`dsp_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_products_display_items`;
+CREATE TABLE `wb_products_display_items` (
+     `dspi_idx` int(11) unsigned NOT NULL AUTO_INCREMENT,
+     `dspi_sort` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT '진열장 출력 순서',
+     `dsp_idx` int(11) unsigned NOT NULL COMMENT '진열장 PK',
+     `prd_idx` int(11) unsigned NOT NULL COMMENT '상품 PK',
+     `reg_user` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '생성한 회원 PK',
+     `reg_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '최초 입력 시간',
+     PRIMARY KEY (`dspi_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `wb_sms_log`;
+CREATE TABLE `wb_sms_log` (
+      `sml_idx` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '문자발송로그 PK',
+      `sml_regtime` datetime NOT NULL DEFAULT current_timestamp() COMMENT '발송시간',
+      `sml_type` enum('SMS','KAKAO','','LMS') NOT NULL DEFAULT '' COMMENT '구분',
+      `sml_phone` varchar(20) NOT NULL DEFAULT '' COMMENT '받는사람 번호',
+      `sml_content` text NOT NULL COMMENT '보낸내용',
+      `sml_code` varchar(30) NOT NULL DEFAULT '' COMMENT '카카오알림톡일경우 템플릿코드',
+      `sml_result` varchar(30) NOT NULL DEFAULT '' COMMENT '전송결과',
+      `sml_message` varchar(255) NOT NULL DEFAULT '' COMMENT '전송결과 메시지',
+      PRIMARY KEY (`sml_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP VIEW IF EXISTS `wb_products_category_list`;
+CREATE VIEW `wb_products_category_list` AS (select  `PC`.`cat_id` AS `cat_id`,  `PC`.`cat_parent_id` AS `cat_parent_id`,  `PC`.`cat_status` AS `cat_status`,  `PC`.`cat_sort` AS `cat_sort`,  `PC`.`cat_title` AS `cat_title`,  `PC`.`cat_skin` AS `cat_skin`,  `PC`.`cat_skin_m` AS `cat_skin_m`,  `PC`.`cat_use_paging` AS `cat_use_paging`,  `PC`.`cat_page_rows` AS `cat_page_rows`,  `PC`.`cat_product_count` AS `cat_product_count`,  `PC`.`reg_user` AS `reg_user`,  `PC`.`reg_datetime` AS `reg_datetime`,  `PC`.`upd_user` AS `upd_user`,  `PC`.`upd_datetime` AS `upd_datetime`,  concat(case when `PC2`.`cat_id` is null then '' else lpad(`PC2`.`cat_id`,3,'0') end,case when `PC1`.`cat_id` is null then '' else lpad(`PC1`.`cat_id`,3,'0') end,lpad(`PC`.`cat_id`,3,'0')) AS `node_path`,  concat(case when `PC2`.`cat_id` is null then '' else concat(`PC2`.`cat_title`,' > ') end,case when `PC1`.`cat_id` is null then '' else concat(`PC1`.`cat_title`,' > ') end) AS `parent_names` from ((`wb_products_category` `PC`  left join `wb_products_category` `PC1`  on (`PC1`.`cat_id` = `PC`.`cat_parent_id`))  left join `wb_products_category` `PC2`  on (`PC2`.`cat_id` = `PC1`.`cat_parent_id`)));

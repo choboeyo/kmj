@@ -12,7 +12,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>배너 표시/숨김</div>
+            <div data-ax-td-label>표시상태</div>
             <div data-ax-td-wrap>
                 <label class="w-radio"><input type="radio" name="ban_status" value="Y" <?=element('ban_status',$view,'Y')=='Y'?'checked':''?>><span>표시</span></label>
                 <label class="w-radio"><input type="radio" name="ban_status" value="H" <?=element('ban_status',$view,'Y')=='H'?'checked':''?>><span>숨김</span></label>
@@ -106,7 +106,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>표시 시작시간</div>
+            <div data-ax-td-label>시작시간</div>
             <div data-ax-td-wrap>
                 <div data-toggle="datetime-picker" data-type="datetime" data-name="ban_timer_start" data-value="<?=element('ban_timer_start', $view, set_value('pop_start'))?>"></div>
             </div>
@@ -114,7 +114,7 @@
     </div>
     <div data-ax-tr>
         <div data-ax-td class="width-100">
-            <div data-ax-td-label>표시 종료시간</div>
+            <div data-ax-td-label>종료시간</div>
             <div data-ax-td-wrap>
                 <div data-toggle="datetime-picker" data-type="datetime" data-name="ban_timer_end" data-value="<?=element('ban_timer_end', $view, set_value('pop_end'))?>"></div>
             </div>

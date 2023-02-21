@@ -22,7 +22,7 @@ class Members extends WB_Controller {
         $form_attributes['data-role'] = "form-login";
         $form_hidden_inputs['reurl'] = set_value('reurl', $this->input->get("reurl", TRUE, base_url()));
 
-        $action_url = base_url( 'admin/members/login', SSL_VERFIY ? 'https' : 'http' );
+        $action_url = base_url( 'admin/members/login');
         $this->data['form_open'] = form_open($action_url, $form_attributes, $form_hidden_inputs);
         $this->data['form_close'] = form_close();
 

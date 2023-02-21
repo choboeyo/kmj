@@ -6,7 +6,7 @@
     <div data-ax-tbl>
         <div data-ax-tr>
             <div data-ax-td>
-                <div data-ax-td-label>작성 기간 검색</div>
+                <div data-ax-td-label>작성 기간</div>
                 <div data-ax-td-wrap>
                     <input class="form-control" data-chained-datepicker="[name='enddate']" name="startdate" data-toggle="datepicker" value="">
                 </div>
@@ -41,13 +41,13 @@
                     <input class="form-control" name="st" value="">
                 </div>
                 <div data-ax-td-wrap>
-                    <button class="btn btn-default btn-sm"><i class="fal fa-search"></i> 필터적용</button>
+                    <button class="btn btn-default"><i class="fal fa-search"></i> 필터적용</button>
                 </div>
             </div>
 
             <div data-ax-td class="right">
                 <div data-ax-td-wrap>
-                    <button type="button" class="btn btn-default btn-sm" data-button="qna-category"><i class="fal fa-sitemap"></i> Q&amp;A 유형 관리</button>
+                    <button type="button" class="btn btn-default" data-button="qna-category"><i class="fal fa-sitemap"></i> Q&amp;A 유형 관리</button>
                 </div>
             </div>
         </div>

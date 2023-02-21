@@ -65,7 +65,7 @@
                         <th class="W20"></th>
                         <th>FAQ 제목</th>
                         <th class="W80">수정자</th>
-                        <th class="W130">수정일시</th>
+                        <th class="W150">수정일시</th>
                         <th class="W80">관리</th>
                     </tr>
                     </thead>

@@ -1,0 +1,10 @@
+.history-skin-basic { margin-bottom:3rem; }
+.history-skin-basic .list-empty {width:100%; height:100px; display:flex; justify-content: center; align-items: center; font-size:1.25rem; color:#898989;}
+.history-skin-basic .history-list {list-style:none; padding:0; margin:0;}
+.history-skin-basic .history-list dl {display:flex; align-items: flex-start}
+.history-skin-basic .history-list dl dt {width:50%; flex-shrink: 0; font-size:2rem; font-weight:700;}
+.history-skin-basic .history-list dl dd {width:50%; flex-shrink: 0}
+.history-skin-basic .history-list dl dd ul {list-style:none; padding:0; margin:0;}
+.history-skin-basic .history-list dl dd ul li { display:flex; width:100%; }
+.history-skin-basic .history-list dl dd ul li .date { flex-shrink: 0; font-weight:500; }
+.history-skin-basic .history-list dl dd ul li .content {margin-bottom:0; margin-left:1rem; font-size:1rem;}

@@ -7,6 +7,28 @@
 <div data-ax-tbl>
     <div data-ax-tr>
         <div data-ax-td>
+            <div data-ax-td-label>회원 스킨</div>
+            <div data-ax-td-wrap>
+                <select class="form-control" name="setting[skin_members]">
+                    <?php foreach($skin_list as $skin):?>
+                    <option value="<?=$skin?>" <?=$this->site->config('skin_members')===$skin?'selected':''?>><?=$skin?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+        <div data-ax-td class="W350">
+            <div data-ax-td-label class="W150">회원 스킨 (모바일)</div>
+            <div data-ax-td-wrap>
+                <select class="form-control" name="setting[skin_members_m]">
+                    <?php foreach($skin_list as $skin):?>
+                        <option value="<?=$skin?>" <?=$this->site->config('skin_members_m')===$skin?'selected':''?>><?=$skin?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div data-ax-tr>
+        <div data-ax-td>
             <div data-ax-td-label><?=$this->site->config('point_name')?></div>
             <div data-ax-td-wrap>
                 <label class="w-radio"><input type="radio" class="radio-point-use" name="setting[point_use]" value="Y" <?=$this->site->config('point_use')=='Y'?'checked':''?>><span>사용</span></label>
@@ -27,13 +49,13 @@
             <div data-ax-td>
                 <div data-ax-td-label>회원가입 <?=$this->site->config('point_name')?></div>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-inline" name="setting[point_member_register]" value="<?=$this->site->config('point_member_register')?>">
+                    <input class="form-control text-right" name="setting[point_member_register]" value="<?=$this->site->config('point_member_register')??0?>">
                 </div>
             </div>
             <div data-ax-td>
                 <div data-ax-td-label>로그인 <?=$this->site->config('point_name')?></div>
                 <div data-ax-td-wrap>
-                    <input class="form-control form-control-inline" name="setting[point_member_login]" value="<?=$this->site->config('point_member_login')?>">
+                    <input class="form-control text-right" name="setting[point_member_login]" value="<?=$this->site->config('point_member_login')??0?>">
                 </div>
             </div>
         </div>

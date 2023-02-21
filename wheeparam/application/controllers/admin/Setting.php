@@ -25,6 +25,61 @@ class Setting extends WB_Controller {
         $this->active   = "setting/basic";
     }
 
+    public function shop()
+    {
+        if(!USE_SHOP) {
+            alert('쇼핑몰 사용 설정이 되어있지 않습니다.');
+            exit;
+        }
+
+        $this->data['skin_list'] = get_skin_list('shop');
+        $this->data['skin_l_list'] = get_skin_list('shop_list');
+
+
+        // 메타태그 설정
+        $this->site->meta_title = "쇼핑몰 환경 설정";            // 이 페이지의 타이틀
+
+        // 레이아웃 & 뷰파일 설정
+        $this->theme    = "admin";
+        $this->view     = "setting/shop";
+        $this->active   = "setting/shop";
+    }
+
+    public function shop_sms()
+    {
+        if(!USE_SHOP) {
+            alert('쇼핑몰 사용 설정이 되어있지 않습니다.');
+            exit;
+        }
+
+        // 메타태그 설정
+        $this->site->meta_title = "쇼핑몰 문자 설정";            // 이 페이지의 타이틀
+
+        // 레이아웃 & 뷰파일 설정
+        $this->theme    = "admin";
+        $this->view     = "setting/shop_sms";
+        $this->active   = "setting/shop_sms";
+    }
+
+
+    public function shop_delivery()
+    {
+        if(!USE_SHOP) {
+            alert('쇼핑몰 사용 설정이 되어있지 않습니다.');
+            exit;
+        }
+
+
+        // 메타태그 설정
+        $this->site->meta_title = "쇼핑몰 배송 설정";            // 이 페이지의 타이틀
+
+        // 레이아웃 & 뷰파일 설정
+        $this->theme    = "admin";
+        $this->view     = "setting/shop_delivery";
+        $this->active   = "setting/shop_delivery";
+    }
+
+
     public function agreement()
     {
         // 메타태그 설정
@@ -38,6 +93,8 @@ class Setting extends WB_Controller {
 
     public function member()
     {
+        $this->data['skin_list'] =get_skin_list('members');
+
         // 메타태그 설정
         $this->site->meta_title = "회원 설정";            // 이 페이지의 타이틀
 
@@ -73,7 +130,7 @@ class Setting extends WB_Controller {
             foreach($this->data['accept_langs'] as $lang)
             {
                 $lang_name = str_replace("-","_",$lang);
-                $loc_value_{$lang_name} = $this->input->post('loc_value_'.$lang, TRUE);
+                ${"loc_value_".$lang_name} = $this->input->post('loc_value_'.$lang, TRUE);
             }
 
             $update = array();
@@ -83,7 +140,7 @@ class Setting extends WB_Controller {
                 foreach($this->data['accept_langs'] as $lang)
                 {
                     $lang_name = str_replace("-","_",$lang);
-                    $array['loc_value_'.$lang] = $loc_value_{$lang_name}[$i];
+                    $array['loc_value_'.$lang] = ${"loc_value_".$lang_name}[$i];
                 }
 
                 $update[] = $array;
@@ -243,6 +300,28 @@ class Setting extends WB_Controller {
                 "cfg_key" => "accept_languages",
                 "cfg_value" => implode(",", $accept)
             );
+        }
+
+        // 배송비 설정 저장
+        if($this->input->post('shop_delivery_cost'))
+        {
+            $shop_delivery_cost = $this->input->post('shop_delivery_cost', TRUE);
+            $temp_data = [];
+            for($i =0; $i<count($shop_delivery_cost['price']); $i++) {
+                $temp_data[] = [
+                    "price"=> str_replace(",","",$shop_delivery_cost['price'][$i]) * 1,
+                    "sc_cost"=> str_replace(",","",$shop_delivery_cost['sc_cost'][$i]) * 1
+                ];
+            }
+
+            // Price 가 낮은금액부터 높은금액 순으로 정렬
+            usort($temp_data, function($a, $b) {return ($a['price'] - $b['price']);});
+
+
+            $update_data[] = [
+                "cfg_key" => "shop_delivery_cost",
+                "cfg_value" => json_encode($temp_data, JSON_NUMERIC_CHECK|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
+            ];
         }
 
         // 사이트 이미지 삭제가 되어있다면?
