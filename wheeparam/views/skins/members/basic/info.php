@@ -17,7 +17,7 @@
                     <?php else :?>
                         <img alt="<?=langs('회원/info/photo')?>" src="http://placehold.it/100x100" class="img-circle img-responsive" style="margin:auto">
                     <?php endif;?>
-                    <button class="btn btn-default btn-xs MT10" onclick="APP.MEMBER.POP_CHANGE_PHOTO();"><i class="fa fa-upload"></i> <?=langs('회원/info/change_photo')?></button>
+                    <button class="btn-skin-default MT10" onclick="APP.MEMBER.POP_CHANGE_PHOTO();"><i class="fa fa-upload"></i> <?=langs('회원/info/change_photo')?></button>
                 </div>
 
                 <hr style="margin:5px 0 5px 0;">
@@ -99,9 +99,9 @@
                 <!--END:: 로그인 횟수 -->
             </div>
             <div class="panel-footer text-center">
-                <a href="<?=base_url('members/modify')?>" class="btn btn-default"><?=langs('회원/info/modify')?></a>
-                <a href="<?=base_url('members/password_change')?>" class="btn btn-default"><?=langs('회원/info/password_change')?></a>
-                <a href="<?=base_url('members/withdrawals')?>" class="btn btn-danger"><?=langs('회원/info/withdrawals')?></a>
+                <a href="<?=base_url('members/modify')?>" class="btn-skin-default"><?=langs('회원/info/modify')?></a>
+                <a href="<?=base_url('members/password_change')?>" class="btn-skin-default ML10"><?=langs('회원/info/password_change')?></a>
+                <a href="<?=base_url('members/withdrawals')?>" class="btn-skin-default ML10"><?=langs('회원/info/withdrawals')?></a>
             </div>
         </div>
     </div>
