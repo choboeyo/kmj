@@ -9,6 +9,9 @@ date_default_timezone_set('Asia/Seoul');
 // 프로젝트 이름
 define('PROJECT', 'wheeparamboard');
 
+// 휘파람보드 버젼
+const WB_VER = '2.0.1';
+
 // 개발용 설정
 if( IS_TEST )
 {

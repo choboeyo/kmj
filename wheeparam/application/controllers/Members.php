@@ -512,6 +512,7 @@ class Members extends WB_Controller {
             $this->data['list'] = $this->db
                 ->from('shop_order')
                 ->where('mem_idx', $mem_idx)
+                ->where('od_status <>','')
                 ->order_by('od_id DESC')
                 ->get()
                 ->result_array();
