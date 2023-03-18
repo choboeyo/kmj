@@ -342,19 +342,73 @@ $(function() {
     }
 
     /**
+     * 상품리뷰 수정하기
+     */
+    $(document).on('click.review_edit', '[data-button="review-edit"]', function(e) {
+        e.preventDefault();
+
+        var prd_idx = $(this).attr('data-prd'),
+            rev_idx = $(this).attr('data-idx');
+
+        prd_idx = typeof prd_idx !== 'undefined' && prd_idx ? prd_idx : null;
+        rev_idx = typeof rev_idx !== 'undefined' && rev_idx ? rev_idx : null;
+
+        if(! prd_idx || !rev_idx) {
+            return;
+        }
+
+        $.ajax({
+            url: `${base_url}/products/reviews_write/${prd_idx}/${rev_idx}`,
+            type: "GET",
+            success: function(res) {
+                $('[data-container="item-review"] [data-container="item-review-write"]').html(res);
+            }
+        })
+    })
+
+    /**
+     * 상품리뷰 삭제하기
+     */
+    $(document).on('click.review_delete', '[data-button="review-delete"]', function(e) {
+        e.preventDefault();
+
+        var prd_idx = $(this).attr('data-prd'),
+            rev_idx = $(this).attr('data-idx');
+
+        prd_idx = typeof prd_idx !== 'undefined' && prd_idx ? prd_idx : null;
+        rev_idx = typeof rev_idx !== 'undefined' && rev_idx ? rev_idx : null;
+
+        if(! prd_idx || !rev_idx) {
+            return;
+        }
+
+        if(! confirm('작성하신 리뷰를 삭제하시겠습니까?')) return;
+
+        $.ajax({
+            url: `${base_url}/ajax/products/reviews/${prd_idx}/${rev_idx}`,
+            type: "DELETE",
+            success: function(res) {
+                location.reload();
+            }
+        })
+    })
+
+    /**
      * 상품리뷰 가져오기
      */
     if($('[data-container="item-review"]').length >0) {
 
         var prd_idx = $('[data-container="item-review"]').attr('data-prd-idx');
 
-        APP.SHOP.getReviewList(prd_idx, 1);
+        if(typeof prd_idx !== 'undefined' && prd_idx) {
+            APP.SHOP.getReviewList(prd_idx, 1);
 
-        $(document).on('click.pagination','[data-container="review-pagination"] li a', function(e) {
-            e.preventDefault();
-            var page = $(this).attr('data-page');
-            APP.SHOP.getReviewList(prd_idx, page);
-        })
+            $(document).on('click.pagination','[data-container="review-pagination"] li a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('data-page');
+                APP.SHOP.getReviewList(prd_idx, page);
+            })
+        }
 
         $(document).on('click.review_write', '[data-button="review-write"]', function(e) {
             $('[data-container="item-review"] [data-container="item-review-write"]').empty();
@@ -396,6 +450,10 @@ $(function() {
                 data: $form.serialize(),
                 success: function() {
                     APP.SHOP.closeReviewWrite();
+
+                    if($('[data-container="item-review"]').attr('data-no-list')  * 1 === 1) {
+                        location.reload();
+                    }
                     APP.SHOP.getReviewList(prd_idx, 1);
                 }
             })
@@ -406,6 +464,10 @@ $(function() {
 APP.SHOP.getReviewList = function(prd_idx, page) {
 
     if($('[data-container="item-review"]').length <= 0) return;
+
+    if($('[data-container="item-review"]').attr('data-no-list')  * 1 === 1) {
+        return;
+    }
 
     var $form = $('[data-form="item-review-list"]', '[data-container="item-review"]');
     var data = '';

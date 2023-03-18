@@ -131,6 +131,13 @@ class Products extends WB_Controller
         $this->data['list'] = $result['list'];
         $this->data['totalCount'] = $result['totalCount'];
 
+        foreach($this->data['list'] as $row)
+        {
+            if($row['reg_datetime'] != $row['upd_datetime']) {
+                $row['rev_content'] .= PHP_EOL.PHP_EOL."({$row['upd_datetime']}) 수정됨";
+            }
+        }
+
         // 페이지네이션 세팅
         $paging['page'] = $this->data['page'];
         $paging['page_rows'] = $this->data['page_rows'];
@@ -153,18 +160,60 @@ class Products extends WB_Controller
      * 상품 리뷰 작성하기
      * @param $prd_idx
      */
-    function reviews_write($prd_idx)
+    function reviews_write($prd_idx, $rev_idx="")
     {
         $this->load->model('shop_model');
-        $reviewAuth = $this->shop_model->checkReviewAuth($prd_idx);
 
-        if(! $reviewAuth) {
-            set_status_header(400);
-            echo json_encode(["message"=>"상품을 구매하신 분만 리뷰를 작성할 수 있습니다."]);
-            exit();
+        $this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js');
+        $this->site->add_css('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css');
+
+        if(empty($rev_idx)) {
+            $reviewAuth = $this->shop_model->checkReviewAuth($prd_idx);
+
+            if(! $reviewAuth) {
+                error_response("상품을 구매하신 분만 리뷰를 작성할 수 있습니다.", 400);
+                return;
+            }
+
         }
+
+
+        $this->data['view'] = [];
+        $mem_idx = $this->member->is_login();
+
+        // 수정일 경우
+        if(! empty($rev_idx)) {
+            if(! $this->data['view'] = $this->db
+                ->where('rev_idx', $rev_idx)
+                ->where('prd_idx', $prd_idx)
+                ->get('products_review')
+                ->row_array())
+            {
+                error_response("수정하는 리뷰를 찾을수 없습니다. 이미 삭제되었을 수 있습니다.", 400);
+                return;
+            }
+
+            if($this->data['view'] != 'Y') {
+               // error_response("수정하는 리뷰를 찾을수 없습니다. 이미 삭제되었을 수 있습니다.", 400);
+               // return;
+            }
+
+            if($this->data['view']['mem_idx'] != $mem_idx) {
+                error_response("해당 리뷰를 수정할 권한이 없습니다.", 400);
+                return;
+            }
+
+            $this->data['view']['images'] = $this->db
+                ->where('att_target_type','PRODUCTS_REVIEW')
+                ->where('att_target', $this->data['view']['rev_idx'])
+                ->get('attach')
+                ->result_array();
+
+            $hiddenVars['rev_idx'] = $this->data['view']['rev_idx'];
+        }
+
         $this->data['prd_idx'] = $prd_idx;
-        $this->data['order_list'] = $this->shop_model->getNoReviewOrders($prd_idx);
+        $this->data['order_list'] = $this->shop_model->getNoReviewOrders($prd_idx, element('od_id', $this->data['view'], ''));
 
         // 목록스킨을 정의한다.
         $suffix = $this->site->viewmode === DEVICE_MOBILE ? '_m' : '';
@@ -173,6 +222,9 @@ class Products extends WB_Controller
         $hiddenVars['prd_idx'] = $prd_idx;
         $this->data['form_open'] = form_open(NULL, ['data-form'=>"item-review-write"], $hiddenVars);
         $this->data['form_close'] = form_close();
+
+
+
 
         $this->theme = FALSE;
         $this->skin = $skin;
@@ -228,9 +280,8 @@ class Products extends WB_Controller
         $this->load->model('shop_model');
 
         if(! $this->member->is_login()) {
-            set_status_header(400);
-            echo json_encode(["message"=>"상품 문의는 회원만 작성할 수 있습니다."]);
-            exit();
+            error_response("상품 문의는 회원만 작성할 수 있습니다.", 400);
+            return;
         }
         $this->data['prd_idx'] = $prd_idx;
 
@@ -397,34 +448,29 @@ class Products extends WB_Controller
         }
 
         if(empty($prd_idx)) {
-            set_status_header(400);
-            echo json_encode(["message"=>"상품 정보를 불러올 수 없습니다."]);
-            exit();
+            error_response("상품 정보를 불러올 수 없습니다.", 400);
+            return;
         }
 
         if(! $this->data['view'] = $this->products_model->getItem($prd_idx))
         {
-            set_status_header(400);
-            echo json_encode(["message"=>"상품 정보를 불러올 수 없습니다."]);
-            exit();
+            error_response("상품 정보를 불러올 수 없습니다.", 400);
+            return;
         }
 
         // 상품 품절체크
         if($this->data['view']['prd_sell_status'] === 'O') {
-            set_status_header(400);
-            echo json_encode(["message"=>"품절된 상품입니다."]);
-            exit();
+            error_response("품절된 상품입니다.", 400);
+            return;
         }
         else if($this->data['view']['prd_sell_status'] === 'D') {
-            set_status_header(400);
-            echo json_encode(["message"=>"일시적으로 판매가 중지된 상품입니다."]);
-            exit();
+            error_response("일시적으로 판매가 중지된 상품입니다.", 400);
+            return;
         }
         $this->data['is_soldout'] = $this->products_model->isSoldOut($this->data['view']);
         if($this->data['is_soldout'] ) {
-            set_status_header(400);
-            echo json_encode(["message"=>"품절된 상품입니다."]);
-            exit();
+            error_response("품절된 상품입니다.", 400);
+            return;
         }
 
 

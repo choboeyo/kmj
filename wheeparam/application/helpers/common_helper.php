@@ -1225,3 +1225,18 @@ function get_uniqid()
 
     return $key;
 }
+
+/**
+ * REST API 등을 위해 오류를 반환
+ * @param $message
+ * @param int $statusCode
+ */
+function error_response($message, $statusCode=400)
+{
+    $CI=&get_instance();
+
+    $CI->output
+        ->set_status_header($statusCode)
+        ->set_content_type('application/json','UTF-8')
+        ->set_output(json_encode(["message"=>$message]));
+}

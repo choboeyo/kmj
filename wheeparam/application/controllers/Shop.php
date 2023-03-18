@@ -62,16 +62,14 @@ class Shop extends WB_Controller
 
 
         if(empty($this->data['prd_idx'])) {
-            set_status_header(400);
-            echo json_encode(["message"=>"장바구니에서 상품이 올바르게 선택되지 않았습니다."]);
-            exit();
+            error_response("장바구니에서 상품이 올바르게 선택되지 않았습니다.", 400);
+            return;
         }
 
         if(! $product = $this->products_model->getItem($this->data['prd_idx']))
         {
-            set_status_header(400);
-            echo json_encode(["message"=>"상품정보를 가져올 수 없습니다. 상품이 이미 삭제되었거나, 품절된 상품입니다."]);
-            exit();
+            error_response("상품정보를 가져올 수 없습니다. 상품이 이미 삭제되었거나, 품절된 상품입니다.", 400);
+            return;
         }
 
         // 장바구니에서 자료 가져오기
@@ -88,9 +86,8 @@ class Shop extends WB_Controller
             ->result_array();
 
         if(! $cart) {
-            set_status_header(400);
-            echo json_encode(["message"=>"상품정보를 가져올 수 없습니다. 상품이 이미 삭제되었거나, 품절된 상품입니다."]);
-            exit();
+            error_response("상품정보를 가져올 수 없습니다. 상품이 이미 삭제되었거나, 품절된 상품입니다.", 400);
+            return;
         }
 
         // 판매가격 가져오기

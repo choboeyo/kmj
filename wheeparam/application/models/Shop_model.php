@@ -1131,7 +1131,7 @@ class Shop_model extends WB_Model {
      * 내 주문내역중 리뷰를 작성하지 않은 상품 목록을 가져온다.
      * @param $prd_idx
      */
-    function getNoReviewOrders($prd_idx)
+    function getNoReviewOrders($prd_idx, $od_id="")
     {
         $mem_idx = $this->member->is_login();
 
@@ -1141,6 +1141,15 @@ class Shop_model extends WB_Model {
         $table_prefix = $this->db->dbprefix;
         $join_query = 'SELECT `od_id`,`prd_name`,`mem_idx`,`prd_idx`, GROUP_CONCAT(cart_option SEPARATOR "'.SEPERATE_CHARSET.'") AS buy_option FROM '.$table_prefix.'shop_cart WHERE cart_status IN ("완료","배송") AND prd_idx = '.$prd_idx.' GROUP BY od_id';
 
+        if(! empty($rev_idx)) {
+            $this->db->group_start();
+                $this->db->where('SC.od_id', $od_id);
+                $this->db->or_where('R.od_id IS NULL',NULL, FALSE);
+            $this->db->group_end();
+        } else {
+            $this->db->where('R.od_id IS NULL',NULL, FALSE);
+        }
+
         $list = $this->db
             ->select("SC.od_id, SC.prd_name, SC.mem_idx, SC.prd_idx")
             ->select('GROUP_CONCAT(cart_option SEPARATOR "'.SEPERATE_CHARSET.'") AS buy_option', FALSE)
@@ -1148,7 +1157,6 @@ class Shop_model extends WB_Model {
             ->join('products_review AS R','SC.od_id=R.od_id AND SC.prd_idx=R.prd_idx AND SC.mem_idx=R.mem_idx AND R.rev_status = "Y"','left')
             ->where('SC.prd_idx', $prd_idx)
             ->where('SC.mem_idx', $mem_idx)
-            ->where('R.od_id IS NULL',NULL, FALSE)
             ->group_by('SC.od_id')
             ->get()
             ->result_array();

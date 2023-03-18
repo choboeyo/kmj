@@ -66,6 +66,12 @@
                                 <?php endif;?>
                                 <?=nl2br($review['rev_content'])?>
                             </div>
+                            <?php if($review['mem_idx'] == $this->member->is_login()):?>
+                            <div class="review-actions">
+                                <button type="button" class="btn-skin-default" data-button="review-edit" data-prd="<?=$review['prd_idx']?>" data-idx="<?=$review['rev_idx']?>"><i class="fas fa-pencil"></i> 수정</button>
+                                <button type="button" class="btn-skin-default" data-button="review-delete" data-prd="<?=$review['prd_idx']?>" data-idx="<?=$review['rev_idx']?>"><i class="fas fa-trash"></i> 삭제</button>
+                            </div>
+                            <?php endif;?>
                         </div>
                     </li>
                 <?php endforeach;?>
@@ -75,4 +81,9 @@
         <div class="review-pagination"><?=$pagination?></div>
 
     </div>
+    <div data-container="item-review" data-no-list="1">
+        <div data-container="item-review-write"></div>
+    </div>
 </div>
+
+

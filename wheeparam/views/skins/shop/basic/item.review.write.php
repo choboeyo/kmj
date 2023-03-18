@@ -1,29 +1,45 @@
 <div class="review-popup-layer">
     <div class="review-popup-inner">
         <?=$form_open?>
+        <?php if(empty(element('od_id', $view))):?>
         <div class="review-form-group">
             <label>주문내역 선택</label>
             <select class="review-write-input" name="od_id">
                 <?php foreach($order_list as $order):?>
-                    <option value="<?=$order['od_id']?>">[<?=$order['od_id']?>] <?=count($order['buy_option'])>0?implode(" , ", $order['buy_option']):$order['prd_name']?></option>
+                <option value="<?=$order['od_id']?>" <?=element('od_id', $view,'')==$order['od_id']?'selected':''?>>[<?=$order['od_id']?>] <?=count($order['buy_option'])>0?implode(" , ", $order['buy_option']):$order['prd_name']?></option>
                 <?php endforeach;?>
             </select>
         </div>
+        <?php else :?>
+        <input type="hidden" name="od_id" value="<?=element('od_id', $view)?>">
+        <?php endif;?>
+
         <div class="review-form-group">
             <label>평점</label>
             <select class="review-write-input" name="rev_score">
                 <?php for($k=5; $k>0; $k--):?>
-                    <option value="<?=$k?>"><?php for($i=0; $i<$k; $i++):?>★<?php endfor;?><?php for($i=$k; $i<5; $i++):?>☆<?php endfor;?></option>
+                    <option value="<?=$k?>" <?=element('rev_score',$view,5)==$k?'selected':''?>><?php for($i=0; $i<$k; $i++):?>★<?php endfor;?><?php for($i=$k; $i<5; $i++):?>☆<?php endfor;?></option>
                 <?php endfor;?>
             </select>
         </div>
         <div class="review-form-group">
             <label>리뷰 작성</label>
-            <textarea class="review-write-input" rows="10" name="rev_content"></textarea>
+            <textarea class="review-write-input" rows="10" name="rev_content"><?=element('rev_content',$view)?></textarea>
         </div>
         <div class="review-form-group">
             <label>이미지 업로드</label>
             <ul class="review-image-list">
+                <?php if(count(element('images', $view, []))>0):?>
+                <?php foreach($view['images'] as $image):?>
+                    <li>
+                        <div class="inner">
+                            <figure>
+                                <img src="<?=base_url($image['att_filepath'])?>" alt="">
+                            </figure>
+                        </div>
+                    </li>
+                <?php endforeach;?>
+                <?php endif;?>
                 <li>
                     <div class="inner">
                         <label class="upload-toggle" for="review-image-upload-input"><i class="fas fa-plus"></i></label>

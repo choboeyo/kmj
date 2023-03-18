@@ -569,6 +569,13 @@ class Members extends WB_Controller {
         $this->data['list'] = $result['list'];
         $this->data['totalCount'] = $result['totalCount'];
 
+        foreach($this->data['list'] as &$row)
+        {
+            if($row['reg_datetime'] != $row['upd_datetime']) {
+                $row['rev_content'] .= PHP_EOL.PHP_EOL."<small class='modified'>({$row['upd_datetime']}) 수정됨</small>";
+            }
+        }
+
         // 페이지네이션 세팅
         $paging['page'] = $this->data['page'];
         $paging['page_rows'] = $this->data['page_rows'];

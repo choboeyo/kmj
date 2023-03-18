@@ -37,16 +37,50 @@ class Products extends REST_Controller
         $this->response($data, 200);
     }
 
+    function reviews_delete($prd_idx, $rev_idx)
+    {
+        $mem_idx = $this->member->is_login();
+
+        if(! $view = $this->db
+            ->where('rev_idx', $rev_idx)
+            ->where('prd_idx', $prd_idx)
+            ->get('products_review')
+            ->row_array())
+        {
+            $this->response(["message"=>"삭제하려는 리뷰를 찾을수 없습니다. 이미 삭제되었을 수 있습니다."], 400);
+            exit;
+        }
+
+        if($view['mem_idx'] != $mem_idx) {
+            $this->response(["message"=>"해당 리뷰를 삭제할 권한이 없습니다."], 400);
+            exit;
+        }
+
+        if(! $this->db
+            ->where('rev_idx', $rev_idx)
+            ->set('rev_status','N')
+            ->update('products_review'))
+        {
+            $this->response(["message"=>"리뷰 삭제에 실패하였습니다."], 500);
+            exit;
+        }
+        else {
+            $this->response(["message"=>"SUCCESS"], 200);
+        }
+
+    }
+
     /**
      * 리뷰 등록
      */
     function reviews_post()
     {
+        $rev_idx = $this->post('rev_idx', TRUE);
+
         $data['prd_idx'] = $this->post('prd_idx', TRUE) ?? 0;
         $data['od_id'] = $this->post('od_id', TRUE) ?? 0;
         $data['rev_score'] = $this->post('rev_score', TRUE) ?? 0;
         $data['rev_content'] = trim($this->post('rev_content', TRUE)) ?? '';
-        $data['mem_idx'] = $this->member->is_login();
 
         if($data['prd_idx'] < 0) {
             $this->response(["message"=>"올바른 경로로 리뷰를 작성해주세요"], 400);
@@ -61,24 +95,36 @@ class Products extends REST_Controller
             $this->response(["message"=>"리뷰평점을 선택해주세요"], 400);
         }
 
-        if(!$data['mem_idx']) {
-            $this->response(["message"=>"리뷰는 회원만 작성할 수 있습니다."], 400);
-        }
-
-        $data['reg_user'] = $data['mem_idx'];
         $data['upd_user'] = $data['mem_idx'];
-        $data['reg_datetime'] = date('Y-m-d H:i:s');
         $data['upd_datetime'] = date('Y-m-d H:i:s');
-        $data['rev_status'] = 'Y';
 
-        if(! $this->db->insert('products_review', $data)) {
-            $this->response(["message"=>"상품 리뷰 저장도중 오류가 발생하였습니다."], 500);
+        if(empty($rev_idx))
+        {
+            $data['mem_idx'] = $this->member->is_login();
+
+            if(!$data['mem_idx']) {
+                $this->response(["message"=>"리뷰는 회원만 작성할 수 있습니다."], 400);
+            }
+
+            $data['rev_status'] = 'Y';
+            $data['reg_user'] = $data['mem_idx'];
+            $data['reg_datetime'] = date('Y-m-d H:i:s');
+
+            if(! $this->db->insert('products_review', $data)) {
+                $this->response(["message"=>"상품 리뷰 저장도중 오류가 발생하였습니다."], 500);
+            }
+
+            $rev_idx = $this->db->insert_id();
+        }
+        else {
+            if(! $this->db->where('rev_idx', $rev_idx)->update('products_review', $data)) {
+                $this->response(["message"=>"상품 리뷰 저장도중 오류가 발생하였습니다."], 500);
+            }
         }
 
-        $rev_idx = $this->db->insert_id();
         $images = $this->post('images', TRUE);
 
-        if(count($images) > 0) {
+        if($images && count($images) > 0) {
             $this->db->where_in('att_idx', $images)->set('att_target', $rev_idx)->update('attach');
         }
 
