@@ -21,6 +21,12 @@ class Main extends WB_Controller {
         $this->data['popup_list'] = $this->popup_model->get_popups();
         $this->asides['popup'] = "main/asides_popup";
 
+        // 쇼핑몰 사용설정이 되어있는경우
+        if(USE_SHOP) {
+            $this->load->model('products_model');
+            $this->load->model('shop_model');
+        }
+
         // 레이아웃 & 뷰파일 설정
         $this->theme    = $this->site->get_layout();
         $this->view     = "main/index";

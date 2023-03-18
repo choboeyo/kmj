@@ -65,7 +65,6 @@ $this->site->add_js("/assets/js/desktop.min.js", TRUE);
                                 <?php endforeach;?>
                             </ul>
                         </li>
-
                     <?php else : // 1차메뉴가 하위메뉴가 없다면 ?>
                         <li class="<?=$menu1['active']?'active':''?>">
                             <a href='<?=$menu1['mnu_link']?>' <?=$menu1['mnu_newtab']=='Y'?'target="_blank"':''?>><?=$menu1['mnu_name']?></a>
@@ -73,6 +72,33 @@ $this->site->add_js("/assets/js/desktop.min.js", TRUE);
                     <?php endif; ?>
 
                 <?php endforeach; ?>
+
+                <?php
+                /** S: 쇼핑몰 사용설정이 되어있는경우 상품분류를 가져와 메뉴로 출력한다. */
+                if(USE_SHOP):
+                    $shop_menu = $this->products_model->getCategoryList(FALSE, TRUE);
+
+                    foreach($shop_menu as $menu1):
+                ?>
+                <?php if(count($menu1['children'])>0):?>
+                <li class="dropdown">
+                    <a href="<?=base_url('products/category/'.$menu1['cat_id'])?>" class="dropdown-toggle" data-toggle="dropdown"><?=$menu1['cat_title']?> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    <?php foreach($menu1['children'] as $menu2) :?>
+                        <li><a href="<?=base_url('products/category/'.$menu2['cat_id'])?>"><?=$menu2['cat_title']?></a></li>
+                    <?php endforeach;?>
+                    </ul>
+                </li>
+                <?php else :?>
+                <li>
+                    <a href='<?=base_url('products/category/'.$menu1['cat_id'])?>'><?=$menu1['cat_title']?></a>
+                </li>
+                <?php endif;?>
+                <?php
+                    endforeach;
+                endif;
+                /** E: 상품분류 가져오기 끝*/
+                ?>
             </ul>
 
             <ul class="member-navigation">

@@ -10,22 +10,31 @@ class Products_model extends WB_Model
      * 상품 분류를 가져옵니다.
      * @param false $viewHidden 숨김 처리된 목록도 가져옵니다.
      */
-    function getCategoryList ($viewHidden = FALSE)
+    function getCategoryList ($viewHidden = FALSE, $cache=TRUE)
     {
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file', 'key_prefix' => PROJECT));
+
         $cat_status = ["Y"];
         if($viewHidden) $cat_status[] = "H";
 
+        // $viewHidden 이 FALSE 일경우에는 cache 를 사용한다.
+        if(! $viewHidden && $cache) {
+            if( $categoryList = $this->cache->get('categoryList'))
+            {
+                return $this->categoryArrange($categoryList, 0);
+            }
+        }
+
         $categoryList = $this->db
-            //->select('PC.*')
-            //->select("CONCAT(CASE WHEN `PC2`.`cat_id` IS NULL THEN '' ELSE LPAD(`PC2`.`cat_id`,3,'0') END,CASE WHEN `PC1`.`cat_id` IS NULL THEN '' ELSE LPAD(`PC1`.`cat_id`,3,'0') END,LPAD(`PC`.`cat_id`,3,'0')) AS `node_path`")
-            //->select("CONCAT(CASE WHEN `PC2`.`cat_id` IS NULL THEN '' ELSE CONCAT(`PC2`.`cat_title`,' > ') END,CASE WHEN `PC1`.`cat_id` IS NULL THEN '' ELSE CONCAT(`PC1`.`cat_title`,' > ') END) AS `parent_names`")
             ->from('products_category_list AS PC')
-            //->join('products_category AS PC1', 'PC1.cat_id=PC.cat_parent_id', 'left')
-            //->join('products_category AS PC2', 'PC2.cat_id=PC1.cat_parent_id','left')
             ->where_in('PC.cat_status',$cat_status)
             ->order_by('PC.cat_sort ASC')
             ->get()
             ->result_array();
+
+        if(! $viewHidden) {
+            $this->cache->save('categoryList', $categoryList);
+        }
 
         return $this->categoryArrange($categoryList, 0);
     }
@@ -266,12 +275,23 @@ class Products_model extends WB_Model
         $this->db
             ->where('cat_id', $cat_id)
             ->set('cat_product_count', $cnt1 + $cnt2)
-            ->update('products_category_list');
+            ->update('products_category');
 
         // 만약 부모카테고리가 있는경우
         if($category['cat_parent_id'] > 0) {
             $this->updateCategoryCount($category['cat_parent_id']);
         }
+
+        $this->cleanCategoryCache();
+    }
+
+    /**
+     * 카테고리 목록 캐시파일 삭제
+     */
+    public function cleanCategoryCache()
+    {
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file', 'key_prefix' => PROJECT));
+        $this->cache->delete('categoryList');
     }
 
     public function getCategory($cat_id) {

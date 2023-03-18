@@ -12,6 +12,8 @@ class Products extends REST_Controller
      */
     function category_post()
     {
+        $this->load->model('products_model');
+
         $cat_parent_id = $this->post('cat_parent_id', TRUE) ?? 0;
         $cat_id = $this->post('cat_id', TRUE) ?? 0;
 
@@ -37,6 +39,9 @@ class Products extends REST_Controller
             $data['cat_sort'] = ((int)$this->db->select_max('cat_sort', 'max')->where('cat_parent_id', $cat_parent_id)->where_in('cat_status',['Y','H'])->get('products_category')->row(0)->max)  + 1;
 
             if($this->db->insert('products_category', $data)) {
+                // 카테고리 목록 캐시파일 삭제
+                $this->products_model->cleanCategoryCache();
+
                 $this->response(["message"=>"SUCCESS"]);
             }
             else {
@@ -46,6 +51,9 @@ class Products extends REST_Controller
         else {
             if($this->db->where('cat_id', $cat_id)->update('products_category', $data))
             {
+                // 카테고리 목록 캐시파일 삭제
+                $this->products_model->cleanCategoryCache();
+
                 $this->response(["message"=>"SUCCESS"]);
             }
             else {
@@ -101,6 +109,10 @@ class Products extends REST_Controller
             ->set('cat_status','N')
             ->update('products_category');
 
+        // 카테고리 목록 캐시파일 삭제
+        $this->load->model('products_model');
+        $this->products_model->cleanCategoryCache();
+
         $this->response(["message"=>"SUCCESS"], 200);
     }
 
@@ -128,6 +140,10 @@ class Products extends REST_Controller
         if(count($updateArray)) {
             $this->db->update_batch('products_category', $updateArray, 'cat_id');
         }
+
+        // 카테고리 목록 캐시파일 삭제
+        $this->load->model('products_model');
+        $this->products_model->cleanCategoryCache();
 
         // 변경된 상품 목록 가져오기
         $after = $this->db->get('products_category_list')->result_array();
