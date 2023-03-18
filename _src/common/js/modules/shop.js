@@ -459,6 +459,28 @@ $(function() {
             })
         })
     }
+
+    /**
+     * 상품문의 삭제하기
+     */
+    $(document).on('click.qa_delete', '[data-button="delete-qna"]', function(e) {
+        e.preventDefault();
+
+        var idx = $(this).attr('data-idx');
+        idx = typeof idx !== 'undefined' && idx ? idx: null;
+
+        if(! idx) return;
+
+        if(! confirm('해당 상품문의를 삭제하시겠습니까?')) return
+
+        $.ajax({
+            url: `${base_url}ajax/products/qna/${idx}`,
+            type:'DELETE',
+            success: function() {
+                location.reload();
+            }
+        })
+    })
 })
 
 APP.SHOP.getReviewList = function(prd_idx, page) {

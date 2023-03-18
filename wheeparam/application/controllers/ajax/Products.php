@@ -37,6 +37,11 @@ class Products extends REST_Controller
         $this->response($data, 200);
     }
 
+    /**
+     * 리뷰 삭제
+     * @param $prd_idx
+     * @param $rev_idx
+     */
     function reviews_delete($prd_idx, $rev_idx)
     {
         $mem_idx = $this->member->is_login();
@@ -212,7 +217,10 @@ class Products extends REST_Controller
         }
 
     }
-    
+
+    /**
+     * 상품 찜하기 토글
+     */
     function wish_post()
     {
         $prd_idx = $this->post('prd_idx', TRUE);
@@ -245,5 +253,44 @@ class Products extends REST_Controller
         }
 
         $this->products_model->wishCountUpdate($prd_idx);
+    }
+
+    /**
+     * 등록된 상품문의 삭제
+     */
+    function qna_delete($qa_idx)
+    {
+        $view = $this->db
+            ->where('qa_idx', $qa_idx)
+            ->get('products_qa')
+            ->row_array();
+
+        if(! $view) {
+            $this->response(["message"=> "삭제하시려는 상품문의가 이미 삭제되었거나, 존재하지않습니다."], 400);
+            exit;
+        }
+
+        $mem_idx = $this->member->is_login();
+
+        if($view['mem_idx'] != $mem_idx) {
+            $this->response(["message"=> "해당 문의를 삭제할 권한이 없습니다."], 400);
+            exit;
+        }
+
+        if($view['qa_is_answer'] != 'N') {
+            $this->response(["message"=> "답변이 달린 문의는 삭제할 수 없습니다."], 400);
+            exit;
+        }
+
+        if(! $this->db
+            ->where('qa_idx', $qa_idx)
+            ->set('qa_status','N')
+            ->update('products_qa'))
+        {
+            $this->response(["message"=> "처리도중 오류가 발생하였습니다."], 500);
+            exit;
+        } else {
+            $this->response(["message"=>"SUCCESS"],200);
+        }
     }
 }

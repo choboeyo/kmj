@@ -27,6 +27,7 @@
                                     <dt class="sr-only">작성자</dt>
                                     <dd><?=$qna['nickname']?></dd>
                                 </dl>
+                                <button type="button" data-button="delete-qna" data-idx="<?=$qna['qa_idx']?>" class="btn-skin-danger"><i class="fas fa-trash"></i></button>
                                 <dl class="w-regtime">
                                     <dt class="sr-only">작성일시</dt>
                                     <dd><?=date('Y.m.d',strtotime($qna['reg_datetime']))?></dd>
