@@ -1,22 +1,17 @@
 <?php
-class Install extends CI_Controller {
-
-    private $password = "tjsrmslove0614*";
-
+/**
+ * 휘파람 보드 Install
+ */
+class Install extends CI_Controller
+{
     function index()
     {
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('userpass', '비밀번호','required|trim');
+        $this->form_validation->set_rules('admin_nick', '관리자 닉네임','required|trim');
 
         if( $this->form_validation->run() )
         {
-            if( $this->input->post('userpass') != $this->password )
-            {
-                $this->load->helper('common');
-                alert('비밀번호가 일치하지 않습니다.');
-                exit;
-            }
             $this->db_init();
         }
         else {
@@ -70,8 +65,8 @@ class Install extends CI_Controller {
         unset($data);
         
         // 인스톨 파일 삭제
-        unlink( APPPATH . '..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'no_install.php' );
+        @unlink( APPPATH . '..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'no_install.php' );
         $this->load->helper('url');
-        redirect( BASE_URL );
+        redirect( base_url() );
     }
 }

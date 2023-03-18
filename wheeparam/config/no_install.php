@@ -25,10 +25,6 @@
                     <label>프로젝트 이름</label>
                     <div class="form-control"><?=PROJECT?></div>
                 </div>
-                <div class="form-group">
-                    <label>접속 URL</label>
-                    <div class="form-control"><?=BASE_URL?></div>
-                </div>
                 <hr>
                 <div class="form-group">
                     <label>DB HOST</label>

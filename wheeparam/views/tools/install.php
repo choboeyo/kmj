@@ -19,12 +19,7 @@
         <div class="login-panel">
             <div class="login-heading">초기화를 진행하기 위해 비밀번호를 입력하세요</div>
             <div class="login-body">
-                <?=form_open(BASE_URL . "/install")?>
-                <div class="form-group">
-                    <label for="userpass">DB 초기화 비밀번호 입력</label>
-                    <input class="form-control" type="password" name="userpass" value="" id="userpass" autofocus="true" required="required">
-                </div>
-                <div class="H20"></div>
+                <?=form_open( "install")?>
                 <div class="form-group">
                     <label>생성할 관리자 닉네임</label>
                     <input class="form-control" name="admin_nick" required value="휘파람">
@@ -44,6 +39,8 @@
                     <label>생성할 관리자 E-mail</label>
                     <input class="form-control" name="admin_email" required value="admin@wheeparam.com">
                 </div>
+                <div class="H10"></div>
+                <?=validation_errors('<p class="alert alert-danger">')?>
                 <button class="btn btn-block" onclick="return confirm('DB가 초기화 됩니다. 실행하시겠습니까?');">DB초기화 실행</button>
                 <?=form_close()?>
             </div>

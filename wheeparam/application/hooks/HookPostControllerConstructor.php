@@ -42,8 +42,6 @@ class HookPostControllerConstructor {
      ***********************************************/
     function load_config()
     {
-        $this->CI->config->set_item('base_url', BASE_URL);
-        $this->CI->config->set_item('cookie_domain', COOKIE_DOMAIN);
         $this->CI->load->database();
 
         $this->CI->load->helper(array('url','form','cookie','common','thumbnail','widgets','lang'));

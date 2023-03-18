@@ -209,7 +209,6 @@ class Site {
         $return .= '<script>';
         $return .= 'var base_url="'.base_url().'";';
         $return .= 'var current_url="'.current_url().'";';
-        $return .= 'var cookie_domain="'.COOKIE_DOMAIN.'";';
         $return .= 'var is_admin='.( PAGE_ADMIN ? 'true'  : 'false' ).';';
         $return .= '</script>';
         return $return;
