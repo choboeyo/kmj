@@ -435,10 +435,49 @@ class Shop extends REST_Controller
 
         $this->session->set_userdata('od_id', $od_id);
 
+        $_order = $this->db->where('od_id', $od_id)->get('shop_order')->row_array();
+        // 배송지 목록에 이사람의 배송지를 추가한다.
+        // 먼저 현재 데이타와 똑같은 데이타가 있는지 찾아본다.
+        $mem_idx = $this->member->is_login();
+        $exist = $this->db
+            ->where('mem_idx', $mem_idx)
+            ->where('ad_name', trim($_order['od_name']))
+            ->where('ad_tel', trim($_order['od_tel']))
+            ->where('ad_hp', trim($_order['od_hp']))
+            ->where('ad_zonecode', trim($_order['od_zonecode']))
+            ->where('ad_addr1', trim($_order['od_addr1']))
+            ->where('ad_addr2', trim($_order['od_addr2']))
+            ->get('shop_order_address')
+            ->row_array();
+
+        // 기존 등록된거 전부 default = N
+        $this->db->where('mem_idx', $mem_idx)->set('ad_default','N')->update('shop_order_address');
+
+        // 존재한다면 default를 Y로 바꿔준다.
+        if($exist) {
+            $this->db
+                ->where('ad_id', $exist['ad_id'])
+                ->set('ad_default', 'Y')
+                ->update('shop_order_address');
+        }
+        // 존재하지 않는다면 신규로 등록해준다.
+        else {
+            $oa['mem_idx'] = $mem_idx;
+            $oa['ad_default'] = 'Y';
+            $oa['ad_name'] = trim($_order['od_name']);
+            $oa['ad_tel'] = trim($_order['od_tel']);
+            $oa['ad_hp'] = trim($_order['od_hp']);
+            $oa['ad_zonecode'] = trim($_order['od_zonecode']);
+            $oa['ad_addr1'] = trim($_order['od_addr1']);
+            $oa['ad_addr2'] = trim($_order['od_addr2']);
+
+            $this->db->insert('shop_order_address', $oa);
+        }
+
+
         // 주문/결제완료시 SMS 또는 카카오 알림톡 발송
         if($this->site->config('shop_sms_type') !== 'NONE')
         {
-            $_order = $this->db->where('od_id', $od_id)->get('shop_order')->row_array();
 
             // 무통장입금의 경우에는 입금계좌안내를 발송한다.
             $sms_data['phone'] = $order['od_hp'];

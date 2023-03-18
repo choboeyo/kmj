@@ -64,31 +64,31 @@
             <fieldset>
                 <legend class="field-caption">주문자 정보 입력</legend>
                 <div class="ord-form-group">
-                    <input class="ord-form-input" id="ord-name" name="od_name" required maxlength="20" placeholder="주문자 성함" value="<?=$this->member->info('nickname')?>">
+                    <input class="ord-form-input" id="ord-name" name="od_name" required maxlength="20" placeholder="주문자 성함" value="<?=$order_form['nickname']?>">
                     <label class="ord-form-label" for="ord-name">이름 <span class="required">(필수입력)</span></label>
                 </div>
                 <div class="ord-form-group">
-                    <input class="ord-form-input" id="ord-hp" name="od_hp" required maxlength="20" placeholder="주문자 핸드폰 번호" data-regex="phone-number" value="<?=$this->member->info('phone')?>">
+                    <input class="ord-form-input" id="ord-hp" name="od_hp" required maxlength="20" placeholder="주문자 핸드폰 번호" data-regex="phone-number" value="<?=$order_form['phone']?>">
                     <label class="ord-form-label" for="ord-hp">핸드폰 <span class="required">(필수입력)</span></label>
                 </div>
                 <div class="ord-form-group">
-                    <input class="ord-form-input" id="ord-tel" name="od_tel" maxlength="20" placeholder="주문자 전화번호" data-regex="tel-number">
+                    <input class="ord-form-input" id="ord-tel" name="od_tel" maxlength="20" placeholder="주문자 전화번호" data-regex="tel-number" value="<?=$order_form['tel']?>">
                     <label class="ord-form-label" for="ord-tel">전화번호</label>
                 </div>
 
                 <div class="ord-d-flex">
                     <div class="ord-form-group" style="width:120px;">
-                        <input class="ord-form-input" data-input="zonecode" id="ord-zonecode" name="od_zonecode" maxlength="5" placeholder="우편번호" readonly>
+                        <input class="ord-form-input" data-input="zonecode" id="ord-zonecode" name="od_zonecode" maxlength="5" placeholder="우편번호" readonly value="<?=$order_form['zonecode']?>">
                         <label class="ord-form-label" for="ord-zonecode">우편번호 <span class="required">(필수입력)</span></label>
                     </div>
                     <button type="button" class="cart-btn" data-button="search-zonecode">우편번호 검색</button>
                 </div>
                 <div class="ord-form-group">
-                    <input class="ord-form-input" data-input="address" id="ord-address1" name="od_addr1" maxlength="100" placeholder="주소" readonly>
+                    <input class="ord-form-input" data-input="address" id="ord-address1" name="od_addr1" maxlength="100" placeholder="주소" readonly value="<?=$order_form['addr1']?>">
                     <label class="ord-form-label" for="ord-address1">주소 <span class="required">(필수입력)</span></label>
                 </div>
                 <div class="ord-form-group">
-                    <input class="ord-form-input" data-input="addressDetail" id="ord-address2" name="od_addr2" maxlength="100" placeholder="상세 주소">
+                    <input class="ord-form-input" data-input="addressDetail" id="ord-address2" name="od_addr2" maxlength="100" placeholder="상세 주소" value="<?=$order_form['addr2']?>">
                     <label class="ord-form-label" for="ord-address2">상세 주소</label>
                 </div>
                 <div class="ord-form-group">

@@ -266,6 +266,27 @@ class Shop extends WB_Controller
             $hiddenVars['prd_name'] .= " 외 " . (count($this->data['cart_list']) - 1) .'건';
         }
 
+        // 주문폼의 기본정보
+        $this->data['order_form']['nickname'] = $this->member->info('nickname');
+        $this->data['order_form']['phone'] = $this->member->info('phone');
+        $this->data['order_form']['tel'] = $this->member->info('phone');
+        $this->data['order_form']['zonecode'] = '';
+        $this->data['order_form']['addr1'] = '';
+        $this->data['order_form']['addr2'] = '';
+
+        // 최근 배송지 가져오기
+        $mem_idx = $this->member->is_login();
+        if( $this->data['order_address']= $this->db->where('mem_idx', $mem_idx)->where('ad_default','Y')->get('shop_order_address')->row_array())
+        {
+            $this->data['order_form']['nickname'] = $this->data['order_address']['ad_name'];
+            $this->data['order_form']['phone'] = $this->data['order_address']['ad_hp'];
+            $this->data['order_form']['tel'] = $this->data['order_address']['ad_tel'];
+            $this->data['order_form']['zonecode'] = $this->data['order_address']['ad_zonecode'];
+            $this->data['order_form']['addr1'] = $this->data['order_address']['ad_addr1'];
+            $this->data['order_form']['addr2'] = $this->data['order_address']['ad_addr2'];
+        }
+
+
         $this->data['form_open'] = form_open(NULL,["data-form"=>"shop-order"], $hiddenVars);
         $this->data['form_close'] = form_close() ;
         $this->data['form_close'].= '<script>var IMP = window.IMP;IMP.init("'.$hiddenVars['imp_code'].'");</script>';
