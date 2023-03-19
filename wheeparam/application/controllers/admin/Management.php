@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property Products_model $products_model
+ * @property Shop_model $shop_model
+ */
 class Management extends WB_Controller {
 
     public function __construct()
@@ -87,6 +91,52 @@ class Management extends WB_Controller {
                     "name" => $row['brd_title']
                 );
             }
+
+            if(USE_SHOP) {
+                // 상품분류 목록 가져오기
+                $this->load->model('products_model');
+                $shop_category_list = $this->products_model->getCategoryList(FALSE, TRUE);
+                $this->data['products_category_list'] = [];
+                foreach($shop_category_list as $row)
+                {
+                    $this->data['products_category_list'][] = [
+                        "url" => "/products/category/".$row['cat_id'],
+                        "name" => $row['cat_title']
+                    ];
+
+                    if(count($row['children']) >0) {
+                        foreach($row['children'] as $row2)
+                        {
+                            $this->data['products_category_list'][] = [
+                                "url" => "/products/category/".$row2['cat_id'],
+                                "name" => $row['cat_title'] . '>'.$row2['cat_title']
+                            ];
+
+                            if(count($row2['children']) > 0)
+                            {
+                                foreach($row2['children'] as $row3)
+                                {
+                                    $this->data['products_category_list'][] = [
+                                        "url" => "/products/category/".$row3['cat_id'],
+                                        "name" => $row['cat_title'] . '>'.$row2['cat_title'] . '>'. $row3['cat_title']
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 상품진엶장 목록 가져오기
+                $shop_display_list = $this->db->select('dsp_key, dsp_title')->where('dsp_status','Y')->get('products_display')->result_array();
+                $this->data['shop_display_list'] = [];
+                foreach($shop_display_list as $row) {
+                    $this->data['shop_display_list'][] = [
+                      "url" => "/products/display/".$row['dsp_key'],
+                      "name" => $row['dsp_title']
+                    ];
+                }
+            }
+
 
             $this->data['mnu_idx'] = $this->input->get('mnu_idx', TRUE);
             $this->data['mnu_parent'] = $this->input->get('mnu_parent', TRUE);

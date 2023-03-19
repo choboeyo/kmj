@@ -29,3 +29,4 @@ services:
       - WPBoard
     environment:
       CI_ENV: development
+      WB_ENV: DEV

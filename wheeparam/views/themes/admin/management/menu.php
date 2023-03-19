@@ -168,7 +168,7 @@
             header : {
                 title : '메뉴 정보 입력'
             },
-            width : 450,
+            width : 800,
             height : 600
         });
     }

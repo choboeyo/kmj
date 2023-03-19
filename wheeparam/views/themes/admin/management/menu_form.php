@@ -18,11 +18,15 @@
                     <option value="">직접입력</option>
                     <option value="#" <?=element('mnu_link',$view)=='#'?'selected':''?>>링크 없음</option>
                     <option value="board">게시판</option>
+                    <?php if(USE_SHOP):?>
+                    <option value="products_category">상품분류</option>
+                    <option value="shop_display">상품진열장</option>
+                    <?php endif;?>
                     <option value="pages">일반페이지</option>
                 </select>
             </div>
         </div>
-        <div data-ax-td>
+        <div data-ax-td style="flex:1;">
             <div data-ax-td-wrap id="menu-helper-input">
                 <select class="form-control">
                     <option value="">직접입력</option>
@@ -85,28 +89,44 @@
         { url : '/agreement/site', name:'이용약관'},
         { url : '/agreement/privacy', name:'개인정보취급방침'}
     ];
+    <?php if(USE_SHOP):?>
+    var shop_display_link = <?=json_encode($shop_display_list, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_NUMERIC_CHECK)?>;
+    var products_category = <?=json_encode($products_category_list, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_NUMERIC_CHECK)?>;
+    <?php endif;?>
     $(function(){
         $("#menu-helper").change(function(){
             var $this = $(this);
             $("#menu-helper-input").empty();
-            if( $this.val() == '' )
+
+            var selected = $this.val()
+
+            if( selected === '' )
             {
                 var input = $("<input>").addClass('form-control').attr('name', "mnu_link").attr('required','required').val( mnu_link );
                 $("#menu-helper-input").append( input);
             }
-            else if ( $this.val() == '#' )
+            else if ( selected === '#' )
             {
                 var input = $("<input>").addClass('form-control').attr('name', "mnu_link").val( '#' ).attr('readonly','readonly');
                 $("#menu-helper-input").append( input);
             }
-            else if ( $this.val() == 'board' || $this.val() == 'pages' ) {
+            else if ( selected === 'board' || selected === 'pages' || selected === 'shop_display' || selected === 'products_category' ) {
                 var data_list = [];
-                if( $this.val() == 'board' ) {
+                if( selected === 'board' ) {
                     data_list = board_link;
                 }
-                else if ($this.val() == 'pages') {
+                else if (selected  === 'pages') {
                     data_list = pages_link;
                 }
+                <?php if(USE_SHOP) :?>
+                else if (selected === 'shop_display') {
+                    data_list = shop_display_link
+                }
+                else if (selected === 'products_category') {
+                    data_list = products_category
+                }
+                <?php endif;?>
+
                 var select = $("<select>").addClass('form-control').attr('name', 'mnu_link');
                 for(var i=0; i<data_list.length; i++ )
                 {

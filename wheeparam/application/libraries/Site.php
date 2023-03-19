@@ -66,27 +66,40 @@ class Site {
 
         foreach($menu_list as &$menu1) {
             $menu1['active'] =  $CI->active == $menu1['mnu_active_key'];
-            foreach($menu1['children'] as &$mnu2)
+            if(isset($menu1['children']) && count($menu1['children']) > 0)
             {
-                $mnu2['active'] = $CI->active == $mnu2['mnu_active_key'];
-
-                foreach($mnu2['children'] as &$mnu3)
+                foreach($menu1['children'] as &$mnu2)
                 {
-                    $mnu3['active'] = $CI->active == $mnu3['mnu_active_key'];
+                    $mnu2['active'] = $CI->active == $mnu2['mnu_active_key'];
 
-                    if( $mnu3['active'] ) {
+                    if(isset($mnu2['children']) && count($mnu2['children']) > 0)
+                    {
+                        foreach($mnu2['children'] as &$mnu3)
+                        {
+                            $mnu3['active'] = $CI->active == $mnu3['mnu_active_key'];
+
+                            if( $mnu3['active'] ) {
+                                $mnu2['active'] = TRUE;
+                                $menu1['active'] = TRUE;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        $mnu2['children'] = [];
+                    }
+
+                    if($CI->active == $mnu2['mnu_active_key'] )
+                    {
                         $mnu2['active'] = TRUE;
                         $menu1['active'] = TRUE;
-                        break;
                     }
                 }
-
-                if($CI->active == $mnu2['mnu_active_key'] )
-                {
-                    $mnu2['active'] = TRUE;
-                    $menu1['active'] = TRUE;
-                }
             }
+            else {
+                $menu1['children'] = [];
+            }
+
 
             if( $CI->active == $menu1['mnu_active_key'] )
             {
