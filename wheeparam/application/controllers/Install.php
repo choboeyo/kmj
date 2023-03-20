@@ -38,7 +38,7 @@ class Install extends CI_Controller
         // 관리자 아이디 생성
         $data['mem_status'] = "Y";
         $data['mem_userid'] =  $this->input->post('admin_id', TRUE, "admin@wheeparam.com");
-        $data['mem_password'] = get_password_hash($this->input->post('admin_pass', TRUE, $this->password) );
+        $data['mem_password'] = get_password_hash($this->input->post('admin_pass', TRUE, '') );
         $data['mem_nickname'] = $this->input->post('admin_nick', TRUE, "휘파람");
         $data['mem_email'] = $this->input->post('admin_email', TRUE, "admin@wheeparam.com");
         $data['mem_gender'] = "U";
