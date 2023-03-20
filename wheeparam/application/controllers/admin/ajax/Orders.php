@@ -36,6 +36,12 @@ class Orders extends REST_Controller
         $this->db->where('od_id', $od_id)->update('shop_order', $data);
 
         // 카트의 상태도 동시에 변경한다, 단 카트 상품이 취소,반품,품절인건 변경하지않는다.
+        $this->load->model('shop_model');
+        $cart_list = $this->db->where('od_id',$od_id)->get('shop_cart')->result_array();
+        foreach($cart_list as $row)
+        {
+            $this->shop_model->stock_change($data['od_status'], $row);
+        }
         $this->db
             ->where('od_id', $od_id)
             ->where_not_in('cart_status',['취소','반품','품절'])
@@ -206,6 +212,7 @@ class Orders extends REST_Controller
      */
     function items_post()
     {
+        $this->load->model('shop_model');
         $cart_list = $this->post('cartList', TRUE);
 
         $update_array = [];
@@ -216,6 +223,9 @@ class Orders extends REST_Controller
               "cart_status" => $row['cart_status'],
               "cart_qty" => $row['cart_qty']
             ];
+
+            $cart_row = $this->db->where('cart_id', $row['cart_id'])->get('shop_cart')->row_array();
+            $this->shop_model->stock_change($row['cart_status'], $cart_row);
         }
 
         if(count($update_array) > 0) {

@@ -1,4 +1,7 @@
-APP.SHOP = {};
+if(typeof APP.SHOP === 'undefined') {
+    APP.SHOP = {};
+}
+
 
 /**
  * 특정상품의 빠른 장바구니 화면을 불러옵니다.
@@ -887,14 +890,14 @@ $(function(){
                     async: false,
                     cache: false,
                     success:function(res) {
-                        location.href= base_url + '/shop/order-complete'
+                        location.href= base_url + '/shop/order-complete';
                     }
                 });
                 return;
             }
 
             // 모바일용 redirect_url 설정
-            payment_data.m_redirect_url = base_url + '/ajax/shop/payment-verify/mobile'
+            payment_data.m_redirect_url = base_url + '/ajax/shop/payment-verify/mobile';
 
             // 결제 처리
             IMP.request_pay(payment_data, function(rsp) {
@@ -918,4 +921,4 @@ $(function(){
             });
         })
     }
-})
+});

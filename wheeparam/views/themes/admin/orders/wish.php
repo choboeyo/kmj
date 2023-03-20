@@ -9,7 +9,7 @@
         <thead>
         <tr>
             <th class="W80">순위</th>
-            <th>분류</th>
+            <th class="W250">분류</th>
             <th>상품</th>
             <th class="W100">찜횟수</th>
         </tr>

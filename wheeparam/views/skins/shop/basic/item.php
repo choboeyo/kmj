@@ -112,6 +112,29 @@ $this->site->add_css('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1
 
             <div class="H15"></div>
 
+            <?php if($view['prd_sell_status'] === 'O') :?>
+            <div class="product-buy-form">
+                <div class="buy-button-wrap">
+                    <button class="buy-button" type="button" disabled>품절</button>
+                    <?php if($this->member->is_login()) :?>
+                        <button class="buy-button wish <?=$view['is_wish']?'wished':''?>" type="button" onclick="APP.SHOP.toggleWish('<?=$view['prd_idx']?>')" title="<?=$view['is_wish']?'찜하기 취소':'찜하기'?>"><i class="<?=$view['is_wish']?'fas':'fal'?> fa-heart"></i></button>
+                    <?php else :?>
+                        <button class="buy-button wish" type="button" title="찜하기" onclick="alert('회원 로그인후 찜하기를 사용하실 수 있습니다.');"><i class="fal fa-heart"></i></button>
+                    <?php endif;?>
+                </div>
+            </div>
+            <?php elseif ($view['prd_sell_status'] === 'D'):?>
+            <div class="product-buy-form">
+                <div class="buy-button-wrap">
+                    <button class="buy-button" type="button" disabled>일시판매중지</button>
+                    <?php if($this->member->is_login()) :?>
+                        <button class="buy-button wish <?=$view['is_wish']?'wished':''?>" type="button" onclick="APP.SHOP.toggleWish('<?=$view['prd_idx']?>')" title="<?=$view['is_wish']?'찜하기 취소':'찜하기'?>"><i class="<?=$view['is_wish']?'fas':'fal'?> fa-heart"></i></button>
+                    <?php else :?>
+                        <button class="buy-button wish" type="button" title="찜하기" onclick="alert('회원 로그인후 찜하기를 사용하실 수 있습니다.');"><i class="fal fa-heart"></i></button>
+                    <?php endif;?>
+                </div>
+            </div>
+            <?php else :?>
             <?=$form_open;?>
             <div class="product-buy-form">
                 <?php if(count($options)> 0) :?>
@@ -197,6 +220,7 @@ $this->site->add_css('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1
                 </div>
             </div>
             <?=$form_close;?>
+            <?php endif;?>
         </div>
     </div>
     <!--E: 상품 정보 -->

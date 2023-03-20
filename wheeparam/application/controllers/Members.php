@@ -8,6 +8,13 @@
  */
 class Members extends WB_Controller {
 
+    function __construct()
+    {
+        parent::__construct();
+
+        $this->load->model('products_model');
+    }
+
     /**
      * 회원가입 페이지
      */

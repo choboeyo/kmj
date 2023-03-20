@@ -1204,4 +1204,61 @@ class Shop_model extends WB_Model {
 
         return  $result->result_array();;
     }
+
+    function stock_change($will_status, $cart_row)
+    {
+        // 배송으로 교체하거나, 취소, 반품, 품절로 교체할때 처리한다.
+        if($will_status=='배송' ||  $will_status=='반품')
+        {
+            if($will_status == '배송')
+            {
+                // 주문->배송, 준비->배송, 입금->배송 이 아닌경우 리턴
+                if($cart_row['cart_status'] !='주문' && $cart_row['cart_status'] !='준비' && $cart_row['cart_status'] !='입금')
+                {
+                    return;
+                }
+
+                // 일단 상품의 재고를 깎는다
+                $this->db
+                    ->where('prd_idx', $cart_row['prd_idx'])
+                    ->set("`prd_stock_qty`", "`prd_stock_qty`-{$cart_row['cart_qty']}", FALSE)
+                    ->update('products');
+
+                // 상품 옵션이 있는경우 옵션의 재고를 깎는다.
+                if(! empty($cart_row['opt_code'])) {
+                    $this->db
+                        ->where('prd_idx', $cart_row['prd_idx'])
+                        ->where('opt_code', $cart_row['opt_code'])
+                        ->set("`opt_stock_qty`", "`opt_stock_qty`-{$cart_row['cart_qty']}", FALSE)
+                        ->update('products_options');
+                }
+
+                $this->db->where('cart_id', $cart_row['cart_id'])->set('cart_use_stock','Y');
+            }
+            else if($will_status == '반품')
+            {
+                // 배송->반품,완료->빤품 이 아닌경우 리턴
+                if($cart_row['cart_status'] !='배송' && $cart_row['cart_status'] !='완료')
+                {
+                    return;
+                }
+
+                // 일단 상품의 재고를 올린다.
+                $this->db
+                    ->where('prd_idx', $cart_row['prd_idx'])
+                    ->set("`prd_stock_qty`", "`prd_stock_qty`+{$cart_row['cart_qty']}", FALSE)
+                    ->update('products');
+
+                // 상품 옵션이 있는경우 옵션의 재고를 올린다..
+                if(! empty($cart_row['opt_code'])) {
+                    $this->db
+                        ->where('prd_idx', $cart_row['prd_idx'])
+                        ->where('opt_code', $cart_row['opt_code'])
+                        ->set("`opt_stock_qty`", "`opt_stock_qty`+{$cart_row['cart_qty']}", FALSE)
+                        ->update('products_options');
+                }
+                $this->db->where('cart_id', $cart_row['cart_id'])->set('cart_use_stock','N');
+            }
+        }
+    }
 }

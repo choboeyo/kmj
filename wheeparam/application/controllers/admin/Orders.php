@@ -31,6 +31,7 @@ class Orders extends WB_Controller
 
     public function multi_save()
     {
+        $this->load->model('shop_model');
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('reurl', '리다이렉트','trim');
@@ -56,6 +57,7 @@ class Orders extends WB_Controller
 
             $update_array = [];
             $update2_array = [];
+
             foreach($temp as $row) {
                 $update_array[] = $row;
 
@@ -64,21 +66,22 @@ class Orders extends WB_Controller
                     if(!in_array($cart_row['cart_status'], ['취소','반품','품절'])) {
                         $update2_array[] = [
                             "cart_status" => $row['od_status'],
-                            "cart_id" => $row['cart_id']
+                            "cart_id" => $cart_row['cart_id']
                         ];
                     }
+                    $this->shop_model
+                        ->stock_change($row['od_status'], $cart_row);
                 }
             }
 
 
             $this->db->trans_begin();
 
-
             if(count($update_array) > 0) {
                 $this->db->update_batch('shop_order', $update_array, "od_id");
             }
             if(count($update2_array) > 0) {
-                $this->db->update_batch('shop_cart', $update2_array, "od_id");
+                $this->db->update_batch('shop_cart', $update2_array, "cart_id");
             }
 
             if ($this->db->trans_status() === FALSE)

@@ -2,7 +2,8 @@
 $this->site->add_css('https://fonts.googleapis.com/earlyaccess/notosanskr.css', TRUE);
 $this->site->add_css("/assets/css/admin.min.css", TRUE);
 
-$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js', TRUE);
+$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js', TRUE);
+$this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js', TRUE);
 $this->site->add_js("/assets/js/admin.min.js", TRUE);
 $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl.min.js', TRUE);
 ?><!DOCTYPE html>
