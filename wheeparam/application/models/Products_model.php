@@ -384,6 +384,8 @@ class Products_model extends WB_Model
 
             for($k=0; $k<$subj_count; $k++)
             {
+                if(empty($subject_array[$k]['title'])) continue;
+
                 if(! (isset($returnArray[$k]) && is_array($returnArray[$k])))
                 {
                     $returnArray[$k] = [
