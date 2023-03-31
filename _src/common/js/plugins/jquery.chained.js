@@ -76,7 +76,8 @@
                     var matches = [];
                     var data = String($(this).data("chained"));
                     if (data) {
-                        matches = data.split(" ");
+                        //띄어씌기 오류로 인해서 split 문자 변경
+                        matches = data.split("@@#");
                     }
                     if ((matches.indexOf(selected) > -1) || (matches.indexOf(selectedFirst) > -1)) {
                         if ($(this).val() === currentlySelectedValue) {
