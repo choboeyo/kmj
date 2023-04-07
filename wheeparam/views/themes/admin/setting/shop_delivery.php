@@ -83,7 +83,7 @@
         <div data-ax-td class="width-100">
             <div data-ax-td-label>배송정보</div>
             <div data-ax-td-wrap>
-                <?=get_editor('setting[name="shop_delivery_info"]', $this->site->config('shop_delivery_info'))?>
+                <?=get_editor('setting[shop_delivery_info]', $this->site->config('shop_delivery_info'))?>
             </div>
         </div>
     </div>
@@ -91,7 +91,7 @@
         <div data-ax-td class="width-100">
             <div data-ax-td-label>교환/반품</div>
             <div data-ax-td-wrap>
-                <?=get_editor('setting[name="shop_refund_info"]', $this->site->config('shop_refund_info'))?>
+                <?=get_editor('setting[shop_refund_info]', $this->site->config('shop_refund_info'))?>
             </div>
         </div>
     </div>
