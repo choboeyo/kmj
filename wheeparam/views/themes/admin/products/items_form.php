@@ -241,21 +241,21 @@
                             </thead>
                             <tbody>
                             <template v-for="i in [0,1,2]">
-                                <tr>
+                                <tr v-if="formData.prd_item_options.length>i" :key="`item-options-${i}-${randNum}`">
                                     <td>
                                         <input type="text" v-model="formData.prd_item_options[i].title" class="form-control">
                                     </td>
                                     <td>
-                                        <ul class="options-list">
+                                        <ul class="options-list" v-if="formData.prd_item_options[i].items&&formData.prd_item_options[i].items.length>0">
                                             <template v-for="(item,index) in formData.prd_item_options[i].items">
                                                 <li class="options-row" :key="`option-0-${index}`">
                                                     <input type="text" class="form-control" v-model="formData.prd_item_options[i].items[index]">
-                                                    <button type="button" class="btn btn-danger btn-sm" @click="formData.prd_item_options[i].items.splice(index,1)"><i class="fas fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-sm" @click="removeItms(i, index)"><i class="fas fa-trash"></i></button>
                                                 </li>
                                             </template>
                                         </ul>
                                         <div class="mt-2">
-                                            <button type="button" class="btn btn-default" @click="formData.prd_item_options[i].items.push('')"><i class="fas fa-plus"></i> 옵션 항목 추가</button>
+                                            <button type="button" class="btn btn-default" @click="addItems(i)"><i class="fas fa-plus"></i> 옵션 항목 추가</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -556,6 +556,7 @@ const productItemForm = new Vue({
     el: '#product-form',
     data: function() {
         return {
+            randNum: 0,
             product_id: '<?=$product_id?>',
             isLoaded: false,
             formData: {
@@ -713,6 +714,21 @@ const productItemForm = new Vue({
         removeExtraOption(index) {
             console.log(index);
           this.formData.options2.splice(index, 1);
+        },
+        addItems(idx) {
+          if(typeof this.formData.prd_item_options[idx] === 'undefined' || typeof this.formData.prd_item_options[idx].items === 'undefined' ) {
+            this.formData.prd_item_options[idx].items = [];
+          }
+          else if (typeof this.formData.prd_item_options[idx].items === '') {
+            this.formData.prd_item_options[idx].items = [];
+          }
+          this.formData.prd_item_options[idx].items.push('');
+          this.randNum++;
+
+        },
+        removeItms(i,index) {
+          this.formData.prd_item_options[i].items.splice(index,1)
+          this.randNum++;
         },
         onSubmit() {
             // 상세설명 Wisywig 에디터의 내용을 가져오기
