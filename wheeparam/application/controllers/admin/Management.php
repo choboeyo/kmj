@@ -1009,4 +1009,23 @@ class Management extends WB_Controller {
             $this->view     = "management/history_form";
         }
     }
+  public function contact()
+  {
+    // 메타태그 설정
+    $this->site->meta_title = "상담 관리";
+    // 레이아웃 & 뷰파일 설정
+    $this->active = $this->view = "management/contact";
+  }
+
+
+  function contact_form()
+  {
+    $const_id = $this->input->get('const_id', TRUE);
+
+    $this->data['view'] = current($this->db->where('con_id', $const_id)->get('contact')->result_array());
+    $this->theme = "admin";
+    $this->theme_file = "iframe";
+    $this->view     = "management/contact_form";
+
+  }
 }

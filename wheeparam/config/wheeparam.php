@@ -10,15 +10,15 @@ const WB_VER = '2.0.8';
 date_default_timezone_set('Asia/Seoul');
 
 // 프로젝트 이름
-const PROJECT = 'wheeparamboard';
+const PROJECT = 'hagunboard';
 
 if( IS_TEST )
 {
     // 개발용 설정
-    define("DB_HOST", "115.68.120.149");     // DB 호스트
-    define("DB_USER", "wboard");                // DB 아이디
-    define("DB_PASS", "!@wboard12");            // DB 비밀번호
-    define("DB_NAME", "wboard");                // DB 네임
+    define("DB_HOST", "115.68.185.124");     // DB 호스트
+    define("DB_USER", "hagunbiz");                // DB 아이디
+    define("DB_PASS", "gkrns!@#");            // DB 비밀번호
+    define("DB_NAME", "");                // DB 네임
 }
 else
 {

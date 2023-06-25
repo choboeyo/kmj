@@ -1,6 +1,6 @@
-# WheeparamBoard
+# hagunboard
 
-휘파람보드
+하군보드
 
 # 연결 설정
 1. /wheeparam/config/wheeparam.php 에서 설정을 변경하세요.

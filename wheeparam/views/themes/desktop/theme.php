@@ -1,8 +1,16 @@
 <?php
 // CSS 파일과 JS파일 추가 (TRUE 옵션을 준경우 옵션을 주지않은경우보다 상위에 위치한다.)
 $this->site->add_css("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Noto+Sans+KR:wght@300&display=swap", TRUE);
+$this->site->add_css("https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css", TRUE);
+$this->site->add_css("https://unpkg.com/aos@2.3.1/dist/aos.css", TRUE);
 $this->site->add_css("/assets/css/desktop.min.css", TRUE);
 
+
+$this->site->add_js('https://unpkg.com/aos@2.3.1/dist/aos.js', TRUE);
+$this->site->add_js('https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js', TRUE);
+$this->site->add_js("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js", TRUE);
+$this->site->add_js("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/ScrollTrigger.min.js", TRUE);
+$this->site->add_js("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/ScrollToPlugin.min.js", TRUE);
 $this->site->add_js('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js', TRUE);
 $this->site->add_js("/assets/js/desktop.min.js", TRUE);
 ?><!DOCTYPE html>

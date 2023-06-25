@@ -295,4 +295,46 @@ class Management extends REST_Controller
         $this->db->where('his_idx', $his_idx);
         $this->db->update('history', $data);
     }
+  function contact_get()
+  {
+    $st = $this->get('st', TRUE);
+    $sc = $this->get('sc', TRUE);
+
+    $page_rows = $this->get('take', TRUE);
+    $start = $this->get('skip', TRUE);
+
+    if(! empty($page_rows)) $this->db->limit($page_rows, $start);
+    if(! empty($st) && ! empty($sc)) $this->db->like($sc, $st);
+
+    $this->db->select("SQL_CALC_FOUND_ROWS c.*",FALSE);
+    $this->db->order_by('c.con_id DESC');
+    $this->db->from('contact AS c');
+
+    $result = $this->db->get();
+    $return['lists'] = $result->result_array();
+    $return['totalCount'] = (int)$this->db->query("SELECT FOUND_ROWS() AS cnt")->row(0)->cnt;
+
+    foreach($return['lists'] as $i=>&$row)
+    {
+      $row['nums'] = $return['totalCount'] - $i - $start;
+    }
+
+    $this->response($return, 200);
+  }
+
+  function contact_delete()
+  {
+    if(! $this->member->is_super() )
+      $this->response(array('status'=>FALSE, 'message'=>'권한이 없습니다.'), 400);
+
+    $const_id = $this->delete('con_id', TRUE);
+
+    if ($this->db->where('con_id', $const_id)->delete('contact')) {
+      $this->response(array('status'=>TRUE, 'message'=>'상담 신청 건 삭제 완료'), 200);
+    }
+    else {
+      $this->response(array('status'=>FALSE, 'message'=>'상담 신청 건 삭제 실패.'), 400);
+    }
+
+  }
 }

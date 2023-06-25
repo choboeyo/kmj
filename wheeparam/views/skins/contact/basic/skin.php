@@ -55,7 +55,7 @@
         </div>
         <!--E: EXTRA 필드 사용예제 -->
         <div class="contact-form-group">
-            <textarea class="contact-input" id="contact-form-content" name="con_content" placeholder="문의 내용 입력" rows="8"></textarea>
+            <textarea class="contact-input" id="contact-form-content" name="con_memo" placeholder="문의 내용 입력" rows="8"></textarea>
             <label for="contact-form-content">문의 내용 <span class="required">(필수입력)</span></label>
         </div>
 
