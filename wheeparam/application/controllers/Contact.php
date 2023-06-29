@@ -29,7 +29,7 @@ class Contact extends WB_Controller
       $data['con_name'] = $con_name = $this->input->post('con_name', TRUE);
       $data['con_phone'] = $con_phone = $this->input->post('con_phone', TRUE);
       $data['con_email'] = $con_email = $this->input->post('con_email', TRUE);
-      $data['con_memo'] = $con_content = $this->input->post('con_content', TRUE);
+      $data['con_memo'] = $con_content = $this->input->post('con_memo', TRUE);
       $data['reg_datetime'] = date('Y-m-d H:i:s');
 
       $extra = $this->input->post('extra', TRUE);
