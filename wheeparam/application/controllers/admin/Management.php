@@ -1020,7 +1020,7 @@ class Management extends WB_Controller {
 
   function contact_form()
   {
-    $const_id = $this->input->get('const_id', TRUE);
+    $const_id = $this->input->get('con_id', TRUE);
 
     $this->data['view'] = current($this->db->where('con_id', $const_id)->get('contact')->result_array());
     $this->theme = "admin";
