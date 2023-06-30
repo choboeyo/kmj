@@ -88,6 +88,6 @@ class Contact extends WB_Controller
 //      $this->theme = $this->site->get_layout();
 //      $this->view = "contact/index";
 //      $this->active = "contact/index";
-    }
+//    }
   }
 }
