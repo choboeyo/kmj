@@ -16,7 +16,7 @@ class Contact extends WB_Controller
     $this->load->library('form_validation');
 
     // 필요한것만 주석 살려서 사용하세요
-//        $this->form_validation->set_rules('con_name',"이름","required|trim");
+        $this->form_validation->set_rules('con_name',"이름","required|trim");
 //        $this->form_validation->set_rules('con_email',"이메일","required|trim|valid_email");
 //        $this->form_validation->set_rules('con_phone',"연락처","required|trim");
 //        $this->form_validation->set_rules('con_content', "문의 내용","required|trim");
@@ -70,23 +70,24 @@ class Contact extends WB_Controller
 
       if ($this->db->insert('contact', $data)) {
         $this->email->send();
-        alert($complete_msg, $reurl);
+        alert($complete_msg, '');
         exit;
       } else {
         alert('메일 발송 도중 오류가 발생하였습니다.');
         exit;
       }
-    } else {
+    }
+//    else {
       // 메타태그 설정
-      $this->site->meta_title = "문의하기";            // 이 페이지의 타이틀
+//      $this->site->meta_title = "문의하기";            // 이 페이지의 타이틀
       // $this->site->meta_description 	= "";   // 이 페이지의 요약 설명
       // $this->site->meta_keywords 		= "";   // 이 페이지에서 추가할 키워드 메타 태그
       // $this->site->meta_image			= "";   // 이 페이지에서 표시할 대표이미지
 
       // 레이아웃 & 뷰파일 설정
-      $this->theme = $this->site->get_layout();
-      $this->view = "contact/index";
-      $this->active = "contact/index";
+//      $this->theme = $this->site->get_layout();
+//      $this->view = "contact/index";
+//      $this->active = "contact/index";
     }
   }
 }

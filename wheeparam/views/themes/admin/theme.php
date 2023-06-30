@@ -28,6 +28,7 @@ $this->site->add_js('https://unpkg.com/devextreme-intl@19.1/dist/devextreme-intl
                 <li data-active="management/faq"><a href="<?=base_url('admin/management/faq')?>">FAQ 관리</a></li>
                 <li data-active="management/qna"><a href="<?=base_url('admin/management/qna')?>">Q&A 관리</a></li>
                 <li data-active="management/history"><a href="<?=base_url('admin/management/history')?>">연혁 관리</a></li>
+                <li data-active="management/history"><a href="<?=base_url('admin/management/contact')?>">문의 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
